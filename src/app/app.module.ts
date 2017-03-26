@@ -7,7 +7,6 @@ import { DropdownModule } from 'ng2-bootstrap';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { StatusbarComponent } from './layout/statusbar/statusbar.component';
-import { TopbarComponent } from './layout/topbar/topbar.component';
 import { MenubarComponent } from './layout/menubar/menubar.component';
 
 @NgModule({
@@ -18,8 +17,6 @@ import { MenubarComponent } from './layout/menubar/menubar.component';
     LayoutComponent,
 
     StatusbarComponent,
-
-    TopbarComponent,
 
     MenubarComponent
   ],
