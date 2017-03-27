@@ -1,3 +1,8 @@
-<p>
-  statusbar works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <span  class="label label-default">test</span>
+      <span *ngFor="let status of statusList" class="label label-default">{{status.name}}</span>
+    </div>
+  </div>
+</div>

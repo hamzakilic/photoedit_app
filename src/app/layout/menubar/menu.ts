@@ -1,3 +1,12 @@
+
+
+
+
+import {callback as iskilip_core_callback} from 'iskilip/core/callback';
+
+
+
+
 export class menu{
   public name:string;
   public childs: menuItem[];
@@ -14,10 +23,11 @@ export class menu{
 export class menuItem{
   public name:string;
   public disabled: boolean;
-  public callback: any;
-  constructor(name: string,func:any){
+  public callbackFunc: any;
+  constructor(name: string,func:iskilip_core_callback){
     this.name = name;
     this.disabled = false;
-    this.callback= func;
+    this.callbackFunc= func;
+
   }
 }
