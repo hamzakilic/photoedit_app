@@ -7,7 +7,11 @@
         {{menu.name}} <span class="caret"></span>
       </button>
       <ul dropdownMenu role="menu" aria-labelledby="single-button">
-        <li *ngFor="let childmenu of menu.childs" role="menuitem"><a class="dropdown-item childmenu" (click)="childmenu.callbackFunc.call()" href="#">{{childmenu.name}}</a></li>
+        <li *ngFor="let childmenu of menu.childs" role="menuitem">
+          <input *ngIf="childmenu.isOpenFile" type="file" id={{childmenu.idOfInput}}  accept="image/*" style="display:none" (change)="childmenu.handleFiles()">
+          <a class="dropdown-item childmenu" (click)="childmenu.onClick()" href="#">{{childmenu.name}}</a>
+
+        </li>
 
       </ul>
 
