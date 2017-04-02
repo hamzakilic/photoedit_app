@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {menu} from './menu';
 import {menuItem } from './menu';
 import {utility} from '../../lib/utility';
-
+import {readFileOrUrl} from '../../lib/readFileOrUrl';
 
 import {callback as iskilip_core_callback} from 'iskilip/core/callback';
 
@@ -50,15 +50,7 @@ export class menuItemOpenFile extends menuItem{
       let filelist=(<HTMLInputElement>document.getElementById(this.idOfInput)).files;
       if(filelist.length>0){
 
-         var reader = new FileReader();
-         reader.onload=function(e){
-           var data = reader.result;
-           alert("readed size"+data.byteLength);
-         }
-         reader.onerror = function(e){
-
-         }
-         reader.readAsArrayBuffer(filelist[0]);
+         readFileOrUrl.read(filelist[0]);
       }
     }
 

@@ -11,6 +11,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { StatusbarComponent } from './layout/statusbar/statusbar.component';
 import { MenubarComponent } from './layout/menubar/menubar.component';
 import { ToolbarComponent } from './layout/toolbar/toolbar.component';
+import { CanvasTargetComponent } from './components/canvas-target/canvas-target.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ NotSupportedBrowserComponent,
 
     MenubarComponent,
 
-    ToolbarComponent
+    ToolbarComponent,
+
+    CanvasTargetComponent
   ],
   imports: [
     DropdownModule.forRoot(),
