@@ -1,6 +1,8 @@
 declare var Modernizr: any;
 import '../../assets/modernizr-custom.js';
 
+
+
 export class checkBrowserCapabilities{
    static errMsg: string ="" ;
    static isOk(): boolean{

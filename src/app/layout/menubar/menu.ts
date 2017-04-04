@@ -1,10 +1,5 @@
 
-
-
-
 import {callback as iskilip_core_callback} from 'iskilip/core/callback';
-
-
 
 
 export class menu{

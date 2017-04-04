@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'app works!';
   isBrowserOk: boolean;
   constructor(){
-      this.isBrowserOk=checkBrowserCapabilities.isOk();
+    this.isBrowserOk=checkBrowserCapabilities.isOk();
   }
 
 

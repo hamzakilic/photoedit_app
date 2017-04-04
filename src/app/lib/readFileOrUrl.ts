@@ -1,13 +1,32 @@
-export class readFileOrUrl{
-    public static read(file: any){
-      var reader = new FileReader();
-         reader.onload=function(e){
-           var data = reader.result;
-           alert("readed size"+data.byteLength);
-         }
-         reader.onerror = function(e){
 
-         }
-         reader.readAsArrayBuffer(file);
+
+export class readFileOrUrl {
+  public static readAsync(file: any, onprogress?: any, onload?: any, onerror?: any, onabort?: any) {
+
+    var reader = new FileReader();
+    reader.onprogress = function (oEvent) {
+      if (oEvent.lengthComputable) {
+        var percentComplete = oEvent.loaded / oEvent.total;
+         if (onprogress)
+              onprogress(percentComplete);
+        // ...
+      } else {
+        // Unable to compute progress information since the total size is unknown
+      }
+
     }
+    reader.onload = function (e) {
+      if (onload) {
+        var data = reader.result;
+        alert("readed size" + data.byteLength);
+        onload(data);
+      }
+
+    }
+    reader.onerror = function (e) {
+      if (onerror)
+        onerror(e.message);
+    }
+    reader.readAsArrayBuffer(file);
+  }
 }

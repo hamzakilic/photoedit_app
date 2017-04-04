@@ -4,6 +4,8 @@ import {menu} from './menu';
 import {menuItem } from './menu';
 import {utility} from '../../lib/utility';
 import {readFileOrUrl} from '../../lib/readFileOrUrl';
+import {message} from '../../lib/message';
+import {messageBus} from '../../lib/messageBus';
 
 import {callback as iskilip_core_callback} from 'iskilip/core/callback';
 
@@ -50,8 +52,18 @@ export class menuItemOpenFile extends menuItem{
       let filelist=(<HTMLInputElement>document.getElementById(this.idOfInput)).files;
       if(filelist.length>0){
 
-         readFileOrUrl.read(filelist[0]);
+         readFileOrUrl.readAsync(filelist[0],this.onProgress,this.onSuccess,this.onError);
       }
+    }
+    onProgress(data: any){
+
+    }
+
+    onSuccess(data: any){
+
+    }
+    onError(err:any){
+        messageBus.publish(message.ShowError,{msg:err});
     }
 
     onClick(parameters?:any): void{
