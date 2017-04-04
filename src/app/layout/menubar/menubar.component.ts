@@ -49,11 +49,14 @@ export class menuItemOpenFile extends menuItem{
       this.idOfInput = utility.uuid();
     }
     handleFiles(): void{
+
       let filelist=(<HTMLInputElement>document.getElementById(this.idOfInput)).files;
+
       if(filelist.length>0){
 
          readFileOrUrl.readAsync(filelist[0],this.onProgress,this.onSuccess,this.onError);
       }
+
     }
     onProgress(data: any){
 
@@ -63,13 +66,17 @@ export class menuItemOpenFile extends menuItem{
 
     }
     onError(err:any){
+
         messageBus.publish(message.ShowError,{msg:err});
     }
 
     onClick(parameters?:any): void{
 
-      let fileElem = document.getElementById(this.idOfInput);
-      if(fileElem)
+      let fileElem = (<HTMLInputElement>document.getElementById(this.idOfInput));
+
+      if(fileElem){
+        fileElem.value = null;
       fileElem.click();
+      }
   }
 }

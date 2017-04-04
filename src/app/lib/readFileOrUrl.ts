@@ -1,5 +1,6 @@
 
 
+
 export class readFileOrUrl {
   public static readAsync(file: any, onprogress?: any, onload?: any, onerror?: any, onabort?: any) {
 
@@ -17,10 +18,10 @@ export class readFileOrUrl {
     }
     reader.onload = function (e) {
       if (onload) {
+
         var data = reader.result;
-        alert("readed size" + data.byteLength);
         onload(data);
-      }
+     }
 
     }
     reader.onerror = function (e) {

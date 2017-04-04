@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
+
+import { ModalDirective } from 'ng2-bootstrap/modal';
+
 import { message } from '../../lib/message';
 import { messageBus } from '../../lib/messageBus';
 import {callback as iskilip_core_callback } from 'iskilip/core/callback';
@@ -9,13 +12,16 @@ import {callback as iskilip_core_callback } from 'iskilip/core/callback';
   styleUrls: ['./small-modal.component.scss']
 })
 export class SmallModalComponent implements OnInit {
+  @ViewChild("smModal")
+  public smModal:ModalDirective;
+
   msg: string;
   constructor() {
 
    }
 
   ngOnInit() {
-    messageBus.subscribe(message.ShowError,new iskilip_core_callback(this.showError));
+    messageBus.subscribe(message.ShowError,new iskilip_core_callback((err)=>this.showError(err)));
 
   }
   ngAfterViewInit(){
@@ -26,8 +32,14 @@ export class SmallModalComponent implements OnInit {
   ngOnDestroy(){
 
   }
-  showError(msg: any): void{
-    alert(msg);
+  showError(err: any): void{
+
+    if(this.smModal.isShown)
+    this.msg += err.msg;
+    else{
+      this.msg = err.msg;
+    this.smModal.show();
+    }
   }
 
 }

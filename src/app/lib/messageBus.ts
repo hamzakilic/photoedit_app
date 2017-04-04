@@ -2,43 +2,31 @@ import {eventEmitter as iskilip_core_eventEmitter} from 'iskilip/core/eventEmitt
 import {callback as iskilip_core_callback} from 'iskilip/core/callback';
 
 
-class callEmit extends iskilip_core_callback
-{
-
-}
-
-class messageEmitter extends iskilip_core_eventEmitter{
-
-  /**
-   *
-   */
-  constructor() {
-    super();
-
-  }
-}
 
 export class messageBus  {
-  private    _instance: messageEmitter;
-    private    _instance2: callEmit;
+  private  static emitter: iskilip_core_eventEmitter;
 
 
-  constructor(){
-    this._instance2 = new callEmit(()=>{});
-    this._instance = new messageEmitter();
 
-    alert(2);
+  private constructor(){
+
   }
 
   public static publish(message: string,data: any): void{
-
+       if(!messageBus.emitter)
+        messageBus.emitter = new iskilip_core_eventEmitter();
+        messageBus.emitter.callEvent(message,data);
   }
   public  static subscribe(message: string,func: iskilip_core_callback): void {
-    let x =new messageBus();
+      if(!messageBus.emitter)
+        messageBus.emitter = new iskilip_core_eventEmitter();
+        messageBus.emitter.onEvent(message,func);
 
   }
    public  static unsubscribe(message: string,func: iskilip_core_callback): void {
-
+      if(!messageBus.emitter)
+        messageBus.emitter = new iskilip_core_eventEmitter();
+        messageBus.emitter.offEvent(message,func);
   }
 
 }
