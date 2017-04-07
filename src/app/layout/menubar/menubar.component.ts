@@ -6,8 +6,12 @@ import {utility} from '../../lib/utility';
 import {readFileOrUrl} from '../../lib/readFileOrUrl';
 import {message} from '../../lib/message';
 import {messageBus} from '../../lib/messageBus';
+import {menuItemOpenFile } from '../menubar/menuItems/menuItemOpenFile';
+import {menuItemTest } from '../menubar/menuItems/menuItemTest';
+import {someTestFuncs} from '../../lib/someTestFuncs'
 
 import {callback as iskilip_core_callback} from 'iskilip/core/callback';
+
 
 @Component({
   selector: 'layout-menubar',
@@ -26,7 +30,12 @@ export class MenubarComponent implements OnInit {
 
     let menuTest = new menu("Test");
     menuTest.childs.push(new menuItem("Test Something",new iskilip_core_callback(this.testSomeThingClicked)));
+    menuTest.childs.push(new menuItemTest("Test  DrawCanvas",someTestFuncs.TestCanvas1()));
+    menuTest.childs.push(new menuItemTest("Test Canvas Zoom plus",someTestFuncs.TestCanvas2()));
+    menuTest.childs.push(new menuItemTest("Test Canvas Zoom minus",someTestFuncs.TestCanvas3()));
     this.menus.push(menuTest);
+
+
 
    }
 
@@ -40,43 +49,4 @@ export class MenubarComponent implements OnInit {
 }
 
 
-export class menuItemOpenFile extends menuItem{
-    public isOpenFile: boolean;
-    public idOfInput: string;
-    constructor(name: string,func:iskilip_core_callback){
-      super(name,func);
-      this.isOpenFile = true;
-      this.idOfInput = utility.uuid();
-    }
-    handleFiles(): void{
 
-      let filelist=(<HTMLInputElement>document.getElementById(this.idOfInput)).files;
-
-      if(filelist.length>0){
-
-         readFileOrUrl.readAsync(filelist[0],this.onProgress,this.onSuccess,this.onError);
-      }
-
-    }
-    onProgress(data: any){
-
-    }
-
-    onSuccess(data: any){
-
-    }
-    onError(err:any){
-
-        messageBus.publish(message.ShowError,{msg:err});
-    }
-
-    onClick(parameters?:any): void{
-
-      let fileElem = (<HTMLInputElement>document.getElementById(this.idOfInput));
-
-      if(fileElem){
-        fileElem.value = null;
-      fileElem.click();
-      }
-  }
-}

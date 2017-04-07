@@ -21,5 +21,6 @@ describe('CanvasTargetComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(component.grphics).toBeTruthy();
   });
 });

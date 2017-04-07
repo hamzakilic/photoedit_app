@@ -9,20 +9,29 @@ import {graphics} from '../../lib/graphics';
   styleUrls: ['./canvas-target.component.scss']
 })
 export class CanvasTargetComponent implements OnInit {
-  width: number;
-  height: number;
-  uuid: string;
+   width: number;
+   height: number;
+   stwidth:number;
+   stheight:number;
+   uuid: string;
+   scale: number;
+
+
+
   //we will use this for reaching to a component with name
   @Input() name: string;
+
 
   @ViewChild("renderCanvas") canvas: ElementRef;
   grphics: graphics;
   constructor() {
-    this.width = 50;
-    this.height = 50;
+    this.width = 500;
+    this.height = 500;
+    this.stwidth=500;
+    this.stheight=500;
     //create a uuid for component
     this.uuid = utility.uuid();
-
+    this.scale = 1;
    }
 
   ngOnInit() {
@@ -31,8 +40,9 @@ export class CanvasTargetComponent implements OnInit {
   ngAfterViewInit(){
    if(this.name)
         //if this canvas has a name add to singleton dictionary for later reaching
-        canvasTargetComponentsDictionary.add(name,this);
-    this.grphics = new graphics(this.canvas);
+    canvasTargetComponentsDictionary.add(this.name,this);
+
+    //this.grphics = new graphics(this.canvas,this.width,this.height);
 
 
   }
@@ -40,10 +50,30 @@ export class CanvasTargetComponent implements OnInit {
   ngOnDestroy(){
 
   }
+  public scalePlus():void{
+      this.scale *= 1.1;
+      if(this.scale>5)
+        this.scale = 5;
+      this.stwidth = this.scale* this.width;
+      this.stheight = this.scale * this.height;
+  }
+  public scaleMinus():void{
+      this.scale *= 0.9;
+      if(this.scale<0.1)
+        this.scale = 0.1;
+      this.stwidth = this.scale* this.width;
+      this.stheight = this.scale * this.height;
+  }
 
   public setWidthHeight(width:number,height:number): void {
       this.width = width;
       this.height = height;
+      this.scale = 1;
+      this.stwidth = this.width;
+      this.stheight = this.height;
+      this.grphics = new graphics(this.canvas,this.width,this.height);
+
+
   }
   public clear(): void {
 
@@ -58,7 +88,7 @@ export class CanvasTargetComponent implements OnInit {
  *
  */
 export class canvasTargetComponentsDictionary{
-    private static dic: Map<string,CanvasTargetComponent>;
+    private static dic: Map<string,CanvasTargetComponent> = new Map<string,CanvasTargetComponent>();
 
     /**
      *
@@ -85,6 +115,11 @@ export class canvasTargetComponentsDictionary{
       }
 
     }
+
+    public static contains(name: string):boolean{
+        return canvasTargetComponentsDictionary.dic.has(name)
+      }
+
 
 /**
  *
