@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild,ElementRef, Input } from '@angular/core';
+import { Component,OnChanges,DoCheck, OnInit,ViewChild,ElementRef, Input } from '@angular/core';
 import {messageBus} from '../../lib/messageBus';
 import {utility} from '../../lib/utility';
 import {graphics} from '../../lib/graphics';
@@ -8,16 +8,16 @@ import {graphics} from '../../lib/graphics';
   templateUrl: './canvas-target.component.html',
   styleUrls: ['./canvas-target.component.scss']
 })
-export class CanvasTargetComponent implements OnInit {
+export class CanvasTargetComponent implements OnInit,OnChanges,DoCheck {
    width: number;
    height: number;
    stwidth:number;
    stheight:number;
    uuid: string;
    scale: number;
-
-
-
+   private lastWidth:number
+   private lastHeight:number;
+   private widthOrheightChanged: boolean;
   //we will use this for reaching to a component with name
   @Input() name: string;
 
@@ -25,10 +25,11 @@ export class CanvasTargetComponent implements OnInit {
   @ViewChild("renderCanvas") canvas: ElementRef;
   grphics: graphics;
   constructor() {
-    this.width = 500;
-    this.height = 500;
-    this.stwidth=500;
-    this.stheight=500;
+    this.width = 0;
+    this.height = 0;
+    this.stwidth=this.width;
+    this.stheight=this.height;
+
     //create a uuid for component
     this.uuid = utility.uuid();
     this.scale = 1;
@@ -43,11 +44,40 @@ export class CanvasTargetComponent implements OnInit {
     canvasTargetComponentsDictionary.add(this.name,this);
 
     //this.grphics = new graphics(this.canvas,this.width,this.height);
-
+    //ebugger;
 
   }
 
   ngOnDestroy(){
+
+  }
+  ngOnChanges(changes){
+
+    //console.log('ngonchanges');
+
+  }
+  ngDoCheck(){
+
+    //console.log('ngdocheck');
+  }
+  ngAfterContentChecked(){
+
+    //console.log('ngAfterContentChecked');
+
+  }
+
+  ngAfterViewChecked(){
+
+    if(this.lastWidth!= this.width || this.lastHeight != this.height){
+      if(this.width == this.canvas.nativeElement.width && this.height == this.canvas.nativeElement.height){
+        this.grphics = new graphics(this.canvas,this.width,this.height);
+        this.lastWidth = this.width;
+        this.lastHeight = this.height;
+        console.log("canvas size changed");
+        if(this.func)
+        this.func();
+      }
+    }
 
   }
   public scalePlus():void{
@@ -64,20 +94,22 @@ export class CanvasTargetComponent implements OnInit {
       this.stwidth = this.scale* this.width;
       this.stheight = this.scale * this.height;
   }
+  private func: any;
 
-  public setWidthHeight(width:number,height:number): void {
+  public setWidthHeight(width:number,height:number,func?: any): void {
+      this.lastWidth=this.width;
+      this.lastHeight =this.height;
       this.width = width;
       this.height = height;
       this.scale = 1;
       this.stwidth = this.width;
       this.stheight = this.height;
-      this.grphics = new graphics(this.canvas,this.width,this.height);
+      this.func =func;
 
 
-  }
-  public clear(): void {
 
   }
+
 
 
 }

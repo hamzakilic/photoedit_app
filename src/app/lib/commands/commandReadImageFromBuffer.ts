@@ -30,8 +30,12 @@ export class commandReadImageFromBuffer extends command {
                     return;
 
                 let canvasContainer = canvasTargetComponentsDictionary.get(constants.MAINCANVAS);
-                canvasContainer.setWidthHeight(img.width(),img.height());
-                canvasContainer.grphics.drawImage(img);
+                canvasContainer.setWidthHeight(img.width(),img.height(),()=>{
+
+                  canvasContainer.grphics.drawImage(img);
+                });
+
+
 
 
             }));
