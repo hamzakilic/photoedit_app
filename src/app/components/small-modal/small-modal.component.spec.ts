@@ -1,4 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By }              from '@angular/platform-browser';
+import { DebugElement }    from '@angular/core';
+
+import { ModalModule } from 'ng2-bootstrap';
+
 
 import { SmallModalComponent } from './small-modal.component';
 
@@ -8,7 +13,12 @@ describe('SmallModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SmallModalComponent ]
+      declarations: [ SmallModalComponent ],
+       imports: [
+
+    ModalModule.forRoot(),
+
+  ]
     })
     .compileComponents();
   }));

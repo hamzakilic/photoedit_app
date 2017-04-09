@@ -11,7 +11,7 @@ export class statusItem{
 
 
 @Component({
-  selector: 'layout-statusbar',
+  selector: 'layoutStatusbar',
   templateUrl: './statusbar.component.html',
   styleUrls: ['./statusbar.component.scss']
 })

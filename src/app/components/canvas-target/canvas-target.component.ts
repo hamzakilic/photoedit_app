@@ -4,7 +4,7 @@ import {utility} from '../../lib/utility';
 import {graphics} from '../../lib/graphics';
 
 @Component({
-  selector: 'component-canvas-target',
+  selector: 'componentCanvasTarget',
   templateUrl: './canvas-target.component.html',
   styleUrls: ['./canvas-target.component.scss']
 })

@@ -7,7 +7,7 @@ import { messageBus } from '../../lib/messageBus';
 import {callback as iskilip_core_callback } from 'iskilip/core/callback';
 
 @Component({
-  selector: 'component-small-modal',
+  selector: 'componentSmallModal',
   templateUrl: './small-modal.component.html',
   styleUrls: ['./small-modal.component.scss']
 })

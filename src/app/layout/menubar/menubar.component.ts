@@ -14,7 +14,7 @@ import {callback as iskilip_core_callback} from 'iskilip/core/callback';
 
 
 @Component({
-  selector: 'layout-menubar',
+  selector: 'layoutMenubar',
   templateUrl: './menubar.component.html',
   styleUrls: ['./menubar.component.scss']
 })

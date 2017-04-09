@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { checkBrowserCapabilities } from '../lib/checkBrowserCapabilities';
 
 @Component({
-  selector: 'notsupported-browser',
+  selector: 'notsupportedBrowser',
   templateUrl: './notsupported.component.html',
   styleUrls: ['./notsupported.component.scss']
 })
