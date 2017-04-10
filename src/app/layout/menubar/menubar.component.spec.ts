@@ -22,4 +22,10 @@ describe('MenubarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+   it('should have file menu', () => {
+    expect(component.menus.findIndex((val)=>val.name=='File')).toBeGreaterThan(-1);
+  });
+   it('should have file menu and childmenu openimage', () => {
+    expect(component.menus.find((val)=>val.name=='File').childs.findIndex(val=>val.name=='Open Image')).toBeGreaterThan(-1);
+  });
 });

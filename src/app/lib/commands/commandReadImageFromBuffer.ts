@@ -23,6 +23,7 @@ export class commandReadImageFromBuffer extends command {
 
       let stream = new iskilip_memoryStream(this.buffer);
       let dec = new iskilip_bmpDecoder();
+      //on event finished data
       dec.onEvent(iskilip_decoder.EVENT_ONFINISHED, new iskilip_callback((img) => {
 
                 //image is ready
@@ -30,15 +31,16 @@ export class commandReadImageFromBuffer extends command {
                     return;
 
                 let canvasContainer = canvasTargetComponentsDictionary.get(constants.MAINCANVAS);
-                canvasContainer.setWidthHeight(img.width(),img.height(),()=>{
+                canvasContainer.setWidthHeight(img.width(),img.height(),new iskilip_callback(()=>{
 
                   canvasContainer.grphics.drawImage(img);
-                });
+                }));
 
 
 
 
             }));
+            //on error
             dec.onEvent(iskilip_decoder.EVENT_ONERROR, new iskilip_callback((err) => {
                 messageBus.publish(message.ShowError,{msg:err.msg});
             }));

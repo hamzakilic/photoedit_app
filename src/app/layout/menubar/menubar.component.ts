@@ -7,6 +7,7 @@ import {readFileOrUrl} from '../../lib/readFileOrUrl';
 import {message} from '../../lib/message';
 import {messageBus} from '../../lib/messageBus';
 import {menuItemOpenFile } from '../menubar/menuItems/menuItemOpenFile';
+import {menuItemOpenImage } from '../menubar/menuItems/menuItemOpenImage';
 import {menuItemTest } from '../menubar/menuItems/menuItemTest';
 import {someTestFuncs} from '../../lib/someTestFuncs'
 
@@ -19,13 +20,13 @@ import {callback as iskilip_core_callback} from 'iskilip/core/callback';
   styleUrls: ['./menubar.component.scss']
 })
 export class MenubarComponent implements OnInit {
-  menus: menu [];
+  public menus: menu [];
   constructor() {
 
     this.menus = [];
 
     let menuFile = new menu("File");
-    menuFile.childs.push(new menuItemOpenFile("Open File",undefined));
+    menuFile.childs.push(new menuItemOpenImage());
     this.menus.push(menuFile);
 
     let menuTest = new menu("Test");
@@ -43,7 +44,7 @@ export class MenubarComponent implements OnInit {
   }
 
   testSomeThingClicked(){
-    alert("testsomething clicked");
+
   }
 
 }

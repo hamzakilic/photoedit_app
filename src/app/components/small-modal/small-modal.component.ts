@@ -4,7 +4,7 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
 
 import { message } from '../../lib/message';
 import { messageBus } from '../../lib/messageBus';
-import {callback as iskilip_core_callback } from 'iskilip/core/callback';
+import {callback as iskilip_callback } from 'iskilip/core/callback';
 
 @Component({
   selector: 'componentSmallModal',
@@ -21,7 +21,7 @@ export class SmallModalComponent implements OnInit {
    }
 
   ngOnInit() {
-    messageBus.subscribe(message.ShowError,new iskilip_core_callback((err)=>this.showError(err)));
+    messageBus.subscribe(message.ShowError,new iskilip_callback((err)=>this.showError(err)));
 
   }
   ngAfterViewInit(){

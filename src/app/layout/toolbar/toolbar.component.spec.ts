@@ -26,4 +26,13 @@ describe('ToolbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should have two tabs', () => {
+    expect(component.tabs.length).toEqual(2);
+  });
+  it('should have a tab toolbar', () => {
+    expect(component.tabs.findIndex(val=>val.name=='Toolbar')).toBeGreaterThan(-1);
+  });
+   it('should have a tab project', () => {
+    expect(component.tabs.findIndex(val=>val.name=='Project')).toBeGreaterThan(-1);
+  });
 });

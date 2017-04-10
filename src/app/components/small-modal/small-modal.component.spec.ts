@@ -32,4 +32,14 @@ describe('SmallModalComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should msg to be equal', () => {
+    component.showError({msg:'error'});
+    expect(component.msg).toBe('error');
+  });
+  it('should messages must concat', () => {
+    component.showError({msg:'error'});
+    component.showError({msg:'error2'});
+    expect(component.msg).toBe('errorerror2');
+  });
 });

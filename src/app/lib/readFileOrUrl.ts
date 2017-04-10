@@ -1,15 +1,16 @@
 
 
+import {callback as iskilip_callback} from 'iskilip/core/callback';
 
 export class readFileOrUrl {
-  public static readAsync(file: any, onprogress?: any, onload?: any, onerror?: any, onabort?: any) {
+  public static readAsync(file: any, onSuccess?: iskilip_callback, onError?: iskilip_callback, onProgress?: iskilip_callback) {
 
     var reader = new FileReader();
     reader.onprogress = function (oEvent) {
       if (oEvent.lengthComputable) {
         var percentComplete = oEvent.loaded / oEvent.total;
-         if (onprogress)
-              onprogress(percentComplete);
+         if (onProgress)
+              onProgress.call(percentComplete);
         // ...
       } else {
         // Unable to compute progress information since the total size is unknown
@@ -17,17 +18,18 @@ export class readFileOrUrl {
 
     }
     reader.onload = function (e) {
-      if (onload) {
+      if (onSuccess) {
 
         var data = reader.result;
-        onload(data);
+        onSuccess.call(data);
      }
 
     }
     reader.onerror = function (e) {
       if (onerror)
-        onerror(e.message);
+        onError.call(e.message);
     }
+    //start reading
     reader.readAsArrayBuffer(file);
   }
 }
