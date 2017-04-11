@@ -68,7 +68,6 @@ describe('graphics', () => {
 
      let result = true;
       var data = context.getImageData(0, 0, width, height).data;
-
       data.forEach(
         (val, index) => {
           if (img.Pixels[index] != val)
