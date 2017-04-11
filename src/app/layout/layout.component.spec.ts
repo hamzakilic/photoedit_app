@@ -16,12 +16,7 @@ describe('LayoutComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LayoutComponent,MenubarComponent,ToolbarComponent,StatusbarComponent,CanvasTargetComponent  ],
-       imports: [
-    DropdownModule.forRoot(),
-    TabsModule.forRoot(),
-    ModalModule.forRoot()
-
-  ]
+       imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]
     })
     .compileComponents();
   }));

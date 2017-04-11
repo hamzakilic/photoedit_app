@@ -47,20 +47,21 @@ describe('readFileOrUrl', () => {
     spyOn(window,"FileReader").and.returnValue(new MockFileReader(false));
     readFileOrUrl.readAsync({},new iskilip_callback((data)=>onSuccess(data)));
 
-
+      setTimeout(()=>{
       while(!successOccured);
-      done();
+      done();},100);
 
   });
 
-   it('should handleclick success', (done) => {
+   it('should handleclick error', (done) => {
 
     spyOn(window,"FileReader").and.returnValue(new MockFileReader(true));
     readFileOrUrl.readAsync({},new iskilip_callback((data)=>onSuccess(data)),new iskilip_callback(err=>onError(err)));
 
-
+    setTimeout(()=>{
       while(!errorOccured);
       done();
+    },100);
 
   });
 

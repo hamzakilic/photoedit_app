@@ -69,10 +69,11 @@ export class CanvasTargetComponent implements OnInit,OnChanges,DoCheck {
 
   ngAfterViewChecked(){
 
-    if(!this.initialized)
+    if(!this.initialized && this.width>0)
       if(this.width == this.canvas.nativeElement.width && this.height == this.canvas.nativeElement.height){
         this.initialized = true;
         this.grphics = new graphics(this.canvas,this.width,this.height);
+        console.log('testte clkajsfs');
         if(this.initFunc)
           this.initFunc.call(undefined);
       }

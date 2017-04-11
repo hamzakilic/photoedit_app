@@ -7,17 +7,18 @@ import { memoryStream as iskilip_memoryStream } from 'iskilip/io/memoryStream';
 import { bmpDecoder as iskilip_bmpDecoder } from 'iskilip/img/bmpDecoder';
 import {decoder as iskilip_decoder} from 'iskilip/img/decoder';
 import {callback as iskilip_callback} from 'iskilip/core/callback';
+import {cmdShowError } from './cmdShowError';
 
 
 
-export class commandReadImageFromBuffer extends command {
+export class cmdReadImageFromBuffer extends command {
 
   private buffer: ArrayBuffer;
   constructor(data: ArrayBuffer) {
     super();
     this.buffer = data;
   }
-  execute(): void {
+  protected execute(): void {
     if (!this.buffer)
       return;
 
@@ -42,7 +43,9 @@ export class commandReadImageFromBuffer extends command {
             }));
             //on error
             dec.onEvent(iskilip_decoder.EVENT_ONERROR, new iskilip_callback((err) => {
-                messageBus.publish(message.ShowError,{msg:err.msg});
+               let cmd = new cmdShowError(err.msg);
+               cmd.executeAsync();
+
             }));
 
 

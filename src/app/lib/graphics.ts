@@ -3,8 +3,8 @@ import {image as iskilip_image} from 'iskilip/img/image';
 
 export class graphics{
   private context : CanvasRenderingContext2D;
-  readonly width:number;
-  readonly height:number;
+  public readonly width:number;
+  public readonly height:number;
   /**
    * creates a graphics context from canvas element
    */
@@ -24,13 +24,8 @@ export class graphics{
 
      var data = imageData.data;
 
+      img.Pixels.forEach((val,index)=>{ data[index]=val});
 
-      for (var i = 0; i < data.length; i += 4) {
-      data[i]   = img.Pixels[i];     // red
-      data[i + 1] = img.Pixels[i+1];; // green
-      data[i + 2] = img.Pixels[i+2]; // blue
-      data[i + 3] = img.Pixels[i+3]; // blue
-    }
 
      this.context.putImageData(imageData,0,0);
 

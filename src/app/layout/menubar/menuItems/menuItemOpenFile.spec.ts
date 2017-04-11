@@ -66,9 +66,12 @@ describe('menuItemOpenFile', () => {
 
     document.getElementById = jasmine.createSpy('getelementById').and.returnValue(input);
     item.handleFiles();
-    setTimeout(()=>{
+      setTimeout(()=>{
       while(!successOccured);
-      done();},100)
+      done();},100
+      );
+
+
 
   });
 
@@ -78,9 +81,11 @@ describe('menuItemOpenFile', () => {
     document.getElementById = jasmine.createSpy('getelementById').and.returnValue(input);
     spyOn(window,"FileReader").and.returnValue(new MockFileReader(true));
     item.handleFiles();
-    setTimeout(()=>{
+      setTimeout(()=>{
       while(!errorOccured);
-      done();},100)
+      done();},100
+      );
+
 
   });
 

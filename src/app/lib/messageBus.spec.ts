@@ -39,8 +39,10 @@ let call=new iskilip_callback(onTest);
       onTestArrived=false;
       messageBus.unsubscribe('onTest',call);
       messageBus.publish('onTest',{});
+
+
       for(let i=0;i<10;++i);//wait a litte
-      console.log("onTestArived:"+onTestArrived);
+
       expect(onTestArrived).toEqual(false);
       messageBus.unsubscribe('onTest',call);
 

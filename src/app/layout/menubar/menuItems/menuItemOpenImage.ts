@@ -4,7 +4,9 @@ import {utility} from '../../../lib/utility';
 import {readFileOrUrl} from '../../../lib/readFileOrUrl';
 import {message} from '../../../lib/message';
 import {messageBus} from '../../../lib/messageBus';
-import {commandReadImageFromBuffer} from '../../../lib/commands/commandReadImageFromBuffer';
+import {cmdReadImageFromBuffer} from '../../../lib/commands/cmdReadImageFromBuffer';
+import {cmdShowError} from '../../../lib/commands/cmdShowError';
+
 import {callback as iskilip_callback} from 'iskilip/core/callback';
 
 import {menuItemOpenFile} from './menuItemOpenFile'
@@ -30,11 +32,12 @@ export class menuItemOpenImage extends menuItemOpenFile {
 
     onSuccess(data: ArrayBuffer){
 
-      let cmd = new commandReadImageFromBuffer(data);
+      let cmd = new cmdReadImageFromBuffer(data);
       cmd.executeAsync();
 
     }
     onError(err: string){
-        messageBus.publish(message.ShowError,{msg:err});
+        let cmd = new cmdShowError(err);
+        cmd.executeAsync();
     }
 }
