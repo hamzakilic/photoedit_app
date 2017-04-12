@@ -5,7 +5,7 @@ import {graphics} from '../../lib/graphics';
 import {callback as iskilip_callback } from 'iskilip/core/callback.d';
 
 @Component({
-  selector: 'componentCanvasTarget',
+  selector: 'canvasTarget',
   templateUrl: './canvas-target.component.html',
   styleUrls: ['./canvas-target.component.scss']
 })

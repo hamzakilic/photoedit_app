@@ -4,10 +4,10 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
 
 import { message } from '../../lib/message';
 import { messageBus } from '../../lib/messageBus';
-import {callback as iskilip_callback } from 'iskilip/core/callback';
+import { callback as iskilip_callback } from 'iskilip/core/callback';
 
 @Component({
-  selector: 'componentSmallModal',
+  selector: 'smallModal',
   templateUrl: './small-modal.component.html',
   styleUrls: ['./small-modal.component.scss']
 })
