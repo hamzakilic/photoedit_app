@@ -4,9 +4,9 @@ import { TabsModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
 
 import { LayoutComponent } from './layout.component';
-import { MenubarComponent } from '../layout/menubar/menubar.component';
-import { ToolbarComponent } from '../layout/toolbar/toolbar.component';
-import { StatusbarComponent } from '../layout/statusbar/statusbar.component';
+import { MenubarComponent } from '../components/menubar/menubar.component';
+import { ToolbarComponent } from '../components/toolbar/toolbar.component';
+import { StatusbarComponent } from '../components/statusbar/statusbar.component';
 import {CanvasTargetComponent} from '../components/canvas-target/canvas-target.component';
 
 describe('LayoutComponent', () => {

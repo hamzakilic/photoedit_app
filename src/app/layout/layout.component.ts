@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenubarComponent } from '../layout/menubar/menubar.component';
+import { MenubarComponent } from '../components/menubar/menubar.component';
 
 @Component({
   selector: 'layout',
