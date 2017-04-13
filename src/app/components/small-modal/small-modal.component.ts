@@ -16,12 +16,13 @@ export class SmallModalComponent implements OnInit {
   public smModal:ModalDirective;
 
   msg: string;
+  private callFunc : iskilip_callback;
   constructor() {
-
+      this.callFunc = new iskilip_callback((err)=>this.showError(err));
    }
 
   ngOnInit() {
-    messageBus.subscribe(message.ShowError,new iskilip_callback((err)=>this.showError(err)));
+    messageBus.subscribe(message.ShowError,this.callFunc);
 
   }
   ngAfterViewInit(){
@@ -30,7 +31,7 @@ export class SmallModalComponent implements OnInit {
   }
 
   ngOnDestroy(){
-
+    messageBus.unsubscribe(message.ShowError,this.callFunc);
   }
   showError(err: any): void{
 

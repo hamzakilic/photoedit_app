@@ -4,7 +4,8 @@ import { utility } from '../../../lib/utility';
 import { readFileOrUrl } from '../../../lib/readFileOrUrl';
 import { message } from '../../../lib/message';
 import { messageBus } from '../../../lib/messageBus';
-import { cmdShowFormNewImage } from '../../../lib/commands/cmdShowFormNewImage';
+import { cmdShowFormNewImage } from '../../../shared/commands/cmdShowFormNewImage';
+
 import { callback as iskilip_callback } from 'iskilip/core/callback';
 
 

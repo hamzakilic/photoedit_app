@@ -1,7 +1,7 @@
-import { command } from './command';
-import {message} from '../message';
-import {messageBus} from '../messageBus';
-import {constants} from '../constants';
+import { command } from '../commands/command';
+import { message } from '../../lib/message';
+import {messageBus} from '../../lib/messageBus';
+import {constants} from '../../lib/constants';
 import {canvasTargetComponentsDictionary} from '../../components/canvas-target/canvas-target.component';
 import { memoryStream as iskilip_memoryStream } from 'iskilip/io/memoryStream';
 import { bmpDecoder as iskilip_bmpDecoder } from 'iskilip/img/bmpDecoder';
@@ -14,7 +14,7 @@ import {cmdShowError } from './cmdShowError';
 export class cmdReadImageFromBuffer extends command {
 
   private buffer: ArrayBuffer;
-  constructor(data: ArrayBuffer) {
+  constructor(data: ArrayBuffer,) {
     super();
     this.buffer = data;
   }

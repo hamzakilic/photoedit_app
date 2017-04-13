@@ -1,8 +1,12 @@
 import { Component,OnChanges,DoCheck, OnInit,ViewChild,ElementRef, Input } from '@angular/core';
+
 import {messageBus} from '../../lib/messageBus';
 import {utility} from '../../lib/utility';
 import {graphics} from '../../lib/graphics';
 import {callback as iskilip_callback } from 'iskilip/core/callback.d';
+
+
+
 
 @Component({
   selector: 'canvasTarget',
@@ -35,15 +39,17 @@ export class CanvasTargetComponent implements OnInit,OnChanges,DoCheck {
     this.uuid = utility.uuid();
     this.scale = 1;
     this.initialized = false;
+
    }
 
   ngOnInit() {
 
   }
   ngAfterViewInit(){
-   if(this.name)
+    if(this.name){
         //if this canvas has a name add to singleton dictionary for later reaching
-    canvasTargetComponentsDictionary.add(this.name,this);
+        canvasTargetComponentsDictionary.add(this.name,this);
+    }
 
 
 
@@ -114,6 +120,7 @@ export class CanvasTargetComponent implements OnInit,OnChanges,DoCheck {
 }
 
 
+
 /**
  * a static class for following every @see CanvasTargetComponent
  *
@@ -141,7 +148,7 @@ export class canvasTargetComponentsDictionary{
     public static remove(name: string){
       if(name){
          if(canvasTargetComponentsDictionary.dic.has(name))
-        canvasTargetComponentsDictionary.dic.delete(name);
+          canvasTargetComponentsDictionary.dic.delete(name);
 
       }
 

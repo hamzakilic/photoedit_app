@@ -4,8 +4,8 @@ import {utility} from '../../../lib/utility';
 import {readFileOrUrl} from '../../../lib/readFileOrUrl';
 import {message} from '../../../lib/message';
 import {messageBus} from '../../../lib/messageBus';
-import {cmdReadImageFromBuffer} from '../../../lib/commands/cmdReadImageFromBuffer';
-import {cmdShowError} from '../../../lib/commands/cmdShowError';
+import {cmdReadImageFromBuffer} from '../../../shared/commands/cmdReadImageFromBuffer';
+import {cmdShowError} from '../../../shared/commands/cmdShowError';
 
 import {callback as iskilip_callback} from 'iskilip/core/callback';
 

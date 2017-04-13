@@ -1,7 +1,7 @@
 import { command } from './command';
-import {message} from '../message';
-import {messageBus} from '../messageBus';
-import {constants} from '../constants';
+import {message} from '../../lib/message';
+import {messageBus} from '../../lib/messageBus';
+import {constants} from '../../lib/constants';
 import {canvasTargetComponentsDictionary} from '../../components/canvas-target/canvas-target.component';
 import { memoryStream as iskilip_memoryStream } from 'iskilip/io/memoryStream';
 import { bmpDecoder as iskilip_bmpDecoder } from 'iskilip/img/bmpDecoder';
@@ -10,15 +10,16 @@ import {callback as iskilip_callback} from 'iskilip/core/callback';
 
 
 
-export class cmdShowFormNewImage extends command {
+export class cmdShowError extends command {
 
-
-  constructor() {
+  private msg: string;
+  constructor(msg: string) {
     super();
-
+    this.msg = msg;
   }
   protected execute(): void {
-
-      messageBus.publish(message.ShowFormNewImage,undefined);
+    if (!this.msg)
+      return;
+      messageBus.publish(message.ShowError,{msg:this.msg});
   }
 }

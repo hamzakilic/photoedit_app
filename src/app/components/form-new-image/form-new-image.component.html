@@ -1,15 +1,59 @@
-
-<div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Small modal</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
+<div>
+  <div bsModal #smModal="bs-modal" class="modal " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title pull-left">New Image</h6>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        {{msg}}
+
+        </div>
+        <div class="modal-body ">
+          <form novalidate [formGroup]="formNewImage" (ngSubmit)="doSubmit($event)">
+            <div class="container-fluid">
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <label for="input-width" class="col-2 col-form-label">Width</label>
+                </div>
+                <div class="col-9">
+                  <input class="form-control" formControlName="width"  type="number"  [(ngModel)]="width" id="input-width">
+
+                  <div class="error" *ngIf="formNewImage.get('width').hasError('msg') ">
+                    {{validationMessages.error.msg}}
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <label for="input-height" class="col-2 col-form-label">Height</label>
+                </div>
+                <div class="col-9">
+                  <input class="form-control" formControlName="height" type="number" [(ngModel)]="height" id="input-height">
+                   <div class="error" *ngIf="formNewImage.get('height').hasError('msg') ">
+                    {{validationMessages.error.msg}}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <span>        </span>
+              </div>
+              <div class="row justify-content-end spacer">
+                <div class="col-7">
+                </div>
+                <div class="col-5">
+                  <button type="submit" [disabled]="formNewImage.invalid" class="btn btn-primary btn-sm btn-block ">   Ok  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </form>
+        </div>
       </div>
     </div>
   </div>

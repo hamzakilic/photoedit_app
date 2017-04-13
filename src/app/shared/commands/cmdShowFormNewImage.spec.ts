@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { callback as iskilip_callback } from 'iskilip/core/callback';
-import { message } from '../message'
-import { messageBus } from '../messageBus';
+import { message } from '../../lib/message'
+import { messageBus } from '../../lib/messageBus';
 import { cmdShowFormNewImage} from './cmdShowFormNewImage';
 
 describe('cmdShowFormNewImage', () => {

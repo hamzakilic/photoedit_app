@@ -1,5 +1,72 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+
+
 @import 'variables';
 @import '../node_modules/bootstrap/scss/bootstrap';
+
+
+.btn-primary {
+    color: white;
+    background-color: #535353;;
+    border-color: #656565;
+    font-size : medium;
+}
+
+.btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #656565;
+    background-image: none;
+    border-color: #535353;
+}
+.btn-group > .btn:first-child {
+    margin-left: 4px;
+    line-height: 0.9;
+}
+.btn-primary {
+    color: white;
+    background-color: #535353;;
+    border-color: #656565;
+    font-size : medium;
+}
+
+.btn-primary:disabled {
+   background-color: rgb(150,150,150);
+   border-color: #656565;
+}
+
+.dropdown-menu{
+  background-color:#535353;
+}
+
+.dropdown-item {
+
+    color: white;
+    font-size:medium;
+    line-height: 15px;
+
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    color: black;
+    text-decoration: none;
+    background-color: #f7f7f9;
+}
+
+.modal-body{
+  background-color: #707070;
+  color: white;
+  font-size:medium;
+}
+
+.modal-header {
+  background-color:#545454;
+  color:white;
+  padding-top:5px;
+  padding-bottom:5px;
+  font-size: small;
+}
+
 
 
