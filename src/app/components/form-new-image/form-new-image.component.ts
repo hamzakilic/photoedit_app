@@ -62,8 +62,8 @@ export class FormNewImageComponent implements OnInit {
   }
 
   doSubmit(event) {
- console.log(this.width);
- console.log(this.formNewImage.get('width').value);
+ //console.log(this.width);
+ //console.log(this.formNewImage.get('width').value);
     if (this.formNewImage.valid)
          this.smModal.hide();
   }

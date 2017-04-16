@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CanvasTargetComponent } from './canvas-target.component';
+import { CanvasComponent } from './canvas.component';
 import { callback as iskilip_callback} from 'iskilip/core/callback';
 
-describe('CanvasTargetComponent', () => {
-  let component: CanvasTargetComponent;
-  let fixture: ComponentFixture<CanvasTargetComponent>;
+describe('CanvasComponent', () => {
+  let component: CanvasComponent;
+  let fixture: ComponentFixture<CanvasComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CanvasTargetComponent ]
+      declarations: [ CanvasComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CanvasTargetComponent);
+    fixture = TestBed.createComponent(CanvasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -31,7 +31,7 @@ describe('CanvasTargetComponent', () => {
   });
    it('should setwidthHeight must call callback func', (done) => {
 
-     function test(component:CanvasTargetComponent,done){
+     function test(component:CanvasComponent,done){
        expect(component.width).toEqual(10);
        expect(component.canvas.nativeElement.width).toEqual(10);
        done();
@@ -44,12 +44,12 @@ describe('CanvasTargetComponent', () => {
  it('should scalePlus', (done) => {
 
 
-     function test(component:CanvasTargetComponent,fixture:ComponentFixture<CanvasTargetComponent>,  done){
+     function test(component:CanvasComponent,fixture:ComponentFixture<CanvasComponent>,  done){
        component.scalePlus();
        fixture.detectChanges();
        expect(component.canvas.nativeElement.width).toEqual(10);
        expect(component.scale).toEqual(1.1);
-       console.log(component.canvas.nativeElement.style.width);
+      // console.log(component.canvas.nativeElement.style.width);
        expect(component.canvas.nativeElement.style.width).toEqual("11px");
        done();
      }
@@ -61,12 +61,12 @@ describe('CanvasTargetComponent', () => {
   it('should scaleMinus', (done) => {
 
 
-     function test(component:CanvasTargetComponent,fixture:ComponentFixture<CanvasTargetComponent>,  done){
+     function test(component:CanvasComponent,fixture:ComponentFixture<CanvasComponent>,  done){
        component.scaleMinus();
        fixture.detectChanges();
        expect(component.canvas.nativeElement.width).toEqual(10);
        expect(component.scale).toEqual(0.9);
-       console.log(component.canvas.nativeElement.style.width);
+       //console.log(component.canvas.nativeElement.style.width);
        expect(component.canvas.nativeElement.style.width).toEqual("9px");
        done();
      }

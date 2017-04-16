@@ -10,10 +10,10 @@ import {callback as iskilip_callback } from 'iskilip/core/callback.d';
 
 @Component({
   selector: 'canvasTarget',
-  templateUrl: './canvas-target.component.html',
-  styleUrls: ['./canvas-target.component.scss']
+  templateUrl: './canvas.component.html',
+  styleUrls: ['./canvas.component.scss']
 })
-export class CanvasTargetComponent implements OnInit,OnChanges,DoCheck {
+export class CanvasComponent implements OnInit,OnChanges,DoCheck {
    width: number;
    height: number;
    stwidth:number;
@@ -23,8 +23,7 @@ export class CanvasTargetComponent implements OnInit,OnChanges,DoCheck {
    private initFunc: iskilip_callback;
    private initialized:boolean;
 
-  //we will use this for reaching to a component with name
-  @Input() name: string;
+
 
 
   @ViewChild("renderCanvas") canvas: ElementRef;
@@ -46,10 +45,7 @@ export class CanvasTargetComponent implements OnInit,OnChanges,DoCheck {
 
   }
   ngAfterViewInit(){
-    if(this.name){
-        //if this canvas has a name add to singleton dictionary for later reaching
-        canvasTargetComponentsDictionary.add(this.name,this);
-    }
+
 
 
 
@@ -79,7 +75,7 @@ export class CanvasTargetComponent implements OnInit,OnChanges,DoCheck {
       if(this.width == this.canvas.nativeElement.width && this.height == this.canvas.nativeElement.height){
         this.initialized = true;
         this.grphics = new graphics(this.canvas,this.width,this.height);
-        console.log('testte clkajsfs');
+        //console.log('testte clkajsfs');
         if(this.initFunc)
           this.initFunc.call(undefined);
       }
@@ -121,55 +117,5 @@ export class CanvasTargetComponent implements OnInit,OnChanges,DoCheck {
 
 
 
-/**
- * a static class for following every @see CanvasTargetComponent
- *
- */
-export class canvasTargetComponentsDictionary{
-    private static dic: Map<string,CanvasTargetComponent> = new Map<string,CanvasTargetComponent>();
-
-    /**
-     *
-     * @param name name of component
-     * @param component
-     */
-    public static add(name: string,component: CanvasTargetComponent){
-      if(name && component)
-      if(!canvasTargetComponentsDictionary.dic.has(name)){
-        canvasTargetComponentsDictionary.dic.set(name,component);
-
-      }
-    }
-
-    /**
-     *
-     * @param name name of canvas target component
-     */
-    public static remove(name: string){
-      if(name){
-         if(canvasTargetComponentsDictionary.dic.has(name))
-          canvasTargetComponentsDictionary.dic.delete(name);
-
-      }
-
-    }
-
-    public static contains(name: string):boolean{
-        return canvasTargetComponentsDictionary.dic.has(name)
-      }
 
 
-/**
- *
- * @param name name of canvas component
- * @returns if has a canvas with parameter name returns canvas else returns undefined
- */
-    public static get(name:string): CanvasTargetComponent{
-      if(name){
-        if(canvasTargetComponentsDictionary.dic.has(name)){
-          return canvasTargetComponentsDictionary.dic.get(name);
-        }
-      }
-      return undefined;
-    }
-}

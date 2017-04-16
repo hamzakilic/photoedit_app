@@ -7,7 +7,12 @@ import { LayoutComponent } from './layout.component';
 import { MenubarComponent } from '../components/menubar/menubar.component';
 import { ToolbarComponent } from '../components/toolbar/toolbar.component';
 import { StatusbarComponent } from '../components/statusbar/statusbar.component';
-import {CanvasTargetComponent} from '../components/canvas-target/canvas-target.component';
+
+import { ProjectComponent } from '../components/project/project.component';
+import { WorkspaceComponent } from '../components/workspace/workspace.component';
+import { CanvasComponent } from '../components/canvas-target/canvas.component';
+
+import { ProjectService } from '../shared/project.service';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -15,8 +20,10 @@ describe('LayoutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LayoutComponent,MenubarComponent,ToolbarComponent,StatusbarComponent,CanvasTargetComponent  ],
-       imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]
+      declarations: [ LayoutComponent,MenubarComponent,ToolbarComponent,StatusbarComponent,WorkspaceComponent, ProjectComponent, CanvasComponent  ],
+       imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ],
+       providers:[ ProjectService ]
+
     })
     .compileComponents();
   }));

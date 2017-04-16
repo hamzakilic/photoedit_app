@@ -16,10 +16,14 @@ import { LayoutComponent } from './layout/layout.component';
 import { StatusbarComponent } from './components/statusbar/statusbar.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { CanvasTargetComponent } from './components/canvas-target/canvas-target.component';
+import { CanvasComponent } from './components/canvas-target/canvas.component';
 import { SmallModalComponent } from './components/small-modal/small-modal.component';
 import { FormNewImageComponent } from './components/form-new-image/form-new-image.component';
+import { ProjectComponent } from './components/project/project.component';
 
+import { WorkspaceComponent } from './components/workspace/workspace.component';
+
+import { ProjectService } from './shared/project.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -37,10 +41,12 @@ NotSupportedBrowserComponent,
 
     ToolbarComponent,
 
-    CanvasTargetComponent,
+    CanvasComponent,
 
     SmallModalComponent,
-    FormNewImageComponent
+    FormNewImageComponent,
+    ProjectComponent,
+    WorkspaceComponent
   ],
  imports: [
     DropdownModule.forRoot(),
@@ -51,6 +57,7 @@ NotSupportedBrowserComponent,
     HttpModule,
     ReactiveFormsModule
   ],
+  providers:[ ProjectService ]
     }).compileComponents();
   }));
 

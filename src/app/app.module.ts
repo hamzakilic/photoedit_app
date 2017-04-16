@@ -12,9 +12,14 @@ import { LayoutComponent } from './layout/layout.component';
 import { StatusbarComponent } from './components/statusbar/statusbar.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { CanvasTargetComponent } from './components/canvas-target/canvas-target.component';
+import { CanvasComponent } from './components/canvas-target/canvas.component';
 import { SmallModalComponent } from './components/small-modal/small-modal.component';
 import { FormNewImageComponent } from './components/form-new-image/form-new-image.component';
+import { WorkspaceComponent } from './components/workspace/workspace.component';
+import { ProjectComponent } from './components/project/project.component';
+
+import { ProjectService } from './shared/project.service';
+
 
 
 
@@ -23,22 +28,16 @@ import { FormNewImageComponent } from './components/form-new-image/form-new-imag
   declarations: [
 
     AppComponent,
-
 NotSupportedBrowserComponent,
-
     LayoutComponent,
-
     StatusbarComponent,
-
     MenubarComponent,
-
     ToolbarComponent,
-
-    CanvasTargetComponent,
-
+    CanvasComponent,
     SmallModalComponent,
-
-    FormNewImageComponent
+    FormNewImageComponent,
+    WorkspaceComponent,
+    ProjectComponent
   ],
   imports: [
     DropdownModule.forRoot(),
@@ -48,7 +47,7 @@ NotSupportedBrowserComponent,
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [ ],
+  providers: [ ProjectService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {checkBrowserCapabilities} from './lib/checkBrowserCapabilities';
 
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

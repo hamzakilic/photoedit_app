@@ -9,7 +9,7 @@ let call=new iskilip_callback(onTest);
   var onTestArrived = false;
 
   function onTest(data: any) {
-    console.log('data called');
+   // console.log('data called');
     onTestArrived = true;
   }
 

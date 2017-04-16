@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenubarComponent } from '../components/menubar/menubar.component';
 
+import { WorkspaceComponent } from '../components/workspace/workspace.component';
+
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -8,9 +10,11 @@ import { MenubarComponent } from '../components/menubar/menubar.component';
 })
 export class LayoutComponent implements OnInit {
 
+
   constructor() { }
 
   ngOnInit() {
+    /afasfd/
   }
 
 }

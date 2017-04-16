@@ -7,13 +7,13 @@ class MockFileReader{
   callError: boolean;
   constructor(callError: boolean = false) {
     this.callError = callError;
-    console.log('mock file reader called');
+   // console.log('mock file reader called');
   }
   onerror(err:any){
-    console.log('wrong onerror');
+    //console.log('wrong onerror');
   }
   onload(data:any){
-    console.log('yaanlis onload');
+    //console.log('yaanlis onload');
   }
   readAsArrayBuffer(data:any){
     if(this.callError)

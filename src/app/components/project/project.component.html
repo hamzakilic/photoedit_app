@@ -1,0 +1,6 @@
+<tabset *ngIf="Project != undefined" #staticTabs class="lineheightsmall">
+  <template *ngIf="Project != undefined">
+  <workspace  *ngFor="let workspace of Project.WorkSpaces" ></workspace>
+  </template>
+
+  </tabset>

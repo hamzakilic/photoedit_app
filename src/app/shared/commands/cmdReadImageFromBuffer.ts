@@ -2,7 +2,7 @@ import { command } from '../commands/command';
 import { message } from '../../lib/message';
 import {messageBus} from '../../lib/messageBus';
 import {constants} from '../../lib/constants';
-import {canvasTargetComponentsDictionary} from '../../components/canvas-target/canvas-target.component';
+
 import { memoryStream as iskilip_memoryStream } from 'iskilip/io/memoryStream';
 import { bmpDecoder as iskilip_bmpDecoder } from 'iskilip/img/bmpDecoder';
 import {decoder as iskilip_decoder} from 'iskilip/img/decoder';
@@ -28,14 +28,14 @@ export class cmdReadImageFromBuffer extends command {
       dec.onEvent(iskilip_decoder.EVENT_ONFINISHED, new iskilip_callback((img) => {
 
                 //image is ready
-                if(!canvasTargetComponentsDictionary.contains(constants.MAINCANVAS))
+               /* if(!canvasTargetComponentsDictionary.contains(constants.MAINCANVAS))
                     return;
 
                 let canvasContainer = canvasTargetComponentsDictionary.get(constants.MAINCANVAS);
                 canvasContainer.setWidthHeight(img.width(),img.height(),new iskilip_callback(()=>{
 
                   canvasContainer.grphics.drawImage(img);
-                }));
+                }));*/
 
 
 
