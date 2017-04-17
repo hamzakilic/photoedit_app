@@ -8,17 +8,22 @@ import { bmpDecoder as iskilip_bmpDecoder } from 'iskilip/img/bmpDecoder';
 import {decoder as iskilip_decoder} from 'iskilip/img/decoder';
 import {callback as iskilip_callback} from 'iskilip/core/callback';
 import {cmdShowError } from './cmdShowError';
-
+import { ProjectService } from '../project.service';
 
 
 export class cmdReadImageFromBuffer extends command {
 
   private buffer: ArrayBuffer;
-  constructor(data: ArrayBuffer,) {
+  private projectService:  ProjectService;
+  private fileName: string;
+  constructor(data: ArrayBuffer,fileName: string,projectService: ProjectService) {
     super();
     this.buffer = data;
+    this.projectService =  projectService;
+    this.fileName = fileName;
   }
   protected execute(): void {
+
     if (!this.buffer)
       return;
 
@@ -27,15 +32,11 @@ export class cmdReadImageFromBuffer extends command {
       //on event finished data
       dec.onEvent(iskilip_decoder.EVENT_ONFINISHED, new iskilip_callback((img) => {
 
-                //image is ready
-               /* if(!canvasTargetComponentsDictionary.contains(constants.MAINCANVAS))
-                    return;
 
-                let canvasContainer = canvasTargetComponentsDictionary.get(constants.MAINCANVAS);
-                canvasContainer.setWidthHeight(img.width(),img.height(),new iskilip_callback(()=>{
+               let workSpace= this.projectService.currentProject.createWorkspace(this.fileName);
 
-                  canvasContainer.grphics.drawImage(img);
-                }));*/
+
+                workSpace.setBackgroundImage(img);
 
 
 

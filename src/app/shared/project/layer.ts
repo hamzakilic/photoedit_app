@@ -1,16 +1,16 @@
 
-export class Layer {
-    private name:string;
+export class layer {
+    private _name:string;
     /**
      *
      */
     constructor(name?: string) {
       if(name)
-      this.name = name;
-      else this.name = 'layer';
+      this._name = name;
+      else this._name = 'layer';
 
     }
     public get Name(): string {
-      return this.name;
+      return this._name;
     }
 }

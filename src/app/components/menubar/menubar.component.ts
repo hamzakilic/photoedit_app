@@ -10,6 +10,8 @@ import {menuItemOpenFile } from '../menubar/menuItems/menuItemOpenFile';
 import {menuItemOpenImage } from '../menubar/menuItems/menuItemOpenImage';
 import {menuItemNewImage } from '../menubar/menuItems/menuItemNewImage';
 
+import { ProjectService } from '../../shared/project.service';
+
 import {someTestFuncs} from '../../lib/someTestFuncs'
 
 import {callback as iskilip_core_callback} from 'iskilip/core/callback';
@@ -22,13 +24,13 @@ import {callback as iskilip_core_callback} from 'iskilip/core/callback';
 })
 export class MenubarComponent implements OnInit {
   public menus: menu [];
-  constructor() {
+  constructor(projectService: ProjectService ) {
 
     this.menus = [];
 
     let menuFile = new menu("File");
-    menuFile.childs.push(new menuItemNewImage());
-    menuFile.childs.push(new menuItemOpenImage());
+    menuFile.childs.push(new menuItemNewImage(projectService));
+    menuFile.childs.push(new menuItemOpenImage(projectService));
     this.menus.push(menuFile);
 
     let menuTest = new menu("Test");

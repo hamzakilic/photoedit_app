@@ -1,22 +1,23 @@
-import { Layer } from './layer';
+import { layer } from './layer';
 
-export class WorkSpace {
-    private name:string
-    private layers: Layer[];
+export class workspace {
+    private _name:string
+    private _layers: layer[];
     constructor(name?: string) {
       if(name)
-      this.name = name;
-      else this.name="image";
-      this.layers = [];
+      this._name = name;
+      else this._name="image";
+      this._layers = [];
 
 
     }
 
-    public get Name(): string {
-      return this.name;
+    public get name(): string {
+      return this._name;
     }
 
-    public Dispose(): void{
+    public dispose(): void{
 
     }
+    public setBackgroundImage: (img)=>void;
 }

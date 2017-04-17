@@ -10,6 +10,7 @@ import {callback as iskilip_callback} from 'iskilip/core/callback';
 
 
 
+
 export class cmdShowFormNewImage extends command {
 
   constructor() {

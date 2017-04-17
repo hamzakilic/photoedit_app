@@ -5,37 +5,37 @@ import { message } from '../../lib/message'
 import { messageBus } from '../../lib/messageBus';
 
 
-import { Proj } from './proj';
-import { Layer } from './layer';
+import { proj } from './proj';
+import { layer } from './layer';
 
 describe('project', () => {
 
 
   it('should create', () => {
-    let project = new Proj();
+    let project = new proj();
     expect(project).toBeTruthy();
   });
   it('should set name correctly', () => {
-    let project = new Proj('hamza');
-    expect(project.Name).toEqual('hamza');
+    let project = new proj('hamza');
+    expect(project.name).toEqual('hamza');
 
   });
    it('should default name correctly', () => {
-    let project = new Proj();
-    expect(project.Name).toEqual('project');
+    let project = new proj();
+    expect(project.name).toEqual('project');
 
   });
 
   it('should dispose correctly', () => {
-    let project = new Proj();
-    project.Dispose();
+    let project = new proj();
+    project.dispose();
 
 
   });
 
   it('should workspace count  must be zero', () => {
-    let project = new Proj();
-    expect(project.WorkSpaces.length).toEqual(0);
+    let project = new proj();
+    expect(project.workspaces.length).toEqual(0);
 
 
   });

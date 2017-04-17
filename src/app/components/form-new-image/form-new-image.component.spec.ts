@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalModule } from 'ng2-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 import { FormNewImageComponent } from './form-new-image.component';
 
 describe('FormNewImageComponent', () => {

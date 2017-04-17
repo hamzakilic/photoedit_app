@@ -5,6 +5,11 @@ import { callback as iskilip_callback } from 'iskilip/core/callback';
 import { menuItemOpenImage } from './menuItemOpenImage';
 
 
+class ProjectService {
+
+}
+
+
 class MockHTMLInput {
   files: Array<File>;
   constructor() {
@@ -38,7 +43,8 @@ class MockFileReader{
 
 
 describe('menuItemOpenImage', () => {
-  let item = new menuItemOpenImage();
+  const projectService  = new ProjectService();
+  let item = new menuItemOpenImage(this.projectService);;
   let onSuccessCalled:boolean = false;
   let onErrorCalled:boolean =false;
   item.onSuccess = function(data:any){

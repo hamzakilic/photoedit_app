@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenubarComponent } from './menubar.component';
+import { ProjectService } from '../../shared/project.service';
+
+class MockProjectService {
+
+}
+
 
 describe('MenubarComponent', () => {
   let component: MenubarComponent;
@@ -8,7 +14,8 @@ describe('MenubarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenubarComponent ]
+      declarations: [ MenubarComponent ],
+      providers:[{provide:ProjectService, useValue:MockProjectService}]
     })
     .compileComponents();
   }));

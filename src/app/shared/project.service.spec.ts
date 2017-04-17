@@ -13,6 +13,6 @@ describe('projectService', () => {
     expect(service).toBeTruthy();
   }));
   it('should project must create a default project', inject([ProjectService], (service: ProjectService) => {
-    expect(service.CurrentProject).toBeDefined();
+    expect(service.currentProject).toBeDefined();
   }));
 });

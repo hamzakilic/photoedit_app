@@ -6,7 +6,7 @@ import { utility } from '../../../lib/utility';
 import { readFileOrUrl } from '../../../lib/readFileOrUrl';
 import { message } from '../../../lib/message';
 import { messageBus } from '../../../lib/messageBus';
-import { cmdReadImageFromBuffer } from '../../../shared/commands/cmdReadImageFromBuffer';
+
 import { callback as iskilip_callback } from 'iskilip/core/callback';
 
 

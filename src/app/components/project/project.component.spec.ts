@@ -9,6 +9,12 @@ import { WorkspaceComponent } from '../workspace/workspace.component';
 import { CanvasComponent } from '../canvas-target/canvas.component';
 
 import { ProjectService } from '../../shared/project.service';
+import { proj } from '../../shared/project/proj';
+
+
+
+
+
 
 describe('ProjectComponent', () => {
   let component: ProjectComponent;
@@ -17,6 +23,7 @@ describe('ProjectComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ProjectComponent,WorkspaceComponent,CanvasComponent ],
+
       providers: [ ProjectService ],
       imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]
 
@@ -40,17 +47,30 @@ describe('ProjectComponent', () => {
     expect(compiled.querySelector('tabset > ul > li')).toBeNull();
   });
   it('should project must be defined when default', () => {
-    expect(component.Project).toBeDefined();
+    expect(component.project).toBeDefined();
   });
 
   it('should success html where project is undefined', () => {
-    component.Project = undefined;
+    component.project = undefined;
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector("tabset")).toBeNull();
     expect(compiled.querySelector('tabset > ul')).toBeNull();
     expect(compiled.querySelector('tabset > ul > li')).toBeNull();
   });
+
+  it('should create a tab after creating workspace', () => {
+    component.project.createWorkspace('hamza');
+
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector("tabset")).not.toBeNull();
+    expect(compiled.querySelector('tabset > ul')).not.toBeNull();
+    expect(compiled.querySelector('tabset > ul > li')).not.toBeNull();
+  });
+
+
 
 
 });

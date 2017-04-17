@@ -4,6 +4,10 @@ import { callback as iskilip_callback } from 'iskilip/core/callback';
 
 import { menuItemOpenFile } from './menuItemOpenFile';
 
+
+
+
+
 class MockHTMLInput {
   files: Array<File>;
   constructor() {
@@ -36,6 +40,7 @@ class MockFileReader{
 }
 
 describe('menuItemOpenFile', () => {
+
   let item = new menuItemOpenFile('test', 'image/*',
   new iskilip_callback((data)=>onSuccess(data)),
   new iskilip_callback((err)=>onError(err)));

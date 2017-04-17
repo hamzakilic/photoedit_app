@@ -10,19 +10,20 @@ import {cmdShowError} from '../../../shared/commands/cmdShowError';
 import {callback as iskilip_callback} from 'iskilip/core/callback';
 
 import {menuItemOpenFile} from './menuItemOpenFile'
-
+import { fileData } from '../../../shared/entities/fileData';
+import { ProjectService } from '../../../shared/project.service';
 
 export class menuItemOpenImage extends menuItemOpenFile {
 
-    /**
-     *
-     */
-    constructor() {
+    private projectService:ProjectService;
+    constructor(projectService: ProjectService) {
+
       super("Open Image","image/*",
       new iskilip_callback((data)=>{this.onSuccess(data)}),
       new iskilip_callback((err)=>this.onError(err)),
       new iskilip_callback((data)=>this.onProgress(data))
       );
+      this.projectService = projectService;
 
     }
 
@@ -30,9 +31,9 @@ export class menuItemOpenImage extends menuItemOpenFile {
 
     }
 
-    onSuccess(data: ArrayBuffer){
+    onSuccess(data: fileData){
 
-      let cmd = new cmdReadImageFromBuffer(data);
+      let cmd = new cmdReadImageFromBuffer(data.buffer,data.fileName,this.projectService);
       cmd.executeAsync();
 
     }

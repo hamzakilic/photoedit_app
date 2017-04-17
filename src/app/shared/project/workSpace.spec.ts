@@ -5,32 +5,32 @@ import { message } from '../../lib/message'
 import { messageBus } from '../../lib/messageBus';
 
 
-import  { WorkSpace } from './workSpace';
+import  { workspace } from './workSpace';
 
 
 describe('subTab', () => {
 
 
   it('should create', () => {
-    let item = new WorkSpace()
+    let item = new workspace()
     expect(item).toBeTruthy();
   });
 
   it('should have a default name', () => {
-    let item = new WorkSpace()
-    expect(item.Name).toEqual('image');
+    let item = new workspace()
+    expect(item.name).toEqual('image');
 
   });
 
   it('should have a name', () => {
-    let item = new WorkSpace('hamza')
-    expect(item.Name).toEqual('hamza');
+    let item = new workspace('hamza')
+    expect(item.name).toEqual('hamza');
 
   });
 
   it('should dispose', () => {
-    let item = new WorkSpace('hamza')
-    item.Dispose();
+    let item = new workspace('hamza')
+    item.dispose();
 
 
   });

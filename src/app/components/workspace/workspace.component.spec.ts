@@ -5,11 +5,16 @@ import { TabsModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
 
 import { ProjectService } from '../../shared/project.service';
-import { WorkSpace } from '../../shared/project/workSpace';
+import { workspace } from '../../shared/project/workSpace';
 import { CanvasComponent } from '../canvas-target/canvas.component';
 
 
 import { WorkspaceComponent } from './workspace.component';
+
+
+class MockProjectService{
+
+}
 
 
 describe('WorkspaceComponent', () => {
@@ -34,5 +39,9 @@ describe('WorkspaceComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(component.Canvas).toBeTruthy();
   });
+
+
 });
+

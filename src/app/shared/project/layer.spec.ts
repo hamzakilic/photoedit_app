@@ -6,22 +6,22 @@ import { messageBus } from '../../lib/messageBus';
 
 
 
-import { Layer } from './layer';
+import { layer } from './layer';
 
 describe('layer', () => {
 
 
   it('should create', () => {
-    let item = new Layer();
+    let item = new layer();
     expect(item).toBeTruthy();
   });
    it('should default name must be', () => {
-    let item = new Layer();
+    let item = new layer();
     expect(item.Name).toEqual('layer');
   });
 
     it('should have a name like', () => {
-    let item = new Layer('hamza');
+    let item = new layer('hamza');
     expect(item.Name).toEqual('hamza');
   });
 

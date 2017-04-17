@@ -1,30 +1,35 @@
-import { WorkSpace } from './workSpace';
+import { workspace } from './workSpace';
 
-export class Proj {
-  private name: string;
-  private workspaces: WorkSpace[];
+export class proj {
+  private _name: string;
+  private _workspaces: workspace[];
   /**
    *
    */
   constructor(name?: string) {
     if(name)
-    this.name = name;
-    else this.name = "project";
-    this.workspaces = [];
+    this._name = name;
+    else this._name = "project";
+    this._workspaces = [];
 
   }
 
-  public get Name(): string{
-    return this.name;
+  public get name(): string{
+    return this._name;
   }
 
-  public get WorkSpaces(): WorkSpace[]{
-    return this.workspaces;
+  public get workspaces(): workspace[]{
+    return this._workspaces;
   }
 
-  public Dispose(): void {
-    this.name = undefined;
-    this.workspaces.forEach((item)=>item.Dispose());
-    this.workspaces= [];
+  public dispose(): void {
+    this._name = undefined;
+    this._workspaces.forEach((item)=>item.dispose());
+    this._workspaces= [];
+  }
+  public createWorkspace(name: string){
+    let ws = new workspace(name);
+    this._workspaces.push(ws);
+    return ws;
   }
 }
