@@ -27,8 +27,7 @@ export class proj {
     this._workspaces.forEach((item)=>item.dispose());
     this._workspaces= [];
   }
-  public createWorkspace(name: string){
-    let ws = new workspace(name);
+  public addWorkspace(ws:workspace){
     this._workspaces.push(ws);
     return ws;
   }

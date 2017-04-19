@@ -10,7 +10,7 @@ import { CanvasComponent } from '../canvas-target/canvas.component';
 
 import { ProjectService } from '../../shared/project.service';
 import { proj } from '../../shared/project/proj';
-
+import { workspace } from '../../shared/project/workSpace';
 
 
 
@@ -60,7 +60,8 @@ describe('ProjectComponent', () => {
   });
 
   it('should create a tab after creating workspace', () => {
-    component.project.createWorkspace('hamza');
+    let ws = new workspace('hamza');
+    component.project.addWorkspace(ws);
 
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;

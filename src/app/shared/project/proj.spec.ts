@@ -6,6 +6,7 @@ import { messageBus } from '../../lib/messageBus';
 
 
 import { proj } from './proj';
+import { workspace} from './workSpace';
 import { layer } from './layer';
 
 describe('project', () => {
@@ -36,6 +37,15 @@ describe('project', () => {
   it('should workspace count  must be zero', () => {
     let project = new proj();
     expect(project.workspaces.length).toEqual(0);
+
+
+  });
+
+   it('should add a workspace', () => {
+    let project = new proj();
+    let ws = new workspace('hamza');
+    project.addWorkspace(ws);
+    expect(project.workspaces.length).toEqual(1);
 
 
   });

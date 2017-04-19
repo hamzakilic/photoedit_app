@@ -29,22 +29,19 @@ export class WorkspaceComponent implements OnInit {
 
 
   ngOnInit() {
-
+    this.setBackgroundImage();
 
   }
 
-  public setBackgroundImage(img:iskilip_image){
-    alert('s');
-    this.Canvas.setWidthHeight(img.width(),img.height(),new iskilip_callback((img)=>{
-      alert('bla');
-      this.drawImage(img);
+  private setBackgroundImage(){
+
+    this.Canvas.setWidthHeight(this.ws.width,this.ws.height,new iskilip_callback(()=>{
+      this.ws.render(this.Canvas.grphics);
     }));
 
 
   }
-  public  drawImage(img: iskilip_image):void{
-      this.Canvas.grphics.drawImage(img);
-  }
+
 
   onSelected(workspace: workspace){
     alert(workspace.name);

@@ -7,6 +7,13 @@
 @import '../node_modules/bootstrap/scss/bootstrap';
 
 
+.body{
+  background-color: white;
+}
+
+
+
+
 .btn-primary {
     color: white;
     background-color: #535353;;
@@ -68,5 +75,24 @@
   font-size: small;
 }
 
+.fontsmall {
+    font-size: small;
 
+}
+
+.nav-tabs {
+    border-bottom: 0px solid #ddd;
+    height:3%;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+   color: #efefef;
+    background-color: #504b4b;
+    border-color: #ddd #ddd #fff;
+}
+
+a {
+    color: #252525;
+    text-decoration: none;
+}
 

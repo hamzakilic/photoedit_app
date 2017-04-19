@@ -17,12 +17,12 @@ describe('layer', () => {
   });
    it('should default name must be', () => {
     let item = new layer();
-    expect(item.Name).toEqual('layer');
+    expect(item.name).toEqual('layer');
   });
 
     it('should have a name like', () => {
     let item = new layer('hamza');
-    expect(item.Name).toEqual('hamza');
+    expect(item.name).toEqual('hamza');
   });
 
 

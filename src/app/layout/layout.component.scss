@@ -12,20 +12,22 @@
 
 }
 
-#projectfiles{
-  position: relative;
+#projectfiles {
+  position: fixed;
   display: block;
   width: 86%;
   left:0px;
   top:3%;
   height:95%;
-  padding-bottom: 2%;
-  background-color: #262626;
+ // padding-bottom: 2%;
+  background-color: #808080;
 
 
   z-index: 0;
 
 }
+
+
 
 
 

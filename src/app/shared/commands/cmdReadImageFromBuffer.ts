@@ -9,6 +9,9 @@ import {decoder as iskilip_decoder} from 'iskilip/img/decoder';
 import {callback as iskilip_callback} from 'iskilip/core/callback';
 import {cmdShowError } from './cmdShowError';
 import { ProjectService } from '../project.service';
+import { workspace } from '../project/workSpace';
+import { layer } from '../project/layer';
+import { layerImage } from '../project/layerImage';
 
 
 export class cmdReadImageFromBuffer extends command {
@@ -32,11 +35,11 @@ export class cmdReadImageFromBuffer extends command {
       //on event finished data
       dec.onEvent(iskilip_decoder.EVENT_ONFINISHED, new iskilip_callback((img) => {
 
+               let ws = new workspace(img.width(),img.height(),this.fileName);
+               let ly = new layerImage(img,'background');
+               ws.addLayer(ly);
+               this.projectService.currentProject.addWorkspace(ws);
 
-               let workSpace= this.projectService.currentProject.createWorkspace(this.fileName);
-
-
-                workSpace.setBackgroundImage(img);
 
 
 
