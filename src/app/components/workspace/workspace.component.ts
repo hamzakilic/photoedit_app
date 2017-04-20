@@ -31,10 +31,10 @@ export class WorkspaceComponent implements OnInit {
   ngOnInit() {
     if(this.ws)
     this.ws.reInitCallback = (callback)=>{
-      console.log('3');
+
       this.Canvas.setWidthHeight(this.ws.width,this.ws.height,new iskilip_callback(()=>{
       this.ws.render(this.Canvas.grphics);
-      console.log('4');
+
       if(callback)
         callback.call(undefined);
 
@@ -42,6 +42,9 @@ export class WorkspaceComponent implements OnInit {
     };
 
     this.setBackgroundImage();
+
+  }
+  ngOnDestroy(){
 
   }
 

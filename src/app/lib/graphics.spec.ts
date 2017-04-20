@@ -56,14 +56,15 @@ describe('graphics', () => {
 
 
   it('should  create a valid graphics ', () => {
-    let grp: graphics = new graphics(comp.canvas, width, height);
+    let grp: graphics = new graphics(comp.canvas, width, height,1);
     expect(grp.width).toEqual(width);
     expect(grp.height).toEqual(height);
+    expect(grp.scale).toEqual(1);
 
   });
 
   it('should  drawImage ', () => {
-    let grp = new graphics(comp.canvas, width, height);
+    let grp = new graphics(comp.canvas, width, height,1);
     grp.drawImage(img);
 
      let result = true;

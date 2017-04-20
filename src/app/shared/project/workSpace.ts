@@ -11,6 +11,7 @@ export class workspace  {
     private _height: number;
     public reInitCallback: (call:iskilip_callback)=>void;
     public isRemoveable:boolean;
+    public isActive: boolean;
     constructor(width:number,height:number,name?: string) {
       if(name)
       this._name = name;
@@ -24,6 +25,7 @@ export class workspace  {
       this._height = 100;
       this.reInitCallback = undefined;
       this.isRemoveable=true;
+      this.isActive = false;
 
     }
 
@@ -42,7 +44,7 @@ export class workspace  {
     }
 
     public dispose(): void{
-
+        this._layers.forEach((item)=>item.dispose());
     }
 
     public addLayer(ly: layer){

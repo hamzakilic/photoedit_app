@@ -29,6 +29,38 @@ export class proj {
   }
   public addWorkspace(ws:workspace){
     this._workspaces.push(ws);
+    if(this._workspaces.length==1)
+        ws.isActive=true;
     return ws;
+  }
+  public setActiveWorkspace(ws:workspace){
+    this._workspaces.forEach((item)=>{
+      item.isActive=false;
+      if(item === ws)
+      item.isActive = true;
+    });
+
+  }
+
+  public get activeWorkspace(): workspace{
+    let index= this._workspaces.findIndex((item)=>{
+      return item.isActive;
+    });
+    if(index==-1)
+      return undefined;
+      return this._workspaces[index];
+  }
+
+   public removeWorkspace(ws:workspace){
+    let index= this._workspaces.findIndex((item)=>{
+      return item === ws;
+    });
+
+    if(index>-1){
+      let ws=this.workspaces[index];
+      this._workspaces.splice(index,1);
+       ws.dispose();
+    }
+
   }
 }

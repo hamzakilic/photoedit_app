@@ -60,7 +60,7 @@ describe('ProjectComponent', () => {
   });
 
   it('should create a tab after creating workspace', () => {
-    let ws = new workspace('hamza');
+    let ws = new workspace(10,10,'hamza');
     component.project.addWorkspace(ws);
 
     fixture.detectChanges();

@@ -52,6 +52,8 @@ export class CanvasComponent implements OnInit,OnChanges,DoCheck {
   }
 
   ngOnDestroy(){
+    if(this.grphics)
+      this.grphics.dispose();
 
   }
   ngOnChanges(changes){

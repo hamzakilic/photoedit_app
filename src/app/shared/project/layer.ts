@@ -3,7 +3,7 @@ import { callback as iskilip_callback } from 'iskilip/core/callback';
 import { image as iskilip_image } from 'iskilip/img/image';
 import { graphics } from '../../lib/graphics';
 
-export  class layer {
+export abstract class layer {
     private _name:string;
     /**
      *
@@ -17,7 +17,6 @@ export  class layer {
     public get name(): string {
       return this._name;
     }
-    public  render(grp: graphics){
-
-    }
+    public  abstract render(grp: graphics);
+    public abstract dispose()
 }

@@ -1,6 +1,6 @@
 <tabset *ngIf="project != undefined" #staticTabs class="fontsmall ">
 
- <tab  class="fontsmall  "  [removable]="work.isRemoveable"  [heading]="work.name" *ngFor="let work of project.workspaces" >
+ <tab  class="fontsmall"  (select)="selectWorkspace(work)" (removed)="removeWorkspace(work)" [removable]="work.isRemoveable"  [heading]="work.name" *ngFor="let work of project.workspaces" >
 
    <workspace [ws]="work" class="wsc" ></workspace>
 

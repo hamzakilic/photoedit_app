@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../shared/project.service';
 import { proj } from '../../shared/project/proj';
+import { workspace } from '../../shared/project/workSpace';
 import { WorkspaceComponent } from '../workspace/workspace.component';
 
 @Component({
@@ -24,5 +25,15 @@ export class ProjectComponent implements OnInit {
 
 
   }
+  selectWorkspace(ws:workspace){
+
+    this.project.setActiveWorkspace(ws);
+  }
+
+  removeWorkspace(ws:workspace){
+
+    this.project.removeWorkspace(ws);
+  }
+
 
 }

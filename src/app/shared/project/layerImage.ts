@@ -14,4 +14,7 @@ export class layerImage extends layer{
   public render(grp: graphics){
       grp.drawImage(this.img);
   }
+  public dispose(){
+
+  }
 }

@@ -5,6 +5,21 @@
 
 @import 'variables';
 @import '../node_modules/bootstrap/scss/bootstrap';
+$fa-font-path: "../node_modules/font-awesome/fonts";
+@import "../node_modules/font-awesome/scss/font-awesome";
+
+
+.glyphicon {
+  @extend .fa;
+
+&.glyphicon-remove-circle {
+    @extend .fa-times;
+  }
+
+
+}
+
+
 
 
 .body{
@@ -84,6 +99,7 @@
     border-bottom: 0px solid #ddd;
     height:3%;
 }
+
 
 .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
    color: #efefef;
