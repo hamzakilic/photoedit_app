@@ -9,6 +9,8 @@ export class workspace  {
     private _layers: layer[];
     private _width: number;
     private _height: number;
+    public reInitCallback: (call:iskilip_callback)=>void;
+    public isRemoveable:boolean;
     constructor(width:number,height:number,name?: string) {
       if(name)
       this._name = name;
@@ -20,6 +22,8 @@ export class workspace  {
       this._width=100;
       if(this._height == 0)
       this._height = 100;
+      this.reInitCallback = undefined;
+      this.isRemoveable=true;
 
     }
 
@@ -46,12 +50,26 @@ export class workspace  {
         this._layers.push(ly);
       }
     }
+    public clearLayers(){
+      this._layers = [];
+    }
 
     public render(grp: graphics){
       this._layers.forEach((ly)=>{
         ly.render(grp);
       });
     }
+
+    public reInit(width: number,height:number,call:iskilip_callback){
+
+        if(this.reInitCallback){
+          this._width = width;
+          this._height = height;
+          this.reInitCallback(call);
+        }
+
+    }
+
 
 
 }

@@ -21,7 +21,7 @@ export class WorkspaceComponent implements OnInit {
   @Input()
   ws:workspace;
   @ViewChild('canvas')
-   public Canvas: CanvasComponent;
+  public Canvas: CanvasComponent;
   constructor(projectService: ProjectService) {
     this.projectService = projectService;
 
@@ -29,12 +29,24 @@ export class WorkspaceComponent implements OnInit {
 
 
   ngOnInit() {
+    if(this.ws)
+    this.ws.reInitCallback = (callback)=>{
+      console.log('3');
+      this.Canvas.setWidthHeight(this.ws.width,this.ws.height,new iskilip_callback(()=>{
+      this.ws.render(this.Canvas.grphics);
+      console.log('4');
+      if(callback)
+        callback.call(undefined);
+
+    }));
+    };
+
     this.setBackgroundImage();
 
   }
 
   private setBackgroundImage(){
-
+    if(this.ws && this.ws.width)
     this.Canvas.setWidthHeight(this.ws.width,this.ws.height,new iskilip_callback(()=>{
       this.ws.render(this.Canvas.grphics);
     }));

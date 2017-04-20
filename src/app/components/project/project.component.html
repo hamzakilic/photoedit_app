@@ -1,6 +1,6 @@
-<tabset *ngIf="project != undefined" #staticTabs class="fontsmall lineheightsmall">
+<tabset *ngIf="project != undefined" #staticTabs class="fontsmall ">
 
- <tab  class="fontsmall  " heading="{{work.name}}" *ngFor="let work of project.workspaces" >
+ <tab  class="fontsmall  "  [removable]="work.isRemoveable"  [heading]="work.name" *ngFor="let work of project.workspaces" >
 
    <workspace [ws]="work" class="wsc" ></workspace>
 
@@ -10,5 +10,3 @@
 
 
   </tabset>
-
-

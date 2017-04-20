@@ -12,6 +12,6 @@ export class layerImage extends layer{
     this.img = img;
   }
   public render(grp: graphics){
-      alert('rendered image');
+      grp.drawImage(this.img);
   }
 }

@@ -40,6 +40,31 @@ describe('workspace', () => {
 
 
   });
+  it('should reInit must call', (done) => {
+    let item = new workspace(10,10,'hamza')
+    let calledTest =false;
+    let calledTest2= false;
+    function test(callback: iskilip_callback){
+
+        calledTest = true;
+        callback.call(undefined);
+    }
+    function test2(){
+        calledTest2 = true;
+    }
+    item.reInitCallback = (call)=>{test(call)};
+    item.reInit(4,6,new iskilip_callback(test2));
+    setTimeout(()=>{
+      expect(item.width).toEqual(4);
+      expect(item.height).toEqual(6);
+      while(!calledTest || !calledTest2);
+
+      done();
+
+    },100);
+
+
+  });
 
 
 

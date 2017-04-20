@@ -73,9 +73,11 @@ export class CanvasComponent implements OnInit,OnChanges,DoCheck {
 
     if(!this.initialized && this.width>0)
       if(this.width == this.canvas.nativeElement.width && this.height == this.canvas.nativeElement.height){
+        if(this.grphics)
+        this.grphics.dispose();
         this.initialized = true;
-        this.grphics = new graphics(this.canvas,this.width,this.height);
-        //console.log('testte clkajsfs');
+        this.grphics = new graphics(this.canvas,this.width,this.height,1);
+
         if(this.initFunc)
           this.initFunc.call(undefined);
       }
@@ -88,6 +90,7 @@ export class CanvasComponent implements OnInit,OnChanges,DoCheck {
         this.scale = 5;
       this.stwidth = this.scale* this.width;
       this.stheight = this.scale * this.height;
+      this.grphics.scale = this.scale;
   }
   public scaleMinus():void{
       this.scale *= 0.9;
@@ -95,6 +98,7 @@ export class CanvasComponent implements OnInit,OnChanges,DoCheck {
         this.scale = 0.1;
       this.stwidth = this.scale* this.width;
       this.stheight = this.scale * this.height;
+      this.grphics.scale = this.scale;
   }
 
   public setWidthHeight(width:number,height:number,func?: iskilip_callback): void {
