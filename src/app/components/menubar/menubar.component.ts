@@ -37,6 +37,32 @@ export class MenubarComponent implements OnInit {
     menuTest.childs.push(new menuItem("Test Something",new iskilip_core_callback(this.testSomeThingClicked)));
     this.menus.push(menuTest);
 
+    let menuEdit = new menu("Edit");
+    menuEdit.childs.push(new menuItem("Cut",new iskilip_core_callback(this.notImplementedYet)));
+    menuEdit.childs.push(new menuItem("Copy",new iskilip_core_callback(this.notImplementedYet)));
+    menuEdit.childs.push(new menuItem("Paste",new iskilip_core_callback(this.notImplementedYet)));
+    menuEdit.childs.push(new menuItem("Delete",new iskilip_core_callback(this.notImplementedYet)));
+    this.menus.push(menuEdit);
+
+
+    let menuSelect = new menu("Select");
+    menuSelect.childs.push(new menuItem("Rectangle",new iskilip_core_callback(this.notImplementedYet)));
+    this.menus.push(menuSelect);
+
+    let menuTools = new menu("Tools");
+    menuTools.childs.push(new menuItem("Zoom in",new iskilip_core_callback(this.notImplementedYet)));
+    menuTools.childs.push(new menuItem("Zoom out",new iskilip_core_callback(this.notImplementedYet)));
+    this.menus.push(menuTools);
+
+    let menuFilters = new menu("Filters");
+    menuFilters.childs.push(new menuItem("Grayscale",new iskilip_core_callback(this.notImplementedYet)));
+    menuFilters.childs.push(new menuItem("BlackandWhite",new iskilip_core_callback(this.notImplementedYet)));
+    this.menus.push(menuFilters);
+
+    let menuHelp = new menu("Help");
+    menuHelp.childs.push(new menuItem("About",new iskilip_core_callback(this.showAbout)));
+    this.menus.push(menuHelp);
+
 
 
    }
@@ -46,6 +72,14 @@ export class MenubarComponent implements OnInit {
 
   testSomeThingClicked(){
       messageBus.publish(message.ShowError,{msg:'hamza'});
+  }
+
+  notImplementedYet(){
+    messageBus.publish(message.ShowError,{msg:'not implemented yet'});
+  }
+
+  showAbout(){
+      messageBus.publish(message.ShowAbout,undefined);
   }
 
 }

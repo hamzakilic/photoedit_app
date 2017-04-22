@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProjectService } from '../../shared/project.service';
 import { proj } from '../../shared/project/proj';
 import { workspace } from '../../shared/project/workSpace';
@@ -13,7 +13,8 @@ import { WorkspaceComponent } from '../workspace/workspace.component';
 export class ProjectComponent implements OnInit {
   projectService: ProjectService;
   public project: proj;
-
+  @Input('workspace')
+  workspace: WorkspaceComponent;
   constructor(projectService: ProjectService) {
     this.projectService = projectService;
 

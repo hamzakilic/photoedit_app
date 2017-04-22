@@ -5,6 +5,7 @@ import { TabsModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
 
 import { ProjectService } from '../../shared/project.service';
+import { KeyboardService } from '../../shared/keyboard.service';
 import { workspace } from '../../shared/project/workSpace';
 import { CanvasComponent } from '../canvas-target/canvas.component';
 
@@ -22,7 +23,7 @@ describe('WorkspaceComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CanvasComponent, WorkspaceComponent  ],
-      providers: [ ProjectService ],
+      providers: [ ProjectService, KeyboardService ],
       imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]
 
     })

@@ -5,11 +5,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
 import { callback as iskilip_callback } from 'iskilip/core/callback';
+import { image as iskilip_image } from 'iskilip/img/image';
 import { message } from '../../lib/message';
 import { messageBus } from '../../lib/messageBus';
 import { newImageInterface } from './new-image.interface';
-
-
+import { ProjectService } from '../../shared/project.service';
+import { workspace } from '../../shared/project/workSpace';
+import { layer } from '../../shared/project/layer';
+import { layerImage } from '../../shared/project/layerImage';
 
 @Component({
   selector: 'formNewImage',
@@ -24,11 +27,12 @@ export class FormNewImageComponent implements OnInit {
 
   private callFunc: iskilip_callback;
   private formNewImage: FormGroup;
-
-  constructor(private fb: FormBuilder) {
+  private projectService: ProjectService;
+  constructor(private fb: FormBuilder,projectService: ProjectService) {
     this.callFunc = new iskilip_callback(() => this.show());
     this.width = 100;
     this.height = 100;
+    this.projectService = projectService;
   }
 
   width: number;
@@ -62,10 +66,15 @@ export class FormNewImageComponent implements OnInit {
   }
 
   doSubmit(event) {
- //console.log(this.width);
- //console.log(this.formNewImage.get('width').value);
-    if (this.formNewImage.valid)
+    if (this.formNewImage.valid){
+
+         let img = new iskilip_image(this.width,this.height);
+         let ws = new workspace(img.width(),img.height(),"new ("+img.width()+"x"+img.height()+")");
+         let ly = new layerImage(img,'background');
+         ws.addLayer(ly);
+         this.projectService.currentProject.addWorkspace(ws);
          this.smModal.hide();
+    }
   }
 
 

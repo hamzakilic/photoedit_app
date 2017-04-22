@@ -80,8 +80,9 @@ export class CanvasComponent implements OnInit,OnChanges,DoCheck {
         this.initialized = true;
         this.grphics = new graphics(this.canvas,this.width,this.height,1);
 
-        if(this.initFunc)
+        if(this.initFunc){
           this.initFunc.call(undefined);
+        }
       }
 
 

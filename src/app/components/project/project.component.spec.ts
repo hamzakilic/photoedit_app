@@ -9,6 +9,7 @@ import { WorkspaceComponent } from '../workspace/workspace.component';
 import { CanvasComponent } from '../canvas-target/canvas.component';
 
 import { ProjectService } from '../../shared/project.service';
+import { KeyboardService } from '../../shared/keyboard.service';
 import { proj } from '../../shared/project/proj';
 import { workspace } from '../../shared/project/workSpace';
 
@@ -24,7 +25,7 @@ describe('ProjectComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ProjectComponent,WorkspaceComponent,CanvasComponent ],
 
-      providers: [ ProjectService ],
+      providers: [ ProjectService, KeyboardService ],
       imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]
 
     })

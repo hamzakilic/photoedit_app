@@ -2,7 +2,10 @@
 
  <tab  class="fontsmall"  (select)="selectWorkspace(work)" (removed)="removeWorkspace(work)" [removable]="work.isRemoveable"  [heading]="work.name" *ngFor="let work of project.workspaces" >
 
-   <workspace [ws]="work" class="wsc" ></workspace>
+   <workspace #workspace [ws]="work" class="wsc"
+    mouseWheel (mouseWheelUp)="workspace.mouseWheelUpFunc()"
+    (mouseWheelDown)="workspace.mouseWheelDownFunc()" >
+    </workspace>
 
 
 </tab>

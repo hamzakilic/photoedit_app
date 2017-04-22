@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {checkBrowserCapabilities} from './lib/checkBrowserCapabilities';
-
+import { KeyboardService } from './shared/keyboard.service';
 
 
 @Component({
@@ -11,8 +11,9 @@ import {checkBrowserCapabilities} from './lib/checkBrowserCapabilities';
 export class AppComponent {
   title = 'app works!';
   isBrowserOk: boolean;
-  constructor(){
+  constructor(keyboardService: KeyboardService){
     this.isBrowserOk=checkBrowserCapabilities.isOk();
+
   }
 
 

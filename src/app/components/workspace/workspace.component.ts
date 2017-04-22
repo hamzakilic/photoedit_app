@@ -5,6 +5,7 @@ import { TabsModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
 
 import { ProjectService } from '../../shared/project.service';
+import { KeyboardService } from '../../shared/keyboard.service';
 import { CanvasComponent } from '../canvas-target/canvas.component';
 import { workspace } from '../../shared/project/workSpace';
 
@@ -18,12 +19,15 @@ import { callback as iskilip_callback } from 'iskilip/core/callback';
 })
 export class WorkspaceComponent implements OnInit {
   private projectService: ProjectService;
+  private keyboardService: KeyboardService;
   @Input()
   ws:workspace;
   @ViewChild('canvas')
   public Canvas: CanvasComponent;
-  constructor(projectService: ProjectService) {
+
+  constructor(projectService: ProjectService, keyboardService: KeyboardService) {
     this.projectService = projectService;
+    this.keyboardService = keyboardService;
 
    }
 
@@ -50,7 +54,7 @@ export class WorkspaceComponent implements OnInit {
 
   private setBackgroundImage(){
     if(this.ws && this.ws.width)
-    this.Canvas.setWidthHeight(this.ws.width,this.ws.height,new iskilip_callback(()=>{
+     this.Canvas.setWidthHeight(this.ws.width,this.ws.height,new iskilip_callback(()=>{
       this.ws.render(this.Canvas.grphics);
     }));
 
@@ -63,5 +67,19 @@ export class WorkspaceComponent implements OnInit {
   }
 
 
+  mouseWheelUpFunc() {
+    if(this.keyboardService.IsCtrlPressed)
+      this.Canvas.scalePlus();
+
+  }
+
+  mouseWheelDownFunc() {
+    if(this.keyboardService.IsCtrlPressed)
+      this.Canvas.scaleMinus();
+
+  }
+
+
 
 }
+

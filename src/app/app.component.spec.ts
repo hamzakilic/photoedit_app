@@ -24,6 +24,7 @@ import { ProjectComponent } from './components/project/project.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 
 import { ProjectService } from './shared/project.service';
+import { KeyboardService } from './shared/keyboard.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -57,7 +58,7 @@ NotSupportedBrowserComponent,
     HttpModule,
     ReactiveFormsModule
   ],
-  providers:[ ProjectService ]
+  providers:[ ProjectService, KeyboardService ]
     }).compileComponents();
   }));
 

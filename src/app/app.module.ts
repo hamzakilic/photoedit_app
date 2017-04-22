@@ -19,8 +19,9 @@ import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { ProjectComponent } from './components/project/project.component';
 
 import { ProjectService } from './shared/project.service';
+import { KeyboardService } from './shared/keyboard.service';
 
-
+import { MouseWheelDirective } from './shared/mouseWheel.directive';
 
 
 
@@ -37,7 +38,8 @@ NotSupportedBrowserComponent,
     SmallModalComponent,
     FormNewImageComponent,
     WorkspaceComponent,
-    ProjectComponent
+    ProjectComponent,
+    MouseWheelDirective
   ],
   imports: [
     DropdownModule.forRoot(),
@@ -47,7 +49,7 @@ NotSupportedBrowserComponent,
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [ ProjectService ],
+  providers: [ ProjectService, KeyboardService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
