@@ -4,18 +4,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
-import { callback as iskilip_callback } from 'iskilip/core/callback';
-import { image as iskilip_image } from 'iskilip/img/image';
-import { message } from '../../lib/message';
-import { messageBus } from '../../lib/messageBus';
+import { Callback  } from '../../lib/callback';
+import { Image  } from '../../lib/image';
+import { Message } from '../../lib/message';
+import { MessageBus } from '../../lib/messageBus';
 import { newImageInterface } from './new-image.interface';
 import { ProjectService } from '../../shared/project.service';
-import { workspace } from '../../shared/project/workSpace';
-import { layer } from '../../shared/project/layer';
-import { layerImage } from '../../shared/project/layerImage';
+import { Workspace } from '../../shared/project/workSpace';
+import { Layer } from '../../shared/project/layer';
+import { LayerImage } from '../../shared/project/layerImage';
 
 @Component({
-  selector: 'formNewImage',
+  selector: 'formNewImage-component',
   templateUrl: './form-new-image.component.html',
   styleUrls: ['./form-new-image.component.scss'],
   providers: []
@@ -25,11 +25,11 @@ export class FormNewImageComponent implements OnInit {
   @ViewChild("smModal")
   public smModal: ModalDirective;
 
-  private callFunc: iskilip_callback;
+  private callFunc: Callback;
   private formNewImage: FormGroup;
   private projectService: ProjectService;
   constructor(private fb: FormBuilder,projectService: ProjectService) {
-    this.callFunc = new iskilip_callback(() => this.show());
+    this.callFunc = new Callback(() => this.show());
     this.width = 100;
     this.height = 100;
     this.projectService = projectService;
@@ -48,10 +48,10 @@ export class FormNewImageComponent implements OnInit {
       height: [this.height, validation.widthHeight]
     });
 
-    messageBus.subscribe(message.ShowFormNewImage, this.callFunc);
+    MessageBus.subscribe(Message.ShowFormNewImage, this.callFunc);
   }
   ngOnDestroy() {
-    messageBus.unsubscribe(message.ShowFormNewImage, this.callFunc);
+    MessageBus.unsubscribe(Message.ShowFormNewImage, this.callFunc);
   }
   submitted = false;
   onSubmit() {
@@ -68,10 +68,10 @@ export class FormNewImageComponent implements OnInit {
   doSubmit(event) {
     if (this.formNewImage.valid){
 
-         let img = new iskilip_image(this.width,this.height);
-         let ws = new workspace(img.width(),img.height(),"new ("+img.width()+"x"+img.height()+")");
-         let ly = new layerImage(img,'background');
-         ws.addLayer(ly);
+         let img = new Image(this.width,this.height);
+         let ws = new Workspace(this.width,this.height,"new ("+img.width()+"x"+img.height()+")");
+        // let ly = new layerImage(img,'background');
+        // ws.addLayer(ly);
          this.projectService.currentProject.addWorkspace(ws);
          this.smModal.hide();
     }

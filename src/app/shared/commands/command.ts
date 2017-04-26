@@ -1,5 +1,5 @@
 
-export abstract class command {
+export abstract class Command {
     public executeAsync():void {
 
       let promise = new Promise((resolve, reject) => {

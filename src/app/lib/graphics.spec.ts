@@ -3,10 +3,10 @@ import { Component, OnChanges, DoCheck, OnInit, ViewChild, ElementRef, Input } f
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { image as iskilip_image } from 'iskilip/img/image';
-import { callback as iskilip_callback } from 'iskilip/core/callback';
-import { graphics } from './graphics';
-import { utility } from './utility';
+import { Image  } from './image';
+import { Callback } from './callback';
+import { Graphics } from './graphics';
+import { Utility } from './utility';
 
 
 let width = 100;
@@ -17,7 +17,7 @@ let height = 100;
   template: '<div><canvas [attr.id]="uuid" #renderCanvas class="canvas" [(attr.width)]="width" [(style.width.px)]="stwidth"   [(attr.height)]="height" [(style.height.px)]="stheight" ></canvas></div>',
   styleUrls: []
 })
-export class CanvasComponent {
+export class SurfaceComponent {
   width: number;
   height: number;
   stwidth: number;
@@ -36,27 +36,27 @@ export class CanvasComponent {
 
 
 describe('graphics', () => {
-  let comp: CanvasComponent;
-  let fixture: ComponentFixture<CanvasComponent>;
+  let comp: SurfaceComponent;
+  let fixture: ComponentFixture<SurfaceComponent>;
   let canvas: HTMLCanvasElement;
-  let img: iskilip_image;
+  let img: Image;
   let context: CanvasRenderingContext2D;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CanvasComponent], // declare the test component
+      declarations: [SurfaceComponent], // declare the test component
     });
 
-    fixture = TestBed.createComponent(CanvasComponent);
+    fixture = TestBed.createComponent(SurfaceComponent);
 
     comp = fixture.componentInstance; // BannerComponent test instance
     canvas = comp.canvas.nativeElement as HTMLCanvasElement;
-    img = new iskilip_image(width, height);
+    img = new Image(width, height);
     context = canvas.getContext("2d");
   });
 
 
   it('should  create a valid graphics ', () => {
-    let grp: graphics = new graphics(comp.canvas, width, height,1);
+    let grp: Graphics = new Graphics(comp.canvas, width, height,1);
     expect(grp.width).toEqual(width);
     expect(grp.height).toEqual(height);
     expect(grp.scale).toEqual(1);
@@ -64,7 +64,7 @@ describe('graphics', () => {
   });
 
   it('should  drawImage ', () => {
-    let grp = new graphics(comp.canvas, width, height,1);
+    let grp = new Graphics(comp.canvas, width, height,1);
     grp.drawImage(img);
 
      let result = true;

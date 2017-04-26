@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { callback as iskilip_callback } from 'iskilip/core/callback';
+
 
 import { menuItemOpenFile } from './menuItemOpenFile';
-
+import { Callback } from '../../../lib/callback';
 
 
 
@@ -42,8 +42,8 @@ class MockFileReader{
 describe('menuItemOpenFile', () => {
 
   let item = new menuItemOpenFile('test', 'image/*',
-  new iskilip_callback((data)=>onSuccess(data)),
-  new iskilip_callback((err)=>onError(err)));
+  new Callback((data)=>onSuccess(data)),
+  new Callback((err)=>onError(err)));
   let errorOccured = false;
   let successOccured = false;
 

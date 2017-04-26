@@ -1,20 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ProjectService } from '../../shared/project.service';
-import { proj } from '../../shared/project/proj';
-import { workspace } from '../../shared/project/workSpace';
+import { Proj } from '../../shared/project/proj';
+import { Workspace } from '../../shared/project/workSpace';
 import { WorkspaceComponent } from '../workspace/workspace.component';
 
 @Component({
-  selector: 'project',
+  selector: 'project-component',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss']
 
 })
 export class ProjectComponent implements OnInit {
   projectService: ProjectService;
-  public project: proj;
-  @Input('workspace')
-  workspace: WorkspaceComponent;
+  private project: Proj;
+
   constructor(projectService: ProjectService) {
     this.projectService = projectService;
 
@@ -26,12 +25,12 @@ export class ProjectComponent implements OnInit {
 
 
   }
-  selectWorkspace(ws:workspace){
+  selectWorkspace(ws:Workspace){
 
     this.project.setActiveWorkspace(ws);
   }
 
-  removeWorkspace(ws:workspace){
+  removeWorkspace(ws:Workspace){
 
     this.project.removeWorkspace(ws);
   }

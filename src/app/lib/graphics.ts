@@ -1,7 +1,7 @@
-import {image as iskilip_image} from 'iskilip/img/image';
+import {Image } from './image';
 
 
-export class graphics{
+export class Graphics{
   private context : CanvasRenderingContext2D;
   public readonly width:number;
   public readonly height:number;
@@ -23,13 +23,15 @@ export class graphics{
   public dispose(){
 
   }
-  public  drawImage(img:iskilip_image){
+  public  drawImage(img:Image){
 
-     let imageData = this.context.createImageData(this.width,this.height);
+     let imageData = this.context.getImageData(0,0,this.width,this.height);
 
      var data = imageData.data;
+     //imageData.data=img.Pixels;
 
-      img.Pixels.forEach((val,index)=>{ data[index]=val});
+     //img.Pixels.forEach((val,index)=>{ data[index]=val});
+     data.set(img.Pixels);
 
 
      this.context.putImageData(imageData,0,0);

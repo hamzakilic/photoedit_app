@@ -2,12 +2,12 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
-import { message } from '../../lib/message';
-import { messageBus } from '../../lib/messageBus';
-import { callback as iskilip_callback } from 'iskilip/core/callback';
+import { Message } from '../../lib/message';
+import { MessageBus } from '../../lib/messageBus';
+import { Callback  } from '../../lib/callback';
 
 @Component({
-  selector: 'smallModal',
+  selector: 'smallModal-component',
   templateUrl: './small-modal.component.html',
   styleUrls: ['./small-modal.component.scss']
 })
@@ -16,13 +16,13 @@ export class SmallModalComponent implements OnInit {
   public smModal:ModalDirective;
 
   msg: string;
-  private callFunc : iskilip_callback;
+  private callFunc : Callback;
   constructor() {
-      this.callFunc = new iskilip_callback((err)=>this.showError(err));
+      this.callFunc = new Callback((err)=>this.showError(err));
    }
 
   ngOnInit() {
-    messageBus.subscribe(message.ShowError,this.callFunc);
+    MessageBus.subscribe(Message.ShowError,this.callFunc);
 
   }
   ngAfterViewInit(){
@@ -31,7 +31,7 @@ export class SmallModalComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    messageBus.unsubscribe(message.ShowError,this.callFunc);
+    MessageBus.unsubscribe(Message.ShowError,this.callFunc);
   }
   showError(err: any): void{
 

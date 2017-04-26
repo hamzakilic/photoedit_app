@@ -3,6 +3,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MenubarComponent } from './menubar.component';
 import { ProjectService } from '../../shared/project.service';
 
+import { DropdownModule } from 'ng2-bootstrap';
+import { TabsModule } from 'ng2-bootstrap';
+import { ModalModule } from 'ng2-bootstrap';
+
 class MockProjectService {
 
 }
@@ -15,7 +19,11 @@ describe('MenubarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ MenubarComponent ],
-      providers:[{provide:ProjectService, useValue:MockProjectService}]
+      providers:[{provide:ProjectService, useValue:MockProjectService}],
+      imports:[ DropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    ModalModule.forRoot()]
+
     })
     .compileComponents();
   }));
@@ -35,4 +43,6 @@ describe('MenubarComponent', () => {
    it('should have file menu and childmenu openimage', () => {
     expect(component.menus.find((val)=>val.name=='File').childs.findIndex(val=>val.name=='Open Image')).toBeGreaterThan(-1);
   });
+
+
 });

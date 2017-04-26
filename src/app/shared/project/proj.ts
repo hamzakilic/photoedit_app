@@ -1,8 +1,8 @@
-import { workspace } from './workSpace';
+import { Workspace } from './workSpace';
 
-export class proj {
+export class Proj {
   private _name: string;
-  private _workspaces: workspace[];
+  private _workspaces: Workspace[];
   /**
    *
    */
@@ -18,7 +18,7 @@ export class proj {
     return this._name;
   }
 
-  public get workspaces(): workspace[]{
+  public get workspaces(): Workspace[]{
     return this._workspaces;
   }
 
@@ -27,13 +27,13 @@ export class proj {
     this._workspaces.forEach((item)=>item.dispose());
     this._workspaces= [];
   }
-  public addWorkspace(ws:workspace){
+  public addWorkspace(ws:Workspace){
     this._workspaces.push(ws);
     if(this._workspaces.length==1)
         ws.isActive=true;
     return ws;
   }
-  public setActiveWorkspace(ws:workspace){
+  public setActiveWorkspace(ws:Workspace){
     this._workspaces.forEach((item)=>{
       item.isActive=false;
       if(item === ws)
@@ -42,7 +42,7 @@ export class proj {
 
   }
 
-  public get activeWorkspace(): workspace{
+  public get activeWorkspace(): Workspace{
     let index= this._workspaces.findIndex((item)=>{
       return item.isActive;
     });
@@ -51,7 +51,7 @@ export class proj {
       return this._workspaces[index];
   }
 
-   public removeWorkspace(ws:workspace){
+   public removeWorkspace(ws:Workspace){
     let index= this._workspaces.findIndex((item)=>{
       return item === ws;
     });

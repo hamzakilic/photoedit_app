@@ -1,4 +1,4 @@
-export class utility {
+export class Utility {
 
 /**
  * creates an uuid string

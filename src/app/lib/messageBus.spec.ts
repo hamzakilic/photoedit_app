@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { callback as iskilip_callback } from 'iskilip/core/callback';
-import { messageBus } from './messageBus';
+import { Callback } from './callback';
+import { MessageBus } from './messageBus';
 
 describe('messageBus', () => {
 
-let call=new iskilip_callback(onTest);
+let call=new Callback(onTest);
   var onTestArrived = false;
 
   function onTest(data: any) {
@@ -16,35 +16,35 @@ let call=new iskilip_callback(onTest);
 
   beforeEach(() => {
       onTestArrived = false;
-      messageBus.unsubscribe('onTest',call);
+      MessageBus.unsubscribe('onTest',call);
   });
 
   it('should  subscribe', () => {
 
-      messageBus.subscribe('onTest',call);
+      MessageBus.subscribe('onTest',call);
 
-      messageBus.publish('onTest',{});
+      MessageBus.publish('onTest',{});
 
       while(!onTestArrived);
-      messageBus.unsubscribe('onTest',call);
+      MessageBus.unsubscribe('onTest',call);
   });
 
    it('should  subscribe and unsubsribe', () => {
 
-      messageBus.subscribe('onTest',call);
+      MessageBus.subscribe('onTest',call);
 
-      messageBus.publish('onTest',{});
+      MessageBus.publish('onTest',{});
 
       while(!onTestArrived);//spin
       onTestArrived=false;
-      messageBus.unsubscribe('onTest',call);
-      messageBus.publish('onTest',{});
+      MessageBus.unsubscribe('onTest',call);
+      MessageBus.publish('onTest',{});
 
 
       for(let i=0;i<10;++i);//wait a litte
 
       expect(onTestArrived).toEqual(false);
-      messageBus.unsubscribe('onTest',call);
+      MessageBus.unsubscribe('onTest',call);
 
   });
 

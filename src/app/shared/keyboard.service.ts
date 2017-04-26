@@ -18,12 +18,12 @@ export class KeyboardService {
 
 
         this.IsCtrlPressed = event.getModifierState("Control");
-        console.log('CtrlDown:'+this.IsCtrlPressed);
+        
   }
   onKeyboardUp(event: KeyboardEvent) {
 
-           this.IsCtrlPressed = event.getModifierState("Control");
+      this.IsCtrlPressed = event.getModifierState("Control");
 
-console.log('Ctrl Up:'+this.IsCtrlPressed);
+
   }
 }

@@ -10,7 +10,7 @@ import { StatusbarComponent } from '../components/statusbar/statusbar.component'
 
 import { ProjectComponent } from '../components/project/project.component';
 import { WorkspaceComponent } from '../components/workspace/workspace.component';
-import { CanvasComponent } from '../components/canvas-target/canvas.component';
+import { SurfaceComponent } from '../components/surface/surface.component';
 
 import { ProjectService } from '../shared/project.service';
 
@@ -20,7 +20,7 @@ describe('LayoutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LayoutComponent,MenubarComponent,ToolbarComponent,StatusbarComponent,WorkspaceComponent, ProjectComponent, CanvasComponent  ],
+      declarations: [ LayoutComponent,MenubarComponent,ToolbarComponent,StatusbarComponent,WorkspaceComponent, ProjectComponent, SurfaceComponent  ],
        imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ],
        providers:[ ProjectService ]
 

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { callback as iskilip_callback } from 'iskilip/core/callback';
-import { readFileOrUrl } from './readFileOrUrl';
+import { Callback  } from './callback';
+import { ReadFileOrUrl } from './readFileOrUrl';
 
 class MockFileReader{
   callError: boolean;
@@ -45,7 +45,7 @@ describe('readFileOrUrl', () => {
   it('should handleclick success', (done) => {
 
     spyOn(window,"FileReader").and.returnValue(new MockFileReader(false));
-    readFileOrUrl.readAsync({},new iskilip_callback((data)=>onSuccess(data)));
+    ReadFileOrUrl.readAsync({},new Callback((data)=>onSuccess(data)));
 
       setTimeout(()=>{
       while(!successOccured);
@@ -56,7 +56,7 @@ describe('readFileOrUrl', () => {
    it('should handleclick error', (done) => {
 
     spyOn(window,"FileReader").and.returnValue(new MockFileReader(true));
-    readFileOrUrl.readAsync({},new iskilip_callback((data)=>onSuccess(data)),new iskilip_callback(err=>onError(err)));
+    ReadFileOrUrl.readAsync({},new Callback((data)=>onSuccess(data)),new Callback(err=>onError(err)));
 
     setTimeout(()=>{
       while(!errorOccured);

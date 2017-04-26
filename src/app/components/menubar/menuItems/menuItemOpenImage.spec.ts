@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { callback as iskilip_callback } from 'iskilip/core/callback';
+import { Callback  } from '../../../lib/callback';
 
 import { menuItemOpenImage } from './menuItemOpenImage';
 

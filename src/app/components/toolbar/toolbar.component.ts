@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
 @Component({
-  selector: 'toolbar',
+  selector: 'toolbar-component',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 

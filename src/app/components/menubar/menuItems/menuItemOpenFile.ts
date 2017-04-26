@@ -2,12 +2,12 @@
 
 import { menu } from '../menu';
 import { menuItem } from '../menu';
-import { utility } from '../../../lib/utility';
-import { readFileOrUrl } from '../../../lib/readFileOrUrl';
-import { message } from '../../../lib/message';
-import { messageBus } from '../../../lib/messageBus';
+import { Utility } from '../../../lib/utility';
+import { ReadFileOrUrl } from '../../../lib/readFileOrUrl';
+import { Message } from '../../../lib/message';
+import { MessageBus } from '../../../lib/messageBus';
 
-import { callback as iskilip_callback } from 'iskilip/core/callback';
+import { Callback  } from '../../../lib/callback';
 
 
 //a base class for open file actions
@@ -15,14 +15,14 @@ export class menuItemOpenFile extends menuItem {
   public isOpenFile: boolean;
   public idOfInput: string;
   public acceptFileTypes: string;
-  public onProgressFunc: iskilip_callback;
-  public onSuccessFunc: iskilip_callback;
-  public onErrorFunc: iskilip_callback;
+  public onProgressFunc: Callback;
+  public onSuccessFunc: Callback;
+  public onErrorFunc: Callback;
 
-  constructor(name: string, acceptFileTypes: string, onSuccess?: iskilip_callback, onError?: iskilip_callback, onProgress?: iskilip_callback) {
+  constructor(name: string, acceptFileTypes: string, onSuccess?: Callback, onError?: Callback, onProgress?: Callback) {
     super(name, undefined);
     this.isOpenFile = true;
-    this.idOfInput = utility.uuid();
+    this.idOfInput = Utility.uuid();
     this.acceptFileTypes = acceptFileTypes;
     this.onProgressFunc = onProgress;
     this.onSuccessFunc = onSuccess;
@@ -39,7 +39,7 @@ export class menuItemOpenFile extends menuItem {
 
     if (fileList && fileList.length > 0) {
 
-        readFileOrUrl.readAsync(fileList[0], this.onSuccessFunc, this.onErrorFunc, this.onProgressFunc);
+        ReadFileOrUrl.readAsync(fileList[0], this.onSuccessFunc, this.onErrorFunc, this.onProgressFunc);
     }
   }
 

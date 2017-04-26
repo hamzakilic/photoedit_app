@@ -1,9 +1,9 @@
 
-import { callback as iskilip_callback } from 'iskilip/core/callback';
-import { image as iskilip_image } from 'iskilip/img/image';
-import { graphics } from '../../lib/graphics';
+import { Callback } from '../../lib/callback';
+import { Image  } from '../../lib/image';
+import { Graphics } from '../../lib/graphics';
 
-export abstract class layer {
+export abstract class Layer {
     private _name:string;
     /**
      *
@@ -17,6 +17,9 @@ export abstract class layer {
     public get name(): string {
       return this._name;
     }
-    public  abstract render(grp: graphics);
-    public abstract dispose()
+    public  abstract render(grp: Graphics): void;
+
+
+    public abstract dispose();
+
 }

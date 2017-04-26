@@ -1,18 +1,18 @@
-import { layer } from './layer';
-import { graphics } from '../../lib/graphics';
+import { Layer } from './layer';
+import { Graphics } from '../../lib/graphics';
 
-import { image as iskilip_image } from 'iskilip/img/image';
+import { Image  } from '../../lib/image';
 
-export class layerImage extends layer{
+export class LayerImage extends Layer{
 
-  private img: iskilip_image;
+  private img: Image;
 
-  constructor(img:iskilip_image,name?: string) {
+  constructor(img:Image,name?: string) {
     super(name);
     this.img = img;
   }
-  public render(grp: graphics){
-      grp.drawImage(this.img);
+  public render(grp: Graphics): void{
+
   }
   public dispose(){
 

@@ -1,4 +1,4 @@
-export class rect {
+export class Rect {
   public width: number;
   public height: number;
   public x: number;

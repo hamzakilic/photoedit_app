@@ -1,17 +1,14 @@
-import { command } from './command';
-import {message} from '../../lib/message';
-import {messageBus} from '../../lib/messageBus';
-import {constants} from '../../lib/constants';
-
-import { memoryStream as iskilip_memoryStream } from 'iskilip/io/memoryStream';
-import { bmpDecoder as iskilip_bmpDecoder } from 'iskilip/img/bmpDecoder';
-import {decoder as iskilip_decoder} from 'iskilip/img/decoder';
-import {callback as iskilip_callback} from 'iskilip/core/callback';
+import { Command } from './command';
+import {Message} from '../../lib/message';
+import {MessageBus} from '../../lib/messageBus';
+import {Constants} from '../../lib/constants';
 
 
 
 
-export class cmdShowFormNewImage extends command {
+
+
+export class CmdShowFormNewImage extends Command {
 
   constructor() {
     super();
@@ -19,6 +16,6 @@ export class cmdShowFormNewImage extends command {
   }
   protected execute(): void {
 
-      messageBus.publish(message.ShowFormNewImage,undefined);
+      MessageBus.publish(Message.ShowFormNewImage,undefined);
   }
 }

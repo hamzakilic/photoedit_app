@@ -1,29 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { callback as iskilip_callback } from 'iskilip/core/callback';
-import { message } from '../../lib/message'
-import { messageBus } from '../../lib/messageBus';
-import { cmdShowError} from './cmdShowError';
+import { Callback } from '../../lib/callback';
+import { Message } from '../../lib/message'
+import { MessageBus } from '../../lib/messageBus';
+import { CmdShowError} from './cmdShowError';
 
 describe('cmdShowError', () => {
   let msg: string ;
   function showError(data : any){
     msg = data.msg;
   }
-  let call =  new iskilip_callback((data)=>showError(data));
+  let call =  new Callback((data)=>showError(data));
 
   beforeEach(() => {
-    messageBus.subscribe(message.ShowError,call);
+    MessageBus.subscribe(Message.ShowError,call);
     msg = undefined;
   });
   afterEach(()=>{
-    messageBus.unsubscribe(message.ShowError,call);
+    MessageBus.unsubscribe(Message.ShowError,call);
     msg =undefined;
   });
 
   it('should execute correctly', (done) => {
 
-    let cmd = new cmdShowError('hamza');
+    let cmd = new CmdShowError('hamza');
     cmd.executeAsync();
       setTimeout(()=>{
         while(!msg);

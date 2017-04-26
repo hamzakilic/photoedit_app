@@ -1,33 +1,33 @@
 import { Component,OnChanges,DoCheck, OnInit,ViewChild,ElementRef, Input } from '@angular/core';
 
-import {messageBus} from '../../lib/messageBus';
-import {utility} from '../../lib/utility';
-import {graphics} from '../../lib/graphics';
-import {callback as iskilip_callback } from 'iskilip/core/callback.d';
+import {MessageBus} from '../../lib/messageBus';
+import {Utility} from '../../lib/utility';
+import {Graphics} from '../../lib/graphics';
+import {Callback } from '../../lib/callback';
 
 
 
 
 @Component({
-  selector: 'canvasTarget',
-  templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.scss']
+  selector: 'surface-component',
+  templateUrl: './surface.component.html',
+  styleUrls: ['./surface.component.scss']
 })
-export class CanvasComponent implements OnInit,OnChanges,DoCheck {
+export class SurfaceComponent implements OnInit,OnChanges,DoCheck {
    width: number;
    height: number;
    stwidth:number;
    stheight:number;
    uuid: string;
    scale: number;
-   private initFunc: iskilip_callback;
+   private initFunc: Callback;
    private initialized:boolean;
 
 
 
 
   @ViewChild("renderCanvas") canvas: ElementRef;
-  grphics: graphics;
+  grphics: Graphics;
   constructor() {
     this.width = 0;
     this.height = 0;
@@ -35,7 +35,7 @@ export class CanvasComponent implements OnInit,OnChanges,DoCheck {
     this.stheight=this.height;
 
     //create a uuid for component
-    this.uuid = utility.uuid();
+    this.uuid = Utility.uuid();
     this.scale = 1;
     this.initialized = false;
 
@@ -78,7 +78,7 @@ export class CanvasComponent implements OnInit,OnChanges,DoCheck {
         if(this.grphics)
         this.grphics.dispose();
         this.initialized = true;
-        this.grphics = new graphics(this.canvas,this.width,this.height,1);
+        this.grphics = new Graphics(this.canvas,this.width,this.height,1);
 
         if(this.initFunc){
           this.initFunc.call(undefined);
@@ -104,7 +104,7 @@ export class CanvasComponent implements OnInit,OnChanges,DoCheck {
       this.grphics.scale = this.scale;
   }
 
-  public setWidthHeight(width:number,height:number,func?: iskilip_callback): void {
+  public setWidthHeight(width:number,height:number,func?: Callback): void {
 
       this.width = width;
       this.height = height;

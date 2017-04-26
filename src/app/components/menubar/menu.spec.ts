@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { menu, menuItem } from './menu';
-import {callback as iskilip_callback} from 'iskilip/core/callback';
+import {Callback } from '../../lib/callback';
 
 describe('menu', () => {
     it('should create a menu', () => {
@@ -29,7 +29,7 @@ describe('menuItem', () => {
    function test(){
       counter++;
    }
-   let callfunc = new iskilip_callback(test);
+   let callfunc = new Callback(test);
 
    beforeEach(()=>{
      counter=0;

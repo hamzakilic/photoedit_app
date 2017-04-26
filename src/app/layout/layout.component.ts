@@ -4,7 +4,7 @@ import { MenubarComponent } from '../components/menubar/menubar.component';
 import { WorkspaceComponent } from '../components/workspace/workspace.component';
 
 @Component({
-  selector: 'layout',
+  selector: 'layout-component',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })

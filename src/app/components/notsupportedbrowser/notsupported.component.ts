@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { checkBrowserCapabilities } from '../../lib/checkBrowserCapabilities';
+import { CheckBrowserCapabilities } from '../../lib/checkBrowserCapabilities';
 
 @Component({
-  selector: 'notsupportedBrowser',
+  selector: 'notsupportedBrowser-component',
   templateUrl: './notsupported.component.html',
   styleUrls: ['./notsupported.component.scss']
 })
 export class NotSupportedBrowserComponent {
   title = 'app not works!';
   msg():string{
-    return checkBrowserCapabilities.errMsg;
+    return CheckBrowserCapabilities.errMsg;
   }
 }

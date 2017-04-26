@@ -6,12 +6,12 @@ import { ModalModule } from 'ng2-bootstrap';
 
 import { ProjectComponent } from './project.component';
 import { WorkspaceComponent } from '../workspace/workspace.component';
-import { CanvasComponent } from '../canvas-target/canvas.component';
+import { SurfaceComponent } from '../surface/surface.component';
 
 import { ProjectService } from '../../shared/project.service';
 import { KeyboardService } from '../../shared/keyboard.service';
-import { proj } from '../../shared/project/proj';
-import { workspace } from '../../shared/project/workSpace';
+import { Proj } from '../../shared/project/proj';
+import { Workspace } from '../../shared/project/workSpace';
 
 
 
@@ -23,7 +23,7 @@ describe('ProjectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProjectComponent,WorkspaceComponent,CanvasComponent ],
+      declarations: [ ProjectComponent,WorkspaceComponent,SurfaceComponent ],
 
       providers: [ ProjectService, KeyboardService ],
       imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]
@@ -61,7 +61,7 @@ describe('ProjectComponent', () => {
   });
 
   it('should create a tab after creating workspace', () => {
-    let ws = new workspace(10,10,'hamza');
+    let ws = new Workspace(10,10,'hamza');
     component.project.addWorkspace(ws);
 
     fixture.detectChanges();

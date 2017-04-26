@@ -1,10 +1,10 @@
-import {eventEmitter as iskilip_eventEmitter} from 'iskilip/core/eventEmitter';
-import {callback as iskilip_callback} from 'iskilip/core/callback';
+import {HEventEmitter } from './eventEmitter';
+import {Callback } from './callback';
 
 
 
-export class messageBus  {
-  private  static emitter: iskilip_eventEmitter;
+export class MessageBus  {
+  private  static emitter: HEventEmitter;
 
 
 
@@ -13,20 +13,20 @@ export class messageBus  {
   }
 
   public static publish(message: string,data: any): void{
-       if(!messageBus.emitter)
-        messageBus.emitter = new iskilip_eventEmitter();
-        messageBus.emitter.callEvent(message,data);
+       if(!MessageBus.emitter)
+        MessageBus.emitter = new HEventEmitter();
+        MessageBus.emitter.callEvent(message,data);
   }
-  public  static subscribe(message: string,func: iskilip_callback): void {
-      if(!messageBus.emitter)
-        messageBus.emitter = new iskilip_eventEmitter();
-        messageBus.emitter.onEvent(message,func);
+  public  static subscribe(message: string,func: Callback): void {
+      if(!MessageBus.emitter)
+        MessageBus.emitter = new HEventEmitter();
+        MessageBus.emitter.onEvent(message,func);
 
   }
-   public  static unsubscribe(message: string,func: iskilip_callback): void {
-      if(!messageBus.emitter)
-        messageBus.emitter = new iskilip_eventEmitter();
-        messageBus.emitter.offEvent(message,func);
+   public  static unsubscribe(message: string,func: Callback): void {
+      if(!MessageBus.emitter)
+        MessageBus.emitter = new HEventEmitter();
+        MessageBus.emitter.offEvent(message,func);
   }
 
 }

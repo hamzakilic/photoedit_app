@@ -6,26 +6,26 @@ import { ModalModule } from 'ng2-bootstrap';
 
 import { ProjectService } from '../../shared/project.service';
 import { KeyboardService } from '../../shared/keyboard.service';
-import { CanvasComponent } from '../canvas-target/canvas.component';
-import { workspace } from '../../shared/project/workSpace';
+import { SurfaceComponent } from '../surface/surface.component';
+import { Workspace } from '../../shared/project/workSpace';
 
-import { image as iskilip_image } from 'iskilip/img/image' ;
-import { callback as iskilip_callback } from 'iskilip/core/callback';
+import { Image } from '../../lib/image' ;
+import { Callback } from '../../lib/callback';
 
 @Component({
-  selector: 'workspace',
+  selector: 'workspace-component',
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss']
 })
-export class WorkspaceComponent implements OnInit {
+export class WorkspaceComponent extends SurfaceComponent {
   private projectService: ProjectService;
   private keyboardService: KeyboardService;
   @Input()
-  ws:workspace;
-  @ViewChild('canvas')
-  public Canvas: CanvasComponent;
+  ws:Workspace;
+
 
   constructor(projectService: ProjectService, keyboardService: KeyboardService) {
+    super();
     this.projectService = projectService;
     this.keyboardService = keyboardService;
 
@@ -33,49 +33,55 @@ export class WorkspaceComponent implements OnInit {
 
 
   ngOnInit() {
-    if(this.ws)
-    this.ws.reInitCallback = (callback)=>{
+    if(this.ws){
+       let call =new Callback((callFunc)=>{
 
-      this.Canvas.setWidthHeight(this.ws.width,this.ws.height,new iskilip_callback(()=>{
-      this.ws.render(this.Canvas.grphics);
+       this.setWidthHeight(this.ws.width,this.ws.height,new Callback(()=>{
+       this.ws.render(this.grphics);
 
-      if(callback)
-        callback.call(undefined);
+      if(callFunc)
+        callFunc.call(undefined);
 
-    }));
-    };
+      }));
+    });
+    this.ws.onEvent(Workspace.EVENTRESIZED,call);
+    }
+
+
+
 
     this.setBackgroundImage();
 
   }
   ngOnDestroy(){
 
+
   }
 
   private setBackgroundImage(){
     if(this.ws && this.ws.width)
-     this.Canvas.setWidthHeight(this.ws.width,this.ws.height,new iskilip_callback(()=>{
-      this.ws.render(this.Canvas.grphics);
+      this.setWidthHeight(this.ws.width,this.ws.height,new Callback(()=>{
+     // this.ws.render(this.BackgroundCanvas.grphics);
     }));
 
 
   }
 
 
-  onSelected(workspace: workspace){
+  onSelected(workspace: Workspace){
     alert(workspace.name);
   }
 
 
   mouseWheelUpFunc() {
     if(this.keyboardService.IsCtrlPressed)
-      this.Canvas.scalePlus();
+      this.scalePlus();
 
   }
 
   mouseWheelDownFunc() {
     if(this.keyboardService.IsCtrlPressed)
-      this.Canvas.scaleMinus();
+      this.scaleMinus();
 
   }
 

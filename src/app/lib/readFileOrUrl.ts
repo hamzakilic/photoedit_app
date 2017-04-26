@@ -1,9 +1,9 @@
 
-import { fileData } from  '../shared/entities/fileData';
-import {callback as iskilip_callback} from 'iskilip/core/callback';
+import { FileData } from  '../shared/entities/fileData';
+import { Callback } from '../lib/callback';
 
-export class readFileOrUrl {
-  public static readAsync(file: File, onSuccess?: iskilip_callback, onError?: iskilip_callback, onProgress?: iskilip_callback) {
+export class ReadFileOrUrl {
+  public static readAsync(file: any, onSuccess?: Callback, onError?: Callback, onProgress?: Callback) {
 
     var reader = new FileReader();
     reader.onprogress = function (oEvent) {
@@ -21,7 +21,7 @@ export class readFileOrUrl {
       if (onSuccess) {
 
         var data = reader.result;
-        let fileResult = new fileData();
+        let fileResult = new FileData();
         fileResult.buffer = reader.result;
         fileResult.fileName = file.name;
         onSuccess.call(fileResult);

@@ -1,15 +1,22 @@
 
-import {callback as iskilip_callback} from 'iskilip/core/callback';
+import {Callback } from '../../lib/callback';
 
 
 export class menu{
   public name:string;
   public childs: menuItem[];
   public disabled: boolean;
+  public isOpen: false;
   constructor(name: string){
     this.name = name;
     this.childs = [];
     this.disabled = false;
+    this.isOpen = false;
+  }
+  public close($event: MouseEvent){
+    $event.preventDefault();
+    $event.stopPropagation();
+    this.isOpen = false;
   }
 
 }
@@ -18,15 +25,17 @@ export class menu{
 export class menuItem{
   public name:string;
   public disabled: boolean;
-  public clickFunc: iskilip_callback;
-
-  constructor(name: string,clickfunc:iskilip_callback ){
+  public clickFunc: Callback;
+  public isDivider: boolean;
+  constructor(name: string,clickfunc:Callback ){
     this.name = name;
     this.disabled = false;
     this.clickFunc = clickfunc;
+    this.isDivider = false;
 
   }
   onClick(parameters?:any): void{
+
     this.clickFunc.call(parameters);
   }
 }

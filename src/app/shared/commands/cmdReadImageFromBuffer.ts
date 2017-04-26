@@ -1,20 +1,16 @@
-import { command } from '../commands/command';
-import { message } from '../../lib/message';
-import {messageBus} from '../../lib/messageBus';
-import {constants} from '../../lib/constants';
+import { Command } from '../commands/command';
+import { Message } from '../../lib/message';
+import {MessageBus} from '../../lib/messageBus';
+import {Constants} from '../../lib/constants';
 
-import { memoryStream as iskilip_memoryStream } from 'iskilip/io/memoryStream';
-import { bmpDecoder as iskilip_bmpDecoder } from 'iskilip/img/bmpDecoder';
-import {decoder as iskilip_decoder} from 'iskilip/img/decoder';
-import {callback as iskilip_callback} from 'iskilip/core/callback';
-import {cmdShowError } from './cmdShowError';
+import {CmdShowError } from './cmdShowError';
 import { ProjectService } from '../project.service';
-import { workspace } from '../project/workSpace';
-import { layer } from '../project/layer';
-import { layerImage } from '../project/layerImage';
+import { Workspace } from '../project/workSpace';
+import { Layer } from '../project/layer';
+import { LayerImage } from '../project/layerImage';
 
 
-export class cmdReadImageFromBuffer extends command {
+export class CmdReadImageFromBuffer extends Command {
 
   private buffer: ArrayBuffer;
   private projectService:  ProjectService;
@@ -29,7 +25,7 @@ export class cmdReadImageFromBuffer extends command {
 
     if (!this.buffer)
       return;
-
+/*
       let stream = new iskilip_memoryStream(this.buffer);
       let dec = new iskilip_bmpDecoder();
       //on event finished data
@@ -54,6 +50,6 @@ export class cmdReadImageFromBuffer extends command {
 
 
             //start from decoding
-            dec.decodeFromStreamAsync(stream);
+            dec.decodeFromStreamAsync(stream);*/
   }
 }

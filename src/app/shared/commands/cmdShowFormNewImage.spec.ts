@@ -1,29 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { callback as iskilip_callback } from 'iskilip/core/callback';
-import { message } from '../../lib/message'
-import { messageBus } from '../../lib/messageBus';
-import { cmdShowFormNewImage} from './cmdShowFormNewImage';
+import { Callback  } from '../../lib/callback';
+import { Message } from '../../lib/message'
+import { MessageBus } from '../../lib/messageBus';
+import { CmdShowFormNewImage} from './cmdShowFormNewImage';
 
 describe('cmdShowFormNewImage', () => {
   let called : boolean;
   function showForm(data : any){
     called = true;
   }
-  let call =  new iskilip_callback((data)=>showForm(data));
+  let call =  new Callback((data)=>showForm(data));
 
   beforeEach(() => {
-    messageBus.subscribe(message.ShowFormNewImage,call);
+    MessageBus.subscribe(Message.ShowFormNewImage,call);
     called = false;
   });
   afterEach(()=>{
-    messageBus.unsubscribe(message.ShowFormNewImage,call);
+    MessageBus.unsubscribe(Message.ShowFormNewImage,call);
     called=false;
   });
 
   it('should execute correctly', (done) => {
 
-    let cmd = new cmdShowFormNewImage();
+    let cmd = new CmdShowFormNewImage();
     cmd.executeAsync();
       setTimeout(()=>{
         while(!called);

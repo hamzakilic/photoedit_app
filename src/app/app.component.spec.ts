@@ -16,7 +16,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { StatusbarComponent } from './components/statusbar/statusbar.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { CanvasComponent } from './components/canvas-target/canvas.component';
+import { SurfaceComponent } from './components/surface/surface.component';
 import { SmallModalComponent } from './components/small-modal/small-modal.component';
 import { FormNewImageComponent } from './components/form-new-image/form-new-image.component';
 import { ProjectComponent } from './components/project/project.component';
@@ -42,7 +42,7 @@ NotSupportedBrowserComponent,
 
     ToolbarComponent,
 
-    CanvasComponent,
+    SurfaceComponent,
 
     SmallModalComponent,
     FormNewImageComponent,

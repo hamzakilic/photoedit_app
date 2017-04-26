@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CanvasComponent } from './canvas.component';
-import { callback as iskilip_callback} from 'iskilip/core/callback';
+import { SurfaceComponent } from './surface.component';
+import { Callback } from '../../lib/callback';
 
-describe('CanvasComponent', () => {
-  let component: CanvasComponent;
-  let fixture: ComponentFixture<CanvasComponent>;
+describe('SurfaceComponent', () => {
+  let component: SurfaceComponent;
+  let fixture: ComponentFixture<SurfaceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CanvasComponent ]
+      declarations: [ SurfaceComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CanvasComponent);
+    fixture = TestBed.createComponent(SurfaceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -31,20 +31,20 @@ describe('CanvasComponent', () => {
   });
    it('should setwidthHeight must call callback func', (done) => {
 
-     function test(component:CanvasComponent,done){
+     function test(component:SurfaceComponent,done){
        expect(component.width).toEqual(10);
        expect(component.canvas.nativeElement.width).toEqual(10);
        done();
      }
      component.setWidthHeight(10,10,
-     new iskilip_callback(()=>test(component,done)));
+     new Callback(()=>test(component,done)));
      fixture.detectChanges();
 
   });
  it('should scalePlus', (done) => {
 
 
-     function test(component:CanvasComponent,fixture:ComponentFixture<CanvasComponent>,  done){
+     function test(component:SurfaceComponent,fixture:ComponentFixture<SurfaceComponent>,  done){
        component.scalePlus();
        fixture.detectChanges();
        expect(component.canvas.nativeElement.width).toEqual(10);
@@ -54,14 +54,14 @@ describe('CanvasComponent', () => {
        done();
      }
      component.setWidthHeight(10,10,
-     new iskilip_callback(()=>test(component,fixture,done)));
+     new Callback(()=>test(component,fixture,done)));
      fixture.detectChanges();
 
   });
   it('should scaleMinus', (done) => {
 
 
-     function test(component:CanvasComponent,fixture:ComponentFixture<CanvasComponent>,  done){
+     function test(component:SurfaceComponent,fixture:ComponentFixture<SurfaceComponent>,  done){
        component.scaleMinus();
        fixture.detectChanges();
        expect(component.canvas.nativeElement.width).toEqual(10);
@@ -71,7 +71,7 @@ describe('CanvasComponent', () => {
        done();
      }
      component.setWidthHeight(10,10,
-     new iskilip_callback(()=>test(component,fixture,done)));
+     new Callback(()=>test(component,fixture,done)));
      fixture.detectChanges();
 
   });

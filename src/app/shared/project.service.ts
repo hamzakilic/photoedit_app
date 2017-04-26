@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { proj} from './project/proj';
+import { Proj} from './project/proj';
 
 @Injectable()
 export class ProjectService {
-  private project: proj;
+  private project: Proj;
   constructor() {
     this.createProject('default');
   }
 
-  public get currentProject(): proj{
+  public get currentProject(): Proj{
       return this.project;
   }
   public createProject(name?: string){
     if(this.project)
       this.project.dispose();
-      this.project = new proj(name);
+      this.project = new Proj(name);
   }
 
 

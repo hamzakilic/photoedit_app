@@ -1,4 +1,4 @@
-export class constants{
+export class Constants{
 
 
       public static readonly MAINCANVAS =  "maincanvas";

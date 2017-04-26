@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { callback as iskilip_callback } from 'iskilip/core/callback';
+import { Callback  } from '../../../lib/callback';
 
 import { menuItemNewImage } from './menuItemNewImage';
-import { message} from '../../../lib/message';
-import { messageBus} from '../../../lib/messageBus';
+import { Message} from '../../../lib/message';
+import { MessageBus} from '../../../lib/messageBus';
 
 
 class ProjectService {
@@ -18,12 +18,12 @@ describe('menuItemNewImage', () => {
     function test(){
       variable=true;
     };
-    let func =new iskilip_callback(test);
+    let func =new Callback(test);
 
 
 
     beforeEach(()=>{
-      messageBus.subscribe(message.ShowFormNewImage,func);
+      MessageBus.subscribe(Message.ShowFormNewImage,func);
       variable = false;
     });
 

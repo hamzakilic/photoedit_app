@@ -1,6 +1,6 @@
 
 
-export class validationService {
+export class ValidationService {
     static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
         let config = {
             'required': 'Required',

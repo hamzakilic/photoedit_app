@@ -6,13 +6,13 @@ import { ModalModule } from 'ng2-bootstrap';
 
 import { ProjectService } from '../../shared/project.service';
 import { KeyboardService } from '../../shared/keyboard.service';
-import { workspace } from '../../shared/project/workSpace';
-import { CanvasComponent } from '../canvas-target/canvas.component';
+import { Workspace } from '../../shared/project/workSpace';
+import { SurfaceComponent } from '../surface/surface.component';
 
 
 import { WorkspaceComponent } from './workspace.component';
 
-import { callback as iskilip_callback } from 'iskilip/core/callback';
+import { Callback  } from '../../lib/callback';
 
 
 
@@ -22,7 +22,7 @@ describe('WorkspaceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CanvasComponent, WorkspaceComponent  ],
+      declarations: [ SurfaceComponent, WorkspaceComponent  ],
       providers: [ ProjectService, KeyboardService ],
       imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]
 
@@ -34,34 +34,29 @@ describe('WorkspaceComponent', () => {
 
     fixture = TestBed.createComponent(WorkspaceComponent);
     component = fixture.componentInstance;
-    component.ws = new workspace(100,200);
-
+    component.ws = new Workspace(10,20);
+    component.ngOnInit();
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.Canvas).toBeTruthy();
-    expect(component.ws.reInitCallback).toBeDefined();
-  });
 
-  it('should canvas width and height must be correct', () => {
-      expect(component.Canvas.width).toEqual(100);
-      expect(component.Canvas.height).toEqual(200);
+    expect(component.width).toEqual(10);
+    expect(component.height).toEqual(20);
 
   });
 
-  it('should reinit canvas width and height must be correct', (done) => {
-
-      component.ws.reInit(200,300,new iskilip_callback(()=>{
-      expect(component.Canvas.width).toEqual(200);
-      expect(component.Canvas.height).toEqual(300);
-      done();
-    }));
-    fixture.detectChanges();//so important code, otherwise cannot detect
-
+  it('should canvas width and height must be correct', (done) => {
+      component.ws.onEvent(Workspace.EVENTRESIZED,new Callback(()=>{
+        expect(component.width).toEqual(100);
+        expect(component.height).toEqual(200);
+        done();
+      }));
+      component.ws.resize(100,200,undefined);
 
   });
+
 
 
 });

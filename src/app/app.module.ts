@@ -7,12 +7,12 @@ import { TabsModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
 
 import { AppComponent } from './app.component';
-import { NotSupportedBrowserComponent} from './components//notsupportedbrowser/notsupported.component';
+import { NotSupportedBrowserComponent } from './components//notsupportedbrowser/notsupported.component';
 import { LayoutComponent } from './layout/layout.component';
 import { StatusbarComponent } from './components/statusbar/statusbar.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { CanvasComponent } from './components/canvas-target/canvas.component';
+import { SurfaceComponent } from './components/surface/surface.component';
 import { SmallModalComponent } from './components/small-modal/small-modal.component';
 import { FormNewImageComponent } from './components/form-new-image/form-new-image.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
@@ -22,6 +22,7 @@ import { ProjectService } from './shared/project.service';
 import { KeyboardService } from './shared/keyboard.service';
 
 import { MouseWheelDirective } from './shared/mouseWheel.directive';
+import { LayerComponent } from './components/layer/layer.component';
 
 
 
@@ -29,17 +30,18 @@ import { MouseWheelDirective } from './shared/mouseWheel.directive';
   declarations: [
 
     AppComponent,
-NotSupportedBrowserComponent,
+    NotSupportedBrowserComponent,
     LayoutComponent,
     StatusbarComponent,
     MenubarComponent,
     ToolbarComponent,
-    CanvasComponent,
+    SurfaceComponent,
     SmallModalComponent,
     FormNewImageComponent,
     WorkspaceComponent,
     ProjectComponent,
-    MouseWheelDirective
+    MouseWheelDirective,
+    LayerComponent
   ],
   imports: [
     DropdownModule.forRoot(),
@@ -49,7 +51,7 @@ NotSupportedBrowserComponent,
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [ ProjectService, KeyboardService ],
+  providers: [ProjectService, KeyboardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
