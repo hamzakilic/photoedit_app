@@ -8,6 +8,7 @@ import { ProjectService } from '../../shared/project.service';
 import { KeyboardService } from '../../shared/keyboard.service';
 import { Workspace } from '../../shared/project/workSpace';
 import { SurfaceComponent } from '../surface/surface.component';
+import { LayerComponent } from '../layer/layer.component';
 
 
 import { WorkspaceComponent } from './workspace.component';
@@ -19,10 +20,10 @@ import { Callback  } from '../../lib/callback';
 describe('WorkspaceComponent', () => {
   let component: WorkspaceComponent;
   let fixture: ComponentFixture<WorkspaceComponent>;
-
+  let workspace: Workspace;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SurfaceComponent, WorkspaceComponent  ],
+      declarations: [ SurfaceComponent, WorkspaceComponent,LayerComponent  ],
       providers: [ ProjectService, KeyboardService ],
       imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]
 
@@ -34,7 +35,8 @@ describe('WorkspaceComponent', () => {
 
     fixture = TestBed.createComponent(WorkspaceComponent);
     component = fixture.componentInstance;
-    component.ws = new Workspace(10,20);
+    workspace = new Workspace(10,20);
+    component.workspace = workspace;
     component.ngOnInit();
     fixture.detectChanges();
   });
@@ -42,20 +44,15 @@ describe('WorkspaceComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
 
-    expect(component.width).toEqual(10);
-    expect(component.height).toEqual(20);
+  });
+
+  it('should have canvas items', () => {
+    var compiled= fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('layer-component')).toBeTruthy();
+
 
   });
 
-  it('should canvas width and height must be correct', (done) => {
-      component.ws.onEvent(Workspace.EVENTRESIZED,new Callback(()=>{
-        expect(component.width).toEqual(100);
-        expect(component.height).toEqual(200);
-        done();
-      }));
-      component.ws.resize(100,200,undefined);
-
-  });
 
 
 

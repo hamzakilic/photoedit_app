@@ -15,6 +15,7 @@ import { ProjectService } from '../../shared/project.service';
 import {SomeTestFuncs} from '../../lib/someTestFuncs'
 
 import {Callback } from '../../lib/callback';
+import { CmdTestSomeThing } from '../../shared/commands/cmdTestSomeThing';
 
 
 @Component({
@@ -24,8 +25,9 @@ import {Callback } from '../../lib/callback';
 })
 export class MenubarComponent implements OnInit {
   public menus: menu [];
+  private projectService: ProjectService;
   constructor(projectService: ProjectService ) {
-
+    this.projectService  = projectService;
     this.menus = [];
 
     let menuFile = new menu("File");
@@ -80,7 +82,7 @@ export class MenubarComponent implements OnInit {
 
 
         let menuTest = new menu("Test");
-    menuTest.childs.push(new menuItem("Test Something",new Callback(this.testSomeThingClicked)));
+    menuTest.childs.push(new menuItem("Test Something",new Callback(()=>{this.testSomeThingClicked();})));
     this.menus.push(menuTest);
 
 
@@ -91,7 +93,10 @@ export class MenubarComponent implements OnInit {
   }
 
   testSomeThingClicked(){
-      MessageBus.publish(Message.ShowError,{msg:'hamza'});
+
+     // MessageBus.publish(Message.ShowError,{msg:'hamza'});
+     let cmd = new CmdTestSomeThing('ba',this.projectService);
+     cmd.executeAsync();
   }
 
   notImplementedYet(){

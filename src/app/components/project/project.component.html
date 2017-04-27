@@ -1,10 +1,10 @@
 <tabset *ngIf="project != undefined" #staticTabs class="fontsmall ">
 
- <tab *ngFor="let work of project.workspaces"  class="fontsmall"  (select)="selectWorkspace(work)" (removed)="removeWorkspace(work)" [removable]="work.isRemoveable"  [heading]="work.name"  >
+ <tab *ngFor="let workspace of project.workspaces"  class="fontsmall"  (select)="selectWorkspace(workspace)" (removed)="removeWorkspace(workspace)" [removable]="workspace.isRemoveable"  [heading]="workspace.name"  >
 
-   <workspace-component  [ws]="work" class="wsc"
-    mouseWheel (mouseWheelUp)="work.mouseWheelUpFunc()"
-    (mouseWheelDown)="work.mouseWheelDownFunc()" >
+   <workspace-component  [workspace]="workspace" class="wsc"
+    mouseWheel (mouseWheelUp)="workspace.mouseWheelUpFunc()"
+    (mouseWheelDown)="workspace.mouseWheelDownFunc()" >
     </workspace-component>
 
 

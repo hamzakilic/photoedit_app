@@ -6,7 +6,9 @@ import { ModalModule } from 'ng2-bootstrap';
 
 import { ProjectComponent } from './project.component';
 import { WorkspaceComponent } from '../workspace/workspace.component';
+import { LayerComponent } from '../layer/layer.component';
 import { SurfaceComponent } from '../surface/surface.component';
+
 
 import { ProjectService } from '../../shared/project.service';
 import { KeyboardService } from '../../shared/keyboard.service';
@@ -23,7 +25,7 @@ describe('ProjectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProjectComponent,WorkspaceComponent,SurfaceComponent ],
+      declarations: [ ProjectComponent,WorkspaceComponent,SurfaceComponent,LayerComponent ],
 
       providers: [ ProjectService, KeyboardService ],
       imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]

@@ -17,15 +17,17 @@ import { Callback } from '../../lib/callback';
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss']
 })
-export class WorkspaceComponent extends SurfaceComponent {
+export class WorkspaceComponent {
   private projectService: ProjectService;
   private keyboardService: KeyboardService;
+
+
   @Input()
-  ws:Workspace;
+  workspace:Workspace;
 
 
   constructor(projectService: ProjectService, keyboardService: KeyboardService) {
-    super();
+
     this.projectService = projectService;
     this.keyboardService = keyboardService;
 
@@ -33,24 +35,6 @@ export class WorkspaceComponent extends SurfaceComponent {
 
 
   ngOnInit() {
-    if(this.ws){
-       let call =new Callback((callFunc)=>{
-
-       this.setWidthHeight(this.ws.width,this.ws.height,new Callback(()=>{
-       this.ws.render(this.grphics);
-
-      if(callFunc)
-        callFunc.call(undefined);
-
-      }));
-    });
-    this.ws.onEvent(Workspace.EVENTRESIZED,call);
-    }
-
-
-
-
-    this.setBackgroundImage();
 
   }
   ngOnDestroy(){
@@ -58,14 +42,7 @@ export class WorkspaceComponent extends SurfaceComponent {
 
   }
 
-  private setBackgroundImage(){
-    if(this.ws && this.ws.width)
-      this.setWidthHeight(this.ws.width,this.ws.height,new Callback(()=>{
-     // this.ws.render(this.BackgroundCanvas.grphics);
-    }));
 
-
-  }
 
 
   onSelected(workspace: Workspace){
@@ -75,13 +52,14 @@ export class WorkspaceComponent extends SurfaceComponent {
 
   mouseWheelUpFunc() {
     if(this.keyboardService.IsCtrlPressed)
-      this.scalePlus();
+     {}
 
   }
 
   mouseWheelDownFunc() {
     if(this.keyboardService.IsCtrlPressed)
-      this.scaleMinus();
+      {}
+
 
   }
 

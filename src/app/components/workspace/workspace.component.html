@@ -1,6 +1,12 @@
-<canvas [attr.id]="uuid" #renderCanvas class="canvas" [(attr.width)]="width" [(style.width.px)]="stwidth"   [(attr.height)]="height" [(style.height.px)]="stheight" >
+<div>
 
-</canvas>
+<layer-component [surface]="workspace.backgroundLayer" >
+</layer-component>
+<layer-component [surface]="workspace.foregroundLayer" >
+</layer-component>
+<layer-component *ngFor="let layer of workspace.layers" [surface]='layer'>
+</layer-component>
+<div>
 
 
 

@@ -20,6 +20,7 @@ describe('workspace', () => {
     expect(item.layers.length).toEqual(0);
   });
 
+
   it('should have a default name', () => {
     let item = new Workspace(10,10);
     expect(item.name).toEqual('image');
@@ -40,6 +41,20 @@ describe('workspace', () => {
 
 
   });
+  it('background and foreground layers must true', () => {
+    let item = new Workspace(10,20,'hamza')
+    expect(item.backgroundLayer.width).toEqual(10);
+    expect(item.backgroundLayer.height).toEqual(20);
+    expect(item.backgroundLayer.stwidth).toEqual(10);
+    expect(item.backgroundLayer.stheight).toEqual(20);
+     expect(item.foregroundLayer.width).toEqual(10*2);
+    expect(item.foregroundLayer.height).toEqual(20*2);
+    expect(item.foregroundLayer.stwidth).toEqual(10*2);
+    expect(item.foregroundLayer.stheight).toEqual(20*2);
+
+
+  });
+
   it('should resize must call', (done) => {
     let item = new Workspace(10,10,'hamza');
 

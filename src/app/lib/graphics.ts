@@ -15,9 +15,9 @@ export class Graphics{
      this.width = width;
      this.height = height;
      this.scale = scale;
-     this.context.fillStyle = "rgba(255,255,255,1)";
+    /* this.context.fillStyle = "rgba(255,255,255,1)";
      this.context.rect(0, 0, width, height);
-     this.context.fill();
+     this.context.fill();*/
 
   }
   public dispose(){

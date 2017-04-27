@@ -9,6 +9,7 @@ export class ProjectService {
   }
 
   public get currentProject(): Proj{
+
       return this.project;
   }
   public createProject(name?: string){

@@ -22,6 +22,7 @@ import { FormNewImageComponent } from './components/form-new-image/form-new-imag
 import { ProjectComponent } from './components/project/project.component';
 
 import { WorkspaceComponent } from './components/workspace/workspace.component';
+import { LayerComponent } from './components/layer/layer.component';
 
 import { ProjectService } from './shared/project.service';
 import { KeyboardService } from './shared/keyboard.service';
@@ -47,7 +48,8 @@ NotSupportedBrowserComponent,
     SmallModalComponent,
     FormNewImageComponent,
     ProjectComponent,
-    WorkspaceComponent
+    WorkspaceComponent,
+    LayerComponent
   ],
  imports: [
     DropdownModule.forRoot(),
@@ -81,3 +83,4 @@ NotSupportedBrowserComponent,
     //expect(compiled.querySelector('h1').textContent).toContain('app works!');
   }));
 });
+

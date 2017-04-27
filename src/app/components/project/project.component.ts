@@ -12,7 +12,7 @@ import { WorkspaceComponent } from '../workspace/workspace.component';
 })
 export class ProjectComponent implements OnInit {
   projectService: ProjectService;
-  private project: Proj;
+  public project: Proj;
 
   constructor(projectService: ProjectService) {
     this.projectService = projectService;
