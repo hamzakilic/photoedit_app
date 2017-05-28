@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SurfaceComponent } from '../surface/surface.component';
 import { Layer } from '../../shared/project/layer';
+import { Callback }from '../../lib/callback';
 
 @Component({
   selector: 'layer-component',
@@ -17,6 +18,17 @@ export class LayerComponent extends SurfaceComponent  {
     super()
 
    }
+
+   ngOnInit(){
+
+     this.surface.whenCreatedGraphicsAgain= new Callback(()=>(this.surface.render()));
+
+   }
+   ngDoCheck(){
+
+   }
+
+
 
 
 

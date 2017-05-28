@@ -9,7 +9,7 @@ import { KeyboardService } from '../../shared/keyboard.service';
 import { SurfaceComponent } from '../surface/surface.component';
 import { Workspace } from '../../shared/project/workSpace';
 
-import { Image } from '../../lib/image' ;
+import { HImage } from '../../lib/image' ;
 import { Callback } from '../../lib/callback';
 
 @Component({
@@ -50,7 +50,7 @@ export class WorkspaceComponent {
   }
 
 
-  mouseWheelUpFunc() {
+  /*mouseWheelUpFunc() {
     if(this.keyboardService.IsCtrlPressed)
      {}
 
@@ -61,7 +61,7 @@ export class WorkspaceComponent {
       {}
 
 
-  }
+  }*/
 
 
 

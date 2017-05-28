@@ -7,15 +7,15 @@ import {CmdShowError } from './cmdShowError';
 import { ProjectService } from '../project.service';
 import { Workspace } from '../project/workSpace';
 import { Layer } from '../project/layer';
-import { LayerImage } from '../project/layerImage';
+import { LayerHtmlImage } from '../project/layerHtmlImage';
 
 
 export class CmdReadImageFromBuffer extends Command {
 
-  private buffer: ArrayBuffer;
+  private buffer: any;
   private projectService:  ProjectService;
   private fileName: string;
-  constructor(data: ArrayBuffer,fileName: string,projectService: ProjectService) {
+  constructor(data: any,fileName: string,projectService: ProjectService) {
     super();
     this.buffer = data;
     this.projectService =  projectService;
@@ -25,6 +25,17 @@ export class CmdReadImageFromBuffer extends Command {
 
     if (!this.buffer)
       return;
+      let img = new Image();
+      img.onload =()=>{
+
+        let ws = new Workspace(img.width,img.height,this.fileName);
+               let ly = new LayerHtmlImage(img,'background');
+               ws.addLayer(ly);
+               this.projectService.currentProject.addWorkspace(ws);
+
+      };
+      img.src =this.buffer;
+
 /*
       let stream = new iskilip_memoryStream(this.buffer);
       let dec = new iskilip_bmpDecoder();

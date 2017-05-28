@@ -2,8 +2,9 @@ import { Layer } from './layer';
 import { Graphics } from '../../lib/graphics';
 
 import { Image  } from '../../lib/image';
+import  { Rect } from '../../lib/draw/rect'
 
-export class LayerEmpty extends Layer{
+export class LayerBackground extends Layer{
 
 
 
@@ -12,8 +13,10 @@ export class LayerEmpty extends Layer{
 
   }
   public render(): void{
-
+    console.log("rendering background layer");
+    this.graphics.fillRect(new Rect(0,0,this.width,this.height),'#FFFFFF')
   }
+
   public dispose(){
 
   }

@@ -7,7 +7,7 @@ import { HEventEmitter } from './eventEmitter';
  * an image with a RGBA  pixel layout,
  * top to bottom, left to right
  */
-export class Image extends HEventEmitter {
+export class HImage extends HEventEmitter {
 
     private _width: number;
     private _height: number;
@@ -64,10 +64,10 @@ export class Image extends HEventEmitter {
     public fill(val: number,start?: number, end?: number){
         this._pixels.fill(val,start,end);
     }
-    public clone(): Image {
+    public clone(): HImage {
         let arr = new Uint8ClampedArray(this._width*this._height*4);
         arr.set(this._pixels);
-        return new Image(this._width,this._height,arr);
+        return new HImage(this._width,this._height,arr);
     }
 
 

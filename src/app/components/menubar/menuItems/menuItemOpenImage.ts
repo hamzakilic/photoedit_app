@@ -33,7 +33,7 @@ export class menuItemOpenImage extends menuItemOpenFile {
 
     onSuccess(data: FileData){
 
-      let cmd = new CmdReadImageFromBuffer(data.buffer,data.fileName,this.projectService);
+      let cmd = new CmdReadImageFromBuffer(data.result,data.fileName,this.projectService);
       cmd.executeAsync();
 
     }

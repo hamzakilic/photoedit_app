@@ -1,5 +1,5 @@
-import {Image } from './image';
-
+import {HImage } from './image';
+import { Rect } from '../lib/draw/rect'
 
 export class Graphics{
   private context : CanvasRenderingContext2D;
@@ -23,7 +23,7 @@ export class Graphics{
   public dispose(){
 
   }
-  public  drawImage(img:Image){
+  public  drawImage(img:HImage){
 
      let imageData = this.context.getImageData(0,0,this.width,this.height);
 
@@ -36,5 +36,18 @@ export class Graphics{
 
      this.context.putImageData(imageData,0,0);
 
+  }
+
+
+public  drawHtmlImage(img: HTMLImageElement,x: number, y: number){
+
+      this.context.drawImage(img,x,y);
+
+  }
+
+
+  public fillRect(rect:Rect, brush:string):void{
+    this.context.fillStyle = brush;
+    this.context.fillRect(rect.x,rect.y,rect.width,rect.height);
   }
 }

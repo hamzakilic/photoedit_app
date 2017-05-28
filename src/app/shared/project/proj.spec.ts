@@ -59,7 +59,7 @@ describe('project', () => {
     project.addWorkspace(ws2);
     project.addWorkspace(ws3);
     expect(project.workspaces.length).toEqual(3);
-    project.setActiveWorkspace(ws2);
+    project.activeWorkspace=ws2;
     expect(ws.isActive).not.toBe(true);
     expect(ws2.isActive).toBe(true);
     expect(ws3.isActive).not.toBe(true);
@@ -76,7 +76,7 @@ describe('project', () => {
     project.addWorkspace(ws2);
     project.addWorkspace(ws3);
     expect(project.workspaces.length).toEqual(3);
-    project.setActiveWorkspace(ws2);
+    project.activeWorkspace =(ws2);
     expect(project.activeWorkspace).toBeDefined();
 
 

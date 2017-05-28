@@ -33,7 +33,7 @@ export class Proj {
         ws.isActive=true;
     return ws;
   }
-  public setActiveWorkspace(ws:Workspace){
+  public set activeWorkspace(ws:Workspace){
     this._workspaces.forEach((item)=>{
       item.isActive=false;
       if(item === ws)

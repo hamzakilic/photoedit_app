@@ -1,7 +1,7 @@
 
 
 export class FileData{
-  public buffer: ArrayBuffer;
+  public result: any;
   public fileName: string;
 
 }

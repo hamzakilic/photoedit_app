@@ -1,11 +1,14 @@
 <div>
 
-<layer-component [surface]="workspace.backgroundLayer" >
+<layer-component background [surface]="workspace.backgroundLayer" >
 </layer-component>
-<layer-component [surface]="workspace.foregroundLayer" >
-</layer-component>
+
 <layer-component *ngFor="let layer of workspace.layers" [surface]='layer'>
 </layer-component>
+
+<!--<layer-component foreground [surface]="workspace.foregroundLayer" >
+</layer-component>
+-->
 <div>
 
 

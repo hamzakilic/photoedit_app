@@ -1,9 +1,10 @@
 import { Layer } from './layer';
 import { LayerEmpty } from './layerEmpty';
+import { LayerBackground } from './layerBackground';
 import { Graphics } from '../../lib/graphics';
 import { Callback  } from '../../lib/callback';
 import { HEventEmitter } from '../../lib/eventEmitter'
-import { Image } from '../../lib/image';
+import { HImage } from '../../lib/image';
 
 
 export class Workspace extends HEventEmitter  {
@@ -38,7 +39,7 @@ export class Workspace extends HEventEmitter  {
       this._height = 100;
       else this._height = height;
 
-        this.backgroundLayer = new LayerEmpty('backgroundlayer');
+        this.backgroundLayer = new LayerBackground('backgroundlayer');
         this.backgroundLayer.width= this.width;
         this.backgroundLayer.height =this.height;
         this.backgroundLayer.stwidth = this.width;
@@ -48,8 +49,8 @@ export class Workspace extends HEventEmitter  {
         this.backgroundLayer.zIndex = 0;
 
         this.foregroundLayer = new LayerEmpty('foregroundlayer');
-        this.foregroundLayer.width= this.width*2;
-        this.foregroundLayer.height =this.height*2;
+        this.foregroundLayer.width= this.width+2*this.offsetLeft;
+        this.foregroundLayer.height =this.height+2* this.offsetTop;
         this.foregroundLayer.stwidth = this.foregroundLayer.width;
         this.foregroundLayer.stheight = this.foregroundLayer.height;
         this.foregroundLayer.left = 0;
@@ -79,6 +80,9 @@ export class Workspace extends HEventEmitter  {
 
     public addLayer(ly: Layer){
       if(ly){
+        ly.left = this.offsetLeft;
+        ly.top = this.offsetTop;
+
         this._layers.push(ly);
       }
     }
@@ -86,7 +90,10 @@ export class Workspace extends HEventEmitter  {
       this._layers = [];
     }
 
-    public render(grp: Graphics){
+    public render(){
+      console.log('rendering workspace');
+      this.backgroundLayer.render();
+      this._layers.forEach((item)=>item.render());
 
     }
 
@@ -104,9 +111,30 @@ export class Workspace extends HEventEmitter  {
 
     }
 
+    public mouseWheelUpFunc(){
+      console.log('wheelup');
+    }
 
+    public mouseWheelDownFunc(){
+      console.log('wheeldown');
+    }
+
+
+    public zoomIn(){
+      this.backgroundLayer.scalePlus();
+      this.foregroundLayer.scalePlus();
+      this._layers.forEach((item)=>item.scalePlus());
+
+    }
+
+    public zoomOut(){
+      this.backgroundLayer.scaleMinus();
+      this.foregroundLayer.scaleMinus();
+      this._layers.forEach((item)=>item.scaleMinus());
+    }
 
     public static readonly EVENTRESIZED="resized";
 }
+
 
 

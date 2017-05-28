@@ -15,6 +15,7 @@ import { ProjectService } from '../../shared/project.service';
 import {SomeTestFuncs} from '../../lib/someTestFuncs'
 
 import {Callback } from '../../lib/callback';
+import { CmdZoom } from '../../shared/commands/cmdZoom';
 import { CmdTestSomeThing } from '../../shared/commands/cmdTestSomeThing';
 
 
@@ -50,8 +51,8 @@ export class MenubarComponent implements OnInit {
 
     let menuView = new menu("View");
 
-    menuView.childs.push(new menuItem("Zoom in",new Callback(this.notImplementedYet)));
-    menuView.childs.push(new menuItem("Zoom out",new Callback(this.notImplementedYet)));
+    menuView.childs.push(new menuItem("Zoom in",new Callback(()=>{ this.zoomIn()})));
+    menuView.childs.push(new menuItem("Zoom out",new Callback(()=>{this.zoomOut()})));
     menuView.childs.push(new menuItem("Zoom fit",new Callback(this.notImplementedYet)));
     menuView.childs.push(new menuItem("Zoom fitH",new Callback(this.notImplementedYet)));
     menuView.childs.push(new menuItem("Zoom fitW",new Callback(this.notImplementedYet)));
@@ -62,7 +63,7 @@ export class MenubarComponent implements OnInit {
 
     let menuImage = new menu("Image");
 
-    menuImage.childs.push(new menuItem("Resize",new Callback(this.notImplementedYet)));
+    menuImage.childs.push(new menuItem("Resize",new Callback((this.notImplementedYet))));
     menuImage.childs.push(new menuItem("Crop",new Callback(this.notImplementedYet)));
     menuImage.childs.push(new menuItem("Rotate",new Callback(this.notImplementedYet)));
     this.menus.push(menuImage);
@@ -105,6 +106,15 @@ export class MenubarComponent implements OnInit {
 
   showAbout(){
       MessageBus.publish(Message.ShowAbout,undefined);
+  }
+  zoomIn(){
+    let cmd = new CmdZoom(CmdZoom.In,this.projectService);
+    cmd.executeAsync();
+  }
+
+  zoomOut(){
+    let cmd = new CmdZoom(CmdZoom.Out,this.projectService);
+    cmd.executeAsync();
   }
 
 }

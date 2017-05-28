@@ -1,5 +1,6 @@
 
 import { Callback } from './callback';
+import { Graphics } from './graphics';
 export class Surface{
 
    public width = 0;
@@ -15,6 +16,7 @@ export class Surface{
 }
 
 export class SurfaceCanvas extends Surface{
+  public graphics:Graphics;
   public resizedAgain = false;
   public scalePlus():void{
       this.scale *= 1.1;
@@ -32,8 +34,8 @@ export class SurfaceCanvas extends Surface{
       this.stheight = this.scale * this.height;
 
   }
-  public whenWidthAndChanged: Callback;
 
+  public whenCreatedGraphicsAgain: Callback;
   public setWidthHeight(width:number,height:number,func?: Callback): void {
 
       this.width = width;
@@ -42,6 +44,6 @@ export class SurfaceCanvas extends Surface{
       this.stwidth = this.width;
       this.stheight = this.height;
       this.resizedAgain = false;
-      this.whenWidthAndChanged= func;
+      this.whenCreatedGraphicsAgain= func;
   }
 }

@@ -1,17 +1,17 @@
 import { Layer } from './layer';
 import { Graphics } from '../../lib/graphics';
 
-import { Image  } from '../../lib/image';
+import { HImage  } from '../../lib/image';
 
 export class LayerImage extends Layer{
 
-  private img: Image;
+  private img: HImage;
 
-  constructor(img:Image,name?: string) {
+  constructor(img:HImage,name?: string) {
     super(name);
     this.img = img;
   }
-  public render(grp: Graphics): void{
+  public render(): void{
 
   }
   public dispose(){

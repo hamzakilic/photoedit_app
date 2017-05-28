@@ -27,7 +27,7 @@ export class ProjectComponent implements OnInit {
   }
   selectWorkspace(ws:Workspace){
 
-    this.project.setActiveWorkspace(ws);
+    this.project.activeWorkspace=(ws);
   }
 
   removeWorkspace(ws:Workspace){

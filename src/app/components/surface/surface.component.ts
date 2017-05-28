@@ -63,17 +63,27 @@ export class SurfaceComponent  implements OnInit,OnChanges,DoCheck {
   }
 
   ngAfterViewChecked(){
+    //width ve height değiştirilde
+    //canvas elementinden yeni bir graphics nesnesi üretmek gerekiyor
+
     if(this.surface)
     if(!this.surface.resizedAgain)
       if(this.surface.width == this.canvas.nativeElement.width && this.surface.height == this.canvas.nativeElement.height){
         if(this.grphics)
             this.grphics.dispose();
 
+            //burada graphics nesnesi oluşturulur
 
         this.grphics = new Graphics(this.canvas,this.surface.width,this.surface.height,1);
         this.surface.resizedAgain = true;
-        if(this.surface.whenWidthAndChanged)
-            this.surface.whenWidthAndChanged.call(undefined);
+        //çok önemli
+        //burada surface nesnesinin graphics nesnesine atama yapılıyor
+        //neticede biz diğer
+        this.surface.graphics=this.grphics;
+        if(this.surface.whenCreatedGraphicsAgain)
+           this.surface.whenCreatedGraphicsAgain.call(undefined);
+
+
       }
 
 

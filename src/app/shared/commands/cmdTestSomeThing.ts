@@ -8,7 +8,7 @@ import { ProjectService } from '../project.service';
 import { Workspace } from '../project/workSpace';
 import { Layer } from '../project/layer';
 import { LayerImage } from '../project/layerImage';
-import { Image } from '../../lib/image';
+import { HImage } from '../../lib/image';
 
 
 
@@ -22,7 +22,7 @@ export class CmdTestSomeThing extends Command {
     this.projectService = projectService;
   }
   protected execute(): void {
-    let layer = new LayerImage(new Image(10,10),'hamza');
+    let layer = new LayerImage(new HImage(10,10),'hamza');
     this.projectService.currentProject.activeWorkspace.addLayer(layer);
   }
 }

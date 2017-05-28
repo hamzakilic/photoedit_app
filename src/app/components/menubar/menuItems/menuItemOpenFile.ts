@@ -39,7 +39,7 @@ export class menuItemOpenFile extends menuItem {
 
     if (fileList && fileList.length > 0) {
 
-        ReadFileOrUrl.readAsync(fileList[0], this.onSuccessFunc, this.onErrorFunc, this.onProgressFunc);
+        ReadFileOrUrl.readAsync(fileList[0], 2, this.onSuccessFunc, this.onErrorFunc, this.onProgressFunc);
     }
   }
 

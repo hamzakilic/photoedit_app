@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
 import { Callback  } from '../../lib/callback';
-import { Image  } from '../../lib/image';
+import { HImage  } from '../../lib/image';
 import { Message } from '../../lib/message';
 import { MessageBus } from '../../lib/messageBus';
 import { newImageInterface } from './new-image.interface';
@@ -68,11 +68,12 @@ export class FormNewImageComponent implements OnInit {
   doSubmit(event) {
     if (this.formNewImage.valid){
 
-         let img = new Image(this.width,this.height);
-         let ws = new Workspace(this.width,this.height,"new ("+img.width()+"x"+img.height()+")");
+         //let img = new HImage(this.width,this.height);
+         let ws = new Workspace(this.width,this.height,"new ("+this.width+"x"+this.height+")");
         // let ly = new layerImage(img,'background');
         // ws.addLayer(ly);
          this.projectService.currentProject.addWorkspace(ws);
+
          this.smModal.hide();
     }
   }
