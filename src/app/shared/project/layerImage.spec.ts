@@ -2,7 +2,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Callback  } from '../../lib/callback';
-import { Image  } from '../../lib/image';
+import { HImage  } from '../../lib/image';
 import { Message } from '../../lib/message'
 import { MessageBus } from '../../lib/messageBus';
 
@@ -12,7 +12,7 @@ import { Layer } from './layer';
 import { LayerImage } from './layerImage';
 
 describe('layerImage', () => {
-  let img =new Image(1,1);
+  let img =new HImage(1,1);
 
   it('should create', () => {
     let item = new LayerImage(img);

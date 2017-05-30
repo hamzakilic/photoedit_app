@@ -12,10 +12,10 @@ export class ToolbarComponent implements OnInit {
   constructor() {
     this.tabs = [];
     this.justified = true;
-    let tabTools = new toolBarTab("Toolbar","Toolbar");
+    let tabTools = new toolBarTab("Tools","Tools");
     this.tabs.push(tabTools);
-    let tabProject = new toolBarTab("Project","Project");
-    this.tabs.push(tabProject);
+   // let tabProject = new toolBarTab("Project","Project");
+   // this.tabs.push(tabProject);
 
    }
 

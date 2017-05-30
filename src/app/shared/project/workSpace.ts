@@ -5,7 +5,7 @@ import { Graphics } from '../../lib/graphics';
 import { Callback  } from '../../lib/callback';
 import { HEventEmitter } from '../../lib/eventEmitter'
 import { HImage } from '../../lib/image';
-
+import { Utility } from '../../lib/utility';
 
 export class Workspace extends HEventEmitter  {
     private _name:string
@@ -17,14 +17,18 @@ export class Workspace extends HEventEmitter  {
     public isRemoveable:boolean;
     public isActive: boolean;
 
-    public readonly offsetLeft = 50;
-    public readonly offsetTop = 50;
+    public readonly padding = 50;
+
     public backgroundLayer: Layer;
     public foregroundLayer: Layer;
 
+    public uuid:string;
+
+    private nativeElement: any;
+
     constructor(width:number,height:number,name?: string) {
       super();
-
+      this.uuid = Utility.uuid();
       if(name)
       this._name = name;
       else this._name="image";
@@ -44,18 +48,18 @@ export class Workspace extends HEventEmitter  {
         this.backgroundLayer.height =this.height;
         this.backgroundLayer.stwidth = this.width;
         this.backgroundLayer.stheight = this.height;
-        this.backgroundLayer.left = this.offsetLeft;
-        this.backgroundLayer.top = this.offsetTop;
+        this.backgroundLayer.padding = this.padding;
+
         this.backgroundLayer.zIndex = 0;
 
-        this.foregroundLayer = new LayerEmpty('foregroundlayer');
+        /*this.foregroundLayer = new LayerEmpty('foregroundlayer');
         this.foregroundLayer.width= this.width+2*this.offsetLeft;
         this.foregroundLayer.height =this.height+2* this.offsetTop;
         this.foregroundLayer.stwidth = this.foregroundLayer.width;
         this.foregroundLayer.stheight = this.foregroundLayer.height;
         this.foregroundLayer.left = 0;
         this.foregroundLayer.top = 0;
-        this.foregroundLayer.zIndex = 1000;
+        this.foregroundLayer.zIndex = 1000;*/
 
 
     }
@@ -80,8 +84,7 @@ export class Workspace extends HEventEmitter  {
 
     public addLayer(ly: Layer){
       if(ly){
-        ly.left = this.offsetLeft;
-        ly.top = this.offsetTop;
+        ly.padding = this.padding;
 
         this._layers.push(ly);
       }
@@ -118,18 +121,32 @@ export class Workspace extends HEventEmitter  {
     public mouseWheelDownFunc(){
       console.log('wheeldown');
     }
+    //mouse move positions
+    public mouseX: number;
+    //mouse move positions
+    public mouseY: number;
+    public mouseMove(event: any){
+
+      if(!this.nativeElement)
+       this.nativeElement = document.getElementById(this.uuid);
+      var rect = this.nativeElement.getBoundingClientRect();
+      this.mouseX = (event.pageX-rect.left) + window.scrollX;
+      this.mouseY = (event.pageY-rect.top) + window.scrollY;
+      //console.log(event.clientX+":"+event.clientY+"/"+event.movementX+":"+event.movementY+"/"+event.offsetX+":"+event.offsetY+"/"+event.pageX+":"+event.pageY+"/"+event.screenX+":"+event.screenY);
+     // console.log(this.mouseX+":"+this.mouseY);
+    }
 
 
     public zoomIn(){
       this.backgroundLayer.scalePlus();
-      this.foregroundLayer.scalePlus();
+
       this._layers.forEach((item)=>item.scalePlus());
 
     }
 
     public zoomOut(){
       this.backgroundLayer.scaleMinus();
-      this.foregroundLayer.scaleMinus();
+
       this._layers.forEach((item)=>item.scaleMinus());
     }
 

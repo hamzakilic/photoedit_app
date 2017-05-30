@@ -30,7 +30,7 @@ export class Graphics{
      var data = imageData.data;
      //imageData.data=img.Pixels;
 
-     //img.Pixels.forEach((val,index)=>{ data[index]=val});
+    // img.Pixels.forEach((val,index)=>{ data[index]=val});
      data.set(img.Pixels);
 
 

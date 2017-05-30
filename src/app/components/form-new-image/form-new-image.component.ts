@@ -68,10 +68,10 @@ export class FormNewImageComponent implements OnInit {
   doSubmit(event) {
     if (this.formNewImage.valid){
 
-         //let img = new HImage(this.width,this.height);
+
          let ws = new Workspace(this.width,this.height,"new ("+this.width+"x"+this.height+")");
-        // let ly = new layerImage(img,'background');
-        // ws.addLayer(ly);
+         let ly = new LayerImage(new HImage(this.width,this.height),'background');
+         ws.addLayer(ly);
          this.projectService.currentProject.addWorkspace(ws);
 
          this.smModal.hide();

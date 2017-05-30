@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit,ElementRef } from '@angular/core';
 
 import { DropdownModule } from 'ng2-bootstrap';
 import { TabsModule } from 'ng2-bootstrap';
@@ -41,6 +41,9 @@ export class WorkspaceComponent {
 
 
   }
+  ngAfterViewInit(){
+
+  }
 
 
 
@@ -48,6 +51,8 @@ export class WorkspaceComponent {
   onSelected(workspace: Workspace){
     alert(workspace.name);
   }
+
+
 
 
   /*mouseWheelUpFunc() {

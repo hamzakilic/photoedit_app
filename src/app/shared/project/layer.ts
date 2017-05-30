@@ -1,6 +1,6 @@
 
 import { Callback } from '../../lib/callback';
-import { Image  } from '../../lib/image';
+import { HImage  } from '../../lib/image';
 import { Graphics } from '../../lib/graphics';
 import { SurfaceCanvas } from '../../lib/surface'
 

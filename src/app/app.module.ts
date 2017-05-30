@@ -21,8 +21,9 @@ import { ProjectComponent } from './components/project/project.component';
 import { ProjectService } from './shared/project.service';
 import { KeyboardService } from './shared/keyboard.service';
 
-import { MouseWheelDirective } from './shared/mouseWheel.directive';
+import { MouseDirective } from './shared/mouse.directive';
 import { LayerComponent } from './components/layer/layer.component';
+import { LayersInfoComponent } from './components/layers-info/layers-info.component';
 
 
 
@@ -40,8 +41,9 @@ import { LayerComponent } from './components/layer/layer.component';
     FormNewImageComponent,
     WorkspaceComponent,
     ProjectComponent,
-    MouseWheelDirective,
-    LayerComponent
+    MouseDirective,
+    LayerComponent,
+    LayersInfoComponent
   ],
   imports: [
     DropdownModule.forRoot(),

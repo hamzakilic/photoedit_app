@@ -2,8 +2,7 @@
 
  <tab *ngFor="let workspace of project.workspaces"  class="fontsmall"  (select)="selectWorkspace(workspace)" (removed)="removeWorkspace(workspace)" [removable]="workspace.isRemoveable"  [heading]="workspace.name"  >
 
-   <workspace-component  [workspace]="workspace" class="wsc"
-    >
+   <workspace-component id='{{workspace.uuid}}'   [workspace]="workspace"  class="wsc" mouse (mouseMove)="workspace.mouseMove($event)" >
     </workspace-component>
 
 

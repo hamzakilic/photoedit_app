@@ -1,22 +1,23 @@
 
 import { Component, OnInit } from '@angular/core';
-import {menu} from './menu';
-import {menuItem } from './menu';
-import {Utility} from '../../lib/utility';
-import {ReadFileOrUrl} from '../../lib/readFileOrUrl';
-import {Message} from '../../lib/message';
-import {MessageBus} from '../../lib/messageBus';
-import {menuItemOpenFile } from '../menubar/menuItems/menuItemOpenFile';
-import {menuItemOpenImage } from '../menubar/menuItems/menuItemOpenImage';
-import {menuItemNewImage } from '../menubar/menuItems/menuItemNewImage';
+import { menu } from './menu';
+import { menuItem } from './menu';
+import { Utility} from '../../lib/utility';
+import { ReadFileOrUrl} from '../../lib/readFileOrUrl';
+import { Message} from '../../lib/message';
+import { MessageBus} from '../../lib/messageBus';
+import { menuItemOpenFile } from '../menubar/menuItems/menuItemOpenFile';
+import { menuItemOpenImage } from '../menubar/menuItems/menuItemOpenImage';
+import { menuItemNewImage } from '../menubar/menuItems/menuItemNewImage';
 
 import { ProjectService } from '../../shared/project.service';
 
-import {SomeTestFuncs} from '../../lib/someTestFuncs'
+import { SomeTestFuncs} from '../../lib/someTestFuncs'
 
-import {Callback } from '../../lib/callback';
+import { Callback } from '../../lib/callback';
 import { CmdZoom } from '../../shared/commands/cmdZoom';
 import { CmdTestSomeThing } from '../../shared/commands/cmdTestSomeThing';
+import { CmdNewLayer } from '../../shared/commands/cmdNewLayer';
 
 
 @Component({
@@ -71,7 +72,7 @@ export class MenubarComponent implements OnInit {
 
 
     let menuLayers = new menu("Layer");
-    menuLayers.childs.push(new menuItem("New",new Callback(this.notImplementedYet)));
+    menuLayers.childs.push(new menuItem("New",new Callback(()=>{this.newLayer()})));
     menuLayers.childs.push(new menuItem("New from selection",new Callback(this.notImplementedYet)));
     this.menus.push(menuLayers);
 
@@ -114,6 +115,10 @@ export class MenubarComponent implements OnInit {
 
   zoomOut(){
     let cmd = new CmdZoom(CmdZoom.Out,this.projectService);
+    cmd.executeAsync();
+  }
+  newLayer(){
+    let cmd = new CmdNewLayer(this.projectService);
     cmd.executeAsync();
   }
 

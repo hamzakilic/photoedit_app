@@ -1,9 +1,12 @@
 import { Directive, Output, HostListener, EventEmitter } from '@angular/core';
 
-@Directive({ selector: '[mouseWheel]' })
-export class MouseWheelDirective {
+@Directive({ selector: '[mouse]' })
+export class MouseDirective {
   @Output() mouseWheelUp = new EventEmitter();
   @Output() mouseWheelDown = new EventEmitter();
+  @Output() mouseDown = new EventEmitter();
+  @Output() mouseUp = new EventEmitter();
+  @Output() mouseMove = new EventEmitter();
 
   @HostListener('mousewheel', ['$event']) onMouseWheelChrome(event: any) {
     this.mouseWheelFunc(event);
@@ -16,6 +19,28 @@ export class MouseWheelDirective {
   @HostListener('onmousewheel', ['$event']) onMouseWheelIE(event: any) {
     this.mouseWheelFunc(event);
   }
+
+  @HostListener('mousedown',['$event']) onmousedown(event: any) {
+
+      this.mouseDown.emit(event);
+
+  }
+
+  @HostListener('mouseup',['$event']) onmouseup(event: any) {
+
+      this.mouseUp.emit(event);
+
+  }
+
+  @HostListener('mousemove',['$event']) onmousemove(event: any) {
+     // debugger;
+
+      this.mouseMove.emit(event);
+
+  }
+
+
+
 
   mouseWheelFunc(event: any) {
     var event = window.event || event; // old IE support

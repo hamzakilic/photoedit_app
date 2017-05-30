@@ -28,8 +28,8 @@ export class CmdReadImageFromBuffer extends Command {
       let img = new Image();
       img.onload =()=>{
 
-        let ws = new Workspace(img.width,img.height,this.fileName);
-               let ly = new LayerHtmlImage(img,'background');
+               let ws = new Workspace(img.width,img.height,this.fileName);
+               let ly = new LayerHtmlImage(img,'image');
                ws.addLayer(ly);
                this.projectService.currentProject.addWorkspace(ws);
 
