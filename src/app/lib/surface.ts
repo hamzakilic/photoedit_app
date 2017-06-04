@@ -8,7 +8,11 @@ export class Surface{
    public stwidth = 0;
    public stheight = 0;
    public scale = 1;
-   public padding = 0;
+   public marginLeft = 0;
+   public marginTop = 0;
+   public marginRight = 0;
+   public marginBottom = 0;
+
 
    public zIndex = 0;
 

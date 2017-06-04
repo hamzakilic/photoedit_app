@@ -1,5 +1,6 @@
 <tabset #staticTabs class="lineheightsmall">
     <tab  *ngFor="let tab of tabs"  heading={{tab.title}} (select)="tab.onSelected()" >
+      <tools-component></tools-component>
       <layersInfo-component></layersInfo-component>
     </tab>
 

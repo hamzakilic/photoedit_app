@@ -7,6 +7,7 @@ export class MouseDirective {
   @Output() mouseDown = new EventEmitter();
   @Output() mouseUp = new EventEmitter();
   @Output() mouseMove = new EventEmitter();
+    @Output() mouseLeave = new EventEmitter();
 
   @HostListener('mousewheel', ['$event']) onMouseWheelChrome(event: any) {
     this.mouseWheelFunc(event);
@@ -29,6 +30,11 @@ export class MouseDirective {
   @HostListener('mouseup',['$event']) onmouseup(event: any) {
 
       this.mouseUp.emit(event);
+
+  }
+   @HostListener('mouseleave',['$event']) onmouseleave(event: any) {
+
+      this.mouseLeave.emit(event);
 
   }
 

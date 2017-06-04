@@ -20,6 +20,7 @@ import { SurfaceComponent } from './components/surface/surface.component';
 import { SmallModalComponent } from './components/small-modal/small-modal.component';
 import { FormNewImageComponent } from './components/form-new-image/form-new-image.component';
 import { ProjectComponent } from './components/project/project.component';
+import { LayersInfoComponent } from './components/layers-info/layers-info.component';
 
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { LayerComponent } from './components/layer/layer.component';
@@ -49,7 +50,8 @@ NotSupportedBrowserComponent,
     FormNewImageComponent,
     ProjectComponent,
     WorkspaceComponent,
-    LayerComponent
+    LayerComponent,
+    LayersInfoComponent
   ],
  imports: [
     DropdownModule.forRoot(),

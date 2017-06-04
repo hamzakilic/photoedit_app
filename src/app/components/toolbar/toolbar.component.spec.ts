@@ -4,6 +4,10 @@ import { DropdownModule } from 'ng2-bootstrap';
 import { TabsModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
 import { ToolbarComponent } from './toolbar.component';
+import { LayersInfoComponent } from '../layers-info/layers-info.component';
+
+import { ProjectService } from '../../shared/project.service';
+import { KeyboardService } from '../../shared/keyboard.service';
 
 describe('ToolbarComponent', () => {
   let component: ToolbarComponent;
@@ -11,8 +15,9 @@ describe('ToolbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ToolbarComponent ],
-      imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]
+      declarations: [ ToolbarComponent, LayersInfoComponent ],
+      imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ],
+      providers: [ ProjectService, KeyboardService ],
     })
     .compileComponents();
   }));
@@ -27,12 +32,10 @@ describe('ToolbarComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should have two tabs', () => {
-    expect(component.tabs.length).toEqual(2);
+    expect(component.tabs.length).toEqual(1);
   });
-  it('should have a tab toolbar', () => {
-    expect(component.tabs.findIndex(val=>val.name=='Toolbar')).toBeGreaterThan(-1);
+  it('should have a tab tools', () => {
+    expect(component.tabs.findIndex(val=>val.name=='Tools')).toBeGreaterThan(-1);
   });
-   it('should have a tab project', () => {
-    expect(component.tabs.findIndex(val=>val.name=='Project')).toBeGreaterThan(-1);
-  });
+
 });

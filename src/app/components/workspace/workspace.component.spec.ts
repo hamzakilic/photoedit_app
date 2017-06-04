@@ -14,7 +14,7 @@ import { LayerComponent } from '../layer/layer.component';
 import { WorkspaceComponent } from './workspace.component';
 
 import { Callback  } from '../../lib/callback';
-
+import { LayersInfoComponent } from '../layers-info/layers-info.component';
 
 
 describe('WorkspaceComponent', () => {
@@ -23,7 +23,7 @@ describe('WorkspaceComponent', () => {
   let workspace: Workspace;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SurfaceComponent, WorkspaceComponent,LayerComponent  ],
+      declarations: [ SurfaceComponent, WorkspaceComponent,LayerComponent,LayersInfoComponent  ],
       providers: [ ProjectService, KeyboardService ],
       imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]
 

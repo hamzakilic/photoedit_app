@@ -3,6 +3,8 @@
 
  background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
   background-image: -webkit-linear-gradient(top, rgb(200, 200, 200), rgb(230, 230, 230));
+  min-height: 10%;
+  max-height: 10%;
 }
 
 .layersHeader{
@@ -15,4 +17,23 @@
 
    background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
   background-image: -webkit-linear-gradient(top, rgb(100, 100, 100), rgb(230, 230, 230));
+
+}
+
+.layersLiSelected{
+
+   background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
+  background-image: -webkit-linear-gradient(top, rgb(0, 100, 100), rgb(230, 230, 230));
+
+}
+
+
+
+.list-group-item{
+  padding:5px;
+  white-space: nowrap;
+}
+
+.disabled-icon {
+  opacity:0.3;
 }

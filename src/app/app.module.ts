@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { DropdownModule } from 'ng2-bootstrap';
 import { TabsModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
+import { TooltipModule } from 'ng2-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NotSupportedBrowserComponent } from './components//notsupportedbrowser/notsupported.component';
@@ -24,6 +25,7 @@ import { KeyboardService } from './shared/keyboard.service';
 import { MouseDirective } from './shared/mouse.directive';
 import { LayerComponent } from './components/layer/layer.component';
 import { LayersInfoComponent } from './components/layers-info/layers-info.component';
+import { ToolsComponent } from './components/tools/tools.component';
 
 
 
@@ -43,12 +45,14 @@ import { LayersInfoComponent } from './components/layers-info/layers-info.compon
     ProjectComponent,
     MouseDirective,
     LayerComponent,
-    LayersInfoComponent
+    LayersInfoComponent,
+    ToolsComponent
   ],
   imports: [
     DropdownModule.forRoot(),
     TabsModule.forRoot(),
     ModalModule.forRoot(),
+    TooltipModule.forRoot(),
     BrowserModule,
     ReactiveFormsModule,
     HttpModule

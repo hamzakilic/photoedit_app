@@ -49,24 +49,12 @@ export class WorkspaceComponent {
 
 
   onSelected(workspace: Workspace){
-    alert(workspace.name);
-  }
-
-
-
-
-  /*mouseWheelUpFunc() {
-    if(this.keyboardService.IsCtrlPressed)
-     {}
 
   }
 
-  mouseWheelDownFunc() {
-    if(this.keyboardService.IsCtrlPressed)
-      {}
 
 
-  }*/
+
 
 
 

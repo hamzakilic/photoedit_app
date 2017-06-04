@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
+import { LayersInfoComponent } from '../layers-info/layers-info.component'
+
 @Component({
   selector: 'toolbar-component',
   templateUrl: './toolbar.component.html',

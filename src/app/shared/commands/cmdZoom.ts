@@ -20,10 +20,11 @@ export class CmdZoom extends Command {
   protected execute(): void {
       switch (this.zoomType){
         case CmdZoom.In:
-
+          if(this.projectService  && this.projectService.currentProject && this.projectService.currentProject.activeWorkspace)
           this.projectService.currentProject.activeWorkspace.zoomIn();
           break;
           case CmdZoom.Out:
+          if(this.projectService  && this.projectService.currentProject && this.projectService.currentProject.activeWorkspace)
           this.projectService.currentProject.activeWorkspace.zoomOut();
           break;
       }

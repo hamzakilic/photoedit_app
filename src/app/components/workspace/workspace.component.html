@@ -3,7 +3,11 @@
 <layer-component background [surface]="workspace.backgroundLayer" >
 </layer-component>
 
-<layer-component *ngFor="let layer of workspace.layers" [surface]='layer'>
+<layer-component *ngFor="let layer of workspace.layers" [surface]='layer'
+ [style.visibility]="(layer.isHidden) ? 'hidden':'visible'"
+ mouse (mouseDown)="workspace.mouseDown($event);layer.mouseDown($event)"
+ (mouseMove)="layer.mouseMove($event)" (mouseUp)="layer.mouseUp($event)"
+ (mouseLeave)="layer.mouseLeave($event)">
 </layer-component>
 
 <!--<layer-component foreground [surface]="workspace.foregroundLayer" >

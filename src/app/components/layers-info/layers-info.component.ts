@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../shared/project.service';
 import { Proj } from '../../shared/project/proj';
 import { Workspace } from '../../shared/project/workSpace';
+import { Layer } from '../../shared/project/layer';
 
 @Component({
   selector: 'layersInfo-component',
@@ -22,6 +23,14 @@ export class LayersInfoComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+  removeLayer(layer: Layer){
+    this.projectService.currentProject.activeWorkspace.removeLayer(layer);
+  }
+  disableOrEnable(layer:Layer){
+   // alert(layer.name);
+    layer.isHidden = !layer.isHidden;
+   // this.projectService.currentProject.activeWorkspace.render();
   }
 
 }

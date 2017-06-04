@@ -50,4 +50,14 @@ public  drawHtmlImage(img: HTMLImageElement,x: number, y: number){
     this.context.fillStyle = brush;
     this.context.fillRect(rect.x,rect.y,rect.width,rect.height);
   }
+
+  public drawLine(x1: number,y1: number ,x2: number,y2: number,lineWidth: number = 1, brush?: string){
+   this.context.beginPath();
+   this.context.moveTo(x1,y1);
+   this.context.lineTo(x2,y2);
+   this.context.lineWidth = lineWidth;
+   if(brush)
+    this.context.strokeStyle = brush;
+  this.context.stroke();
+  }
 }

@@ -6,16 +6,23 @@
     <div *ngIf="project != undefined">
       <div *ngIf="project.activeWorkspace != undefined">
         <ul class="list-group">
-          <li class="list-group-item layersLi justify-content-between" *ngFor="let layer of project.activeWorkspace.layers">
+          <li class="list-group-item layersLi " [ngClass]="(layer.isSelected)?'layersLiSelected':''"
 
-                      <i class="fa fa-eye pull-left" aria-hidden="true" ng-click="disableOrEnable(layer)">
-                        </i>
+            *ngFor="let layer of project.activeWorkspace.layers">
+
+              <div class="row" (click)="project.activeWorkspace.makeLayerSelected(layer);" >
+                <div class="col-2">
+                  <i class="fa fa-eye mouseoverhand " [class.disabled-icon]="layer.isHidden"  aria-hidden="true" (click)="disableOrEnable(layer)"></i>
+                </div>
+                <div class="col-7">
+                  <span > {{layer.name}}</span>
+                </div>
+                <div class="col-1">
+                  <i class="fa fa-minus-circle mouseoverhand" aria-hidden="true" (click)="removeLayer(layer)"></i>
+                </div>
+              </div>
 
 
-                       <span style="padding-left: 5px"> {{layer.name}}</span>
-
-                        <i class="fa fa-minus-circle pull-right" aria-hidden="true">
-                        </i>
 
 
 

@@ -17,7 +17,7 @@ export class Workspace extends HEventEmitter  {
     public isRemoveable:boolean;
     public isActive: boolean;
 
-    public readonly padding = 50;
+    public readonly margin = 50;
 
     public backgroundLayer: Layer;
     public foregroundLayer: Layer;
@@ -48,7 +48,10 @@ export class Workspace extends HEventEmitter  {
         this.backgroundLayer.height =this.height;
         this.backgroundLayer.stwidth = this.width;
         this.backgroundLayer.stheight = this.height;
-        this.backgroundLayer.padding = this.padding;
+        this.backgroundLayer.marginLeft = this.margin;
+        this.backgroundLayer.marginTop = this.margin;
+        this.backgroundLayer.marginRight = this.margin;
+        this.backgroundLayer.marginBottom = this.margin;
 
         this.backgroundLayer.zIndex = 0;
 
@@ -84,19 +87,42 @@ export class Workspace extends HEventEmitter  {
 
     public addLayer(ly: Layer){
       if(ly){
-        ly.padding = this.padding;
+        ly.marginLeft = this.margin;
+        ly.marginRight = this.margin;
+        ly.marginTop = this.margin;
+        ly.marginBottom = this.margin;
 
         this._layers.push(ly);
       }
     }
+
+public removeLayer(ly: Layer){
+        if(ly){
+        let index= this._layers.findIndex((item)=>{
+      return item === ly;
+    });
+
+    if(index>-1){
+      let layer=this._layers[index];
+      this._layers.splice(index,1);
+       layer.dispose();
+    }
+      }
+    }
+
     public clearLayers(){
       this._layers = [];
     }
 
     public render(){
-      console.log('rendering workspace');
+
       this.backgroundLayer.render();
-      this._layers.forEach((item)=>item.render());
+      this._layers.forEach(
+        (item)=> {
+          if(!item.isHidden)
+          item.render();
+        }
+      )
 
     }
 
@@ -136,6 +162,21 @@ export class Workspace extends HEventEmitter  {
      // console.log(this.mouseX+":"+this.mouseY);
     }
 
+    public mouseDown(event: any){
+
+      this.makeLayersNotSelected();
+    }
+
+    private makeLayersNotSelected(){
+      this._layers.forEach((item)=>item.isSelected=false);
+    }
+    public makeLayerSelected(layer: Layer){
+      this.makeLayersNotSelected();
+      if(layer)
+      layer.isSelected = true;
+
+    }
+
 
     public zoomIn(){
       this.backgroundLayer.scalePlus();
@@ -150,8 +191,35 @@ export class Workspace extends HEventEmitter  {
       this._layers.forEach((item)=>item.scaleMinus());
     }
 
+    public selectWorking(working: number){
+      switch (working){
+      case Workspace.WorkModeDefault:
+        this.cssClasses="mouseDefault";
+        break;
+         case Workspace.WorkModeSelection:
+        this.cssClasses="mouseCross";break;
+         case Workspace.WorkModeHand:
+        this.cssClasses="mouseHand";break;
+        default:
+        this.cssClasses="mouseDefault";
+      }
+
+    }
+
+    public cssClasses: string;
+
     public static readonly EVENTRESIZED="resized";
+
+    public static readonly WorkModeDefault=1;
+    public static readonly WorkModeHand = 2;
+    public static readonly WorkModeSelection = 3;
+    public static readonly WorkModeText = 3;
+    public static readonly WorkModeDraw = 4;
+
+
 }
+
+
 
 
 

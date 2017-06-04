@@ -9,10 +9,16 @@ export class LayerEmpty extends Layer{
 
   constructor(name?: string,width?: number, height?: number) {
     super(name);
-    if(width)
+
+    if(width){
+
     this.width = width;
-    if(height)
+    this.stwidth=this.width;
+    }
+    if(height){
     this.height =height;
+    this.stheight=this.height;
+    }
 
   }
   public render(): void{

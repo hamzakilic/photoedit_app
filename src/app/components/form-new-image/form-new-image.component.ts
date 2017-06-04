@@ -13,6 +13,7 @@ import { ProjectService } from '../../shared/project.service';
 import { Workspace } from '../../shared/project/workSpace';
 import { Layer } from '../../shared/project/layer';
 import { LayerImage } from '../../shared/project/layerImage';
+import { LayerEmpty } from '../../shared/project/layerEmpty';
 
 @Component({
   selector: 'formNewImage-component',
@@ -70,7 +71,8 @@ export class FormNewImageComponent implements OnInit {
 
 
          let ws = new Workspace(this.width,this.height,"new ("+this.width+"x"+this.height+")");
-         let ly = new LayerImage(new HImage(this.width,this.height),'background');
+
+         let ly = new LayerEmpty('image',this.width,this.height);
          ws.addLayer(ly);
          this.projectService.currentProject.addWorkspace(ws);
 
@@ -105,3 +107,4 @@ class validation {
 
   }
 }
+
