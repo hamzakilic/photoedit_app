@@ -1,4 +1,9 @@
-<div>
+<div [attr.width]="workspace.backgroundLayer.width+(workspace.margin*2)"
+[attr.height]="workspace.backgroundLayer.height+ (workspace.margin*2)"
+[style.width.px]="workspace.backgroundLayer.stwidth+(workspace.margin*2)"
+[style.height.px]="workspace.backgroundLayer.stheight+(workspace.margin*2)"
+style="position: absolute;" class="divpath"
+ >
 
 <layer-component background [surface]="workspace.backgroundLayer" >
 </layer-component>

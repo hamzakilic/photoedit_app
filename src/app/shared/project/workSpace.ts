@@ -17,6 +17,7 @@ export class Workspace extends HEventEmitter  {
     public isRemoveable:boolean;
     public isActive: boolean;
 
+///bu değiştirilirse components/workspace/workspace.component.css dosyasındaki .divpath css te değiştirilmeli
     public readonly margin = 50;
 
     public backgroundLayer: Layer;
@@ -25,6 +26,8 @@ export class Workspace extends HEventEmitter  {
     public uuid:string;
 
     private nativeElement: any;
+
+    public clippath: string;
 
     constructor(width:number,height:number,name?: string) {
       super();
@@ -42,6 +45,9 @@ export class Workspace extends HEventEmitter  {
       if(height <= 0)
       this._height = 100;
       else this._height = height;
+
+
+
 
         this.backgroundLayer = new LayerBackground('backgroundlayer');
         this.backgroundLayer.width= this.width;
