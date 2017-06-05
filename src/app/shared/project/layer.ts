@@ -8,7 +8,7 @@ export abstract class Layer extends SurfaceCanvas {
     private _name:string;
     public isHidden: boolean;
     public isSelected:boolean;
-    private _isMouseDown:boolean;
+    public isMouseDown:boolean;
     constructor(name?: string) {
       super();
       if(name)
@@ -23,11 +23,12 @@ export abstract class Layer extends SurfaceCanvas {
 
 
     public mouseDown(event: any){
+
       this.isSelected = true;
-      this._isMouseDown = true;
+      this.isMouseDown = true;
     }
     public mouseMove(event: MouseEvent){
-      if(this.isSelected && this._isMouseDown)
+    if(this.isSelected && this.isMouseDown)
         {
           this.marginLeft+=event.movementX;
           this.marginTop+=event.movementY;
@@ -36,17 +37,16 @@ export abstract class Layer extends SurfaceCanvas {
     }
 
     public mouseUp(event:any){
-      this._isMouseDown=false;
+      this.isMouseDown=false;
 
     }
     public mouseLeave(event:any){
-      this._isMouseDown = false;
+      this.isMouseDown = false;
     }
     public  abstract render(): void;
 
 
     public abstract dispose();
-
 
 
 }

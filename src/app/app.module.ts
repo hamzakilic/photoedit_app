@@ -26,6 +26,7 @@ import { MouseDirective } from './shared/mouse.directive';
 import { LayerComponent } from './components/layer/layer.component';
 import { LayersInfoComponent } from './components/layers-info/layers-info.component';
 import { ToolsComponent } from './components/tools/tools.component';
+import { LayerSelectedComponent } from './components/layer-selected/layer-selected.component';
 
 
 
@@ -46,7 +47,8 @@ import { ToolsComponent } from './components/tools/tools.component';
     MouseDirective,
     LayerComponent,
     LayersInfoComponent,
-    ToolsComponent
+    ToolsComponent,
+    LayerSelectedComponent
   ],
   imports: [
     DropdownModule.forRoot(),

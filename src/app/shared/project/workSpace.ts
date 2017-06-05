@@ -17,8 +17,8 @@ export class Workspace extends HEventEmitter  {
     public isRemoveable:boolean;
     public isActive: boolean;
 
-///bu değiştirilirse components/workspace/workspace.component.css dosyasındaki .divpath css te değiştirilmeli
-    public readonly margin = 50;
+
+    public readonly margin = 0;
 
     public backgroundLayer: Layer;
     public foregroundLayer: Layer;
@@ -54,7 +54,7 @@ export class Workspace extends HEventEmitter  {
         this.backgroundLayer.height =this.height;
         this.backgroundLayer.stwidth = this.width;
         this.backgroundLayer.stheight = this.height;
-        this.backgroundLayer.marginLeft = this.margin;
+        this.backgroundLayer.marginLeft =this.margin;
         this.backgroundLayer.marginTop = this.margin;
         this.backgroundLayer.marginRight = this.margin;
         this.backgroundLayer.marginBottom = this.margin;
@@ -165,12 +165,13 @@ public removeLayer(ly: Layer){
       this.mouseX = (event.pageX-rect.left) + window.scrollX;
       this.mouseY = (event.pageY-rect.top) + window.scrollY;
       //console.log(event.clientX+":"+event.clientY+"/"+event.movementX+":"+event.movementY+"/"+event.offsetX+":"+event.offsetY+"/"+event.pageX+":"+event.pageY+"/"+event.screenX+":"+event.screenY);
-     // console.log(this.mouseX+":"+this.mouseY);
+      //console.log(this.mouseX+":"+this.mouseY);
     }
 
     public mouseDown(event: any){
 
       this.makeLayersNotSelected();
+     // event.preventDefault();
     }
 
     private makeLayersNotSelected(){
@@ -178,8 +179,8 @@ public removeLayer(ly: Layer){
     }
     public makeLayerSelected(layer: Layer){
       this.makeLayersNotSelected();
-      if(layer)
-      layer.isSelected = true;
+      if(layer && !layer.isHidden)
+         layer.isSelected = true;
 
     }
 
@@ -224,6 +225,8 @@ public removeLayer(ly: Layer){
 
 
 }
+
+
 
 
 
