@@ -29,7 +29,8 @@ export class LayersInfoComponent implements OnInit {
   }
   disableOrEnable(layer:Layer){
    // alert(layer.name);
-    layer.isHidden = !layer.isHidden;
+
+   layer.isHidden = !layer.isHidden;
    // this.projectService.currentProject.activeWorkspace.render();
   }
 
