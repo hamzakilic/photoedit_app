@@ -74,6 +74,7 @@ export class MenubarComponent implements OnInit {
     let menuLayers = new menu("Layer");
     menuLayers.childs.push(new menuItem("New",new Callback(()=>{this.newLayer()})));
     menuLayers.childs.push(new menuItem("New from selection",new Callback(this.notImplementedYet)));
+    menuLayers.childs.push(new menuItemOpenImage(projectService,"New from a file",false));
     this.menus.push(menuLayers);
 
 
@@ -118,6 +119,11 @@ export class MenubarComponent implements OnInit {
     cmd.executeAsync();
   }
   newLayer(){
+    let cmd = new CmdNewLayer(this.projectService);
+    cmd.executeAsync();
+  }
+
+   newLayerFromAFile(){
     let cmd = new CmdNewLayer(this.projectService);
     cmd.executeAsync();
   }

@@ -29,6 +29,7 @@ export class SurfaceCanvas extends Surface{
       this.stwidth = this.scale* this.width;
       this.stheight = this.scale * this.height;
 
+
   }
   public scaleMinus():void{
       this.scale *= 0.9;
@@ -49,5 +50,20 @@ export class SurfaceCanvas extends Surface{
       this.stheight = this.height;
       this.resizedAgain = false;
       this.whenCreatedGraphicsAgain= func;
+  }
+  public resizeByAndSetMargin(width:number,height:number,setMarginLeft:boolean,setMarginTop:boolean, func?: Callback): void{
+
+    this.width += width/this.scale;
+    this.height += height/this.scale;
+    this.stwidth += width;
+    this.stheight +=height;
+    this.resizedAgain = false;
+    if(setMarginLeft)
+    this.marginLeft -=width/this.scale;
+    if(setMarginTop)
+    this.marginTop -=height/this.scale;
+
+    this.whenCreatedGraphicsAgain= func;
+
   }
 }

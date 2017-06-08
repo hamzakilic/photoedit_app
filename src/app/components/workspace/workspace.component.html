@@ -9,9 +9,9 @@ style="position: absolute;overflow: hidden;margin:50px"  >
 
 <layer-component *ngFor="let layer of workspace.layers" [surface]='layer'
  [style.visibility]="(layer.isHidden) ? 'hidden':'visible'"
- mouse (mouseDown)="workspace.mouseDown($event);layer.mouseDown($event)"
- (mouseMove)="layer.mouseMove($event)" (mouseUp)="layer.mouseUp($event)"
- (mouseLeave)="layer.mouseLeave($event)">
+ mouse  (mouseDown)="workspace.mouseDown($event);layer.mouseDown($event)"
+
+ >
 </layer-component>
 
 <!--<layer-component foreground [surface]="workspace.foregroundLayer" >

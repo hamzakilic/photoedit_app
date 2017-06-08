@@ -16,14 +16,17 @@ import { ProjectService } from '../../../shared/project.service';
 export class menuItemOpenImage extends menuItemOpenFile {
 
     private projectService:ProjectService;
-    constructor(projectService: ProjectService) {
+    private createWorkspace: boolean;
 
-      super("Open Image","image/*",
+    constructor(projectService: ProjectService,title = "Open Image",createWorkspace=true) {
+
+      super(title,"image/*",
       new Callback((data)=>{this.onSuccess(data)}),
       new Callback((err)=>this.onError(err)),
       new Callback((data)=>this.onProgress(data))
       );
       this.projectService = projectService;
+      this.createWorkspace = createWorkspace;
 
     }
 
@@ -33,7 +36,7 @@ export class menuItemOpenImage extends menuItemOpenFile {
 
     onSuccess(data: FileData){
 
-      let cmd = new CmdReadImageFromBuffer(data.result,data.fileName,this.projectService);
+      let cmd = new CmdReadImageFromBuffer(data.result,data.fileName,this.projectService,this.createWorkspace);
       cmd.executeAsync();
 
     }

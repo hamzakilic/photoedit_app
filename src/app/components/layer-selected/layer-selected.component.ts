@@ -1,5 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { Layer } from '../../shared/project/layer';
+import { Callback }from '../../lib/callback';
 @Component({
   selector: 'layer-selected',
   templateUrl: './layer-selected.component.html',
@@ -8,9 +9,12 @@ import { Layer } from '../../shared/project/layer';
 export class LayerSelectedComponent implements OnInit {
   @Input()
   surface: Layer;
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
   }
+
 
 }

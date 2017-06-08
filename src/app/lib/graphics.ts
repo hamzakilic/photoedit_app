@@ -28,18 +28,23 @@ export class Graphics{
      let imageData = this.context.getImageData(0,0,this.width,this.height);
 
      var data = imageData.data;
-     //imageData.data=img.Pixels;
 
-    // img.Pixels.forEach((val,index)=>{ data[index]=val});
      data.set(img.Pixels);
 
 
      this.context.putImageData(imageData,0,0);
 
+
+
   }
 
 
-public  drawHtmlImage(img: HTMLImageElement,x: number, y: number){
+public  drawHtmlImageFit(img: HTMLImageElement,x: number, y: number){
+      console.log("drawHmlImage:"+img.naturalWidth+"/"+img.naturalHeight+"/"+this.width+"/"+this.height);
+      this.context.drawImage(img,x,y,img.naturalWidth,img.naturalHeight,0,0,this.width,this.height);
+
+  }
+  public  drawHtmlImage(img: HTMLImageElement,x: number, y: number){
 
       this.context.drawImage(img,x,y);
 

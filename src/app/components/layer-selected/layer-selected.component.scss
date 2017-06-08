@@ -1,6 +1,6 @@
 .divSelectedLayer{
-  width: 10px;
-  height:10px;
+  width: 14px;
+  height:14px;
   background: red; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(red, yellow); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(red, yellow); /* For Opera 11.1 to 12.0 */
@@ -10,3 +10,35 @@
   z-index: 200;
 
 }
+
+.divleftTop{
+  cursor:nwse-resize;
+}
+
+.divLeftBottom{
+  cursor:nesw-resize;
+}
+
+.divRightTop{
+  cursor:nesw-resize;
+}
+
+.divRightBottom{
+  cursor:nwse-resize;
+}
+
+.divLeft{
+  cursor:ew-resize;
+}
+
+.divRight{
+  cursor:ew-resize;
+}
+
+.divTop{
+  cursor: ns-resize;
+}
+.divBottom{
+cursor: ns-resize;
+}
+

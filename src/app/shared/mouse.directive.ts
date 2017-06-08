@@ -1,4 +1,4 @@
-import { Directive, Output, HostListener, EventEmitter } from '@angular/core';
+import { Directive, Output, HostListener, EventEmitter,Input } from '@angular/core';
 
 @Directive({ selector: '[mouse]' })
 export class MouseDirective {
@@ -7,17 +7,28 @@ export class MouseDirective {
   @Output() mouseDown = new EventEmitter();
   @Output() mouseUp = new EventEmitter();
   @Output() mouseMove = new EventEmitter();
-    @Output() mouseLeave = new EventEmitter();
+  @Output() mouseLeave = new EventEmitter();
+
+  /**
+   *
+   */
+  constructor() {
+
+
+  }
 
   @HostListener('mousewheel', ['$event']) onMouseWheelChrome(event: any) {
+
     this.mouseWheelFunc(event);
   }
 
   @HostListener('DOMMouseScroll', ['$event']) onMouseWheelFirefox(event: any) {
+
     this.mouseWheelFunc(event);
   }
 
   @HostListener('onmousewheel', ['$event']) onMouseWheelIE(event: any) {
+
     this.mouseWheelFunc(event);
   }
 
@@ -39,11 +50,11 @@ export class MouseDirective {
   }
 
   @HostListener('mousemove',['$event']) onmousemove(event: any) {
-     // debugger;
 
       this.mouseMove.emit(event);
 
   }
+
 
 
 

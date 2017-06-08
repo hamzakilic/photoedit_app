@@ -164,23 +164,32 @@ public removeLayer(ly: Layer){
       var rect = this.nativeElement.getBoundingClientRect();
       this.mouseX = (event.pageX-rect.left) + window.scrollX;
       this.mouseY = (event.pageY-rect.top) + window.scrollY;
+
       //console.log(event.clientX+":"+event.clientY+"/"+event.movementX+":"+event.movementY+"/"+event.offsetX+":"+event.offsetY+"/"+event.pageX+":"+event.pageY+"/"+event.screenX+":"+event.screenY);
       //console.log(this.mouseX+":"+this.mouseY);
+
+        this._layers.forEach((item)=>{if(item.isSelected)item.mouseMove(event);});
+
     }
 
     public mouseDown(event: any){
-
       this.makeLayersNotSelected();
-     // event.preventDefault();
     }
-
+    public mouseUp(event: any){
+      this._layers.forEach((item)=>{if(item.isSelected)item.mouseUp(event);});
+    }
+    private activeLayer:Layer;
     private makeLayersNotSelected(){
       this._layers.forEach((item)=>item.isSelected=false);
+      this.activeLayer = undefined;
     }
     public makeLayerSelected(layer: Layer){
+
       this.makeLayersNotSelected();
-      if(layer && !layer.isHidden)
+      if(layer && !layer.isHidden){
          layer.isSelected = true;
+         this.activeLayer = layer;
+      }
 
     }
 

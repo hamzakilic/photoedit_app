@@ -15,8 +15,10 @@ export class CmdReadImageFromBuffer extends Command {
   private buffer: any;
   private projectService:  ProjectService;
   private fileName: string;
-  constructor(data: any,fileName: string,projectService: ProjectService) {
+  private createWorkspace : boolean;
+  constructor(data: any,fileName: string,projectService: ProjectService,createWorkspace = true) {
     super();
+    this.createWorkspace=createWorkspace;
     this.buffer = data;
     this.projectService =  projectService;
     this.fileName = fileName;
@@ -27,11 +29,15 @@ export class CmdReadImageFromBuffer extends Command {
       return;
       let img = new Image();
       img.onload =()=>{
-
+              if(this.createWorkspace){
                let ws = new Workspace(img.width,img.height,this.fileName);
                let ly = new LayerHtmlImage(img,this.fileName);
                ws.addLayer(ly);
                this.projectService.currentProject.addWorkspace(ws);
+              }else{
+                let ly = new LayerHtmlImage(img,this.fileName);
+                this.projectService.currentProject.activeWorkspace.addLayer(ly);
+              }
 
       };
       img.src =this.buffer;

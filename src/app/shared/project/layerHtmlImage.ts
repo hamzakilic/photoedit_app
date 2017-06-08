@@ -20,7 +20,7 @@ export class LayerHtmlImage extends Layer{
   }
   public render(): void{
 
-    this.graphics.drawHtmlImage(this.img,0,0);
+    this.graphics.drawHtmlImageFit(this.img,0,0);
   }
   public dispose(){
 
