@@ -40,7 +40,7 @@ export class Graphics{
 
 
 public  drawHtmlImageFit(img: HTMLImageElement,x: number, y: number){
-      console.log("drawHmlImage:"+img.naturalWidth+"/"+img.naturalHeight+"/"+this.width+"/"+this.height);
+      //console.log("drawHmlImage:"+img.naturalWidth+"/"+img.naturalHeight+"/"+this.width+"/"+this.height);
       this.context.drawImage(img,x,y,img.naturalWidth,img.naturalHeight,0,0,this.width,this.height);
 
   }

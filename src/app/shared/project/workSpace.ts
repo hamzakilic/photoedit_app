@@ -153,42 +153,50 @@ public removeLayer(ly: Layer){
     public mouseWheelDownFunc(){
       console.log('wheeldown');
     }
-    //mouse move positions
-    public mouseX: number;
-    //mouse move positions
-    public mouseY: number;
-    public mouseMove(event: any){
 
-      if(!this.nativeElement)
+    public mouseMove(event: MouseEvent){
+
+     /* if(!this.nativeElement)
        this.nativeElement = document.getElementById(this.uuid);
       var rect = this.nativeElement.getBoundingClientRect();
       this.mouseX = (event.pageX-rect.left) + window.scrollX;
-      this.mouseY = (event.pageY-rect.top) + window.scrollY;
+      this.mouseY = (event.pageY-rect.top) + window.scrollY;*/
 
       //console.log(event.clientX+":"+event.clientY+"/"+event.movementX+":"+event.movementY+"/"+event.offsetX+":"+event.offsetY+"/"+event.pageX+":"+event.pageY+"/"+event.screenX+":"+event.screenY);
       //console.log(this.mouseX+":"+this.mouseY);
-
-        this._layers.forEach((item)=>{if(item.isSelected)item.mouseMove(event);});
+        // console.log('workspace mouse move:'+event.clientX);
+        this._layers.forEach((item)=>{
+          if(item.isSelected)
+          item.mouseMove(event);
+        });
 
     }
 
-    public mouseDown(event: any){
-      this.makeLayersNotSelected();
+    public mouseDown(event: MouseEvent,layer: Layer){
+
+      console.log('workspace mouse down:'+event.clientX);
+      this.makeLayersNotSelected(layer);
+      layer.mouseDown(event);
     }
     public mouseUp(event: any){
+
+      console.log('workspace mouse up:'+event.clientX);
       this._layers.forEach((item)=>{if(item.isSelected)item.mouseUp(event);});
     }
-    private activeLayer:Layer;
-    private makeLayersNotSelected(){
-      this._layers.forEach((item)=>item.isSelected=false);
-      this.activeLayer = undefined;
+
+    private makeLayersNotSelected(layer: Layer){
+      this._layers.forEach((item)=>{
+        if(layer && layer!=item && !layer.isHidden)
+        item.isSelected=false;
+      });
+
     }
     public makeLayerSelected(layer: Layer){
 
-      this.makeLayersNotSelected();
+      this.makeLayersNotSelected(layer);
       if(layer && !layer.isHidden){
          layer.isSelected = true;
-         this.activeLayer = layer;
+
       }
 
     }
@@ -208,6 +216,7 @@ public removeLayer(ly: Layer){
     }
 
     public selectWorking(working: number){
+      console.log('selectWorking');
       switch (working){
       case Workspace.WorkModeDefault:
         this.cssClasses="mouseDefault";

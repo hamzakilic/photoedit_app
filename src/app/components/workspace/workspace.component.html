@@ -1,15 +1,10 @@
-<div [attr.width]="workspace.backgroundLayer.width"
-[attr.height]="workspace.backgroundLayer.height"
-[style.width.px]="workspace.backgroundLayer.stwidth"
-[style.height.px]="workspace.backgroundLayer.stheight"
-style="position: absolute;overflow: hidden;margin:50px"  >
 
 <layer-component background [surface]="workspace.backgroundLayer" >
 </layer-component>
 
 <layer-component *ngFor="let layer of workspace.layers" [surface]='layer'
  [style.visibility]="(layer.isHidden) ? 'hidden':'visible'"
- mouse  (mouseDown)="workspace.mouseDown($event);layer.mouseDown($event)"
+ mouse  (mouseDown)="workspace.mouseDown($event,layer)"
 
  >
 </layer-component>
@@ -17,7 +12,7 @@ style="position: absolute;overflow: hidden;margin:50px"  >
 <!--<layer-component foreground [surface]="workspace.foregroundLayer" >
 </layer-component>
 -->
-<div>
+
 
 
 

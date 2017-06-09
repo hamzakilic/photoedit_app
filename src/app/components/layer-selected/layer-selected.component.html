@@ -52,5 +52,13 @@ mouse (mouseDown)="surface.mouseDownSelectedPoint($event,8)">
 </div>
 
 
+<div  class="divSelectedLayer divRotate" rotate
+[style.margin-left.px]="(surface.stwidth/2)+(surface.marginLeft*surface.scale)-(14)"
+[style.margin-top.px]="(surface.marginTop*surface.scale)-30"
+mouse (mouseDown)="surface.mouseDownSelectedPoint($event,9)">
+
+</div>
+
+
 
 

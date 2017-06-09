@@ -12,7 +12,7 @@ export class Surface{
    public marginTop = 0;
    public marginRight = 0;
    public marginBottom = 0;
-
+   public rotateAngleDeg=0;
 
    public zIndex = 0;
 
@@ -65,5 +65,12 @@ export class SurfaceCanvas extends Surface{
 
     this.whenCreatedGraphicsAgain= func;
 
+  }
+
+  public rotate(x: number){
+    let tan = x/this.height*this.scale/2;
+    //console.log("tan:"+tan);
+    this.rotateAngleDeg+=Math.atan(tan)*90;
+   // console.log("angle:"+this.rotateAngleDeg);
   }
 }

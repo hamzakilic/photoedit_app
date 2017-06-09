@@ -41,4 +41,28 @@
 .divBottom{
 cursor: ns-resize;
 }
+.divRotateBar{
+  width: 14px;
+  height:20px;
+  background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(red, yellow); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(red, yellow); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(red, yellow); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(red, yellow); /* Standard syntax */
+  position: absolute;
+  z-index: 200;
+}
+
+.divRotate{
+  width: 14px;
+  height:14px;
+  background: blueviolet; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(blueviolet, yellow); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(blueviolet, yellow); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(blueviolet, yellow); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(blueviolet, yellow); /* Standard syntax */
+  position: absolute;
+  z-index: 200;
+  cursor: default;
+}
 

@@ -26,14 +26,19 @@ export abstract class Layer extends SurfaceCanvas {
   }
 
 
-  public mouseDown(event: any) {
+  public mouseDown(event: MouseEvent) {
+
     console.log(this.name + " mousedown");
     this.isSelected = true;
     this.isMouseDown = true;
+    event.preventDefault();
   }
-  public mouseDownSelectedPoint(event: any, corner: number) {
+  public mouseDownSelectedPoint(event: MouseEvent, corner: number) {
+    console.log("mouseDownSelectedPoint");
+
     this._mouseDownPoint.allFalse();
     this.isMouseDown = true;
+  //  this.isSelected = true;
     switch (corner) {
       //starts from left and rotates clock wise
       case 1: this._mouseDownPoint.isLeft = true; break;
@@ -44,10 +49,15 @@ export abstract class Layer extends SurfaceCanvas {
       case 6: this._mouseDownPoint.isBottomRight = true; break;
       case 7: this._mouseDownPoint.isBottom = true; break;
       case 8: this._mouseDownPoint.isBottomLeft = true; break;
+      case 9: this._mouseDownPoint.isRotate = true;break;
+      default:break;
 
     }
+    event.preventDefault();
   }
   public mouseMove(event: MouseEvent) {
+
+    console.log(this.name+" moving:"+event.clientX);
     if (this._mouseDownPoint.isLeft && this.isMouseDown) {
       this.resizeByAndSetMargin(-event.movementX, 0,true,false, new Callback(() => this.render()));
     } else
@@ -72,24 +82,30 @@ export abstract class Layer extends SurfaceCanvas {
     if (this._mouseDownPoint.isBottomLeft && this.isMouseDown) {
       this.resizeByAndSetMargin(-event.movementX, event.movementY,true,false, new Callback(() => this.render()));
     } else
+     if (this._mouseDownPoint.isRotate && this.isMouseDown) {
+        this.rotate(event.movementX);
+      //this.resizeByAndSetMargin(-event.movementX, event.movementY,true,false, new Callback(() => this.render()));
+
+
+    } else
       if (this.isSelected && this.isMouseDown) {
+        //console.log(this.name+" is moving");
         this.marginLeft += event.movementX;
         this.marginTop += event.movementY;
 
       }
+      event.preventDefault();
 
   }
 
   public mouseUp(event: any) {
-    console.log(this.name + " mouseup");
-    this.isMouseDown = false;
-    this._mouseDownPoint.allFalse();
-  }
-  /*public mouseLeave(event: any) {
-    console.log(this.name + " mouseleave");
-    this.isMouseDown = false;
 
-  }*/
+    console.log(this.name + " mouseup");
+    this._mouseDownPoint.allFalse();
+    this.isMouseDown = false;
+    event.preventDefault();
+  }
+
   public abstract render(): void;
 
 
@@ -108,7 +124,7 @@ class MouseDownPoint {
   public isBottomRight: boolean;
   public isBottom: boolean;
   public isBottomLeft: boolean;
-
+  public isRotate: boolean;
   constructor() {
     this.allFalse();
   }
@@ -123,5 +139,6 @@ class MouseDownPoint {
     this.isRight = false;
     this.isTop = false;
     this.isTopRight = false;
+    this.isRotate = false;
   }
 }
