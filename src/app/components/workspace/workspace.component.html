@@ -1,4 +1,9 @@
 
+<div [attr.width]="workspace.backgroundLayer.width"
+[attr.height]="workspace.backgroundLayer.height"
+[style.width.px]="workspace.backgroundLayer.width*workspace.backgroundLayer.scale"
+[style.height.px]="workspace.backgroundLayer.height*workspace.backgroundLayer.scale"
+style="position: absolute;overflow: hidden;margin:50px"  >
 <layer-component background [surface]="workspace.backgroundLayer" >
 </layer-component>
 
@@ -12,7 +17,7 @@
 <!--<layer-component foreground [surface]="workspace.foregroundLayer" >
 </layer-component>
 -->
-
+</div>
 
 
 

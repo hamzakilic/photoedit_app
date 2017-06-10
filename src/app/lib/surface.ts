@@ -68,9 +68,22 @@ export class SurfaceCanvas extends Surface{
   }
 
   public rotate(x: number){
-    let tan = x/this.height*this.scale/2;
-    //console.log("tan:"+tan);
-    this.rotateAngleDeg+=Math.atan(tan)*90;
+    let tan = x/(this.width*this.scale/2/180);
+
+    this.rotateAngleDeg += tan;
+
+    if(tan>0){
+
+
+      let newWidth= Math.cos(tan*Math.PI/180)*this.width;
+      this.width=newWidth;
+
+      let newHeight= Math.sin((90-tan)*Math.PI/180)*this.height;
+
+      this.height =newHeight;
+    }
+
+    this.resizedAgain=false;
    // console.log("angle:"+this.rotateAngleDeg);
   }
 }

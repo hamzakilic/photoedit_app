@@ -57,7 +57,7 @@ export abstract class Layer extends SurfaceCanvas {
   }
   public mouseMove(event: MouseEvent) {
 
-    console.log(this.name+" moving:"+event.clientX);
+   // console.log(this.name+" moving:"+event.clientX);
     if (this._mouseDownPoint.isLeft && this.isMouseDown) {
       this.resizeByAndSetMargin(-event.movementX, 0,true,false, new Callback(() => this.render()));
     } else
@@ -107,6 +107,9 @@ export abstract class Layer extends SurfaceCanvas {
   }
 
   public abstract render(): void;
+
+
+
 
 
   public abstract dispose();

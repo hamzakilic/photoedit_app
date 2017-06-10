@@ -1,7 +1,7 @@
 
 <canvas [attr.id]="uuid" #renderCanvas class="canvas"
- [(attr.width)]="surface.width" [(style.width.px)]="surface.stwidth"
- [(attr.height)]="surface.height" [(style.height.px)]="surface.stheight" >
+ [(attr.width)]="surface.width" [(style.width.px)]="surface.width*surface.scale"
+ [(attr.height)]="surface.height" [(style.height.px)]="surface.height*surface.scale" >
 
 </canvas>
 
