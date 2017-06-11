@@ -103,6 +103,7 @@ export abstract class Layer extends SurfaceCanvas {
     console.log(this.name + " mouseup");
     this._mouseDownPoint.allFalse();
     this.isMouseDown = false;
+
     event.preventDefault();
   }
 

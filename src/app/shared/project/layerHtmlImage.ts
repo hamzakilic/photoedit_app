@@ -13,8 +13,7 @@ export class LayerHtmlImage extends Layer {
 
     this.width = img.width;
     this.height = img.height;
-    this.stwidth = img.width;
-    this.stheight = img.height;
+
     this.img = img;
 
 
@@ -31,10 +30,16 @@ export class LayerHtmlImage extends Layer {
       this.graphics.fillRect(new Rect(this.width * this.scale / 2 - 10, this.height * this.scale / 2 - 10, 20, 20), "#FFFFFF");
       this.graphics.translate(-tx,-ty);
 
+      this.graphics.drawHtmlImageRect(this.img,new Rect((this.width-this.img.naturalWidth)/2,(this.height-this.img.naturalHeight)/2,this.img.naturalWidth,this.img.naturalHeight));
     }
+    else
     this.graphics.drawHtmlImageFit(this.img, 0, 0);
     this.graphics.restore();
   }
+
+
+
+
   public dispose() {
 
   }

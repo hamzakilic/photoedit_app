@@ -40,8 +40,13 @@ export class Graphics {
 
 
   public drawHtmlImageFit(img: HTMLImageElement, x: number, y: number) {
-    //console.log("drawHmlImage:"+img.naturalWidth+"/"+img.naturalHeight+"/"+this.width+"/"+this.height);
+
     this.context.drawImage(img, x, y, img.naturalWidth, img.naturalHeight, 0, 0, this.width, this.height);
+
+  }
+
+  public drawHtmlImageRect(img: HTMLImageElement, rect: Rect) {
+    this.context.drawImage(img, 0,0, img.naturalWidth, img.naturalHeight,rect.x,rect.y,rect.width,rect.height);
 
   }
   public drawHtmlImage(img: HTMLImageElement, x: number, y: number) {

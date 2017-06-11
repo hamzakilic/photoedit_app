@@ -1,30 +1,28 @@
 import { Layer } from './layer';
 import { Graphics } from '../../lib/graphics';
 
-import { HImage  } from '../../lib/image';
+import { HImage } from '../../lib/image';
 
-export class LayerEmpty extends Layer{
+export class LayerEmpty extends Layer {
 
 
 
-  constructor(name?: string,width?: number, height?: number) {
+  constructor(name?: string, width?: number, height?: number) {
     super(name);
 
-    if(width){
+    if (width)
+      this.width = width;
 
-    this.width = width;
-    this.stwidth=this.width;
-    }
-    if(height){
-    this.height =height;
-    this.stheight=this.height;
-    }
+    if (height)
+      this.height = height;
+
+
 
   }
-  public render(): void{
+  public render(): void {
 
   }
-  public dispose(){
+  public dispose() {
 
   }
 }

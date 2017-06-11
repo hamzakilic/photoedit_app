@@ -4,60 +4,79 @@
 
 
 <div  class="divSelectedLayer divLeft" left
-[style.margin-top.px]='(surface.height*surface.scale/2)+(surface.marginTop*surface.scale)-(14)'
-[style.margin-left.px]="surface.marginLeft*surface.scale"
-mouse (mouseDown)="surface.mouseDownSelectedPoint($event,1)">
+[style.width.px]='surface.selectPointwh * (whichMouseOver==1 ? 2:1)'
+[style.height.px]='surface.selectPointwh * (whichMouseOver==1 ? 2:1)'
+[style.margin-top.px]='(surface.height*surface.scale/2)+(surface.marginTop*surface.scale)-(surface.selectPointwh/2)'
+[style.margin-left.px]="surface.marginLeft*surface.scale-(surface.selectPointwh/2)"
+mouse (mouseDown)="surface.mouseDownSelectedPoint($event,1)"  (mouseOver)="mouseOver($event,1)" (mouseLeave)="mouseLeave($event,1)">
 </div>
 <div  class="divSelectedLayer divleftTop" leftTop
-[style.margin-top.px]="surface.marginTop*surface.scale"
-[style.margin-left.px]="surface.marginLeft*surface.scale"
-mouse (mouseDown)="surface.mouseDownSelectedPoint($event,2)">
+[style.width.px]='surface.selectPointwh * (whichMouseOver==2 ? 2:1)'
+[style.height.px]='surface.selectPointwh * (whichMouseOver==2 ? 2:1)'
+[style.margin-top.px]="surface.marginTop*surface.scale-(surface.selectPointwh/2)"
+[style.margin-left.px]="surface.marginLeft*surface.scale-(surface.selectPointwh/2)"
+mouse (mouseDown)="surface.mouseDownSelectedPoint($event,2)" (mouseOver)="mouseOver($event,2)" (mouseLeave)="mouseLeave($event,2)">
 </div>
 
 <div  class="divSelectedLayer divTop" top
-[style.margin-left.px]="(surface.width*surface.scale/2)+(surface.marginLeft*surface.scale)-(14)"
-[style.margin-top.px]="(surface.marginTop*surface.scale)"
-mouse (mouseDown)="surface.mouseDownSelectedPoint($event,3)">
+[style.width.px]='surface.selectPointwh * (whichMouseOver==3 ? 2:1)'
+[style.height.px]='surface.selectPointwh * (whichMouseOver==3 ? 2:1)'
+[style.margin-left.px]="(surface.width*surface.scale/2)+(surface.marginLeft*surface.scale)-(surface.selectPointwh/2)"
+[style.margin-top.px]="(surface.marginTop*surface.scale-surface.selectPointwh/2)"
+mouse (mouseDown)="surface.mouseDownSelectedPoint($event,3)" (mouseOver)="mouseOver($event,3)" (mouseLeave)="mouseLeave($event,3)">
 </div>
 <div  class="divSelectedLayer divRightTop" rightTop
-[style.margin-left.px]="(surface.width*surface.scale)+(surface.marginLeft*surface.scale)-(14)"
-[style.margin-top.px]="(surface.marginTop*surface.scale)"
-mouse (mouseDown)="surface.mouseDownSelectedPoint($event,4)">
+[style.width.px]='surface.selectPointwh * (whichMouseOver==4 ? 2:1)'
+[style.height.px]='surface.selectPointwh * (whichMouseOver==4 ? 2:1)'
+[style.margin-left.px]="(surface.width*surface.scale)+(surface.marginLeft*surface.scale)-(surface.selectPointwh/2)"
+[style.margin-top.px]="(surface.marginTop*surface.scale-surface.selectPointwh/2)"
+mouse (mouseDown)="surface.mouseDownSelectedPoint($event,4)" (mouseOver)="mouseOver($event,4)" (mouseLeave)="mouseLeave($event,4)">
 </div>
 
 <div  class="divSelectedLayer divRight" right
-[style.margin-top.px]="(surface.height*surface.scale/2)+(surface.marginTop*surface.scale)-(14)"
-[style.margin-left.px]="(surface.width*surface.scale)+(surface.marginLeft*surface.scale)-(14)"
-mouse (mouseDown)="surface.mouseDownSelectedPoint($event,5)">
+[style.width.px]='surface.selectPointwh * (whichMouseOver==5 ? 2:1)'
+[style.height.px]='surface.selectPointwh * (whichMouseOver==5 ? 2:1)'
+[style.margin-top.px]="(surface.height*surface.scale/2)+(surface.marginTop*surface.scale)-(surface.selectPointwh/2)"
+[style.margin-left.px]="(surface.width*surface.scale)+(surface.marginLeft*surface.scale)-(surface.selectPointwh/2)"
+mouse (mouseDown)="surface.mouseDownSelectedPoint($event,5)" (mouseOver)="mouseOver($event,5)" (mouseLeave)="mouseLeave($event,5)">
 </div>
 <div  class="divSelectedLayer divRightBottom" rightBottom
-[style.margin-top.px]="(surface.height*surface.scale)+(surface.marginTop*surface.scale)-(14)"
-[style.margin-left.px]="(surface.width*surface.scale)+(surface.marginLeft*surface.scale)-(14)"
-mouse (mouseDown)="surface.mouseDownSelectedPoint($event,6)">
+[style.width.px]='surface.selectPointwh * (whichMouseOver==6 ? 2:1)'
+[style.height.px]='surface.selectPointwh * (whichMouseOver==6 ? 2:1)'
+[style.margin-top.px]="(surface.height*surface.scale)+(surface.marginTop*surface.scale)-(surface.selectPointwh/2)"
+[style.margin-left.px]="(surface.width*surface.scale)+(surface.marginLeft*surface.scale)-(surface.selectPointwh/2)"
+mouse (mouseDown)="surface.mouseDownSelectedPoint($event,6)" (mouseOver)="mouseOver($event,6)" (mouseLeave)="mouseLeave($event,6)">
 </div>
 
 
 <div  class="divSelectedLayer divBottom" bottom
-[style.margin-top.px]="(surface.height*surface.scale)+(surface.marginTop*surface.scale)-(14)"
-[style.margin-left.px]="(surface.width*surface.scale/2)+(surface.marginLeft*surface.scale)-(14)"
-mouse (mouseDown)="surface.mouseDownSelectedPoint($event,7)">
+[style.width.px]='surface.selectPointwh * (whichMouseOver==7 ? 2:1)'
+[style.height.px]='surface.selectPointwh * (whichMouseOver==7 ? 2:1)'
+[style.margin-top.px]="(surface.height*surface.scale)+(surface.marginTop*surface.scale)-(surface.selectPointwh/2)"
+[style.margin-left.px]="(surface.width*surface.scale/2)+(surface.marginLeft*surface.scale)-(surface.selectPointwh/2)"
+mouse (mouseDown)="surface.mouseDownSelectedPoint($event,7)" (mouseOver)="mouseOver($event,7)" (mouseLeave)="mouseLeave($event,7)">
 </div>
 
 
 
 <div  class="divSelectedLayer divLeftBottom" leftBottom
-[style.margin-top.px]='(surface.height*surface.scale)+(surface.marginTop*surface.scale)-(14)'
-[style.margin-left.px]="surface.marginLeft*surface.scale"
-mouse (mouseDown)="surface.mouseDownSelectedPoint($event,8)">
+[style.width.px]='surface.selectPointwh * (whichMouseOver==8 ? 2:1)'
+[style.height.px]='surface.selectPointwh * (whichMouseOver==8 ? 2:1)'
+[style.margin-top.px]='(surface.height*surface.scale)+(surface.marginTop*surface.scale)-(surface.selectPointwh/2)'
+[style.margin-left.px]="surface.marginLeft*surface.scale-surface.selectPointwh/2"
+mouse (mouseDown)="surface.mouseDownSelectedPoint($event,8)" (mouseOver)="mouseOver($event,8)" (mouseLeave)="mouseLeave($event,8)">
 </div>
 
 
 <div  class="divSelectedLayer divRotate" rotate
-[style.margin-left.px]="(surface.width*surface.scale/2)+(surface.marginLeft*surface.scale)-(14)"
+[style.width.px]='surface.selectPointwh * (whichMouseOver==9 ? 2:1)'
+[style.height.px]='surface.selectPointwh * (whichMouseOver==9 ? 2:1)'
+[style.margin-left.px]="(surface.width*surface.scale/2)+(surface.marginLeft*surface.scale)-(surface.selectPointwh/2)"
 [style.margin-top.px]="(surface.marginTop*surface.scale)-30"
-mouse (mouseDown)="surface.mouseDownSelectedPoint($event,9)">
+mouse (mouseDown)="surface.mouseDownSelectedPoint($event,9)" (mouseOver)="mouseOver($event,9)" (mouseLeave)="mouseLeave($event,9)">
 
 </div>
+
 
 
 

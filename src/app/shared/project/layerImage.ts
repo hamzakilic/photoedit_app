@@ -13,8 +13,7 @@ export class LayerImage extends Layer{
 
     this.width=img.width();
     this.height = img.height();
-    this.stwidth = img.width();
-    this.stheight = img.height();
+
     this.img = img;
   }
   public render(): void{

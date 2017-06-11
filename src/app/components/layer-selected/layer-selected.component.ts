@@ -7,6 +7,10 @@ import { Callback }from '../../lib/callback';
   styleUrls: ['./layer-selected.component.scss']
 })
 export class LayerSelectedComponent implements OnInit {
+
+
+  whichMouseOver: number;
+
   @Input()
   surface: Layer;
   constructor() {
@@ -14,6 +18,13 @@ export class LayerSelectedComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  mouseOver(event: MouseEvent,which: number){
+    this.whichMouseOver = which;
+  }
+  mouseLeave(event:MouseEvent, which: number){
+    this.whichMouseOver = 0;
   }
 
 

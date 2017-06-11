@@ -52,8 +52,7 @@ export class Workspace extends HEventEmitter  {
         this.backgroundLayer = new LayerBackground('backgroundlayer');
         this.backgroundLayer.width= this.width;
         this.backgroundLayer.height =this.height;
-        this.backgroundLayer.stwidth = this.width;
-        this.backgroundLayer.stheight = this.height;
+
         this.backgroundLayer.marginLeft =this.margin;
         this.backgroundLayer.marginTop = this.margin;
         this.backgroundLayer.marginRight = this.margin;

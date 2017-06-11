@@ -8,6 +8,7 @@ export class MouseDirective {
   @Output() mouseUp = new EventEmitter();
   @Output() mouseMove = new EventEmitter();
   @Output() mouseLeave = new EventEmitter();
+  @Output() mouseOver = new EventEmitter();
 
   /**
    *
@@ -52,6 +53,13 @@ export class MouseDirective {
   @HostListener('mousemove',['$event']) onmousemove(event: any) {
 
       this.mouseMove.emit(event);
+
+  }
+
+  @HostListener('mouseover',['$event']) onmouseover(event: any) {
+
+
+      this.mouseOver.emit(event);
 
   }
 
