@@ -196,21 +196,22 @@ public removeLayer(ly: Layer){
       if(layer && !layer.isHidden){
          layer.isSelected = true;
 
+
       }
 
     }
 
 
+
+
     public zoomIn(){
       this.backgroundLayer.scalePlus();
-
       this._layers.forEach((item)=>item.scalePlus());
 
     }
 
     public zoomOut(){
       this.backgroundLayer.scaleMinus();
-
       this._layers.forEach((item)=>item.scaleMinus());
     }
 

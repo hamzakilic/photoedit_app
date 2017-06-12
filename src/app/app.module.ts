@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
+
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { DropdownModule } from 'ng2-bootstrap';
 import { TabsModule } from 'ng2-bootstrap';
@@ -27,6 +29,7 @@ import { LayerComponent } from './components/layer/layer.component';
 import { LayersInfoComponent } from './components/layers-info/layers-info.component';
 import { ToolsComponent } from './components/tools/tools.component';
 import { LayerSelectedComponent } from './components/layer-selected/layer-selected.component';
+import { LayerPropertiesComponent } from './components/layer-properties/layer-properties.component';
 
 
 
@@ -48,7 +51,8 @@ import { LayerSelectedComponent } from './components/layer-selected/layer-select
     LayerComponent,
     LayersInfoComponent,
     ToolsComponent,
-    LayerSelectedComponent
+    LayerSelectedComponent,
+    LayerPropertiesComponent
   ],
   imports: [
     DropdownModule.forRoot(),
@@ -57,9 +61,11 @@ import { LayerSelectedComponent } from './components/layer-selected/layer-select
     TooltipModule.forRoot(),
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpModule
   ],
   providers: [ProjectService, KeyboardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

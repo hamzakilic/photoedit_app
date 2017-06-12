@@ -43,9 +43,10 @@ export class SurfaceCanvas extends Surface{
 
       this.width = width;
       this.height = height;
-      this.scale = 1;
+      //this.scale = 1;
 
       this.resizedAgain = false;
+      if(func)
       this.whenCreatedGraphicsAgain= func;
   }
   public resizeByAndSetMargin(width:number,height:number,setMarginLeft:boolean,setMarginTop:boolean, func?: Callback): void{
@@ -97,5 +98,37 @@ export class SurfaceCanvas extends Surface{
 
     this.resizedAgain=false;
    // console.log("angle:"+this.rotateAngleDeg);
+  }
+
+  public rotateByDegrees(x: number){
+   // let tan = x/(this.width*this.scale/2/180);
+    if(this.rotateAngleDeg==0)
+      {
+        this.widthBeforeRotate=this.width;
+        this.heightBeforeRotate = this.height;
+      }
+    this.rotateAngleDeg=x;
+
+    if(this.rotateAngleDeg>180)
+    this.rotateAngleDeg= 180;
+    else
+    if(this.rotateAngleDeg<-180)
+    this.rotateAngleDeg=-180;
+
+
+
+
+
+
+      let newWidth=Math.abs(Math.cos(this.rotateAngleDeg*Math.PI/180))*this.widthBeforeRotate+Math.abs(Math.cos((90-this.rotateAngleDeg)*Math.PI/180))*this.heightBeforeRotate;
+      this.width=newWidth;
+
+      let newHeight=Math.abs(Math.cos(this.rotateAngleDeg*Math.PI/180))*this.heightBeforeRotate+Math.abs(Math.cos((90-this.rotateAngleDeg)*Math.PI/180))*this.widthBeforeRotate;
+
+      this.height =newHeight;
+
+
+    this.resizedAgain=false;
+
   }
 }
