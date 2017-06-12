@@ -38,6 +38,7 @@ export class toolBarTab{
       this.title = title;
   }
   onSelected(){
+
     alert(this.title);
   }
 
