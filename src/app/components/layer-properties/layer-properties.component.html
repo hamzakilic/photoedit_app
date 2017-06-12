@@ -1,0 +1,36 @@
+<div class="layersInfo">
+  <header class="layersHeader">
+    <span>Layer Properties</span>
+  </header>
+  <section class="layersSection">
+
+    <div *ngIf="project != undefined">
+
+      <div *ngIf="project.activeWorkspace != undefined">
+
+
+        <ul class="list-group">
+          <li class="list-group-item layersLi " *ngFor="let layer of project.activeWorkspace.layers" >
+
+              <div class="row" *ngIf="layer.isSelected">
+                <div>{{layer.name}}</div>
+                <div>
+                <span>Width:
+                <input type="text" [(value)]="layer.width"><input>
+                </span>
+                </div>
+
+              </div>
+
+
+
+
+
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+  </section>
+</div>
