@@ -24,26 +24,43 @@ export class ToolsComponent implements OnInit {
   ngOnInit() {
   }
 
-  selectHand(){
+
+  public iddefault= "iddefault";
+  public idcrop="idcrop";
+
+  removeActiveCss(){
+    var labels = document.querySelectorAll(".toolsInfo > section > div > div > label");
+    for(let i = 0; i<labels.length;++i)
+      labels.item(i).classList.remove("active");
+  }
+  makeActiveCss(id){
+    var labels = document.querySelectorAll(".toolsInfo > section > div > div > label");
+    for(let i = 0; i<labels.length;++i)
+    if(labels.item(i).id==id)
+      labels.item(i).classList.add("active");
+
+  }
+
+  selectDefault(){
+
     if(this.project)
-    if(this.project.activeWorkspace)
-      this.project.activeWorkspace.selectWorking(Workspace.WorkModeHand);
-
-  }
-  selectSelection(){
-     if(this.project)
-    if(this.project.activeWorkspace)
-      this.project.activeWorkspace.selectWorking(Workspace.WorkModeSelection);
-
-  }
-  selectText(){
-
-  }
-  selectShapeRect(){
+    if(this.project.activeWorkspace){
+      this.project.activeWorkspace.selectWorking(Workspace.WorkModeDefault);
+      this.removeActiveCss();
+      this.makeActiveCss(this.iddefault);
+    }
 
   }
 
   selectCrop(){
+
+    if(this.project)
+    if(this.project.activeWorkspace){
+      this.project.activeWorkspace.selectWorking(Workspace.WorkModeCrop);
+      this.removeActiveCss();
+      this.makeActiveCss(this.idcrop);
+
+    }
 
   }
 

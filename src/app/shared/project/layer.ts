@@ -9,11 +9,12 @@ export abstract class Layer extends SurfaceCanvas {
   private _name: string;
   public isHidden: boolean;
   public isSelected: boolean;
-
+  public canRotate: boolean;
   private _mouseDownPoint: MouseDownPoint;
   public isMouseDown: boolean;
   constructor(name?: string) {
     super();
+    this.canRotate = true;
     if (name)
       this._name = name;
     else this._name = 'layer';
@@ -27,11 +28,10 @@ export abstract class Layer extends SurfaceCanvas {
 
 
   public mouseDown(event: MouseEvent) {
-
     console.log(this.name + " mousedown");
     this.isSelected = true;
     this.isMouseDown = true;
-    event.preventDefault();
+
   }
   public mouseDownSelectedPoint(event: MouseEvent, corner: number) {
     console.log("mouseDownSelectedPoint");

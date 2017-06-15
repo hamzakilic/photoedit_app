@@ -56,6 +56,11 @@ export class Graphics {
   }
 
 
+ public fillRectRGBA(rect: Rect, r: number,g: number,b: number,a: number): void {
+    this.context.fillStyle ="rgba("+r+","+g+","+b+","+(a/255)+")";
+    this.context.fillRect(rect.x, rect.y, rect.width, rect.height);
+  }
+
   public fillRect(rect: Rect, brush: string): void {
     this.context.fillStyle = brush;
     this.context.fillRect(rect.x, rect.y, rect.width, rect.height);

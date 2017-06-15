@@ -1,29 +1,24 @@
 <div class="toolsInfo">
   <header class="toolsHeader">
-    <span>Tools</span>
+    <span>Work</span>
   </header>
   <section class="toolsSection">
+<div *ngIf="project != undefined">
 
-       <button type="button" id="selectHand" class="buttonpadding" tooltip="Hand tool"
-        placement="right">
-         <i class="fa fa-mouse-pointer fa-lg mouseoverhand "  aria-hidden="true" (click)="selectHand()"></i>
-       </button>
-      <button type="button" id="selectSelection" class="buttonpadding" tooltip="Selection tool"
-        placement="top">
-         <i class="fa fa-mouse-pointer fa-lg mouseoverhand "  aria-hidden="true" (click)="selectSelection()"></i>
-       </button>
-       <button type="button" id="selectText" class="buttonpadding" tooltip="Text tool"
-        placement="top">
-         <i class="fa fa-mouse-pointer fa-lg mouseoverhand "  aria-hidden="true" (click)="selectText()"></i>
-       </button>
-       <button type="button" id="selectShapeRect" class="buttonpadding" tooltip="Share rect tool"
-        placement="top">
-         <i class="fa fa-mouse-pointer fa-lg mouseoverhand "  aria-hidden="true" (click)="selectShapeRect()"></i>
-       </button>
-        <button type="button" id="selectCrop" class="buttonpadding" tooltip="Crop tool"
-        placement="top">
-         <i class="fa fa-mouse-pointer fa-lg mouseoverhand "  aria-hidden="true" (click)="selectCrop()"></i>
-       </button>
+      <div *ngIf="project.activeWorkspace != undefined">
+        <div *ngIf="project.activeWorkspace.hasLayer">
+
+      <label id={{iddefault}} class="btn btn-primary buttonpadding mouseoverhand active" (click)="selectDefault()" tooltip="Hand tool"  placement="right">
+          <i class="fa fa-mouse-pointer "  aria-hidden="true" ></i>
+      </label>
+
+      <label id={{idcrop}} class="btn btn-primary  buttonpadding mouseoverhand " (click)="selectCrop()" tooltip="Crop tool"  placement="right">
+          <i class="fa fa-crop   "  aria-hidden="true" ></i>
+      </label>
+        </div>
+      </div>
+</div>
+
 
 
 
