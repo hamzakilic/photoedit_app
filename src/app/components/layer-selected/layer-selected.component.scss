@@ -10,6 +10,17 @@
 
 }
 
+.divCropLayer{
+  background: blue; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(blue, yellow); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(blue, yellow); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(blue, yellow); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(blue, yellow); /* Standard syntax */
+  position: absolute;
+  z-index: 200;
+
+}
+
 .divleftTop{
   cursor:nwse-resize;
 }

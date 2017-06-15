@@ -332,7 +332,7 @@ class WorkModeCrop extends WorkModeBase {
 
   public mouseDown(event: MouseEvent, layer: Layer) {
 
-
+    if(this.workspace.cropLayer==undefined){
     var rect = this.workspace.nativeElement.getBoundingClientRect();
     let mouseX = (event.pageX - rect.left) + window.scrollX;
     let mouseY = (event.pageY - rect.top) + window.scrollY;
@@ -341,6 +341,7 @@ class WorkModeCrop extends WorkModeBase {
     let cropLayer = new LayerCrop(0, 0, mouseX - 50, mouseY - 50);
     cropLayer.mouseDownSelectedPoint(event, 6);
     this.workspace.cropLayer = cropLayer;
+    }
   }
   public mouseUp(event: any) {
     if (this.workspace.cropLayer)

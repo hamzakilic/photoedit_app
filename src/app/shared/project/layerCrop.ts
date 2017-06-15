@@ -37,4 +37,12 @@ export class LayerCrop extends Layer {
   public dispose() {
 
   }
+
+  public selectedCss() {
+     let classes =  {
+            divSelectedLayer: false,
+            divCropLayer: true,
+        };
+        return classes;
+   }
 }
