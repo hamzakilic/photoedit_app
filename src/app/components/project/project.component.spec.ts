@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DropdownModule } from 'ng2-bootstrap';
-import { TabsModule } from 'ng2-bootstrap';
-import { ModalModule } from 'ng2-bootstrap';
+import { DropdownModule } from 'ngx-bootstrap';
+import { TabsModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 
 import { ProjectComponent } from './project.component';
 import { WorkspaceComponent } from '../workspace/workspace.component';

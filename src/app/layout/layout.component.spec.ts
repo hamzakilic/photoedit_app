@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DropdownModule } from 'ng2-bootstrap';
-import { TabsModule } from 'ng2-bootstrap';
-import { ModalModule } from 'ng2-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap';
+import { TabsModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 
 import { LayoutComponent } from './layout.component';
 import { MenubarComponent } from '../components/menubar/menubar.component';
@@ -22,7 +22,7 @@ describe('LayoutComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LayoutComponent,MenubarComponent,ToolbarComponent,StatusbarComponent,WorkspaceComponent, ProjectComponent, SurfaceComponent, LayerComponent  ],
-       imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ],
+       imports: [ BsDropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ],
        providers:[ ProjectService ]
 
     })

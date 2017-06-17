@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, Input, AfterViewInit,ElementRef } from '@angular/core';
 
-import { DropdownModule } from 'ng2-bootstrap';
-import { TabsModule } from 'ng2-bootstrap';
-import { ModalModule } from 'ng2-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap';
+import { TabsModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 
 import { ProjectService } from '../../shared/project.service';
 import { KeyboardService } from '../../shared/keyboard.service';

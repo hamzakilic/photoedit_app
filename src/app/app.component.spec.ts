@@ -4,9 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { DropdownModule } from 'ng2-bootstrap';
-import { TabsModule } from 'ng2-bootstrap';
-import { ModalModule } from 'ng2-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap';
+import { TabsModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -54,7 +54,7 @@ NotSupportedBrowserComponent,
     LayersInfoComponent
   ],
  imports: [
-    DropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     BrowserModule,

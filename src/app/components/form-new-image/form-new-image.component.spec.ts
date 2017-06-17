@@ -3,7 +3,7 @@ import { By }              from '@angular/platform-browser';
 import { DebugElement }    from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalModule } from 'ng2-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import  { ProjectService } from '../../shared/project.service';
 
@@ -19,7 +19,7 @@ class MockProjectService {
     },
 
   }
-  
+
   constructor() {
 
 

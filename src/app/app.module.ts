@@ -4,10 +4,10 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { DropdownModule } from 'ng2-bootstrap';
-import { TabsModule } from 'ng2-bootstrap';
-import { ModalModule } from 'ng2-bootstrap';
-import { TooltipModule } from 'ng2-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap';
+import { TabsModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
+import { TooltipModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NotSupportedBrowserComponent } from './components//notsupportedbrowser/notsupported.component';
@@ -55,7 +55,7 @@ import { LayerPropertiesComponent } from './components/layer-properties/layer-pr
     LayerPropertiesComponent
   ],
   imports: [
-    DropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     TooltipModule.forRoot(),

@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DropdownModule } from 'ng2-bootstrap';
-import { TabsModule } from 'ng2-bootstrap';
-import { ModalModule } from 'ng2-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap';
+import { TabsModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 
 import { ProjectService } from '../../shared/project.service';
 import { KeyboardService } from '../../shared/keyboard.service';
@@ -25,7 +25,7 @@ describe('WorkspaceComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ SurfaceComponent, WorkspaceComponent,LayerComponent,LayersInfoComponent  ],
       providers: [ ProjectService, KeyboardService ],
-      imports: [ DropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]
+      imports: [ BsDropdownModule.forRoot(),TabsModule.forRoot(), ModalModule.forRoot() ]
 
     })
     .compileComponents();

@@ -3,9 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MenubarComponent } from './menubar.component';
 import { ProjectService } from '../../shared/project.service';
 
-import { DropdownModule } from 'ng2-bootstrap';
-import { TabsModule } from 'ng2-bootstrap';
-import { ModalModule } from 'ng2-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap';
+import { TabsModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 
 class MockProjectService {
 
@@ -20,7 +20,7 @@ describe('MenubarComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ MenubarComponent ],
       providers:[{provide:ProjectService, useValue:MockProjectService}],
-      imports:[ DropdownModule.forRoot(),
+      imports:[ BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ModalModule.forRoot()]
 
