@@ -1,5 +1,6 @@
 <tabset #staticTabs class="lineheightsmall">
     <tab  *ngFor="let tab of tabs"  heading={{tab.title}}  >
+      <zoom-component></zoom-component>
       <tools-component></tools-component>
       <layer-properties></layer-properties>
       <layersInfo-component></layersInfo-component>

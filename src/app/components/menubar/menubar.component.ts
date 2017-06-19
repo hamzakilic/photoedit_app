@@ -64,9 +64,8 @@ export class MenubarComponent implements OnInit {
 
     let menuImage = new menu("Image");
 
-    menuImage.childs.push(new menuItem("Resize",new Callback((this.notImplementedYet))));
-    menuImage.childs.push(new menuItem("Crop",new Callback(this.notImplementedYet)));
-    menuImage.childs.push(new menuItem("Rotate",new Callback(this.notImplementedYet)));
+    menuImage.childs.push(new menuItem("Resize",new Callback((this.notImplementedYet))));    
+    
     this.menus.push(menuImage);
 
 

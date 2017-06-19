@@ -9,6 +9,8 @@ import { TabsModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap';
 
+
+
 import { AppComponent } from './app.component';
 import { NotSupportedBrowserComponent } from './components//notsupportedbrowser/notsupported.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -30,6 +32,9 @@ import { LayersInfoComponent } from './components/layers-info/layers-info.compon
 import { ToolsComponent } from './components/tools/tools.component';
 import { LayerSelectedComponent } from './components/layer-selected/layer-selected.component';
 import { LayerPropertiesComponent } from './components/layer-properties/layer-properties.component';
+import { ZoomComponent } from './components/zoom/zoom.component';
+
+
 
 
 
@@ -52,7 +57,10 @@ import { LayerPropertiesComponent } from './components/layer-properties/layer-pr
     LayersInfoComponent,
     ToolsComponent,
     LayerSelectedComponent,
-    LayerPropertiesComponent
+    LayerPropertiesComponent,
+    ZoomComponent
+    
+    
   ],
   imports: [
     BsDropdownModule.forRoot(),
