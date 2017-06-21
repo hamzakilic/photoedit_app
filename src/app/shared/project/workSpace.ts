@@ -85,6 +85,11 @@ export class Workspace extends HEventEmitter {
   public get workMode(): WorkModeBase{
     return this._workMode;
   }
+  public get zoom():number {
+    if(this.backgroundLayer)
+      return this.backgroundLayer.scale;
+    return 1;
+  }
 
   public dispose(): void {
     this._layers.forEach((item) => item.dispose());
@@ -203,7 +208,10 @@ export class Workspace extends HEventEmitter {
 
 
 
-
+  public zoomTo(val: number){
+    this.backgroundLayer.scaleTo(val);
+    this._layers.forEach((item) => item.scaleTo(val));
+  }
   public zoomIn() {
     this.backgroundLayer.scalePlus();
     this._layers.forEach((item) => item.scalePlus());

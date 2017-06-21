@@ -24,12 +24,25 @@ export class SurfaceCanvas extends Surface{
   public resizedAgain = false;
   public scalePlus():void{
       this.scale *= 1.1;
-      if(this.scale>5)
-        this.scale = 5;
+      if(this.scale>3)
+        this.scale = 3;
 
 
 
   }
+
+ public scaleTo(val: number):void{
+      
+      if(val>3)
+        val = 3;
+      if(val<0.1)
+      val= 0.1;
+      this.scale=val;
+
+
+
+  }
+
   public scaleMinus():void{
       this.scale *= 0.9;
       if(this.scale<0.1)

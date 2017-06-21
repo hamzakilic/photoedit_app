@@ -50,7 +50,7 @@ export class MenubarComponent implements OnInit {
     menuEdit.childs.push(new menuItem("Delete",new Callback(this.notImplementedYet)));
     this.menus.push(menuEdit);
 
-    let menuView = new menu("View");
+    /*let menuView = new menu("View");
 
     menuView.childs.push(new menuItem("Zoom in",new Callback(()=>{ this.zoomIn()})));
     menuView.childs.push(new menuItem("Zoom out",new Callback(()=>{this.zoomOut()})));
@@ -59,7 +59,7 @@ export class MenubarComponent implements OnInit {
     menuView.childs.push(new menuItem("Zoom fitW",new Callback(this.notImplementedYet)));
     menuView.childs.push(new menuItem("Zoom fitW",new Callback(this.notImplementedYet)));
     menuView.childs.push(divider);
-    this.menus.push(menuView);
+    this.menus.push(menuView);*/
 
 
     let menuImage = new menu("Image");
