@@ -239,6 +239,10 @@ export class Workspace extends HEventEmitter {
 
   }
 
+  public removeCropLayer(){
+    this.cropLayer = undefined;
+  }
+
 
 
   public cssClasses: string;
@@ -286,6 +290,7 @@ abstract class WorkModeBase {
 
     this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event); });
   }
+  
 
 
 
@@ -299,7 +304,7 @@ class WorkModeDefault extends WorkModeBase {
   constructor(workspace: Workspace) {
     super(workspace);
     this.workspace.cssClasses = "mouseDefault";
-    this.workspace.cropLayer = undefined;
+    this.workspace.removeCropLayer();
 
   }
   public  get typeOf(): number{
@@ -348,7 +353,7 @@ class WorkModeCrop extends WorkModeBase {
     console.log(mouseX + ":" + mouseY);
     let cropLayer = new LayerCrop(0, 0, mouseX - 50, mouseY - 50);
     cropLayer.mouseDownSelectedPoint(event, 6);
-    this.workspace.cropLayer = cropLayer;
+    this.workspace.cropLayer= cropLayer;
     }
   }
   public mouseUp(event: any) {

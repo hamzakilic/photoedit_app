@@ -1,0 +1,67 @@
+<div *ngIf="project != undefined">
+
+      <div *ngIf="project.activeWorkspace != undefined ">
+        <div *ngIf="project.activeWorkspace.cropLayer != undefined ">
+<div class="layersInfo">
+  <header class="layersHeader">
+    <span>Crop Properties</span>
+  </header>
+  <section>
+     <label  class="btn btn-primary buttonpadding mouseoverhand " (click)="cropOk()" tooltip="crop selected layer or image"  placement="right">
+          <i class="fa fa-check "  aria-hidden="true" ></i>
+      </label>
+
+      <label  class="btn btn-primary  buttonpadding mouseoverhand " (click)="cropCancel()" tooltip="cancel crop"  placement="right">
+          <i class="fa fa-times"  aria-hidden="true" ></i>
+      </label>
+  </section>
+  <section class="layersSection">
+
+    
+
+
+        <ul class="list-group" >
+          <li class="list-group-item layersLi" >
+
+
+            
+
+
+            <div class="input-group height30">
+              <span class="input-group-addon proName" id="sizing-addon2" tooltip="Width of croping" placement="right">W</span>
+
+              <input type="number" class="form-control" placeholder="Enter width of crop" aria-describedby="sizing-addon2" [ngModel]="project.activeWorkspace.cropLayer.width"
+                min="10" (ngModelChange)="changeWidth($event)">
+            </div>
+            <div class="input-group height30">
+              <span class="input-group-addon proName" id="sizing-addon2" tooltip="height of croping" placement="right">H</span>
+              <input type="number" class="form-control" placeholder="Enter height of layer" aria-describedby="sizing-addon2" [ngModel]="project.activeWorkspace.cropLayer.height"
+                min="10" (ngModelChange)="changeHeight($event)">
+            </div>
+            <div class="input-group height30">
+              <span class="input-group-addon proName" id="sizing-addon2" tooltip="left of croping" placement="right">L</span>
+              <input type="number" class="form-control" placeholder="Enter left of layer" aria-describedby="sizing-addon2" [ngModel]="project.activeWorkspace.cropLayer.marginLeft"
+                (ngModelChange)="changeLeft($event)">
+            </div>
+            <div class="input-group height30">
+              <span class="input-group-addon proName" id="sizing-addon2" tooltip="top of croping" placement="right">T</span>
+              <input type="number" class="form-control" placeholder="Enter top of layer" aria-describedby="sizing-addon2" [ngModel]="project.activeWorkspace.cropLayer.marginTop"
+                (ngModelChange)="changeTop($event)">
+            </div>
+           
+
+
+
+
+
+
+          </li>
+
+        </ul>
+
+     
+  </section>
+</div>
+ </div>
+      </div>
+    </div>

@@ -3,7 +3,7 @@ import { ProjectService } from '../../shared/project.service';
 import { Proj } from '../../shared/project/proj';
 import { Layer } from '../../shared/project/layer';
 @Component({
-  selector: 'layer-properties',
+  selector: 'layer-properties-component',
   templateUrl: './layer-properties.component.html',
   styleUrls: ['./layer-properties.component.scss']
 })

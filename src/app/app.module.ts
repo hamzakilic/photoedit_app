@@ -33,6 +33,7 @@ import { ToolsComponent } from './components/tools/tools.component';
 import { LayerSelectedComponent } from './components/layer-selected/layer-selected.component';
 import { LayerPropertiesComponent } from './components/layer-properties/layer-properties.component';
 import { ZoomComponent } from './components/zoom/zoom.component';
+import { CropPropertiesComponent } from './components/crop-properties/crop-properties.component';
 
 
 
@@ -58,7 +59,8 @@ import { ZoomComponent } from './components/zoom/zoom.component';
     ToolsComponent,
     LayerSelectedComponent,
     LayerPropertiesComponent,
-    ZoomComponent
+    ZoomComponent,
+    CropPropertiesComponent
     
     
   ],

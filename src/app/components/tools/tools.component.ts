@@ -36,8 +36,10 @@ export class ToolsComponent implements OnInit {
   makeActiveCss(id){
     var labels = document.querySelectorAll(".toolsInfo > section > div > div > label");
     for(let i = 0; i<labels.length;++i)
-    if(labels.item(i).id==id)
+    if(labels.item(i).id==id){
+      debugger;
       labels.item(i).classList.add("active");
+    }
 
   }
 
