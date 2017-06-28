@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import {CheckBrowserCapabilities} from './lib/checkBrowserCapabilities';
+import { CheckBrowserCapabilities } from './lib/checkBrowserCapabilities';
 import { KeyboardService } from './shared/keyboard.service';
-
+import { AppService } from './app.service';
+import { MessageBus } from './lib/messageBus';
+import { Message } from './lib/message';
+import { Callback } from './lib/callback';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +14,11 @@ import { KeyboardService } from './shared/keyboard.service';
 export class AppComponent {
   title = 'app works!';
   isBrowserOk: boolean;
-  constructor(keyboardService: KeyboardService){
-    this.isBrowserOk=CheckBrowserCapabilities.isOk();
-
+  constructor(keyboardService: KeyboardService,appService: AppService) {
+    this.isBrowserOk = CheckBrowserCapabilities.isOk();
+    
   }
+  
 
 
 }

@@ -4,6 +4,10 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BusyModule} from 'angular2-busy';
+
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
@@ -25,6 +29,7 @@ import { ProjectComponent } from './components/project/project.component';
 
 import { ProjectService } from './shared/project.service';
 import { KeyboardService } from './shared/keyboard.service';
+import { AppService } from './app.service';
 
 import { MouseDirective } from './shared/mouse.directive';
 import { LayerComponent } from './components/layer/layer.component';
@@ -34,6 +39,7 @@ import { LayerSelectedComponent } from './components/layer-selected/layer-select
 import { LayerPropertiesComponent } from './components/layer-properties/layer-properties.component';
 import { ZoomComponent } from './components/zoom/zoom.component';
 import { CropPropertiesComponent } from './components/crop-properties/crop-properties.component';
+import { BusyComponent } from './components/busy/busy.component';
 
 
 
@@ -60,7 +66,9 @@ import { CropPropertiesComponent } from './components/crop-properties/crop-prope
     LayerSelectedComponent,
     LayerPropertiesComponent,
     ZoomComponent,
-    CropPropertiesComponent
+    CropPropertiesComponent,
+    BusyComponent,
+    
     
     
   ],
@@ -69,12 +77,14 @@ import { CropPropertiesComponent } from './components/crop-properties/crop-prope
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
+    BrowserAnimationsModule,
+    BusyModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpModule
   ],
-  providers: [ProjectService, KeyboardService],
+  providers: [ProjectService, KeyboardService,AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

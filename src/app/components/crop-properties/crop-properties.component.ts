@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../shared/project.service';
+import { AppService } from '../../app.service';
 import { Proj } from '../../shared/project/proj';
 import { Layer } from '../../shared/project/layer';
 import { LayerPropertiesComponent } from '../layer-properties/layer-properties.component';
+import { MessageBus } from '../../lib/messageBus';
+import { Message } from '../../lib/message';
+import { Callback } from '../../lib/callback';
 
 @Component({
   selector: 'crop-properties-component',
@@ -12,12 +16,14 @@ import { LayerPropertiesComponent } from '../layer-properties/layer-properties.c
 export class CropPropertiesComponent implements OnInit {
 
   projectService: ProjectService;
+  appService: AppService;
   public project: Proj;
 
 
-  constructor(projectService: ProjectService) {
+  constructor(projectService: ProjectService,appService: AppService) {
     this.projectService = projectService;
-
+    this.appService = appService;
+    
     this.project = this.projectService.currentProject;
   }
 
@@ -47,7 +53,10 @@ export class CropPropertiesComponent implements OnInit {
 
   }
   cropOk(){
-    alert("ok");
+    this.appService.busyPromise=new Promise<any>((resolve,reject)=>{
+      
+      setTimeout(resolve,20000);
+    });
 
   }
   cropCancel(){
