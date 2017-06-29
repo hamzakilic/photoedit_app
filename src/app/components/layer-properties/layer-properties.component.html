@@ -14,7 +14,7 @@
 
 
             <div class="laName">{{layer.name}}</div>
-
+             
 
             <div class="input-group height30">
               <span class="input-group-addon proName" id="sizing-addon2" tooltip="Width of layer" placement="right">W</span>
@@ -39,9 +39,27 @@
             </div>
             <div class="input-group height30">
               <span class="input-group-addon proName" id="sizing-addon2" tooltip="rotate of layer" placement="right">R</span>
-              <input type="number" class="form-control" placeholder="Enter rotate of layer" aria-describedby="sizing-addon2" [ngModel]="layer.rotateAngleDeg"
-                min="-180" max="180" (ngModelChange)="changeRotateAngle($event,layer)">
+              <input type="number" class="form-control" placeholder="Enter rotate of layer" aria-describedby="sizing-addon2"  [ngModel]="layer.rotateAngleDeg"
+                min="-180" max="180" (ngModelChange)="changeRotateAngle($event,layer)" >
             </div>
+            <div class="input-group ">
+            <label class="custom-control custom-checkbox">
+  <input type="checkbox" class="custom-control-input" [(ngModel)]="layer.keepRatio">
+  <span class="custom-control-indicator"></span>
+  <span class="custom-control-description" style="padding-top:5px">Keep Ratio</span>
+</label>
+                
+            </div>
+
+            <div class="input-group ">
+            <label class="custom-control custom-checkbox">
+  <input type="checkbox" class="custom-control-input" [(ngModel)]="layer.scaleView">
+  <span class="custom-control-indicator"></span>
+  <span class="custom-control-description" style="padding-top:5px">Scale View</span>
+</label>
+                
+            </div>
+            
 
 
 

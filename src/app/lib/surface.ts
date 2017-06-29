@@ -1,147 +1,195 @@
 
 import { Callback } from './callback';
 import { Graphics } from './graphics';
-export class Surface{
+import { Rect } from './draw/rect';
+export class Surface {
 
-   public width = 0;
-   public height = 0;;
+  public width = 0;
+  public height = 0;;
 
-   public scale = 1;
-   public marginLeft = 0;
-   public marginTop = 0;
-   public marginRight = 0;
-   public marginBottom = 0;
-   public rotateAngleDeg=0;
-   public selectPointwh = 14;
+  public scale = 1;
+  public marginLeft = 0;
+  public marginTop = 0;
+  public marginRight = 0;
+  public marginBottom = 0;
+  public rotateAngleDeg = 0;
+  public selectPointwh = 14;
 
-   public zIndex = 0;
+  public zIndex = 0;
+  public keepRatio: boolean;
+  public scaleView: boolean;
+  public sourceMask: Rect;
 
+  /**
+   *
+   */
+  constructor() {
+    this.keepRatio = true;
+
+  }
 
 }
 
-export class SurfaceCanvas extends Surface{
-  public graphics:Graphics;
+export class SurfaceCanvas extends Surface {
+  public graphics: Graphics;
   public resizedAgain = false;
-  public scalePlus():void{
-      this.scale *= 1.1;
-      if(this.scale>3)
-        this.scale = 3;
+  public scalePlus(): void {
+    this.scale *= 1.1;
+    if (this.scale > 3)
+      this.scale = 3;
 
 
 
   }
 
- public scaleTo(val: number):void{
-      
-      if(val>3)
-        val = 3;
-      if(val<0.1)
-      val= 0.1;
-      this.scale=val;
+  public scaleTo(val: number): void {
+
+    if (val > 3)
+      val = 3;
+    if (val < 0.1)
+      val = 0.1;
+    this.scale = val;
 
 
 
   }
 
-  public scaleMinus():void{
-      this.scale *= 0.9;
-      if(this.scale<0.1)
-        this.scale = 0.1;
+  public scaleMinus(): void {
+    this.scale *= 0.9;
+    if (this.scale < 0.1)
+      this.scale = 0.1;
 
 
   }
 
   public whenCreatedGraphicsAgain: Callback;
-  public setWidthHeight(width:number,height:number,func?: Callback): void {
+  public setWidthHeight(width: number, height: number, func?: Callback): void {
 
+    if (this.keepRatio) {
+      
+      let widthIsChanging = false;
+      if (width != this.width)
+        widthIsChanging = true;
+      let heightIsChanging = false;
+      if (height != this.height)
+        heightIsChanging = true;
+        
+      if(widthIsChanging){
+        let ratio=this.width/this.height;
+        this.width = width;
+        this.height = this.width/ratio;
+      }else if(heightIsChanging){
+        let ratio=this.height/this.width;
+        this.height=height;
+        this.width = this.height/ratio;
+      }
+          
+
+    } else {
       this.width = width;
       this.height = height;
-      //this.scale = 1;
+    }
 
-      this.resizedAgain = false;
-      if(func)
-      this.whenCreatedGraphicsAgain= func;
-  }
-  public resizeByAndSetMargin(width:number,height:number,setMarginLeft:boolean,setMarginTop:boolean, func?: Callback): void{
-
-    this.width += width/this.scale;
-    this.height += height/this.scale;
 
     this.resizedAgain = false;
-    if(setMarginLeft)
-    this.marginLeft -=width/this.scale;
-    if(setMarginTop)
-    this.marginTop -=height/this.scale;
+    if (func)
+      this.whenCreatedGraphicsAgain = func;
+  }
 
-    this.whenCreatedGraphicsAgain= func;
+  public resizeByAndSetMargin(width: number, height: number, setMarginLeft: boolean, setMarginTop: boolean, func?: Callback): void {
+     
+
+    if(this.keepRatio){
+      
+      let ratio= this.width/this.height;
+      if(width == 0)
+        width = ((this.height + height/this.scale)*ratio-this.width)*this.scale;
+      else if(height == 0)
+        height = (((this.width+(width/this.scale))/ratio)-this.height)*this.scale;
+        else {
+          
+          width = ((this.height + height/this.scale)*ratio-this.width)*this.scale;
+        }
+        
+
+
+    }
+    this.width += width / this.scale;
+    this.height += height / this.scale;
+
+    
+
+    this.resizedAgain = false;
+    if (setMarginLeft)
+      this.marginLeft -= width / this.scale;
+    if (setMarginTop)
+      this.marginTop -= height / this.scale;
+    
+
+    this.whenCreatedGraphicsAgain = func;
 
   }
 
-  private widthBeforeRotate=0;
-  private heightBeforeRotate=0;
+  private widthBeforeRotate = 0;
+  private heightBeforeRotate = 0;
 
-  public rotate(x: number){
-   // let tan = x/(this.width*this.scale/2/180);
-    if(this.rotateAngleDeg==0)
-      {
-        this.widthBeforeRotate=this.width;
-        this.heightBeforeRotate = this.height;
-      }
+  public rotate(x: number) {
+
+    if (this.rotateAngleDeg == 0) {
+      this.widthBeforeRotate = this.width;
+      this.heightBeforeRotate = this.height;
+    }
     let tan = x;
 
-    if(this.rotateAngleDeg+tan>180)
-    this.rotateAngleDeg= 180;
+    if (this.rotateAngleDeg + tan > 180)
+      this.rotateAngleDeg = 180;
     else
-    if(this.rotateAngleDeg+tan<-180)
-    this.rotateAngleDeg=-180;
-    else
-    this.rotateAngleDeg += tan;
+      if (this.rotateAngleDeg + tan < -180)
+        this.rotateAngleDeg = -180;
+      else
+        this.rotateAngleDeg += tan;
 
 
-    //if(tan>0){
+    let newWidth = Math.abs(Math.cos(this.rotateAngleDeg * Math.PI / 180)) * this.widthBeforeRotate + Math.abs(Math.cos((90 - this.rotateAngleDeg) * Math.PI / 180)) * this.heightBeforeRotate;
+    this.width = newWidth;
+
+    let newHeight = Math.abs(Math.cos(this.rotateAngleDeg * Math.PI / 180)) * this.heightBeforeRotate + Math.abs(Math.cos((90 - this.rotateAngleDeg) * Math.PI / 180)) * this.widthBeforeRotate;
+
+    this.height = newHeight;
 
 
-      let newWidth=Math.abs(Math.cos(this.rotateAngleDeg*Math.PI/180))*this.widthBeforeRotate+Math.abs(Math.cos((90-this.rotateAngleDeg)*Math.PI/180))*this.heightBeforeRotate;
-      this.width=newWidth;
+    this.resizedAgain = false;
 
-      let newHeight=Math.abs(Math.cos(this.rotateAngleDeg*Math.PI/180))*this.heightBeforeRotate+Math.abs(Math.cos((90-this.rotateAngleDeg)*Math.PI/180))*this.widthBeforeRotate;
-
-      this.height =newHeight;
-   // }
-
-    this.resizedAgain=false;
-   // console.log("angle:"+this.rotateAngleDeg);
   }
 
-  public rotateByDegrees(x: number){
-   // let tan = x/(this.width*this.scale/2/180);
-    if(this.rotateAngleDeg==0)
-      {
-        this.widthBeforeRotate=this.width;
-        this.heightBeforeRotate = this.height;
-      }
-    this.rotateAngleDeg=x;
+  public rotateByDegrees(x: number) {
 
-    if(this.rotateAngleDeg>180)
-    this.rotateAngleDeg= 180;
+    if (this.rotateAngleDeg == 0) {
+      this.widthBeforeRotate = this.width;
+      this.heightBeforeRotate = this.height;
+    }
+    this.rotateAngleDeg = x;
+
+    if (this.rotateAngleDeg > 180)
+      this.rotateAngleDeg = 180;
     else
-    if(this.rotateAngleDeg<-180)
-    this.rotateAngleDeg=-180;
+      if (this.rotateAngleDeg < -180)
+        this.rotateAngleDeg = -180;
 
 
 
 
 
 
-      let newWidth=Math.abs(Math.cos(this.rotateAngleDeg*Math.PI/180))*this.widthBeforeRotate+Math.abs(Math.cos((90-this.rotateAngleDeg)*Math.PI/180))*this.heightBeforeRotate;
-      this.width=newWidth;
+    let newWidth = Math.abs(Math.cos(this.rotateAngleDeg * Math.PI / 180)) * this.widthBeforeRotate + Math.abs(Math.cos((90 - this.rotateAngleDeg) * Math.PI / 180)) * this.heightBeforeRotate;
+    this.width = newWidth;
 
-      let newHeight=Math.abs(Math.cos(this.rotateAngleDeg*Math.PI/180))*this.heightBeforeRotate+Math.abs(Math.cos((90-this.rotateAngleDeg)*Math.PI/180))*this.widthBeforeRotate;
+    let newHeight = Math.abs(Math.cos(this.rotateAngleDeg * Math.PI / 180)) * this.heightBeforeRotate + Math.abs(Math.cos((90 - this.rotateAngleDeg) * Math.PI / 180)) * this.widthBeforeRotate;
 
-      this.height =newHeight;
+    this.height = newHeight;
 
 
-    this.resizedAgain=false;
+    this.resizedAgain = false;
 
   }
 }
