@@ -10,6 +10,9 @@ export class LayerCrop extends Layer {
 
   constructor(width: number, height: number,left: number, top: number) {
     super("crop layer");
+    
+    this.keepRatio = false;
+    this.scaleView = false;
 
      this.width = width;
      this.height = height;

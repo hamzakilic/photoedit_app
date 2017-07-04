@@ -45,15 +45,19 @@ export class Graphics {
 
   }
 
-  public drawHtmlImageRect(img: HTMLImageElement, rect: Rect) {
+  /*public drawHtmlImageRect(img: HTMLImageElement, rect: Rect) {
     this.context.drawImage(img, 0,0, img.naturalWidth, img.naturalHeight,rect.x,rect.y,rect.width,rect.height);
 
+  }*/
+  public drawHtmlImageRect(img: HTMLImageElement, sourceRect: Rect,destRect:Rect) {
+    this.context.drawImage(img, sourceRect.x,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height);
+
   }
-  public drawHtmlImage(img: HTMLImageElement, x: number, y: number) {
+  /*public drawHtmlImage(img: HTMLImageElement, x: number, y: number) {
 
     this.context.drawImage(img, x, y);
 
-  }
+  }*/
 
 
  public fillRectRGBA(rect: Rect, r: number,g: number,b: number,a: number): void {

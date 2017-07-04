@@ -3,7 +3,7 @@ import { Callback } from '../../lib/callback';
 import { HImage } from '../../lib/image';
 import { Graphics } from '../../lib/graphics';
 import { SurfaceCanvas } from '../../lib/surface'
-
+import { Rect } from '../../lib/draw/rect';
 
 export abstract class Layer extends SurfaceCanvas {
   private _name: string;
@@ -12,9 +12,11 @@ export abstract class Layer extends SurfaceCanvas {
   public canRotate: boolean;
   private _mouseDownPoint: MouseDownPoint;
   public isMouseDown: boolean;
+  
   constructor(name?: string) {
     super();
-    this.canRotate = true;
+    this.sourceMask = undefined;
+    
     if (name)
       this._name = name;
     else this._name = 'layer';
@@ -33,6 +35,8 @@ export abstract class Layer extends SurfaceCanvas {
     this.isMouseDown = true;
 
   }
+
+  
   public mouseDownSelectedPoint(event: MouseEvent, corner: number) {
     console.log("mouseDownSelectedPoint");
 
@@ -84,14 +88,16 @@ export abstract class Layer extends SurfaceCanvas {
     } else
      if (this._mouseDownPoint.isRotate && this.isMouseDown) {
         this.rotate(event.movementX);
-      //this.resizeByAndSetMargin(-event.movementX, event.movementY,true,false, new Callback(() => this.render()));
+      
 
 
     } else
       if (this.isSelected && this.isMouseDown) {
-        //console.log(this.name+" is moving");
+          
+        
         this.marginLeft += event.movementX;
         this.marginTop += event.movementY;
+        
 
       }
       event.preventDefault();

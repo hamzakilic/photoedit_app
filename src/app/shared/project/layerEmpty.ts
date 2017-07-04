@@ -15,7 +15,7 @@ export class LayerEmpty extends Layer {
 
     if (height)
       this.height = height;
-
+    this.canRotate = false;
 
 
   }

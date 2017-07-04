@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../shared/project.service';
 import { Proj } from '../../shared/project/proj';
 import { Layer } from '../../shared/project/layer';
+import { Callback } from '../../lib/callback';
 @Component({
   selector: 'layer-properties-component',
   templateUrl: './layer-properties.component.html',
@@ -23,33 +24,38 @@ export class LayerPropertiesComponent implements OnInit {
   ngOnInit() {
   }
 
-  changeRotateAngle(value: number, layer: Layer) {
+  changeRotateAngle(value: any, layer: Layer) {
 
-    if (value <= 180 && value >= -180) {
-      layer.rotateByDegrees(value);
+    if (parseInt(value) <= 180 && parseInt(value) >= -180) {
+      layer.rotateByDegrees(parseInt(value));
 
     }
 
   }
-  changeWidth(value: number, layer: Layer) {
-    if (value > 10) {
-      layer.setWidthHeight(value, layer.height)
+  changeWidth(value: any, layer: Layer) {
+
+    
+    if (parseInt(value) > 10 ) {
+    
+      layer.setWidthHeight(parseInt(value), layer.height, new Callback(() => layer.render()))
     }
   }
 
-  changeHeight(value: number, layer: Layer) {
-    if (value > 10) {
-      layer.setWidthHeight(layer.width, value)
+  changeHeight(value: any, layer: Layer) {
+    
+    if (parseInt(value) > 10) {
+      layer.setWidthHeight(layer.width,parseInt(value), new Callback(() => layer.render()))
     }
   }
-  changeTop(value: number, layer: Layer) {
+  changeTop(value: any, layer: Layer) {
+   
+    layer.setTop(parseInt(value), new Callback(() => layer.render()));
 
-    layer.marginTop = value;
 
   }
-  changeLeft(value: number, layer: Layer) {
-
-    layer.marginLeft = value;
+  changeLeft(value: any, layer: Layer) {
+   
+    layer.setLeft(parseInt(value), new Callback(() => layer.render()));
 
   }
 

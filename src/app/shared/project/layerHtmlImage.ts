@@ -10,10 +10,10 @@ export class LayerHtmlImage extends Layer {
 
   constructor(img: HTMLImageElement, name?: string) {
     super(name);
-
+    this.sourceMask=new Rect(0,0,img.width,img.height);
     this.width = img.width;
     this.height = img.height;
-
+    this.canRotate = true;
     this.img = img;
 
 
@@ -30,10 +30,13 @@ export class LayerHtmlImage extends Layer {
       this.graphics.fillRect(new Rect(this.width * this.scale / 2 - 10, this.height * this.scale / 2 - 10, 20, 20), "#FFFFFF");
       this.graphics.translate(-tx,-ty);
 
-      this.graphics.drawHtmlImageRect(this.img,new Rect((this.width-this.img.naturalWidth)/2,(this.height-this.img.naturalHeight)/2,this.img.naturalWidth,this.img.naturalHeight));
+    // this.graphics.drawHtmlImageRect(this.img,new Rect((this.width-this.img.naturalWidth)/2,(this.height-this.img.naturalHeight)/2,this.img.naturalWidth,this.img.naturalHeight),new Rect(0,0,this.width,this.height));
+     
     }
     else
-    this.graphics.drawHtmlImageFit(this.img, 0, 0);
+    this.graphics.drawHtmlImageRect(this.img,this.sourceMask,new Rect(0,0,this.width,this.height));
+    console.log("html:" + this.width + ":" + this.height + ":" + this.marginLeft + ":" + this.marginTop);
+    console.log("sour:" + this.sourceMask.width + ":" + this.sourceMask.height + ":" + this.sourceMask.x + ":" + this.sourceMask.y);
     this.graphics.restore();
   }
 

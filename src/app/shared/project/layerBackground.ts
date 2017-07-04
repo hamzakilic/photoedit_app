@@ -10,6 +10,7 @@ export class LayerBackground extends Layer{
 
   constructor(name?: string) {
     super(name);
+    this.canRotate = false;
 
   }
   public render(): void{
