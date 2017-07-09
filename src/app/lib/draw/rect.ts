@@ -1,3 +1,4 @@
+import { Point } from './point';
 
 export class Rect {
   public width: number;
@@ -11,5 +12,23 @@ export class Rect {
       this.width = width;
       this.height  = height;
 
+  }
+  public rotate(degrees:number):Rect{
+    
+    return undefined;
+  }
+
+  public get leftTop():Point{
+    return new Point(this.x,this.y);
+  }
+  public get leftBottom():Point{
+    return new Point(this.x,this.y+this.height);
+  }
+  public get rightTop():Point{
+    return new Point(this.x+this.width,this.y);
+  }
+
+  public get rightBottom():Point{
+    return new Point(this.x+this.width,this.y+this.height);
   }
 }

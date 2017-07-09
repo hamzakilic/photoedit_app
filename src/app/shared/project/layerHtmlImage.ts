@@ -3,6 +3,7 @@ import { Graphics } from '../../lib/graphics';
 
 import { HImage } from '../../lib/image';
 import { Rect } from '../../lib/draw/rect';
+import { Calc } from '../../lib/calc';
 
 export class LayerHtmlImage extends Layer {
 
@@ -15,28 +16,45 @@ export class LayerHtmlImage extends Layer {
     this.height = img.height;
     this.canRotate = true;
     this.img = img;
+    this.prepareForRotate();
 
 
   }
   public render(): void {
     this.graphics.clearRect(new Rect(0, 0, this.width, this.height))
     this.graphics.save();
-    if (this.rotateAngleDeg != 0) {
-      let tx = this.width * this.scale / 2;
-      let ty = this.height * this.scale / 2;
+    /*if (this.rotateAngleDeg != 0) {
+      let tx = this.width  / 2;
+      let ty = this.height / 2;
       this.graphics.translate(tx,ty);
-      console.log(this.rotateAngleDeg);
+      
       this.graphics.rotate(this.rotateAngleDeg);
-      this.graphics.fillRect(new Rect(this.width * this.scale / 2 - 10, this.height * this.scale / 2 - 10, 20, 20), "#FFFFFF");
-      this.graphics.translate(-tx,-ty);
+      //this.graphics.fillRect(new Rect(this.width * this.scale / 2 - 10, this.height * this.scale / 2 - 10, 20, 20), "#FFFFFF");
+      this.graphics.translate(-tx,-ty); 
+      let rotatedSourceMask=Calc.rotateRect(this.sourceMask,this.rotateAngleDeg,0,0);
+      
+      //this.graphics.drawHtmlImageRect(this.img,this.sourceMask,new Rect(0,0,this.sourceMask.width>this.width?this.width:this.sourceMask.width,this.sourceMask.height>this.height?this.height:this.sourceMask.height));
 
-    // this.graphics.drawHtmlImageRect(this.img,new Rect((this.width-this.img.naturalWidth)/2,(this.height-this.img.naturalHeight)/2,this.img.naturalWidth,this.img.naturalHeight),new Rect(0,0,this.width,this.height));
+      //else{
+      //let rotatedSourceMask=Calc.rotateRect(this.sourceMask,this.rotateAngleDeg,0,0);
+      let x =(this.width-this.sourceMask.width)/2;
+     
+      let y =(this.height-this.sourceMask.height)/2;
+      
+      this.graphics.drawHtmlImageRect(this.img,this.sourceMask,new Rect(x,y,this.sourceMask.width>this.width?this.width:this.sourceMask.width,this.sourceMask.height>this.height?this.height:this.sourceMask.height));
+      //this.graphics.drawHtmlImageRect(this.img,this.sourceMask,new Rect((this.width-rotatedSourceMask.width)/2,(this.height-rotatedSourceMask.height)/2,rotatedSourceMask.width>this.width?this.width:rotatedSourceMask.width,rotatedSourceMask.height>this.height?this.height:rotatedSourceMask.height));
+      //}
+     //this.graphics.drawHtmlImageRect(this.img,this.sourceMask,new Rect(0,0,this.sourceMask.width,this.sourceMask.height));
+      
      
     }
-    else
-    this.graphics.drawHtmlImageRect(this.img,this.sourceMask,new Rect(0,0,this.width,this.height));
-    console.log("html:" + this.width + ":" + this.height + ":" + this.marginLeft + ":" + this.marginTop);
-    console.log("sour:" + this.sourceMask.width + ":" + this.sourceMask.height + ":" + this.sourceMask.x + ":" + this.sourceMask.y);
+    else*/
+    if(!this.scaleView){
+
+      this.graphics.drawHtmlImageRect(this.img,this.sourceMask,new Rect(0,0,this.sourceMask.width>this.width?this.width:this.sourceMask.width,this.sourceMask.height>this.height?this.height:this.sourceMask.height));
+    }
+    else this.graphics.drawHtmlImageRect(this.img,this.sourceMask,new Rect(0,0,this.width,this.height));
+    
     this.graphics.restore();
   }
 

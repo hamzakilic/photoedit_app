@@ -1,4 +1,7 @@
 
+import { Point } from './draw/point';
+import { Rect } from './draw/rect';
+
 export class Utility {
 
 /**
@@ -11,4 +14,6 @@ export class Utility {
       return v.toString(16);
     });
   }
+
+  
 }

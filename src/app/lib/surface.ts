@@ -2,6 +2,8 @@
 import { Callback } from './callback';
 import { Graphics } from './graphics';
 import { Rect } from './draw/rect';
+import { Point } from './draw/point'
+import { Calc } from './calc';
 export class Surface {
 
   public width = 0;
@@ -12,7 +14,7 @@ export class Surface {
   public marginTop = 0;
   public marginRight = 0;
   public marginBottom = 0;
-  public rotateAngleDeg = 0;
+  public rotateAngleDeg: number = 0;
   public selectPointwh = 14;
 
   public zIndex = 0;
@@ -67,7 +69,7 @@ export class SurfaceCanvas extends Surface {
 
 
   public setTop(value: number, func?: Callback) {
-    if (!this.scaleView) {
+    if (!this.scaleView && this.sourceMask) {
 
       this.sourceMask.y -=this.sourceMask.height*(this.marginTop - value)/this.height;
 
@@ -80,7 +82,7 @@ export class SurfaceCanvas extends Surface {
   }
   public setLeft(value: number, func?: Callback) {
 
-    if (!this.scaleView) {
+    if (!this.scaleView && this.sourceMask) {
 
       this.sourceMask.x -=this.sourceMask.width*(this.marginLeft - value)/this.width;
 
@@ -104,7 +106,7 @@ export class SurfaceCanvas extends Surface {
       if (widthIsChanging) {
         let ratio = this.width / this.height;
 
-        if (!this.scaleView) {
+        if (!this.scaleView && this.sourceMask) {
           this.sourceMask.width +=this.sourceMask.width*(this.width - width)/this.width;
           this.sourceMask.height +=this.sourceMask.height*(this.height - (width / ratio))/this.height;
 
@@ -118,7 +120,7 @@ export class SurfaceCanvas extends Surface {
       } else if (heightIsChanging) {
         let ratio = this.height / this.width;
 
-        if (!this.scaleView) {
+        if (!this.scaleView && this.sourceMask) {
           this.sourceMask.width +=this.sourceMask.width*(this.width - (height / ratio))/this.width;
           this.sourceMask.height +=this.sourceMask.height*( this.height - height)/this.height;
         }
@@ -133,7 +135,7 @@ export class SurfaceCanvas extends Surface {
 
     } else {
 
-      if (!this.scaleView) {
+      if (!this.scaleView && this.sourceMask) {
         this.sourceMask.width -=this.sourceMask.width*(this.width - width)/this.width;
         this.sourceMask.height -=this.sourceMask.height*(this.height - height)/this.height;
       }
@@ -142,7 +144,7 @@ export class SurfaceCanvas extends Surface {
       this.height = height;
     }
 
-
+    this.prepareForRotate();
     this.resizedAgain = false;
     if (func)
       this.whenCreatedGraphicsAgain = func;
@@ -166,9 +168,12 @@ export class SurfaceCanvas extends Surface {
 
 
     }
-    if (!this.scaleView) {
+    if (!this.scaleView && this.sourceMask) {
+     
       this.sourceMask.width += this.sourceMask.width*(width / this.scale)/this.width;
-      this.sourceMask.height +=this.sourceMask.height*( height / this.scale)/this.height;
+      this.sourceMask.height += (this.sourceMask.height*( height / this.scale)/this.height);  
+      
+
     }
     this.width += width / this.scale;
     this.height += height / this.scale;
@@ -178,80 +183,93 @@ export class SurfaceCanvas extends Surface {
   
     if (setMarginLeft) {
       this.marginLeft -= width / this.scale;
-      if (!this.scaleView)
+      if (!this.scaleView && this.sourceMask)
         this.sourceMask.x -=this.sourceMask.width*(width / this.scale)/this.width;
 
 
     }
     if (setMarginTop) {
       this.marginTop -= height / this.scale;
-      if (!this.scaleView)
-        this.sourceMask.y -=this.sourceMask.height*(height / this.scale)/this.sourceMask.height;
+      if (!this.scaleView && this.sourceMask)
+        this.sourceMask.y -=this.sourceMask.height*(height / this.scale)/this.height;
 
     }
-
+    this.prepareForRotate();
   this.resizedAgain = false;
     this.whenCreatedGraphicsAgain = func;
 
 
   }
 
+
+
+  
   private widthBeforeRotate = 0;
   private heightBeforeRotate = 0;
+  protected rotateAngleDegBefore= 0;
   
-  public rotate(x: number) {
-
-    if (this.rotateAngleDeg == 0) {
-      this.widthBeforeRotate = this.width;
-      this.heightBeforeRotate = this.height;
-    }
-    let tan = x;
-
-    if (this.rotateAngleDeg + tan > 180)
-      this.rotateAngleDeg = 180;
-    else
-      if (this.rotateAngleDeg + tan < -180)
-        this.rotateAngleDeg = -180;
-      else
-        this.rotateAngleDeg += tan;
-
-
-    let newWidth = Math.abs(Math.cos(this.rotateAngleDeg * Math.PI / 180)) * this.widthBeforeRotate + Math.abs(Math.cos((90 - this.rotateAngleDeg) * Math.PI / 180)) * this.heightBeforeRotate;
-    this.width = newWidth;
-
-    let newHeight = Math.abs(Math.cos(this.rotateAngleDeg * Math.PI / 180)) * this.heightBeforeRotate + Math.abs(Math.cos((90 - this.rotateAngleDeg) * Math.PI / 180)) * this.widthBeforeRotate;
-
-    this.height = newHeight;
-
-
-    this.resizedAgain = false;
-
+  public prepareForRotate(){
+     this.widthBeforeRotate = this.width;
+     this.heightBeforeRotate = this.height;
+  //   this.rotateAngleDegBefore = this.rotateAngleDeg;
   }
 
+  
   public rotateByDegrees(x: number) {
 
-    if (this.rotateAngleDeg == 0) {
-      this.widthBeforeRotate = this.width;
-      this.heightBeforeRotate = this.height;
-    }
-    this.rotateAngleDeg = x;
-
+     
+    /*let beforeAngle=this.rotateAngleDegBefore;
+    this.rotateAngleDeg= x;
+    console.log(beforeAngle+":"+this.rotateAngleDeg);
     if (this.rotateAngleDeg > 180)
       this.rotateAngleDeg = 180;
     else
       if (this.rotateAngleDeg < -180)
         this.rotateAngleDeg = -180;
+   let angle=  this.rotateAngleDeg -beforeAngle;
+   
+   let tan =0;
+   if(beforeAngle>=0)
+    tan = Math.tan(beforeAngle/180*Math.PI);   
+    else tan =1/ Math.tan(-beforeAngle/180*Math.PI);   
+   let w1,w2,h1,h2;
+   
+   h2= (this.width*tan-this.height)/(tan*tan-1);
+   h1= this.height -h2;
+   w1 = tan * h2;
+   w2 = this.width - w1;
+   
 
+   let pointLeftTop = new Point(-this.widthBeforeRotate/2+w1,-this.heightBeforeRotate/2);
+   let pointLeftBottom = new Point(-this.widthBeforeRotate/2,this.heightBeforeRotate/2-h1);
+   let pointRightTop = new Point(this.widthBeforeRotate/2,-this.heightBeforeRotate/2+h1);
+   let pointRightBottom = new Point(this.widthBeforeRotate/2-w1,this.heightBeforeRotate/2);
 
-    let newWidth = Math.abs(Math.cos(this.rotateAngleDeg * Math.PI / 180)) * this.widthBeforeRotate + Math.abs(Math.cos((90 - this.rotateAngleDeg) * Math.PI / 180)) * this.heightBeforeRotate;
-    this.width = newWidth;
+   let pointX1= Calc.rotatePoint(pointLeftTop,angle,0,0);
+   let pointX2= Calc.rotatePoint(pointLeftBottom,angle,0,0);
+   let pointX3= Calc.rotatePoint(pointRightTop,angle,0,0);
+   let pointX4= Calc.rotatePoint(pointRightBottom,angle,0,0);
+   
+   //burası test code
+   let pointX11= Calc.rotatePoint(pointLeftTop,-beforeAngle,0,0);
+   let pointX21= Calc.rotatePoint(pointLeftBottom,-beforeAngle,0,0);
+   let pointX31= Calc.rotatePoint(pointRightTop,-beforeAngle,0,0);
+   let pointX41= Calc.rotatePoint(pointRightBottom,-beforeAngle,0,0);
+//test code bitti
+   
+   
+   this.width = Math.abs(Math.max(pointX1.X,pointX2.X,pointX3.X,pointX4.X)-Math.min(pointX1.X,pointX2.X,pointX3.X,pointX4.X));
+   this.height = Math.abs(Math.max(pointX1.Y,pointX2.Y,pointX3.Y,pointX4.Y)-Math.min(pointX1.Y,pointX2.Y,pointX3.Y,pointX4.Y));
 
-    let newHeight = Math.abs(Math.cos(this.rotateAngleDeg * Math.PI / 180)) * this.heightBeforeRotate + Math.abs(Math.cos((90 - this.rotateAngleDeg) * Math.PI / 180)) * this.widthBeforeRotate;
+   this.resizedAgain = false;*/
+   this.rotateAngleDeg=x;
+   
 
-    this.height = newHeight;
+  }
 
-
-    this.resizedAgain = false;
-
+  public get transform(){
+  
+    return "rotate("+this.rotateAngleDeg+"deg)";
+    
   }
 }

@@ -33,7 +33,7 @@ export abstract class Layer extends SurfaceCanvas {
     console.log(this.name + " mousedown");
     this.isSelected = true;
     this.isMouseDown = true;
-
+    
   }
 
   
@@ -53,7 +53,7 @@ export abstract class Layer extends SurfaceCanvas {
       case 6: this._mouseDownPoint.isBottomRight = true; break;
       case 7: this._mouseDownPoint.isBottom = true; break;
       case 8: this._mouseDownPoint.isBottomLeft = true; break;
-      case 9: this._mouseDownPoint.isRotate = true;break;
+      case 9: this._mouseDownPoint.isRotate = true; this.prepareForRotate();break;
       default:break;
 
     }
@@ -87,7 +87,8 @@ export abstract class Layer extends SurfaceCanvas {
       this.resizeByAndSetMargin(-event.movementX, event.movementY,true,false, new Callback(() => this.render()));
     } else
      if (this._mouseDownPoint.isRotate && this.isMouseDown) {
-        this.rotate(event.movementX);
+       
+        this.rotateByDegrees(this.rotateAngleDeg+event.movementX);
       
 
 
