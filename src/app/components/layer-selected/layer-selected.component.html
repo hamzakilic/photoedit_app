@@ -6,45 +6,47 @@
 <div  class="divSelectedLayer  divLeft" [ngClass]="surface.selectedCss()" left
 [style.width.px]='surface.selectPointwh * (whichMouseOver==1 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==1 ? 2:1)'
-[style.margin-top.px]='(surface.height*surface.scale/2)+(surface.marginTop*surface.scale)-(surface.selectPointwh * (whichMouseOver==1 ? 2:1)/2)'
-[style.margin-left.px]="surface.marginLeft*surface.scale-(surface.selectPointwh* (whichMouseOver==1 ? 2:1)/2)"
+[style.margin-top.px]='left.Y'
+[style.margin-left.px]='left.X'
+
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,1)"  (mouseOver)="mouseOver($event,1)" (mouseLeave)="mouseLeave($event,1)">
 </div>
 <div  class="divSelectedLayer divleftTop" [ngClass]="surface.selectedCss()" leftTop
 [style.width.px]='surface.selectPointwh * (whichMouseOver==2 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==2 ? 2:1)'
-[style.margin-top.px]="surface.marginTop*surface.scale-(surface.selectPointwh* (whichMouseOver==2 ? 2:1)/2)"
-[style.margin-left.px]="surface.marginLeft*surface.scale-(surface.selectPointwh* (whichMouseOver==2 ? 2:1)/2)"
+[style.margin-top.px]="leftTop.Y"
+[style.margin-left.px]="leftTop.X"
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,2)" (mouseOver)="mouseOver($event,2)" (mouseLeave)="mouseLeave($event,2)">
 </div>
 
 <div  class="divSelectedLayer divTop"  [ngClass]="surface.selectedCss()" top
 [style.width.px]='surface.selectPointwh * (whichMouseOver==3 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==3 ? 2:1)'
-[style.margin-left.px]="(surface.width*surface.scale/2)+(surface.marginLeft*surface.scale)-(surface.selectPointwh* (whichMouseOver==3 ? 2:1)/2)"
-[style.margin-top.px]="(surface.marginTop*surface.scale-surface.selectPointwh* (whichMouseOver==3 ? 2:1)/2)"
+[style.margin-top.px]="top.Y"
+[style.margin-left.px]="top.X"
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,3)" (mouseOver)="mouseOver($event,3)" (mouseLeave)="mouseLeave($event,3)">
 </div>
 <div  class="divSelectedLayer divRightTop" [ngClass]="surface.selectedCss()" rightTop
 [style.width.px]='surface.selectPointwh * (whichMouseOver==4 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==4 ? 2:1)'
-[style.margin-left.px]="(surface.width*surface.scale)+(surface.marginLeft*surface.scale)-(surface.selectPointwh* (whichMouseOver==4 ? 2:1)/2)"
-[style.margin-top.px]="(surface.marginTop*surface.scale-surface.selectPointwh* (whichMouseOver==4 ? 2:1)/2)"
+[style.margin-top.px]="rightTop.Y"
+[style.margin-left.px]="rightTop.X"
+
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,4)" (mouseOver)="mouseOver($event,4)" (mouseLeave)="mouseLeave($event,4)">
 </div>
 
 <div  class="divSelectedLayer divRight" [ngClass]="surface.selectedCss()" right
 [style.width.px]='surface.selectPointwh * (whichMouseOver==5 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==5 ? 2:1)'
-[style.margin-top.px]="(surface.height*surface.scale/2)+(surface.marginTop*surface.scale)-(surface.selectPointwh* (whichMouseOver==5 ? 2:1)/2)"
-[style.margin-left.px]="(surface.width*surface.scale)+(surface.marginLeft*surface.scale)-(surface.selectPointwh* (whichMouseOver==5 ? 2:1)/2)"
+[style.margin-top.px]="right.Y"
+[style.margin-left.px]="right.X"
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,5)" (mouseOver)="mouseOver($event,5)" (mouseLeave)="mouseLeave($event,5)">
 </div>
 <div  class="divSelectedLayer divRightBottom" [ngClass]="surface.selectedCss()" rightBottom
 [style.width.px]='surface.selectPointwh * (whichMouseOver==6 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==6 ? 2:1)'
-[style.margin-top.px]="(surface.height*surface.scale)+(surface.marginTop*surface.scale)-(surface.selectPointwh* (whichMouseOver==6 ? 2:1)/2)"
-[style.margin-left.px]="(surface.width*surface.scale)+(surface.marginLeft*surface.scale)-(surface.selectPointwh* (whichMouseOver==6 ? 2:1)/2)"
+[style.margin-top.px]="rightBottom.Y"
+[style.margin-left.px]="rightBottom.X"
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,6)" (mouseOver)="mouseOver($event,6)" (mouseLeave)="mouseLeave($event,6)">
 </div>
 
@@ -52,8 +54,8 @@ mouse (mouseDown)="surface.mouseDownSelectedPoint($event,6)" (mouseOver)="mouseO
 <div  class="divSelectedLayer divBottom" [ngClass]="surface.selectedCss()" bottom
 [style.width.px]='surface.selectPointwh * (whichMouseOver==7 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==7 ? 2:1)'
-[style.margin-top.px]="(surface.height*surface.scale)+(surface.marginTop*surface.scale)-(surface.selectPointwh* (whichMouseOver==7 ? 2:1)/2)"
-[style.margin-left.px]="(surface.width*surface.scale/2)+(surface.marginLeft*surface.scale)-(surface.selectPointwh* (whichMouseOver==7 ? 2:1)/2)"
+[style.margin-top.px]="bottom.Y"
+[style.margin-left.px]="bottom.X"
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,7)" (mouseOver)="mouseOver($event,7)" (mouseLeave)="mouseLeave($event,7)">
 </div>
 
@@ -62,8 +64,8 @@ mouse (mouseDown)="surface.mouseDownSelectedPoint($event,7)" (mouseOver)="mouseO
 <div  class="divSelectedLayer divLeftBottom" [ngClass]="surface.selectedCss()" leftBottom
 [style.width.px]='surface.selectPointwh * (whichMouseOver==8 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==8 ? 2:1)'
-[style.margin-top.px]='(surface.height*surface.scale)+(surface.marginTop*surface.scale)-(surface.selectPointwh* (whichMouseOver==8 ? 2:1)/2)'
-[style.margin-left.px]="surface.marginLeft*surface.scale-surface.selectPointwh* (whichMouseOver==8 ? 2:1)/2"
+[style.margin-top.px]='leftBottom.Y'
+[style.margin-left.px]="leftBottom.X"
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,8)" (mouseOver)="mouseOver($event,8)" (mouseLeave)="mouseLeave($event,8)">
 </div>
 

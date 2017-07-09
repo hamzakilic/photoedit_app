@@ -16,7 +16,7 @@ export class LayerHtmlImage extends Layer {
     this.height = img.height;
     this.canRotate = true;
     this.img = img;
-    this.prepareForRotate();
+    
 
 
   }

@@ -78,7 +78,6 @@ export class SurfaceCanvas extends Surface {
     this.resizedAgain = false;
     this.whenCreatedGraphicsAgain = func;
 
-
   }
   public setLeft(value: number, func?: Callback) {
 
@@ -144,7 +143,7 @@ export class SurfaceCanvas extends Surface {
       this.height = height;
     }
 
-    this.prepareForRotate();
+    
     this.resizedAgain = false;
     if (func)
       this.whenCreatedGraphicsAgain = func;
@@ -194,74 +193,26 @@ export class SurfaceCanvas extends Surface {
         this.sourceMask.y -=this.sourceMask.height*(height / this.scale)/this.height;
 
     }
-    this.prepareForRotate();
+    
   this.resizedAgain = false;
     this.whenCreatedGraphicsAgain = func;
 
 
   }
 
+ 
+
+ public get rectRotated():Rect{
+   let rect = new Rect(this.marginLeft,this.marginTop,this.width,this.height);   
+   let rotatedRect= Calc.rotateRect(rect,this.rotateAngleDeg);
+   return rotatedRect;
+ }
 
 
-  
-  private widthBeforeRotate = 0;
-  private heightBeforeRotate = 0;
-  protected rotateAngleDegBefore= 0;
-  
-  public prepareForRotate(){
-     this.widthBeforeRotate = this.width;
-     this.heightBeforeRotate = this.height;
-  //   this.rotateAngleDegBefore = this.rotateAngleDeg;
-  }
 
   
   public rotateByDegrees(x: number) {
 
-     
-    /*let beforeAngle=this.rotateAngleDegBefore;
-    this.rotateAngleDeg= x;
-    console.log(beforeAngle+":"+this.rotateAngleDeg);
-    if (this.rotateAngleDeg > 180)
-      this.rotateAngleDeg = 180;
-    else
-      if (this.rotateAngleDeg < -180)
-        this.rotateAngleDeg = -180;
-   let angle=  this.rotateAngleDeg -beforeAngle;
-   
-   let tan =0;
-   if(beforeAngle>=0)
-    tan = Math.tan(beforeAngle/180*Math.PI);   
-    else tan =1/ Math.tan(-beforeAngle/180*Math.PI);   
-   let w1,w2,h1,h2;
-   
-   h2= (this.width*tan-this.height)/(tan*tan-1);
-   h1= this.height -h2;
-   w1 = tan * h2;
-   w2 = this.width - w1;
-   
-
-   let pointLeftTop = new Point(-this.widthBeforeRotate/2+w1,-this.heightBeforeRotate/2);
-   let pointLeftBottom = new Point(-this.widthBeforeRotate/2,this.heightBeforeRotate/2-h1);
-   let pointRightTop = new Point(this.widthBeforeRotate/2,-this.heightBeforeRotate/2+h1);
-   let pointRightBottom = new Point(this.widthBeforeRotate/2-w1,this.heightBeforeRotate/2);
-
-   let pointX1= Calc.rotatePoint(pointLeftTop,angle,0,0);
-   let pointX2= Calc.rotatePoint(pointLeftBottom,angle,0,0);
-   let pointX3= Calc.rotatePoint(pointRightTop,angle,0,0);
-   let pointX4= Calc.rotatePoint(pointRightBottom,angle,0,0);
-   
-   //burası test code
-   let pointX11= Calc.rotatePoint(pointLeftTop,-beforeAngle,0,0);
-   let pointX21= Calc.rotatePoint(pointLeftBottom,-beforeAngle,0,0);
-   let pointX31= Calc.rotatePoint(pointRightTop,-beforeAngle,0,0);
-   let pointX41= Calc.rotatePoint(pointRightBottom,-beforeAngle,0,0);
-//test code bitti
-   
-   
-   this.width = Math.abs(Math.max(pointX1.X,pointX2.X,pointX3.X,pointX4.X)-Math.min(pointX1.X,pointX2.X,pointX3.X,pointX4.X));
-   this.height = Math.abs(Math.max(pointX1.Y,pointX2.Y,pointX3.Y,pointX4.Y)-Math.min(pointX1.Y,pointX2.Y,pointX3.Y,pointX4.Y));
-
-   this.resizedAgain = false;*/
    this.rotateAngleDeg=x;
    
 

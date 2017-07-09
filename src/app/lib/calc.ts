@@ -3,20 +3,22 @@ import { Point } from './draw/point';
 import { Rect } from './draw/rect';
 
 export class Calc{
-    public static rotatePoint(point: Point,degres:number,halfWidth:number,halfHeight:number): Point{
-        let X = point.X*Math.cos(degres/180*Math.PI) - point.Y*Math.sin(degres/180*Math.PI);
-        X += halfWidth;
-        let Y =point.X*Math.sin(degres/180*Math.PI) + point.Y*Math.cos(degres/180*Math.PI);
-        Y += halfHeight;
+    public static rotatePoint(point: Point,degres:number,pointAround: Point): Point{
+        let X = (point.X-pointAround.X)*Math.cos(degres/180*Math.PI) - (point.Y-pointAround.Y)*Math.sin(degres/180*Math.PI)+pointAround.X;
+        
+        let Y =(point.X-pointAround.X)*Math.sin(degres/180*Math.PI) + (point.Y-pointAround.Y)*Math.cos(degres/180*Math.PI)+pointAround.Y;
+        
         return new Point(X,Y);
     }
 
-     public static rotateRect(rect: Rect,degres:number,halfWidth:number,halfHeight:number): Rect{
+     
 
-        let pointLeftTop = this.rotatePoint(rect.leftTop,degres,0,0);
-        let pointLeftBottom = this.rotatePoint(rect.leftBottom,degres,0,0);
-        let pointRightTop = this.rotatePoint(rect.rightTop,degres,0,0);
-        let pointRightBottom = this.rotatePoint(rect.rightBottom,degres,0,0);
+     public static rotateRect(rect: Rect,degres:number): Rect{
+        let center=new Point(rect.leftTop.X+rect.width/2,rect.leftTop.Y+rect.height/2);
+        let pointLeftTop = this.rotatePoint(rect.leftTop,degres,center);
+        let pointLeftBottom = this.rotatePoint(rect.leftBottom,degres,center);
+        let pointRightTop = this.rotatePoint(rect.rightTop,degres,center);
+        let pointRightBottom = this.rotatePoint(rect.rightBottom,degres,center);
     
         let minx=Math.min(pointLeftTop.X,pointLeftBottom.X,pointRightTop.X,pointRightBottom.X);
         let miny=Math.min(pointLeftTop.Y,pointLeftBottom.Y,pointRightTop.Y,pointRightBottom.Y);

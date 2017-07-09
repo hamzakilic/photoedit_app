@@ -13,10 +13,7 @@ export class Rect {
       this.height  = height;
 
   }
-  public rotate(degrees:number):Rect{
-    
-    return undefined;
-  }
+
 
   public get leftTop():Point{
     return new Point(this.x,this.y);

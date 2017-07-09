@@ -1,6 +1,4 @@
 
-import { Point } from './draw/point';
-import { Rect } from './draw/rect';
 
 export class Utility {
 
