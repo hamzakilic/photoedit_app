@@ -106,8 +106,9 @@ export class SurfaceCanvas extends Surface {
         let ratio = this.width / this.height;
 
         if (!this.scaleView && this.sourceMask) {
-          this.sourceMask.width +=this.sourceMask.width*(this.width - width)/this.width;
-          this.sourceMask.height +=this.sourceMask.height*(this.height - (width / ratio))/this.height;
+          
+          this.sourceMask.width -=this.sourceMask.width*(this.width - width)/this.width;
+          this.sourceMask.height -=this.sourceMask.height*(this.height - (width / ratio))/this.height;
 
         }
 
@@ -120,8 +121,8 @@ export class SurfaceCanvas extends Surface {
         let ratio = this.height / this.width;
 
         if (!this.scaleView && this.sourceMask) {
-          this.sourceMask.width +=this.sourceMask.width*(this.width - (height / ratio))/this.width;
-          this.sourceMask.height +=this.sourceMask.height*( this.height - height)/this.height;
+          this.sourceMask.width -=this.sourceMask.width*(this.width - (height / ratio))/this.width;
+          this.sourceMask.height -=this.sourceMask.height*( this.height - height)/this.height;
         }
 
         this.height = height;
@@ -135,6 +136,7 @@ export class SurfaceCanvas extends Surface {
     } else {
 
       if (!this.scaleView && this.sourceMask) {
+        
         this.sourceMask.width -=this.sourceMask.width*(this.width - width)/this.width;
         this.sourceMask.height -=this.sourceMask.height*(this.height - height)/this.height;
       }

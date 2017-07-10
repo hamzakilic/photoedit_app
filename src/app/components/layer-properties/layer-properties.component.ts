@@ -58,7 +58,7 @@ export class LayerPropertiesComponent implements OnInit {
     let pointX3 = new Point(layer.marginLeft + layer.width, layer.marginTop + layer.height); //right bottom
     let pointX4 = new Point(layer.marginLeft, layer.marginTop + layer.height);//left bottom
 
-    let center = new Point(layer.marginLeft + layer.width * layer.scale / 2, layer.marginTop + layer.height * layer.scale / 2)
+    let center = new Point(layer.marginLeft + layer.width  / 2, layer.marginTop + layer.height  / 2)
     let pointX1Rotated = Calc.rotatePoint(pointX1, layer.rotateAngleDeg, center);//left top
     let pointX2Rotated = Calc.rotatePoint(pointX2, layer.rotateAngleDeg, center);//right top
     let pointX3Rotated = Calc.rotatePoint(pointX3, layer.rotateAngleDeg, center);//right bottom
@@ -131,7 +131,7 @@ export class LayerPropertiesComponent implements OnInit {
     let pointX3 = new Point(layer.marginLeft + layer.width, layer.marginTop + layer.height); //right bottom
     let pointX4 = new Point(layer.marginLeft, layer.marginTop + layer.height);//left bottom
 
-    let center = new Point(layer.marginLeft + layer.width * layer.scale / 2, layer.marginTop + layer.height * layer.scale / 2)
+    let center = new Point(layer.marginLeft + layer.width  / 2, layer.marginTop + layer.height  / 2)
     let pointX1Rotated = Calc.rotatePoint(pointX1, layer.rotateAngleDeg, center);//left top
     let pointX2Rotated = Calc.rotatePoint(pointX2, layer.rotateAngleDeg, center);//right top
     let pointX3Rotated = Calc.rotatePoint(pointX3, layer.rotateAngleDeg, center);//right bottom

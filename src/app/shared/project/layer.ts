@@ -123,13 +123,7 @@ export abstract class Layer extends SurfaceCanvas {
   public abstract dispose();
 
 
-   public selectedCss() {
-     let classes =  {
-            divSelectedLayer: true,
-            divCropLayer: false,
-        };
-        return classes;
-   }
+   
 
 }
 
