@@ -27,6 +27,7 @@ export class LayerSelectedComponent implements OnInit {
   }
 
   mouseOver(event: MouseEvent, which: number) {
+    console.log("mouseover:"+which);
     this.whichMouseOver = which;
   }
   mouseLeave(event: MouseEvent, which: number) {
@@ -122,7 +123,9 @@ export class LayerSelectedComponent implements OnInit {
    }
 
    private calculateCursor(instance: any, val:number){
+     console.log("Cursor:"+val);
         switch(val){
+          
           case 1://left side
           case 5://right side
           RotationHelper.calculateCursorLeftRight(instance,this.surface.rotateAngleDeg);break;

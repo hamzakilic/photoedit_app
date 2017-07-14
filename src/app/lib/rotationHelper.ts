@@ -51,7 +51,7 @@ export class RotationHelper {
             instance.cursorew = true;
         }
         if (angle > -60 && angle <= -30) {
-            instance.cursornesw = true;
+            instance.cursornwse = true;
         }
         if (angle > -30 && angle <= 30) {
             instance.cursorns = true;
@@ -75,15 +75,31 @@ export class RotationHelper {
     public static calculateRotationMoveLeft(event: MouseEvent, surface: SurfaceCanvas): RotationMove {
         let angle = surface.rotateAngleDeg;
         let centerPoint = new Point(surface.marginLeft + surface.width / 2, surface.marginTop + surface.height / 2);
-
+        //find a base point
         let rotatedRectBottom = Calc.rotatePoint(new Point(surface.marginLeft + surface.width, surface.marginTop + surface.height), surface.rotateAngleDeg, centerPoint);
 
-       // if (angle >= -90 && angle <= 0)
+       
          {
 
             let m = new Point(event.movementX / surface.scale, 0);
+            if(angle <=180)
+                m = new Point(-event.movementX / surface.scale, 0);
+            if(angle<=140)
+                m = new Point(-event.movementX / surface.scale, 0);
+
+                 if(angle<=120)
+                m = new Point(event.movementY / surface.scale, 0);
+
+                 if(angle<=60)
+                m = new Point(event.movementX / surface.scale, 0);
+
             if (angle <= -60)
                 m = new Point(-event.movementY / surface.scale, 0);
+            if (angle <= -140)
+                m = new Point(-event.movementX / surface.scale, 0);
+
+
+            
             let rotatedmovePoint = Calc.rotatePoint(m, surface.rotateAngleDeg, new Point(0, 0));
 
             let nAngle = angle;
@@ -129,7 +145,7 @@ export class RotationHelper {
 
         }
 
-       // return { width: event.movementX, height: 0, left: 0, top: 0, maskLeft: 0, maskTop: 0 };
+       
     }
 }
 
