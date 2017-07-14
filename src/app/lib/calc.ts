@@ -3,6 +3,7 @@ import { Point } from './draw/point';
 import { Rect } from './draw/rect';
 
 export class Calc{
+    //counter clockwise formula
     public static rotatePoint(point: Point,degres:number,pointAround: Point): Point{
         let X = (point.X-pointAround.X)*Math.cos(degres/180*Math.PI) - (point.Y-pointAround.Y)*Math.sin(degres/180*Math.PI)+pointAround.X;
         
@@ -12,7 +13,7 @@ export class Calc{
     }
 
      
-
+//counter clockwise formula
      public static rotateRect(rect: Rect,degres:number): Rect{
         let center=new Point(rect.leftTop.X+rect.width/2,rect.leftTop.Y+rect.height/2);
         let pointLeftTop = this.rotatePoint(rect.leftTop,degres,center);
@@ -25,5 +26,13 @@ export class Calc{
         let width=Math.abs(Math.max(pointLeftTop.X,pointLeftBottom.X,pointRightTop.X,pointRightBottom.X)-Math.min(pointLeftTop.X,pointLeftBottom.X,pointRightTop.X,pointRightBottom.X));
         let height=Math.abs(Math.max(pointLeftTop.Y,pointLeftBottom.Y,pointRightTop.Y,pointRightBottom.Y)-Math.min(pointLeftTop.Y,pointLeftBottom.Y,pointRightTop.Y,pointRightBottom.Y));
         return new Rect(minx,miny,width,height);
+    }
+
+    public static cos(degres:number): number{
+        return Math.cos(degres/180*Math.PI);
+    }
+
+    public static sin(degres:number): number{
+        return Math.sin(degres/180*Math.PI);
     }
 }

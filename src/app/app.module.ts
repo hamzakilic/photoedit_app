@@ -32,6 +32,7 @@ import { KeyboardService } from './shared/keyboard.service';
 import { AppService } from './app.service';
 
 import { MouseDirective } from './shared/mouse.directive';
+import { KeyboardDirective } from './shared/keyboard.directive';
 import { LayerComponent } from './components/layer/layer.component';
 import { LayersInfoComponent } from './components/layers-info/layers-info.component';
 import { ToolsComponent } from './components/tools/tools.component';
@@ -60,6 +61,7 @@ import { BusyComponent } from './components/busy/busy.component';
     WorkspaceComponent,
     ProjectComponent,
     MouseDirective,
+    KeyboardDirective,
     LayerComponent,
     LayersInfoComponent,
     ToolsComponent,

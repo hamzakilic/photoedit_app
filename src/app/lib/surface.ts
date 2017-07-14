@@ -151,53 +151,62 @@ export class SurfaceCanvas extends Surface {
       this.whenCreatedGraphicsAgain = func;
   }
 
-  public resizeByAndSetMargin(width: number, height: number, setMarginLeft: boolean, setMarginTop: boolean, func?: Callback): void {
+  public calculateBy(width: number, height: number, left: number, top: number,maskleft:number,masktop:number , func?: Callback): void {
 
-
+    let bWidth=this.width;
+    let bHeight=this.height;
+    let bWidthMask=0;
+    let bHeightMask=0;
+    if(this.sourceMask){
+      bWidthMask = this.sourceMask.width;
+      bHeightMask = this.sourceMask.height;
+    }
     if (this.keepRatio) {
 
       let ratio = this.width / this.height;
       if (width == 0)
-        width = ((this.height + height / this.scale) * ratio - this.width) * this.scale;
+        width = ((this.height + height ) * ratio - this.width);
       else if (height == 0)
-        height = (((this.width + (width / this.scale)) / ratio) - this.height) * this.scale;
+        height = (((this.width + (width)) / ratio) - this.height) ;
       else {
 
-        width = ((this.height + height / this.scale) * ratio - this.width) * this.scale;
+        width = ((this.height + height ) * ratio - this.width) ;
       }
 
 
 
     }
+    //must before changing this.widht and this.height
     if (!this.scaleView && this.sourceMask) {
      
-      this.sourceMask.width += this.sourceMask.width*(width / this.scale)/this.width;
-      this.sourceMask.height += (this.sourceMask.height*( height / this.scale)/this.height);  
+      this.sourceMask.width += (width)*bWidthMask/bWidth;
+      this.sourceMask.height += height*bHeightMask/bHeight;
       
 
     }
-    this.width += width / this.scale;
-    this.height += height / this.scale;
+    this.width += width ;
+    this.height += height ;
 
 
 
   
-    if (setMarginLeft) {
-      this.marginLeft -= width / this.scale;
-      if (!this.scaleView && this.sourceMask)
-        this.sourceMask.x -=this.sourceMask.width*(width / this.scale)/this.width;
+   
+      this.marginLeft += left ;
+     // if (!this.scaleView && this.sourceMask)
+     //   this.sourceMask.x +=(maskleft)*bWidthMask/bWidth;
 
 
-    }
-    if (setMarginTop) {
-      this.marginTop -= height / this.scale;
-      if (!this.scaleView && this.sourceMask)
-        this.sourceMask.y -=this.sourceMask.height*(height / this.scale)/this.height;
-
-    }
     
-  this.resizedAgain = false;
+    
+      this.marginTop += top ;
+    //  if (!this.scaleView && this.sourceMask)
+     //   this.sourceMask.y +=(masktop)*bHeightMask/bHeight;
+
+    
+    
+  
     this.whenCreatedGraphicsAgain = func;
+    this.resizedAgain = false;
 
 
   }

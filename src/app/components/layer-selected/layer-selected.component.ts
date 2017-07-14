@@ -4,7 +4,7 @@ import { LayerCrop } from '../../shared/project/layerCrop';
 import { Callback } from '../../lib/callback';
 import { Point } from '../../lib/draw/point';
 import { Calc } from '../../lib/calc';
-
+import { RotationHelper } from '../../lib/rotationHelper';
 @Component({
   selector: 'layer-selected',
   templateUrl: './layer-selected.component.html',
@@ -124,82 +124,17 @@ export class LayerSelectedComponent implements OnInit {
    private calculateCursor(instance: any, val:number){
         switch(val){
           case 1://left side
-          case 5://left side
-          this.calculateCursor15(instance);break;
+          case 5://right side
+          RotationHelper.calculateCursorLeftRight(instance,this.surface.rotateAngleDeg);break;
            case 3: //top side
            case 7: //bottom side
-          this.calculateCursor37(instance);break;           
+          RotationHelper.calculateCursorTopBottom(instance,this.surface.rotateAngleDeg);break;           
           
           default:break;
         }
    }
 
-   private calculateCursor15(instance:any){
-      let angle=this.surface.rotateAngleDeg;
-    
-
-      if(angle>=-180 && angle<=-160){
-        instance.cursorew = true;
-      }
-      if(angle>-160 && angle<=-100){
-        instance.cursornwse = true;
-      }
-       if(angle>-100 && angle<=-80){
-        instance.cursorns = true;
-      }
-      if(angle>-80 && angle<=-10){
-        instance.cursornesw = true;
-      }      
-      if(angle>-10 && angle<=10){
-        instance.cursorew = true;
-      }
-      if(angle>10 && angle<=80){
-        instance.cursornwse = true;
-      }
-      if(angle>80 && angle<=100){
-        instance.cursorns = true;
-      }
-       if(angle>100 && angle<=160){
-        instance.cursornesw = true;
-      }
-      if(angle>160 && angle<=180){
-        instance.cursorew = true;
-      }
-   }
-
-
-    private calculateCursor37(instance:any){
-      let angle=this.surface.rotateAngleDeg;
-      
-
-      if(angle>=-180 && angle<=-160){
-        instance.cursorns = true;
-      }
-      if(angle>-160 && angle<=-100){
-        instance.cursornesw = true;
-      }
-       if(angle>-100 && angle<=-80){
-        instance.cursorew = true;
-      }
-      if(angle>-80 && angle<=-10){
-        instance.cursornesw = true;
-      }      
-      if(angle>-10 && angle<=10){
-        instance.cursorns = true;
-      }
-      if(angle>10 && angle<=60){
-        instance.cursornesw = true;
-      }
-      if(angle>60 && angle<=100){
-        instance.cursorew = true;
-      }
-       if(angle>100 && angle<=160){
-        instance.cursornwse = true;
-      }
-      if(angle>160 && angle<=180){
-        instance.cursorns = true;
-      }
-   }
+   
  
 
  

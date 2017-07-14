@@ -4,6 +4,8 @@ import { HImage } from '../../lib/image';
 import { Graphics } from '../../lib/graphics';
 import { SurfaceCanvas } from '../../lib/surface'
 import { Rect } from '../../lib/draw/rect';
+import { Point } from '../../lib/draw/point';
+import { RotationHelper, RotationMove } from '../../lib/rotationHelper';
 
 export abstract class Layer extends SurfaceCanvas {
   private _name: string;
@@ -38,11 +40,11 @@ export abstract class Layer extends SurfaceCanvas {
 
   
   public mouseDownSelectedPoint(event: MouseEvent, corner: number) {
-    console.log("mouseDownSelectedPoint");
+    //console.log("mouseDownSelectedPoint");
 
     this._mouseDownPoint.allFalse();
     this.isMouseDown = true;
-  //  this.isSelected = true;
+  
     switch (corner) {
       //starts from left and rotates clock wise
       case 1: this._mouseDownPoint.isLeft = true; break;
@@ -61,38 +63,40 @@ export abstract class Layer extends SurfaceCanvas {
   }
   public mouseMove(event: MouseEvent) {
 
-   // console.log(this.name+" moving:"+event.clientX);
+   
     if (this._mouseDownPoint.isLeft && this.isMouseDown) {
-      this.resizeByAndSetMargin(-event.movementX, 0,true,false, new Callback(() => this.render()));
+      let move = RotationHelper.calculateRotationMoveLeft(event,this);
+      this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, new Callback(() => this.render()));
     } else
-    if (this._mouseDownPoint.isTopLeft && this.isMouseDown) {
+   /* if (this._mouseDownPoint.isTopLeft && this.isMouseDown) {
       this.resizeByAndSetMargin(-event.movementX, -event.movementY,true,true, new Callback(() => this.render()));
-    } else
+    } else*/
     if (this._mouseDownPoint.isTop && this.isMouseDown) {
-      this.resizeByAndSetMargin(0, -event.movementY,false,true, new Callback(() => this.render()));
+      //this.resizeByAndSetMargin(0, -event.movementY,false,true, new Callback(() => this.render()));
     } else
-    if (this._mouseDownPoint.isTopRight && this.isMouseDown) {
+    /*if (this._mouseDownPoint.isTopRight && this.isMouseDown) {
       this.resizeByAndSetMargin(event.movementX, -event.movementY,false,true, new Callback(() => this.render()));
-    } else
+    } else*/
     if (this._mouseDownPoint.isRight && this.isMouseDown) {
-      this.resizeByAndSetMargin(event.movementX, 0,false,false, new Callback(() => this.render()));
+      let move = RotationHelper.calculateRotationMoveLeft(event,this);
+      this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, new Callback(() => this.render()));
     } else
-    if (this._mouseDownPoint.isBottomRight && this.isMouseDown) {
+    /*if (this._mouseDownPoint.isBottomRight && this.isMouseDown) {
       this.resizeByAndSetMargin(event.movementX, event.movementY,false,false, new Callback(() => this.render()));
-    } else
+    } else*/
     if (this._mouseDownPoint.isBottom && this.isMouseDown) {
-      this.resizeByAndSetMargin(0, event.movementY,false,false, new Callback(() => this.render()));
+     // this.resizeByAndSetMargin(0, event.movementY,false,false, new Callback(() => this.render()));
     } else
-    if (this._mouseDownPoint.isBottomLeft && this.isMouseDown) {
+   /* if (this._mouseDownPoint.isBottomLeft && this.isMouseDown) {
       this.resizeByAndSetMargin(-event.movementX, event.movementY,true,false, new Callback(() => this.render()));
-    } else
-     if (this._mouseDownPoint.isRotate && this.isMouseDown) {
+    } else*/
+     /*if (this._mouseDownPoint.isRotate && this.isMouseDown) {
        
         this.rotateByDegrees(this.rotateAngleDeg+event.movementX);
       
 
 
-    } else
+    } else*/
       if (this.isSelected && this.isMouseDown) {
           
         
@@ -105,9 +109,11 @@ export abstract class Layer extends SurfaceCanvas {
 
   }
 
+  
+
   public mouseUp(event: any) {
 
-    console.log(this.name + " mouseup");
+    //console.log(this.name + " mouseup");
     this._mouseDownPoint.allFalse();
     this.isMouseDown = false;
 
@@ -116,11 +122,9 @@ export abstract class Layer extends SurfaceCanvas {
 
   public abstract render(): void;
 
-
-
-
-
   public abstract dispose();
+
+  
 
 
    
