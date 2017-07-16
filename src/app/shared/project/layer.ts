@@ -67,37 +67,21 @@ export abstract class Layer extends SurfaceCanvas {
     if (this._mouseDownPoint.isLeft && this.isMouseDown) {
       let move = RotationHelper.calculateRotationMoveLeft(event,this);
       this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, new Callback(() => this.render()));
-    } else
-   /* if (this._mouseDownPoint.isTopLeft && this.isMouseDown) {
-      this.resizeByAndSetMargin(-event.movementX, -event.movementY,true,true, new Callback(() => this.render()));
-    } else*/
+    } else   
     if (this._mouseDownPoint.isTop && this.isMouseDown) {
-      //this.resizeByAndSetMargin(0, -event.movementY,false,true, new Callback(() => this.render()));
-    } else
-    /*if (this._mouseDownPoint.isTopRight && this.isMouseDown) {
-      this.resizeByAndSetMargin(event.movementX, -event.movementY,false,true, new Callback(() => this.render()));
-    } else*/
-    if (this._mouseDownPoint.isRight && this.isMouseDown) {
-      let move = RotationHelper.calculateRotationMoveLeft(event,this);
+      let move = RotationHelper.calculateRotationMoveTop(event,this);
       this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, new Callback(() => this.render()));
     } else
-    /*if (this._mouseDownPoint.isBottomRight && this.isMouseDown) {
-      this.resizeByAndSetMargin(event.movementX, event.movementY,false,false, new Callback(() => this.render()));
-    } else*/
-    if (this._mouseDownPoint.isBottom && this.isMouseDown) {
-     // this.resizeByAndSetMargin(0, event.movementY,false,false, new Callback(() => this.render()));
+    
+    if (this._mouseDownPoint.isRight && this.isMouseDown) {
+      let move = RotationHelper.calculateRotationMoveRight(event,this);
+      this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, new Callback(() => this.render()));
     } else
-   /* if (this._mouseDownPoint.isBottomLeft && this.isMouseDown) {
-      this.resizeByAndSetMargin(-event.movementX, event.movementY,true,false, new Callback(() => this.render()));
-    } else*/
-     /*if (this._mouseDownPoint.isRotate && this.isMouseDown) {
-       
-        this.rotateByDegrees(this.rotateAngleDeg+event.movementX);
-      
-
-
-    } else*/
-      if (this.isSelected && this.isMouseDown) {
+    if (this._mouseDownPoint.isBottom && this.isMouseDown) {
+     let move = RotationHelper.calculateRotationMoveBottom(event,this);
+      this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, new Callback(() => this.render()));
+    } else
+    if (this.isSelected && this.isMouseDown) {
           
         
         this.marginLeft += event.movementX;

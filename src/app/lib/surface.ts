@@ -151,6 +151,17 @@ export class SurfaceCanvas extends Surface {
       this.whenCreatedGraphicsAgain = func;
   }
 
+  
+  /**
+   * @param  {number} width diffrence width
+   * @param  {number} height diffrence height
+   * @param  {number} left diffence margin left
+   * @param  {number} top diffence to margin top
+   * @param  {number} maskleft ignored
+   * @param  {number} masktop ignored
+   * @param  {Callback} func?
+   * @returns void
+   */
   public calculateBy(width: number, height: number, left: number, top: number,maskleft:number,masktop:number , func?: Callback): void {
 
     let bWidth=this.width;
