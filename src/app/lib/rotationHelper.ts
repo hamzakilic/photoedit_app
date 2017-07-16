@@ -313,20 +313,20 @@ export class RotationHelper {
 
         let m = new Point(0, event.movementY / surface.scale);
         if (angle <= 180)
-            m = new Point(0, event.movementY / surface.scale);
+            m = new Point(0, -event.movementY / surface.scale);
         if (angle <= 140)
-            m = new Point(0, event.movementY / surface.scale);
+            m = new Point(0, -event.movementY / surface.scale);
 
         if (angle <= 120)
             m = new Point(0, -event.movementX / surface.scale);
 
         if (angle <= 60)
-            m = new Point(0, -event.movementY / surface.scale);
+            m = new Point(0, event.movementY / surface.scale);
 
         if (angle <= -60)
             m = new Point(0, event.movementX / surface.scale);
         if (angle <= -140)
-            m = new Point(0, event.movementY / surface.scale);
+            m = new Point(0, -event.movementY / surface.scale);
 
 
 
@@ -349,16 +349,16 @@ export class RotationHelper {
             let difwidth = difheight * scale;
             let po = new Point(difwidth, 0);
             let rotatedP = Calc.rotatePoint(po, surface.rotateAngleDeg, new Point(0, 0));
-            nCenterPoint.X += rotatedP.X / 2;
-            nCenterPoint.Y += rotatedP.Y / 2;
+            nCenterPoint.X -= rotatedP.X / 2;
+            nCenterPoint.Y -= rotatedP.Y / 2;
 
         }
 
         cal = Calc.rotatePoint(rotatedRectRightTop, -nAngle, nCenterPoint);
         newWidth = (cal.X - nCenterPoint.X) * 2;
         newHeight = (nCenterPoint.Y - cal.Y) * 2;
-        let newLeft = cal.X;
-        let newtop = cal.Y - newHeight;
+        let newLeft = cal.X-newWidth;
+        let newtop = cal.Y;
         //surface.width =newWidth;
         //surface.height =newHeight;
         //surface.marginLeft=cal.X-surface.width;
