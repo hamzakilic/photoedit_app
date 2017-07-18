@@ -10,6 +10,7 @@ import { Message } from '../../lib/message';
 import { MessageBus } from '../../lib/messageBus';
 import { newImageInterface } from './new-image.interface';
 import { ProjectService } from '../../shared/project.service';
+import { ValidationService } from '../../shared/validation.service';
 import { Workspace } from '../../shared/project/workSpace';
 import { Layer } from '../../shared/project/layer';
 import { LayerImage } from '../../shared/project/layerImage';
@@ -45,8 +46,8 @@ export class FormNewImageComponent implements OnInit {
 
   ngOnInit() {
     this.formNewImage = this.fb.group({
-      width: [this.width, validation.widthHeight],
-      height: [this.height, validation.widthHeight]
+      width: [this.width, ValidationService.widthHeightValidator],
+      height: [this.height, ValidationService.widthHeightValidator]
     });
 
     MessageBus.subscribe(Message.ShowFormNewImage, this.callFunc);
@@ -92,19 +93,6 @@ export class FormNewImageComponent implements OnInit {
 }
 
 class validation {
-  static widthHeight(control) {
-    if (control.value === null)
-      return { msg: true };
-
-    let val = Number(control.value);
-    if (isNaN(val) || val < 10 || val > 9999) {
-
-         return { msg: true };
-    }
-
-
-    return null;
-
-  }
+  
 }
 

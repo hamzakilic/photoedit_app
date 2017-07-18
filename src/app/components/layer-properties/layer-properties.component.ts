@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import '../../lib/extensions';
 import { ProjectService } from '../../shared/project.service';
 import { Proj } from '../../shared/project/proj';
 import { Layer } from '../../shared/project/layer';
@@ -168,7 +169,7 @@ export class LayerPropertiesComponent implements OnInit {
   }
 
   round(value: number) {
-    return Math.round(value);
+    return value.extRound();
   }
 
 

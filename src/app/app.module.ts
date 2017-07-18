@@ -41,6 +41,7 @@ import { LayerPropertiesComponent } from './components/layer-properties/layer-pr
 import { ZoomComponent } from './components/zoom/zoom.component';
 import { CropPropertiesComponent } from './components/crop-properties/crop-properties.component';
 import { BusyComponent } from './components/busy/busy.component';
+import { FormResizeComponent } from './components/form-resize/form-resize.component';
 
 
 
@@ -70,6 +71,7 @@ import { BusyComponent } from './components/busy/busy.component';
     ZoomComponent,
     CropPropertiesComponent,
     BusyComponent,
+    FormResizeComponent,
     
     
     

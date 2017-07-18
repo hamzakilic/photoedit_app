@@ -18,6 +18,8 @@ import { Callback } from '../../lib/callback';
 import { CmdZoom } from '../../shared/commands/cmdZoom';
 import { CmdTestSomeThing } from '../../shared/commands/cmdTestSomeThing';
 import { CmdNewLayer } from '../../shared/commands/cmdNewLayer';
+import { CmdResizeWorkspace } from '../../shared/commands/cmdResizeWorkspace';
+import { CmdShowFormResize } from '../../shared/commands/cmdShowFormResize';
 
 
 @Component({
@@ -64,7 +66,7 @@ export class MenubarComponent implements OnInit {
 
     let menuImage = new menu("Image");
 
-    menuImage.childs.push(new menuItem("Resize",new Callback((this.notImplementedYet))));    
+    menuImage.childs.push(new menuItem("Resize",new Callback(()=>(this.resize()))));    
     
     this.menus.push(menuImage);
 
@@ -125,6 +127,10 @@ export class MenubarComponent implements OnInit {
    newLayerFromAFile(){
     let cmd = new CmdNewLayer(this.projectService);
     cmd.executeAsync();
+  }
+  resize(){
+   let cmd = new CmdShowFormResize();
+   cmd.executeAsync();
   }
 
 }

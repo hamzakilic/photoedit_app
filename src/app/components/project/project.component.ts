@@ -1,8 +1,13 @@
+
+
+
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ProjectService } from '../../shared/project.service';
 import { Proj } from '../../shared/project/proj';
 import { Workspace } from '../../shared/project/workSpace';
 import { WorkspaceComponent } from '../workspace/workspace.component';
+import  '../../lib/extensions';
+
 
 @Component({
   selector: 'project-component',
@@ -33,6 +38,11 @@ export class ProjectComponent implements OnInit {
   removeWorkspace(ws:Workspace){
 
     this.project.removeWorkspace(ws);
+  }
+  name(ws: Workspace){
+    
+    
+    return ws.name+"("+ws.width.extRound()+"x"+ws.height.extRound()+")";
   }
 
 

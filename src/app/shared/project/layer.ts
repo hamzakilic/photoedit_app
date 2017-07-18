@@ -115,7 +115,7 @@ export abstract class Layer extends SurfaceCanvas {
 
 }
 
-///mouse down point holder for resizing, rotating
+/**mouse down point holder for resizing, rotating */
 class MouseDownPoint {
   public isLeft: boolean;
   public isTopLeft: boolean;

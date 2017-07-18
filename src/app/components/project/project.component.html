@@ -1,6 +1,6 @@
 <tabset *ngIf="project != undefined" #staticTabs class="fontsmall ">
 
- <tab *ngFor="let workspace of project.workspaces"  class="fontsmall"  (select)="selectWorkspace(workspace)" (removed)="removeWorkspace(workspace)" [removable]="workspace.isRemoveable"  [heading]="workspace.name"  >
+ <tab *ngFor="let workspace of project.workspaces"  class="fontsmall"  (select)="selectWorkspace(workspace)" (removed)="removeWorkspace(workspace)" [removable]="workspace.isRemoveable"  [heading]="name(workspace)"  >
 
    <workspace-component id='{{workspace.uuid}}'   [workspace]="workspace" [ngClass]="workspace.cssClasses"  class="wsc"
    mouse (mouseMove)="workspace.mouseMove($event)"  (mouseDown)="workspace.mouseDown($event)" (mouseUp)="workspace.mouseUp($event)">

@@ -148,6 +148,18 @@ export class Workspace extends HEventEmitter {
     if (height <= 0)
       this._height = 100;
     else this._height = height;
+    let keepRatio=this.backgroundLayer.keepRatio;
+    this.backgroundLayer.keepRatio=false;
+    this.backgroundLayer.setWidthHeight(this._width,this._height,new Callback(()=>{this.backgroundLayer.render()}));
+    this.backgroundLayer.keepRatio=keepRatio;
+    
+    if(this._layers.length>0){
+      keepRatio=this._layers[0].keepRatio;
+      this._layers[0].keepRatio=false;
+      this._layers[0].setWidthHeight(this._width,this._height,new Callback(()=>{this._layers[0].render()}));
+      this._layers[0].keepRatio=keepRatio;
+    }
+    
 
     this.callEvent(Workspace.EVENTRESIZED, afterResized);
 
