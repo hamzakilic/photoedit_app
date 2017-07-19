@@ -11,8 +11,10 @@ export class LayerImage extends Layer{
   constructor(img:HImage,name?: string) {
     super(name);
 
-    this.width=img.width();
-    this.height = img.height();
+    this.sourceMask=new Rect(0,0,img.width,img.height);
+    this.width = img.width;
+    this.height = img.height;
+    this.canRotate = true;
 
     this.img = img;
   }

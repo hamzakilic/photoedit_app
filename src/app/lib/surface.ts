@@ -2,8 +2,11 @@
 import { Callback } from './callback';
 import { Graphics } from './graphics';
 import { Rect } from './draw/rect';
+import { Rect2D } from './draw/rect2D';
 import { Point } from './draw/point'
 import { Calc } from './calc';
+import { HImage } from './image';
+
 export class Surface {
 
   public width = 0;
@@ -224,12 +227,43 @@ export class SurfaceCanvas extends Surface {
   }
 
  
-
+ /**
+  * when a layer rotated with some angle,calculates the bigger rectangle 
+  * @returns Rect
+  */
  public get rectRotated():Rect{
    let rect = new Rect(this.marginLeft,this.marginTop,this.width,this.height);   
    let rotatedRect= Calc.rotateRect(rect,this.rotateAngleDeg);
    return rotatedRect;
  }
+
+  /**
+  * when a layer rotated with some angle,calculates 2D rectangle
+  * @returns Rect
+  */
+ public get rectRotated2D():Rect2D{
+   let rect = new Rect2D(new Point(this.marginLeft,this.marginTop),new Point(this.marginLeft,this.marginTop+this.height),new Point(this.marginLeft+this.width,this.marginTop),new Point(this.marginLeft+this.width,this.marginTop+this.height));
+   let rotatedRect= Calc.rotateRect2D(rect,this.rotateAngleDeg);
+   return rotatedRect;
+ }
+
+  /**
+  * calculates rectangle with out rotate
+  * @returns Rect
+  */
+ public get rect():Rect{
+   let rect = new Rect(this.marginLeft,this.marginTop,this.width,this.height);
+   return rect;
+ }
+
+ /**
+  * allways creates a deep copy HImage
+  * @returns HImage
+  */
+ public  getImage():HImage {
+   return this.graphics.getImage();
+ }
+
 
 
 

@@ -12,7 +12,7 @@ export abstract class Layer extends SurfaceCanvas {
   public isHidden: boolean;
   public isSelected: boolean;
   public canRotate: boolean;
-  private _mouseDownPoint: MouseDownPoint;
+  protected _mouseDownPoint: MouseDownPoint;
   public isMouseDown: boolean;
   
   constructor(name?: string) {
@@ -29,6 +29,7 @@ export abstract class Layer extends SurfaceCanvas {
   public get name(): string {
     return this._name;
   }
+ 
 
 
   public mouseDown(event: MouseEvent) {
@@ -40,7 +41,7 @@ export abstract class Layer extends SurfaceCanvas {
 
   
   public mouseDownSelectedPoint(event: MouseEvent, corner: number) {
-    //console.log("mouseDownSelectedPoint");
+    
 
     this._mouseDownPoint.allFalse();
     this.isMouseDown = true;
@@ -63,7 +64,7 @@ export abstract class Layer extends SurfaceCanvas {
   }
   public mouseMove(event: MouseEvent) {
 
-   
+    
     if (this._mouseDownPoint.isLeft && this.isMouseDown) {
       let move = RotationHelper.calculateRotationMoveLeft(event,this);
       this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, new Callback(() => this.render()));
@@ -84,8 +85,8 @@ export abstract class Layer extends SurfaceCanvas {
     if (this.isSelected && this.isMouseDown) {
           
         
-        this.marginLeft += event.movementX;
-        this.marginTop += event.movementY;
+        this.marginLeft += event.movementX/this.scale;
+        this.marginTop += event.movementY/this.scale;
         
 
       }

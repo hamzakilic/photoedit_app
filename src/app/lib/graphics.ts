@@ -15,9 +15,7 @@ export class Graphics {
     this.width = width;
     this.height = height;
     this.scale = scale;
-    /* this.context.fillStyle = "rgba(255,255,255,1)";
-     this.context.rect(0, 0, width, height);
-     this.context.fill();*/
+   
 
   }
   public dispose() {
@@ -37,6 +35,18 @@ export class Graphics {
 
 
   }
+  /**
+   * allways creates a deep copy HImage
+   * @returns HImage
+   */
+  public getImage():HImage{
+    let imageData = this.context.getImageData(0, 0, this.width, this.height);    
+    let arr = new Uint8ClampedArray(imageData.data);
+    let img = new HImage(this.width,this.height,arr);
+    return img;
+
+
+  }
 
 
   public drawHtmlImageFit(img: HTMLImageElement, x: number, y: number) {
@@ -45,10 +55,7 @@ export class Graphics {
 
   }
 
-  /*public drawHtmlImageRect(img: HTMLImageElement, rect: Rect) {
-    this.context.drawImage(img, 0,0, img.naturalWidth, img.naturalHeight,rect.x,rect.y,rect.width,rect.height);
-
-  }*/
+ 
   public drawHtmlImageRect(img: HTMLImageElement, sourceRect: Rect,destRect:Rect) {
     this.context.drawImage(img, sourceRect.x,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height);
 

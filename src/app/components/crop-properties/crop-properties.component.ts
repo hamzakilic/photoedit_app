@@ -7,6 +7,7 @@ import { LayerPropertiesComponent } from '../layer-properties/layer-properties.c
 import { MessageBus } from '../../lib/messageBus';
 import { Message } from '../../lib/message';
 import { Callback } from '../../lib/callback';
+import { CmdCrop } from '../../shared/commands/cmdCrop';
 
 @Component({
   selector: 'crop-properties-component',
@@ -53,10 +54,8 @@ export class CropPropertiesComponent implements OnInit {
 
   }
   cropOk(){
-    this.appService.busyPromise=new Promise<any>((resolve,reject)=>{
-      
-      setTimeout(resolve,20000);
-    });
+    let cmdCrop = new CmdCrop(this.projectService,this.appService);
+    cmdCrop.executeAsync();
 
   }
   cropCancel(){

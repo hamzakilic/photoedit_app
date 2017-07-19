@@ -51,24 +51,17 @@ export class HImage extends HEventEmitter {
     /**
      * @returns width of image in pixels
      */
-    public width(): number {
+    public get width(): number {
         return this._width;
     }
     /**
      * @returns height of image in pixels
      */
-    public height(): number {
+    public get height(): number {
         return this._height;
     }
 
-    public fill(val: number,start?: number, end?: number){
-        this._pixels.fill(val,start,end);
-    }
-    public clone(): HImage {
-        let arr = new Uint8ClampedArray(this._width*this._height*4);
-        arr.set(this._pixels);
-        return new HImage(this._width,this._height,arr);
-    }
+   
 
 
 
