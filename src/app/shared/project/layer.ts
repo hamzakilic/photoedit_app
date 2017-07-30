@@ -1,4 +1,4 @@
-
+import { debuging} from '../../shared/debuging'
 import { Callback } from '../../lib/callback';
 import { HImage } from '../../lib/image';
 import { Graphics } from '../../lib/graphics';
@@ -33,7 +33,7 @@ export abstract class Layer extends SurfaceCanvas {
 
 
   public mouseDown(event: MouseEvent) {
-    console.log(this.name + " mousedown");
+    //debuging.log(this.name + " mousedown");
     this.isSelected = true;
     this.isMouseDown = true;
     

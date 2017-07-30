@@ -29,15 +29,16 @@ export class ToolsComponent implements OnInit {
   public idcrop="idcrop";
 
   removeActiveCss(){
-    var labels = document.querySelectorAll(".toolsInfo > section > div > div > label");
+    var labels = document.querySelectorAll(".toolsInfo > section > div > div > div> label");
     for(let i = 0; i<labels.length;++i)
       labels.item(i).classList.remove("active");
   }
   makeActiveCss(id){
-    var labels = document.querySelectorAll(".toolsInfo > section > div > div > label");
+    var labels = document.querySelectorAll(".toolsInfo > section > div > div > div > label");
+    
     for(let i = 0; i<labels.length;++i)
     if(labels.item(i).id==id){
-      debugger;
+      
       labels.item(i).classList.add("active");
     }
 

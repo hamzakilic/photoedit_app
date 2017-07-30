@@ -27,6 +27,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 .body{
   background-color: white;
+  line-height: 1;
 }
 
 
@@ -47,7 +48,8 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 }
 .btn-group > .btn:first-child {
     margin-left: 4px;
-    line-height: 0.9;
+    line-height: 60%;
+    margin-bottom:4px;
 }
 .btn-primary {
     color: white;
@@ -68,8 +70,8 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 .dropdown-item {
 
     color: white;
-    font-size:medium;
-    line-height: 15px;
+    font-size:medium !important;
+    line-height: 1;
 
 }
 
@@ -108,6 +110,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
    color: #efefef;
     background-color: #504b4b;
     border-color: #ddd #ddd #fff;
+    line-height: 0.3;
 }
 
 a {

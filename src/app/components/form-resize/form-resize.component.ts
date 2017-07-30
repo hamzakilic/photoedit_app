@@ -55,11 +55,11 @@ export class FormResizeComponent implements OnInit {
       height: [this.height, ValidationService.widthHeightValidator],
       keepRatio:[this.keepRatio]
     });
-    console.log("initializing subsribe");
+    //console.log("initializing subsribe");
     MessageBus.subscribe(Message.ShowFormResize, this.callFunc);
   }
   ngOnDestroy() {
-    console.log("uninitializing subsribe");
+    //console.log("uninitializing subsribe");
     MessageBus.unsubscribe(Message.ShowFormResize, this.callFunc);
   }
   submitted = false;

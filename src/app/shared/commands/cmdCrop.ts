@@ -10,7 +10,7 @@ import { LayerEmpty } from '../project/layerEmpty';
 import { LayerImage } from '../project/layerImage';
 import { Calc } from '../../lib/calc';
 import { Rect } from '../../lib/draw/rect';
-import { Imaging } from '../../lib/image/imaging';
+import { Imaging } from '../../lib/imagealgorithm/imaging';
 
 
 
@@ -32,7 +32,7 @@ export class CmdCrop extends Command {
                 if (this.projectService.currentProject.activeWorkspace) {
                     let workspace = this.projectService.currentProject.activeWorkspace;
                     if (workspace && workspace.cropLayer && workspace.layers.length > 0) {
-                        debugger;
+                        
                         //zaten döndürme olmadığı için sorun yok
                         let cropLayerRect =workspace.cropLayer.rect;
 
@@ -57,6 +57,7 @@ export class CmdCrop extends Command {
                             newLayer.scale = selectedLayer.scale;
                             workspace.removeCropLayer();
                             workspace.addLayer(newLayer);
+                           
                         }
 
 

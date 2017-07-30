@@ -22,8 +22,6 @@ export class HImage extends HEventEmitter {
      * @param pixels data of pixels as RGBA
      *
      * remarks pixel array does not copy buffer, only copies reference
-     * you must check error with   lastError() function, if it is not undefined then
-     * an error occured means
      */
     public constructor(width: number, height: number, pixels?: Uint8ClampedArray) {
         super();
@@ -61,13 +59,27 @@ export class HImage extends HEventEmitter {
         return this._height;
     }
 
-   
+    public processMutable(algorithm:IImageAlgorithmMutable):HImage{
+        return algorithm.process(this);
+    }
+
+     public processImmutable(algorithm:IImageAlgorithmImmutable):HImage{
+        return algorithm.process(this);
+    }
+    
 
 
 
 
 
 
+}
+
+export interface IImageAlgorithmMutable{
+    process(img: HImage): HImage;
+}
+export interface IImageAlgorithmImmutable{
+    process(img: HImage): HImage;
 }
 
 

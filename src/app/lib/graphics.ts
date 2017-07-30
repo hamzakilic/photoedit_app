@@ -21,20 +21,19 @@ export class Graphics {
   public dispose() {
 
   }
-  public drawImage(img: HImage) {
-
-    let imageData = this.context.getImageData(0, 0, this.width, this.height);
-
-    var data = imageData.data;
-
-    data.set(img.Pixels);
-
-
-    this.context.putImageData(imageData, 0, 0);
-
-
-
+  public setGlobalAlpha(value: number){
+    this.context.globalAlpha=value;
   }
+  public putImage(img: HImage) {
+    
+    let imageData = this.context.getImageData(0, 0, this.width, this.height);
+    var data = imageData.data;
+    data.set(img.Pixels);
+    this.context.putImageData(imageData, 0, 0);
+  }
+
+   
+
   /**
    * allways creates a deep copy HImage
    * @returns HImage
@@ -48,6 +47,21 @@ export class Graphics {
 
   }
 
+  
+public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
+  
+  
+  
+    let imageData =new ImageData(img.Pixels,img.width,img.height);
+    
+    createImageBitmap(imageData).then((bitmap)=>{
+      
+       this.context.drawImage(bitmap, sourceRect.x,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height);
+       
+    }).catch((ex)=>{
+      //TODO: exception durumu handle edilmeli
+    });
+  }
 
   public drawHtmlImageFit(img: HTMLImageElement, x: number, y: number) {
 
@@ -57,14 +71,11 @@ export class Graphics {
 
  
   public drawHtmlImageRect(img: HTMLImageElement, sourceRect: Rect,destRect:Rect) {
+   
     this.context.drawImage(img, sourceRect.x,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height);
 
   }
-  /*public drawHtmlImage(img: HTMLImageElement, x: number, y: number) {
-
-    this.context.drawImage(img, x, y);
-
-  }*/
+ 
 
 
  public fillRectRGBA(rect: Rect, r: number,g: number,b: number,a: number): void {

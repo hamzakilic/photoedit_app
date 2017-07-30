@@ -19,8 +19,14 @@ export class LayerImage extends Layer{
     this.img = img;
   }
   public render(): void{
+    this.graphics.save();
+  
+    if(!this.scaleView){
 
-    this.graphics.drawImage(this.img);
+      this.graphics.drawImageRect(this.img,this.sourceMask,new Rect(0,0,this.sourceMask.width>this.width?this.width:this.sourceMask.width,this.sourceMask.height>this.height?this.height:this.sourceMask.height));
+    }
+    else this.graphics.drawImageRect(this.img,this.sourceMask,new Rect(0,0,this.width,this.height));
+    this.graphics.restore();
     //this.graphics.fillRect(new Rect(0,0,this.width,this.height),"#FFFFFF")
   }
   public dispose(){

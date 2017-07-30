@@ -166,11 +166,11 @@ export class Workspace extends HEventEmitter {
   }
 
   public mouseWheelUpFunc() {
-    console.log('wheelup');
+   // console.log('wheelup');
   }
 
   public mouseWheelDownFunc() {
-    console.log('wheeldown');
+    //console.log('wheeldown');
   }
 
   public mouseMove(event: MouseEvent) {
@@ -183,13 +183,13 @@ export class Workspace extends HEventEmitter {
 
 
   public mouseDown(event: MouseEvent, layer: Layer) {
-    console.log('workspace mouse down:' + event.clientX);
+   // console.log('workspace mouse down:' + event.clientX);
     this._workMode.mouseDown(event, layer);
 
   }
   public mouseUp(event: any) {
 
-    console.log('workspace mouse up:' + event.clientX);
+    //console.log('workspace mouse up:' + event.clientX);
     this._workMode.mouseUp(event);
 
   }
@@ -237,7 +237,7 @@ export class Workspace extends HEventEmitter {
   }
 
   public selectWorking(working: number) {
-    console.log('selectWorking');
+    //console.log('selectWorking');
     switch (working) {
       case Workspace.WorkModeDefault:
         this._workMode = new WorkModeDefault(this);
@@ -253,6 +253,7 @@ export class Workspace extends HEventEmitter {
 
   public removeCropLayer(){
     this.cropLayer = undefined;
+   
   }
 
 
@@ -361,8 +362,8 @@ class WorkModeCrop extends WorkModeBase {
     var rect = this.workspace.nativeElement.getBoundingClientRect();
     let mouseX = (event.pageX - rect.left) + window.scrollX;
     let mouseY = (event.pageY - rect.top) + window.scrollY;
-    console.log(event.clientX + ":" + event.clientY + "/" + event.movementX + ":" + event.movementY + "/" + event.offsetX + ":" + event.offsetY + "/" + event.pageX + ":" + event.pageY + "/" + event.screenX + ":" + event.screenY);
-    console.log(mouseX + ":" + mouseY);
+   // console.log(event.clientX + ":" + event.clientY + "/" + event.movementX + ":" + event.movementY + "/" + event.offsetX + ":" + event.offsetY + "/" + event.pageX + ":" + event.pageY + "/" + event.screenX + ":" + event.screenY);
+   // console.log(mouseX + ":" + mouseY);
     let cropLayer = new LayerCrop(0, 0, mouseX - 50, mouseY - 50);
     cropLayer.mouseDownSelectedPoint(event, 6);
     this.workspace.cropLayer= cropLayer;
