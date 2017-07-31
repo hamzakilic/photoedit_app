@@ -10,9 +10,11 @@ export class Imaging {
 
        
 
+
+
     public static crop2(img: HImage, rectSource: Rect, rectDestination: Rect, angleDegrees: number): HImage {
         if (angleDegrees == 0) {
-            debugger;
+            
             let rectIntersect = Calc.intersectRect(rectSource, rectDestination);
             if (!rectIntersect)
                 return undefined;
@@ -25,7 +27,7 @@ export class Imaging {
             return  img.processImmutable(new ImageAlgorithmCrop(rectIntersect));
         } else {
             let rotatedSourceRect = Calc.rotateRect(rectSource, angleDegrees);
-            let rectIntersect = Calc.intersectRect(rectSource, rectDestination);
+            let rectIntersect = Calc.intersectRect(rotatedSourceRect, rectDestination);
             if (!rectIntersect)
                 return undefined;
             rectIntersect.x -= rectSource.x;
@@ -35,7 +37,9 @@ export class Imaging {
             rectIntersect.width = rectIntersect.width.extRound();
             rectIntersect.height = rectIntersect.height.extRound();
 
-            return img.processImmutable(new ImageAlgorithmRotate(angleDegrees,new Color(0,0,0,0)));
+            let rotatedImage= img.processImmutable(new ImageAlgorithmRotate(angleDegrees,new Color(0,0,0,0)));
+            //return rotatedImage;
+           return rotatedImage.processImmutable(new ImageAlgorithmCrop(rectIntersect));
 
         }
        // return undefined;

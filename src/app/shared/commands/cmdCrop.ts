@@ -24,10 +24,17 @@ export class CmdCrop extends Command {
         this.projectService = projectService;
         this.appService = appService;
     }
+
+ public executeAsync():void {
+
+     this.appService.busyPromise = new Promise((resolve, reject) => {
+            
+                  setTimeout(()=>{this.execute();resolve()},0);
+         });
+    }
+
     protected execute(): void {
-        this.appService.busyPromise = new Promise<any>((resolve, reject) => {
-
-
+       
             if (this.projectService.currentProject)
                 if (this.projectService.currentProject.activeWorkspace) {
                     let workspace = this.projectService.currentProject.activeWorkspace;
@@ -68,8 +75,7 @@ export class CmdCrop extends Command {
                     }
                 }
 
-            resolve();
-        });
+          
 
     }
 
