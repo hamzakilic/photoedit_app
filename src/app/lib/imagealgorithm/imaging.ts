@@ -30,8 +30,8 @@ export class Imaging {
             let rectIntersect = Calc.intersectRect(rotatedSourceRect, rectDestination);
             if (!rectIntersect)
                 return undefined;
-            rectIntersect.x -= rectSource.x;
-            rectIntersect.y -= rectSource.y;
+            rectIntersect.x -= rotatedSourceRect.x;
+            rectIntersect.y -= rotatedSourceRect.y;
             rectIntersect.x = rectIntersect.x.extRound();
             rectIntersect.y = rectIntersect.y.extRound();
             rectIntersect.width = rectIntersect.width.extRound();
@@ -42,7 +42,7 @@ export class Imaging {
            return rotatedImage.processImmutable(new ImageAlgorithmCrop(rectIntersect));
 
         }
-       // return undefined;
+       
 
     }
 

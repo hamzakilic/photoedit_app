@@ -10,7 +10,34 @@
     /*font-weight: bolder;*/
     font-size: medium;
     /* width: 50%; */
-    padding: 4px;
+    padding: 6px;
+}
+
+.childsubmenu{
+ color: white !important;
+    font-size:medium !important;
+    
+    padding:6px !important;
+}
+.childsubmenu:hover{
+  color: black!important;
+    text-decoration: none;
+    background-color: #f7f7f9;
+}
+
+.caret-right {
+  
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-left: 5px solid;
+  border-left-color:#999999;
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid transparent;
+  margin-top:5px;
+  margin-right:-8px;
 }
 
 

@@ -2,24 +2,50 @@
   <div class="row align-items-start">
     <div class="col align-self-center">
 
-    <div *ngFor="let menu of menus"  class="btn-group" dropdown [isOpen]="menu.isOpen">
-      <button id="single-button" type="button" class="btn btn-primary groupbuttonpadding " dropdownToggle [disabled]="disabled">
+      <div *ngFor="let menu of menus" class="btn-group" dropdown [isOpen]="menu.isOpen">
+        <button id="single-button" type="button" class="btn btn-primary btn-sm groupbuttonpadding " dropdownToggle [disabled]="disabled">
         {{menu.name}} <span class="caret"></span>
-      </button>
-      <ul *dropdownMenu  class="dropdown-menu" role="menu" aria-labelledby="single-button">
-        <div *ngFor="let childmenu of menu.childs">
-        <li *ngIf="!childmenu.isDivider" role="menuitem">
-          <input *ngIf="childmenu.isOpenFile" type="file" id={{childmenu.idOfInput}}  accept={{childmenu.acceptFileTypes}} style="display:none"   (change)="childmenu.handleFiles()">
-          <a class="dropdown-item childmenu" (click)="menu.close($event); childmenu.onClick();" href="#">{{childmenu.name}}</a>
+         </button>
+        <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="single-button">
+          <div *ngFor="let childmenu of menu.childs">
+            <ng-container *ngIf="isMenuItem(childmenu)">
+              <li *ngIf="!childmenu.isDivider" role="menuitem">
+                <input *ngIf="childmenu.isOpenFile" type="file" id={{childmenu.idOfInput}} accept={{childmenu.acceptFileTypes}} style="display:none"
+                  (change)="childmenu.handleFiles()">
+                <a class="dropdown-item childmenu" (click)="menu.close($event); childmenu.onClick();" href="#">{{childmenu.name}}</a>
 
-        </li>
-        <li *ngIf="childmenu.isDivider" class="divider dropdown-divider"></li>
-        </div>
+              </li>
+              <li *ngIf="childmenu.isDivider" class="divider dropdown-divider"></li>
+            </ng-container>
+            <ng-container *ngIf="!isMenuItem(childmenu)">
+              <li dropdown triggers="mouseover" placement="right" container="body">
+                
+                <a dropdownToggle class="dropdown-item dropdown-toogle  childsubmenu" >{{childmenu.name}}
+                   <span class="caret"></span>></a>
+                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                  <div *ngFor="let childsubmenu of childmenu.childs">
+                    <ng-container *ngIf="isMenuItem(childsubmenu)">
+                      <li *ngIf="!childsubmenu.isDivider" role="menuitem">
+                        <input *ngIf="childsubmenu.isOpenFile" type="file" id={{childsubmenu.idOfInput}} accept={{childsubmenu.acceptFileTypes}}
+                          style="display:none" (change)="childsubmenu.handleFiles()">
+                        <a class="dropdown-item childmenu" (click)="childmenu.close($event); childsubmenu.onClick();" href="#">{{childsubmenu.name}}</a>
 
-      </ul>
+                      </li>
+                      <li *ngIf="childsubmenu.isDivider" class="divider dropdown-divider"></li>
+                    </ng-container>
+                  </div>
+                </ul>
+              </li>
+            </ng-container>
 
 
-    </div>
+          </div>
+
+        </ul>
+
+
+      </div>
+
 
 
 

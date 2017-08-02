@@ -65,6 +65,8 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 .dropdown-menu{
   background-color:#535353;
+  min-width: 6rem;
+  margin-top: -3px;
 }
 
 .dropdown-item {

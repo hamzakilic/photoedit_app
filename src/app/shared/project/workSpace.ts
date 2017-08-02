@@ -8,6 +8,9 @@ import { Callback } from '../../lib/callback';
 import { HEventEmitter } from '../../lib/eventEmitter'
 import { HImage } from '../../lib/image';
 import { Utility } from '../../lib/utility';
+import { CalcLayer } from "./lib/calcLayer";
+import { Point } from "../../lib/draw/point";
+
 
 export class Workspace extends HEventEmitter {
   private _name: string
@@ -162,6 +165,36 @@ export class Workspace extends HEventEmitter {
     
 
     this.callEvent(Workspace.EVENTRESIZED, afterResized);
+
+  }
+  public rotate90(){
+    let width=this._height;
+    let height=this._width;
+    this._width=width;
+    this._height=height;
+     let keepRatio=this.backgroundLayer.keepRatio;
+    this.backgroundLayer.keepRatio=false;
+    this.backgroundLayer.setWidthHeight(this._width,this._height,new Callback(()=>{this.backgroundLayer.render()}));
+    this.backgroundLayer.keepRatio=keepRatio;
+    
+    if(this._layers.length>0){
+      keepRatio=this._layers[0].keepRatio;
+      this._layers[0].keepRatio=false;
+      let angle=this._layers[0].rotateAngleDeg;
+      angle +=90;
+      if(angle>180){        
+       angle=180-angle;
+      }
+      this._layers[0].rotateByDegrees(angle);
+     
+      let point1=CalcLayer.calculateLeft(0,this._layers[0]);
+      this._layers[0].setLeft(point1.X);
+      this._layers[0].setTop(point1.Y);
+      point1=CalcLayer.calculateTop(0,this._layers[0]);
+      this._layers[0].setLeft(point1.X);
+      this._layers[0].setTop(point1.Y);
+      this._layers[0].keepRatio=keepRatio;
+    }
 
   }
 
