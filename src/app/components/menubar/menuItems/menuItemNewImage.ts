@@ -19,6 +19,8 @@ export class menuItemNewImage extends menuItem {
 
     }
 
+    
+
     onClick(parameters?:any): void{
 
       let cmd = new CmdShowFormNewImage();

@@ -71,7 +71,7 @@ export class FormNewImageComponent implements OnInit {
     if (this.formNewImage.valid){
 
 
-         let ws = new Workspace(this.width,this.height,"new ("+this.width+"x"+this.height+")");
+         let ws = new Workspace(this.width,this.height,"new");
 
          let ly = new LayerEmpty('image',this.width,this.height);
          ws.addLayer(ly);

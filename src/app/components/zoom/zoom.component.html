@@ -1,4 +1,4 @@
-<div  class="zoomInfo" mouse (mouseUp)="mouseUp()" (mouseMove)="mouseMove($event)" (mouseLeave)="mouseLeave()">
+<div  class="zoomInfo" mouse (mouseUp)="mouseUp()"  (mouseMove)="mouseMove($event)" (mouseLeave)="mouseLeave()">
   <header class="zoomHeader">
     <span>Zoom</span>
     <span *ngIf="project != undefined && project.activeWorkspace != undefined">{{currentZoom()}}%</span>
@@ -12,7 +12,7 @@
           <span class="col-1 minusB" >
             <i class="fa fa-minus-circle  mouseoverhand "   aria-hidden="true" (click)="zoomOut()"></i>  
           </span>
-          <div #progressdiv class="progress   rowEx bar col-9">
+          <div #progressdiv class="progress   rowEx bar col-9" mouse (mouseDown)="mouseDownProgress($event)">
 
              <span    class="active" [style.width.%]="position" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
           

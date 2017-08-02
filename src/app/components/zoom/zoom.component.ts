@@ -75,6 +75,22 @@ export class ZoomComponent implements OnInit {
     }
 
   }
+
+  mouseDownProgress(event: MouseEvent){
+    if(this.project && this.project.activeWorkspace){
+      
+      //debugger;
+       
+       let boundingRect = (<HTMLDivElement>this.progress.nativeElement).getBoundingClientRect();      
+       let x= event.pageX-boundingRect.left;
+      //let x= event.offsetX;
+       //buradaki 3 değeri maximum zoom değeridir
+       let val = (x*3/boundingRect.width);     
+       
+       this.project.activeWorkspace.zoomTo(val);        
+       this.setPositionValue();
+    }
+  }
   mouseDown(){
     
     this.isMouseDown= true;

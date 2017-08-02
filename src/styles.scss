@@ -27,7 +27,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 .body{
   background-color: white;
-  line-height: 1;
+  line-height: 1rem;
 }
 
 
@@ -48,7 +48,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 }
 .btn-group > .btn:first-child {
     margin-left: 4px;
-    line-height: 60%;
+    line-height: 0.6rem;
     margin-bottom:4px;
 }
 .btn-primary {
@@ -73,7 +73,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
     color: white;
     font-size:medium !important;
-    line-height: 1;
+    line-height: 1rem;
 
 }
 
@@ -112,7 +112,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
    color: #efefef;
     background-color: #504b4b;
     border-color: #ddd #ddd #fff;
-    line-height: 0.3;
+    line-height: 0.3rem;
 }
 
 a {

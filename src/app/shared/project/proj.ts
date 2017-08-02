@@ -29,9 +29,8 @@ export class Proj {
   }
   public addWorkspace(ws:Workspace){
     this._workspaces.push(ws);
-    if(this._workspaces.length==1)
-        ws.isActive=true;
-    return ws;
+   
+    this.activeWorkspace=ws;
   }
   public set activeWorkspace(ws:Workspace){
     this._workspaces.forEach((item)=>{

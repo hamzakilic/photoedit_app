@@ -8,11 +8,11 @@
       <div *ngIf="project.activeWorkspace != undefined">
         <div *ngIf="project.activeWorkspace.hasLayer">
 
-      <label id={{iddefault}} class="btn btn-primary buttonpadding mouseoverhand active" (click)="selectDefault()" tooltip="Hand tool"  placement="right">
+      <label id={{iddefault}} class="btn btn-primary buttonpadding mouseoverhand btnSmall active" (click)="selectDefault()" tooltip="Hand tool"  placement="right">
           <i class="fa fa-mouse-pointer "  aria-hidden="true" ></i>
       </label>
 
-      <label id={{idcrop}} class="btn btn-primary  buttonpadding mouseoverhand " (click)="selectCrop()" tooltip="Crop tool"  placement="right">
+      <label id={{idcrop}} class="btn btn-primary  buttonpadding mouseoverhand btnSmall " (click)="selectCrop()" tooltip="Crop tool"  placement="right">
           <i class="fa fa-crop   "  aria-hidden="true" ></i>
       </label>
         </div>

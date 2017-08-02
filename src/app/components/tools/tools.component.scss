@@ -2,12 +2,20 @@
  margin-top: 10px;
 
  background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
-  background-image: -webkit-linear-gradient(top, rgb(200, 200, 200), rgb(230, 230, 230));
+  background-image: -webkit-linear-gradient(top, #615c5c, #887f7f);
+ 
+}
+.btnSmall{
+  line-height: 1rem;
+  padding: 0.2rem 0.5rem;
 }
 
 .toolsHeader{
 
-  line-height: 28px;
+   line-height: 1rem;
+    color: white;
+   
+    padding-left: 4px;
 
 }
 .buttonpadding{
