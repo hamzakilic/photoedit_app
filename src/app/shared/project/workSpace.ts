@@ -186,7 +186,7 @@ export class Workspace extends HEventEmitter {
        angle=180-angle;
       }
       this._layers[0].rotateByDegrees(angle);
-     
+   
       let point1=CalcLayer.calculateLeft(0,this._layers[0]);
       this._layers[0].setLeft(point1.X);
       this._layers[0].setTop(point1.Y);
