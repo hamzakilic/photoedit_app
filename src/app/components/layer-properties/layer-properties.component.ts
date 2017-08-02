@@ -7,6 +7,7 @@ import { Layer } from '../../shared/project/layer';
 import { Callback } from '../../lib/callback';
 import { Point } from '../../lib/draw/point';
 import { Calc } from '../../lib/calc';
+import {CalcLayer} from "../../shared/project/lib/calcLayer";
 
 @Component({
   selector: 'layer-properties-component',
@@ -53,8 +54,11 @@ export class LayerPropertiesComponent implements OnInit {
   }
   changeTop(value: any, layer: Layer) {
 
-    let val = parseInt(value)
-    let pointX1 = new Point(layer.marginLeft, layer.marginTop);//left top
+    let val = parseInt(value);
+    let point=CalcLayer.calculateTop(val,layer);
+    layer.setLeft(point.X,new Callback(() => layer.render()));
+    layer.setTop(point.Y,new Callback(() => layer.render()));
+    /* let pointX1 = new Point(layer.marginLeft, layer.marginTop);//left top
     let pointX2 = new Point(layer.marginLeft + layer.width, layer.marginTop);//right top
     let pointX3 = new Point(layer.marginLeft + layer.width, layer.marginTop + layer.height); //right bottom
     let pointX4 = new Point(layer.marginLeft, layer.marginTop + layer.height);//left bottom
@@ -91,11 +95,11 @@ export class LayerPropertiesComponent implements OnInit {
     if (points[0].X == pointX4Rotated.X && points[0].Y == pointX4Rotated.Y) {
       layer.setTop(rotatedPoint.Y-layer.height, new Callback(() => layer.render()));
       layer.setLeft(rotatedPoint.X, new Callback(() => layer.render()));
-    }
+    } */
 
 
   }
-  private comparePointsY(a: Point, b: Point): number {
+ /*  private comparePointsY(a: Point, b: Point): number {
     if (a.Y < b.Y)
       return -1;
     if (a.Y > b.Y)
@@ -106,9 +110,9 @@ export class LayerPropertiesComponent implements OnInit {
       return 1;
     return 0;
 
-  }
+  } */
 
-    private comparePointsX(a: Point, b: Point): number {
+  /*   private comparePointsX(a: Point, b: Point): number {
        if (a.X < b.X)
       return -1;
     if (a.X > b.X)
@@ -122,12 +126,15 @@ export class LayerPropertiesComponent implements OnInit {
 
   }
 
-
+ */
 
   changeLeft(value: any, layer: Layer) {
 
-    let val = parseInt(value)
-    let pointX1 = new Point(layer.marginLeft, layer.marginTop);//left top
+    let val = parseInt(value);
+    let point=CalcLayer.calculateLeft(val,layer);
+    layer.setLeft(point.X,new Callback(() => layer.render()));
+    layer.setTop(point.Y,new Callback(() => layer.render()));
+   /*  let pointX1 = new Point(layer.marginLeft, layer.marginTop);//left top
     let pointX2 = new Point(layer.marginLeft + layer.width, layer.marginTop);//right top
     let pointX3 = new Point(layer.marginLeft + layer.width, layer.marginTop + layer.height); //right bottom
     let pointX4 = new Point(layer.marginLeft, layer.marginTop + layer.height);//left bottom
@@ -164,7 +171,7 @@ export class LayerPropertiesComponent implements OnInit {
     if (points[0].X == pointX4Rotated.X && points[0].Y == pointX4Rotated.Y) {
       layer.setTop(rotatedPoint.Y-layer.height, new Callback(() => layer.render()));
       layer.setLeft(rotatedPoint.X, new Callback(() => layer.render()));
-    }
+    } */
 
   }
 

@@ -14,7 +14,7 @@ import { ProjectService } from '../../../shared/project.service';
 export class menuItemNewImage extends menuItem {
     private projectService: ProjectService;
     constructor(projectService: ProjectService) {
-      super('New',undefined);
+      super('New Empty',undefined);
       this.projectService = projectService;
 
     }

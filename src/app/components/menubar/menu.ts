@@ -4,7 +4,7 @@ import {Callback } from '../../lib/callback';
 
 export class menu{
   public name:string;
-  public childs: menuItem[];
+  public childs: any[];
   public disabled: boolean;
   public isOpen: false;
   constructor(name: string){
@@ -27,15 +27,18 @@ export class menuItem{
   public disabled: boolean;
   public clickFunc: Callback;
   public isDivider: boolean;
+  
   constructor(name: string,clickfunc:Callback ){
     this.name = name;
     this.disabled = false;
     this.clickFunc = clickfunc;
     this.isDivider = false;
-
+    
   }
   onClick(parameters?:any): void{
 
     this.clickFunc.call(parameters);
   }
 }
+
+

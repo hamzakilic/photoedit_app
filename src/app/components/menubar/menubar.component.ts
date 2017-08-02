@@ -11,6 +11,7 @@ import { menuItemOpenImage } from '../menubar/menuItems/menuItemOpenImage';
 import { menuItemNewImage } from '../menubar/menuItems/menuItemNewImage';
 
 import { ProjectService } from '../../shared/project.service';
+import { AppService } from '../../app.service';
 
 import { SomeTestFuncs} from '../../lib/someTestFuncs'
 
@@ -20,6 +21,7 @@ import { CmdTestSomeThing } from '../../shared/commands/cmdTestSomeThing';
 import { CmdNewLayer } from '../../shared/commands/cmdNewLayer';
 import { CmdResizeWorkspace } from '../../shared/commands/cmdResizeWorkspace';
 import { CmdShowFormResize } from '../../shared/commands/cmdShowFormResize';
+import { CmdRotateWorkspace } from '../../shared/commands/cmdRotateWorkspace';
 
 
 @Component({
@@ -30,17 +32,24 @@ import { CmdShowFormResize } from '../../shared/commands/cmdShowFormResize';
 export class MenubarComponent implements OnInit {
   public menus: menu [];
   private projectService: ProjectService;
-  constructor(projectService: ProjectService ) {
+  private appService: AppService;
+  constructor(projectService: ProjectService,appservice: AppService ) {
     this.projectService  = projectService;
+    this.appService = appservice;
     this.menus = [];
 
-    let menuFile = new menu("File");
+    let menuFile = new menu("Workspace");
     menuFile.childs.push(new menuItemNewImage(projectService));
     menuFile.childs.push(new menuItemOpenImage(projectService));
-    this.menus.push(menuFile);
-
     let divider = new menuItem('divider',undefined);
     divider.isDivider = true;
+    menuFile.childs.push(divider);
+    menuFile.childs.push(new menuItem("Resize",new Callback(()=>(this.resize())))); 
+    menuFile.childs.push(new menuItem("Rotate 90",new Callback(()=>{this.rotate()}))); 
+    this.menus.push(menuFile);
+
+    let divider2 = new menuItem('divider',undefined);
+    divider2.isDivider = true;
 
 
 
@@ -64,10 +73,15 @@ export class MenubarComponent implements OnInit {
     this.menus.push(menuView);*/
 
 
-    let menuImage = new menu("Image");
+    let menuImage = new menu("Background");
 
-    menuImage.childs.push(new menuItem("Resize",new Callback(()=>(this.resize()))));    
-    
+   
+    /* let subMenuImage=new menu("Rotate");
+    subMenuImage.childs.push(new menuItem("Rotate 90",new Callback(()=>(this.rotate(90)))));  
+     subMenuImage.childs.push(new menuItem("Rotate 180",new Callback(()=>(this.rotate(180)))));
+      subMenuImage.childs.push(new menuItem("Rotate -90",new Callback(()=>(this.rotate(-90)))))  
+       subMenuImage.childs.push(new menuItem("Rotate -180",new Callback(()=>(this.rotate(-180)))))    
+    menuImage.childs.push(subMenuImage); */
     this.menus.push(menuImage);
 
 
@@ -131,6 +145,17 @@ export class MenubarComponent implements OnInit {
   resize(){
    let cmd = new CmdShowFormResize();
    cmd.executeAsync();
+  }
+
+   rotate(){
+   let cmd = new CmdRotateWorkspace(this.projectService,this.appService);
+   cmd.executeAsync();
+  }
+
+
+  isMenuItem(item:any):boolean{
+    return item instanceof menuItem;
+   
   }
 
 }
