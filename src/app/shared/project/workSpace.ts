@@ -9,6 +9,7 @@ import { HEventEmitter } from '../../lib/eventEmitter'
 import { HImage } from '../../lib/image';
 import { Utility } from '../../lib/utility';
 import { CalcLayer } from "./lib/calcLayer";
+import { Calc } from '../../lib/calc';
 import { Point } from "../../lib/draw/point";
 
 
@@ -32,7 +33,7 @@ export class Workspace extends HEventEmitter {
 
   public nativeElement: any;
 
-  public cropLayer: Layer;
+  public selectionRectangleLayer: Layer;
 
 
   constructor(width: number, height: number, name?: string) {
@@ -123,7 +124,7 @@ export class Workspace extends HEventEmitter {
       }
     }
     if (this._layers.length == 0)
-      this.cropLayer = undefined;
+      this.selectionRectangleLayer = undefined;
   }
 
   public clearLayers() {
@@ -168,25 +169,33 @@ export class Workspace extends HEventEmitter {
 
   }
   
-  /* private rotateLayers90(layer:Layer,difX:number, difY:number) {
+   private rotateLayers90(layer:Layer,centerBefore:Point, centerAfter: Point) {
     let keepRatio = layer.keepRatio;
     layer.keepRatio = false;
-    let angle = this._layers[0].rotateAngleDeg;
+    let angle = layer.rotateAngleDeg;
     angle += 90;
     if (angle > 180) {
-      angle = 180 - angle;
+      angle = angle - 360;
     }
+    let leftTop =new Point(layer.rectRotated.x,layer.rectRotated.y);
+    
+    
     layer.rotateByDegrees(angle);
-
-    let point1 = CalcLayer.calculateLeft(layer.marginLeft, layer);
+    
+    let rectRotated=layer.rectRotated;
+    
+    
+    let point1 = CalcLayer.calculateLeft(this.width-leftTop.Y-rectRotated.width,layer);
     layer.setLeft(point1.X);
     layer.setTop(point1.Y);
-    point1 = CalcLayer.calculateTop(layer.marginTop, layer);
+    point1 = CalcLayer.calculateTop(leftTop.X, layer);
     layer.setLeft(point1.X);
     layer.setTop(point1.Y);
+    //layer.setLeft(this.width-layer.marginTop);
+    //layer.setTop(layer.marginTop);
     layer.keepRatio = keepRatio;
   }
- */
+ 
   public rotate90() {
     let width = this._height;
     let height = this._width;
@@ -200,7 +209,7 @@ export class Workspace extends HEventEmitter {
     this.backgroundLayer.setWidthHeight(this._width, this._height, new Callback(() => { this.backgroundLayer.render() }));
     this.backgroundLayer.keepRatio = keepRatio;
 
-    //this._layers.forEach(layer=>this.rotateLayers90(layer,centerAfter.X-centerBefore.X,centerAfter.Y-centerBefore.Y));
+    this._layers.forEach(layer=>this.rotateLayers90(layer,centerBefore,centerAfter));
   }
 
   public mouseWheelUpFunc() {
@@ -292,7 +301,7 @@ export class Workspace extends HEventEmitter {
   }
 
   public removeCropLayer() {
-    this.cropLayer = undefined;
+    this.selectionRectangleLayer = undefined;
 
   }
 
@@ -316,7 +325,7 @@ abstract class WorkModeBase {
 
   constructor(workspace: Workspace) {
     this.workspace = workspace;
-    this.workspace.cropLayer = undefined;
+    this.workspace.selectionRectangleLayer = undefined;
     this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event); });
   }
 
@@ -391,26 +400,26 @@ class WorkModeCrop extends WorkModeBase {
   }
 
   public mouseMove(event: MouseEvent) {
-    if (this.workspace.cropLayer)
-      this.workspace.cropLayer.mouseMove(event);
+    if (this.workspace.selectionRectangleLayer)
+      this.workspace.selectionRectangleLayer.mouseMove(event);
 
   }
 
   public mouseDown(event: MouseEvent, layer: Layer) {
 
-    if (this.workspace.cropLayer == undefined) {
+    if (this.workspace.selectionRectangleLayer == undefined) {
       var rect = this.workspace.nativeElement.getBoundingClientRect();
       let mouseX = (event.pageX - rect.left) + window.scrollX;
       let mouseY = (event.pageY - rect.top) + window.scrollY;
       //buradaki 50 ve 50 workspace margin left ve top değerleri;
       let cropLayer = new LayerSelectRectangle(0, 0, mouseX - 50, mouseY - 50);
       cropLayer.mouseDownSelectedPoint(event, 6);
-      this.workspace.cropLayer = cropLayer;
+      this.workspace.selectionRectangleLayer = cropLayer;
     }
   }
   public mouseUp(event: any) {
-    if (this.workspace.cropLayer)
-      this.workspace.cropLayer.mouseUp(event);
+    if (this.workspace.selectionRectangleLayer)
+      this.workspace.selectionRectangleLayer.mouseUp(event);
   }
 
 }

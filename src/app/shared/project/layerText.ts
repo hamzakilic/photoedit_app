@@ -1,6 +1,6 @@
 import { Layer } from './layer';
 import { Graphics } from '../../lib/graphics';
-
+import { Callback } from '../../lib/callback';
 import { HImage  } from '../../lib/image';
 import { Rect} from '../../lib/draw/rect';
 
@@ -23,15 +23,17 @@ export class LayerText extends Layer{
   }
   public render(): void{
       this.graphics.save();
-      
+      this.graphics.clearRect(new Rect(0,0,this.width,this.height));
       this.graphics.drawString(this.text,this._fontName,this._fontSize);
       this.graphics.restore();
   
     }
 
     public setText(value: string){
+      if(value){
       this._text=value;
-      this.resizedAgain =false;
+        this.render();
+      }
     }
 
     public get text(): string{

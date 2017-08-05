@@ -234,7 +234,9 @@ export class SurfaceCanvas extends Surface {
  public get rectRotated():Rect{
    let rect = new Rect(this.marginLeft,this.marginTop,this.width,this.height);   
    let rotatedRect= Calc.rotateRect(rect,this.rotateAngleDeg);
+  
    return rotatedRect;
+   
  }
 
   /**

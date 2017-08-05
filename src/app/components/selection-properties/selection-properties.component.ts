@@ -34,23 +34,23 @@ export class SelectionPropertiesComponent implements OnInit {
 
   changeWidth(value: number) {
     if (value > 10) {
-      this.project.activeWorkspace.cropLayer.setWidthHeight(value, this.project.activeWorkspace.cropLayer.height)
+      this.project.activeWorkspace.selectionRectangleLayer.setWidthHeight(value, this.project.activeWorkspace.selectionRectangleLayer.height)
     }
   }
 
   changeHeight(value: number) {
     if (value > 10) {
-      this.project.activeWorkspace.cropLayer.setWidthHeight(this.project.activeWorkspace.cropLayer.width, value)
+      this.project.activeWorkspace.selectionRectangleLayer.setWidthHeight(this.project.activeWorkspace.selectionRectangleLayer.width, value)
     }
   }
   changeTop(value: number) {
 
-    this.project.activeWorkspace.cropLayer.marginTop = value;
+    this.project.activeWorkspace.selectionRectangleLayer.marginTop = value;
 
   }
   changeLeft(value: number) {
 
-    this.project.activeWorkspace.cropLayer.marginLeft = value;
+    this.project.activeWorkspace.selectionRectangleLayer.marginLeft = value;
 
   }
   cropOk(){

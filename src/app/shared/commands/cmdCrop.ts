@@ -31,10 +31,10 @@ export class CmdCrop extends CommandBusy {
             if (this.projectService.currentProject)
                 if (this.projectService.currentProject.activeWorkspace) {
                     let workspace = this.projectService.currentProject.activeWorkspace;
-                    if (workspace && workspace.cropLayer && workspace.layers.length > 0) {
+                    if (workspace && workspace.selectionRectangleLayer && workspace.layers.length > 0) {
                         
                         //zaten döndürme olmadığı için sorun yok
-                        let cropLayerRect =workspace.cropLayer.rect;
+                        let cropLayerRect =workspace.selectionRectangleLayer.rect;
 
                         let isLayer0Crop = false;
                         let selectedLayer = workspace.layers.find((layer) => layer.isSelected);

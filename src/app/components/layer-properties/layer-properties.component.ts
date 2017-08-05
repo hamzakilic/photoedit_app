@@ -56,20 +56,25 @@ export class LayerPropertiesComponent implements OnInit {
   changeTop(value: any, layer: Layer) {
 
     let val = parseInt(value);
+    if(val){
     let point=CalcLayer.calculateTop(val,layer);
     layer.setLeft(point.X,new Callback(() => layer.render()));
     layer.setTop(point.Y,new Callback(() => layer.render()));
+    }
 }
 
   changeLeft(value: any, layer: Layer) {
 
     let val = parseInt(value);
+    if(val){
     let point=CalcLayer.calculateLeft(val,layer);
     layer.setLeft(point.X,new Callback(() => layer.render()));
     layer.setTop(point.Y,new Callback(() => layer.render()));
+    }
   }
 
   round(value: number) {
+    
     return value.extRound();
   }
   isTextLayer(layer: Layer){
