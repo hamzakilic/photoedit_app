@@ -10,11 +10,11 @@ import { Callback } from '../../lib/callback';
 import { CmdCrop } from '../../shared/commands/cmdCrop';
 
 @Component({
-  selector: 'crop-properties-component',
-  templateUrl: './crop-properties.component.html',
-  styleUrls: ['./crop-properties.component.scss']
+  selector: 'selection-properties-component',
+  templateUrl: './selection-properties.component.html',
+  styleUrls: ['./selection-properties.component.scss']
 })
-export class CropPropertiesComponent implements OnInit {
+export class SelectionPropertiesComponent implements OnInit {
 
   projectService: ProjectService;
   appService: AppService;

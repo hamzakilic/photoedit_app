@@ -8,18 +8,17 @@ import { ProjectService } from '../project.service';
 import { AppService } from '../../app.service';
 import { Workspace } from '../project/workSpace';
 import { LayerEmpty } from '../project/layerEmpty';
-import { LayerImage } from '../project/layerImage';
-import { Calc } from '../../lib/calc';
-import { Rect } from '../../lib/draw/rect';
-import { Imaging } from '../../lib/imagealgorithm/imaging';
+import { LayerText } from '../project/layerText';
+
+ 
 
 
-
-export class CmdRotateWorkspace extends CommandBusy {
+export class CmdAddTextLayer extends Command {
     
-   
+   projectService:ProjectService;
     constructor(projectService: ProjectService, appService: AppService) {
-        super(projectService,appService);
+        super();
+        this.projectService=projectService;
 
        
     }
@@ -31,8 +30,12 @@ export class CmdRotateWorkspace extends CommandBusy {
             if (this.projectService.currentProject)
                 if (this.projectService.currentProject.activeWorkspace) {
                     let workspace = this.projectService.currentProject.activeWorkspace;
-                        if(workspace)
-                            workspace.rotate90();
+                        if(workspace){
+                            let textLayer= new LayerText("Buraya Metin Giriniz","Arial",10,"Text");
+                        
+                            workspace.addLayer(textLayer); 
+                            workspace.makeLayerSelected(textLayer);
+                        }
 
                     }
                 

@@ -49,9 +49,7 @@ export class Graphics {
 
   
 public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
-  
-  
-  
+   
     let imageData =new ImageData(img.Pixels,img.width,img.height);
     
     createImageBitmap(imageData).then((bitmap)=>{
@@ -100,6 +98,12 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
       this.context.strokeStyle = brush;
     this.context.stroke();
   }
+
+  public drawString(text: string,fontFamily: string, fontSize: number){
+    this.context.font=fontFamily;  
+    this.context.fillText(text,0,0);
+  }
+
   public save(){
     this.context.save();
   }

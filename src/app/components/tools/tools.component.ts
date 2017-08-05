@@ -55,15 +55,19 @@ export class ToolsComponent implements OnInit {
 
   }
 
-  selectCrop(){
+  selectRectangleSelection(){
 
     if(this.project)
     if(this.project.activeWorkspace){
-      this.project.activeWorkspace.selectWorking(Workspace.WorkModeCrop);
+      this.project.activeWorkspace.selectWorking(Workspace.WorkModeRectangleSelection);
       this.removeActiveCss();
       this.makeActiveCss(this.idcrop);
 
     }
+
+  }
+
+  selectAddTextLayer(){
 
   }
 

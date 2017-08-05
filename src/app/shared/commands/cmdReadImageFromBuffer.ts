@@ -36,6 +36,7 @@ export class CmdReadImageFromBuffer extends Command {
                this.projectService.currentProject.addWorkspace(ws);
               }else{
                 let ly = new LayerHtmlImage(img,this.fileName);
+                ly.scale=this.projectService.currentProject.activeWorkspace.scale;
                 this.projectService.currentProject.activeWorkspace.addLayer(ly);
               }
 

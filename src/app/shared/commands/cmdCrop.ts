@@ -1,4 +1,5 @@
 import { Command } from './command';
+import { CommandBusy } from './commandBusy';
 import { Message } from '../../lib/message';
 import { MessageBus } from '../../lib/messageBus';
 import { Constants } from '../../lib/constants';
@@ -14,24 +15,16 @@ import { Imaging } from '../../lib/imagealgorithm/imaging';
 
 
 
-export class CmdCrop extends Command {
+export class CmdCrop extends CommandBusy {
     zoomType: number;
-    projectService: ProjectService;
-    appService: AppService;
+   
     constructor(projectService: ProjectService, appService: AppService) {
-        super();
+        super(projectService,appService);
 
-        this.projectService = projectService;
-        this.appService = appService;
+        
     }
 
- public executeAsync():void {
 
-     this.appService.busyPromise = new Promise((resolve, reject) => {
-            
-                  setTimeout(()=>{this.execute();resolve()},0);
-         });
-    }
 
     protected execute(): void {
        

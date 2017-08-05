@@ -1,7 +1,7 @@
 import { Layer } from './layer';
 import { LayerEmpty } from './layerEmpty';
 import { LayerBackground } from './layerBackground';
-import { LayerCrop } from './layerCrop';
+import { LayerSelectRectangle } from './layerSelectRectangle';
 
 import { Graphics } from '../../lib/graphics';
 import { Callback } from '../../lib/callback';
@@ -69,8 +69,8 @@ export class Workspace extends HEventEmitter {
 
 
   }
-  public get hasLayer(): boolean{
-    return this._layers.length>0;
+  public get hasLayer(): boolean {
+    return this._layers.length > 0;
   }
   public get width(): number {
     return this._width;
@@ -85,11 +85,11 @@ export class Workspace extends HEventEmitter {
   public get layers(): Layer[] {
     return this._layers;
   }
-  public get workMode(): WorkModeBase{
+  public get workMode(): WorkModeBase {
     return this._workMode;
   }
-  public get zoom():number {
-    if(this.backgroundLayer)
+  public get zoom(): number {
+    if (this.backgroundLayer)
       return this.backgroundLayer.scale;
     return 1;
   }
@@ -151,59 +151,64 @@ export class Workspace extends HEventEmitter {
     if (height <= 0)
       this._height = 100;
     else this._height = height;
-    let keepRatio=this.backgroundLayer.keepRatio;
-    this.backgroundLayer.keepRatio=false;
-    this.backgroundLayer.setWidthHeight(this._width,this._height,new Callback(()=>{this.backgroundLayer.render()}));
-    this.backgroundLayer.keepRatio=keepRatio;
-    
-    if(this._layers.length>0){
-      keepRatio=this._layers[0].keepRatio;
-      this._layers[0].keepRatio=false;
-      this._layers[0].setWidthHeight(this._width,this._height,new Callback(()=>{this._layers[0].render()}));
-      this._layers[0].keepRatio=keepRatio;
+    let keepRatio = this.backgroundLayer.keepRatio;
+    this.backgroundLayer.keepRatio = false;
+    this.backgroundLayer.setWidthHeight(this._width, this._height, new Callback(() => { this.backgroundLayer.render() }));
+    this.backgroundLayer.keepRatio = keepRatio;
+
+    if (this._layers.length > 0) {
+      keepRatio = this._layers[0].keepRatio;
+      this._layers[0].keepRatio = false;
+      this._layers[0].setWidthHeight(this._width, this._height, new Callback(() => { this._layers[0].render() }));
+      this._layers[0].keepRatio = keepRatio;
     }
-    
+
 
     this.callEvent(Workspace.EVENTRESIZED, afterResized);
 
   }
-  public rotate90(){
-    let width=this._height;
-    let height=this._width;
-    this._width=width;
-    this._height=height;
-     let keepRatio=this.backgroundLayer.keepRatio;
-    this.backgroundLayer.keepRatio=false;
-    this.backgroundLayer.setWidthHeight(this._width,this._height,new Callback(()=>{this.backgroundLayer.render()}));
-    this.backgroundLayer.keepRatio=keepRatio;
-    
-    if(this._layers.length>0){
-      keepRatio=this._layers[0].keepRatio;
-      this._layers[0].keepRatio=false;
-      let angle=this._layers[0].rotateAngleDeg;
-      angle +=90;
-      if(angle>180){        
-       angle=180-angle;
-      }
-      this._layers[0].rotateByDegrees(angle);
-   
-      let point1=CalcLayer.calculateLeft(0,this._layers[0]);
-      this._layers[0].setLeft(point1.X);
-      this._layers[0].setTop(point1.Y);
-      point1=CalcLayer.calculateTop(0,this._layers[0]);
-      this._layers[0].setLeft(point1.X);
-      this._layers[0].setTop(point1.Y);
-      this._layers[0].keepRatio=keepRatio;
+  
+  /* private rotateLayers90(layer:Layer,difX:number, difY:number) {
+    let keepRatio = layer.keepRatio;
+    layer.keepRatio = false;
+    let angle = this._layers[0].rotateAngleDeg;
+    angle += 90;
+    if (angle > 180) {
+      angle = 180 - angle;
     }
+    layer.rotateByDegrees(angle);
 
+    let point1 = CalcLayer.calculateLeft(layer.marginLeft, layer);
+    layer.setLeft(point1.X);
+    layer.setTop(point1.Y);
+    point1 = CalcLayer.calculateTop(layer.marginTop, layer);
+    layer.setLeft(point1.X);
+    layer.setTop(point1.Y);
+    layer.keepRatio = keepRatio;
+  }
+ */
+  public rotate90() {
+    let width = this._height;
+    let height = this._width;
+    //eski center noktası
+    let centerBefore=new Point(this.width/2,this.height/2);
+    this._width = width;
+    this._height = height;
+    let centerAfter = new Point(this.width/2,this.height/2);
+    let keepRatio = this.backgroundLayer.keepRatio;
+    this.backgroundLayer.keepRatio = false;
+    this.backgroundLayer.setWidthHeight(this._width, this._height, new Callback(() => { this.backgroundLayer.render() }));
+    this.backgroundLayer.keepRatio = keepRatio;
+
+    //this._layers.forEach(layer=>this.rotateLayers90(layer,centerAfter.X-centerBefore.X,centerAfter.Y-centerBefore.Y));
   }
 
   public mouseWheelUpFunc() {
-   // console.log('wheelup');
+     console.log('wheelup');
   }
 
   public mouseWheelDownFunc() {
-    //console.log('wheeldown');
+    console.log('wheeldown');
   }
 
   public mouseMove(event: MouseEvent) {
@@ -216,7 +221,7 @@ export class Workspace extends HEventEmitter {
 
 
   public mouseDown(event: MouseEvent, layer: Layer) {
-   // console.log('workspace mouse down:' + event.clientX);
+    // console.log('workspace mouse down:' + event.clientX);
     this._workMode.mouseDown(event, layer);
 
   }
@@ -251,9 +256,11 @@ export class Workspace extends HEventEmitter {
 
   }
 
+  public get scale() {
+    return this.backgroundLayer.scale;
+  }
 
-
-  public zoomTo(val: number){
+  public zoomTo(val: number) {
     this.backgroundLayer.scaleTo(val);
     this._layers.forEach((item) => item.scaleTo(val));
   }
@@ -275,7 +282,7 @@ export class Workspace extends HEventEmitter {
       case Workspace.WorkModeDefault:
         this._workMode = new WorkModeDefault(this);
         break;
-      case Workspace.WorkModeCrop:
+      case Workspace.WorkModeRectangleSelection:
         this._workMode = new WorkModeCrop(this);
         break;
       default:
@@ -284,9 +291,9 @@ export class Workspace extends HEventEmitter {
 
   }
 
-  public removeCropLayer(){
+  public removeCropLayer() {
     this.cropLayer = undefined;
-   
+
   }
 
 
@@ -296,9 +303,9 @@ export class Workspace extends HEventEmitter {
   public static readonly EVENTRESIZED = "resized";
 
   public static readonly WorkModeDefault = 1;
-  public static readonly WorkModeCrop = 2;
+  public static readonly WorkModeRectangleSelection = 2;
   public static readonly WorkModeSelection = 3;
-  public static readonly WorkModeText = 4;
+  public static readonly WorkModeAddTextLayer = 4;
   public static readonly WorkModeDraw = 5;
 
 
@@ -321,14 +328,14 @@ abstract class WorkModeBase {
     });
 
   }
-   public abstract get typeOf(): number;
+  public abstract get typeOf(): number;
 
 
   public mouseDown(event: MouseEvent, layer: Layer) {
 
     this.workspace.makeLayersNotSelected(layer);
-    if(layer)
-    layer.mouseDown(event);
+    if (layer)
+      layer.mouseDown(event);
     //önemli, event stoplanmalı
     event.stopPropagation();
   }
@@ -336,7 +343,7 @@ abstract class WorkModeBase {
 
     this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event); });
   }
-  
+
 
 
 
@@ -353,7 +360,7 @@ class WorkModeDefault extends WorkModeBase {
     this.workspace.removeCropLayer();
 
   }
-  public  get typeOf(): number{
+  public get typeOf(): number {
     return Workspace.WorkModeDefault;
   }
 
@@ -367,7 +374,7 @@ class WorkModeHand extends WorkModeBase {
     this.workspace.cssClasses = "mouseDefault";
 
   }
-  public  get typeOf(): number{
+  public get typeOf(): number {
     return Workspace.WorkModeDefault;
   }
 }
@@ -379,8 +386,8 @@ class WorkModeCrop extends WorkModeBase {
     this.workspace.cssClasses = "mouseCross";
 
   }
-  public  get typeOf(): number{
-    return Workspace.WorkModeCrop;
+  public get typeOf(): number {
+    return Workspace.WorkModeRectangleSelection;
   }
 
   public mouseMove(event: MouseEvent) {
@@ -391,15 +398,14 @@ class WorkModeCrop extends WorkModeBase {
 
   public mouseDown(event: MouseEvent, layer: Layer) {
 
-    if(this.workspace.cropLayer==undefined){
-    var rect = this.workspace.nativeElement.getBoundingClientRect();
-    let mouseX = (event.pageX - rect.left) + window.scrollX;
-    let mouseY = (event.pageY - rect.top) + window.scrollY;
-   // console.log(event.clientX + ":" + event.clientY + "/" + event.movementX + ":" + event.movementY + "/" + event.offsetX + ":" + event.offsetY + "/" + event.pageX + ":" + event.pageY + "/" + event.screenX + ":" + event.screenY);
-   // console.log(mouseX + ":" + mouseY);
-    let cropLayer = new LayerCrop(0, 0, mouseX - 50, mouseY - 50);
-    cropLayer.mouseDownSelectedPoint(event, 6);
-    this.workspace.cropLayer= cropLayer;
+    if (this.workspace.cropLayer == undefined) {
+      var rect = this.workspace.nativeElement.getBoundingClientRect();
+      let mouseX = (event.pageX - rect.left) + window.scrollX;
+      let mouseY = (event.pageY - rect.top) + window.scrollY;
+      //buradaki 50 ve 50 workspace margin left ve top değerleri;
+      let cropLayer = new LayerSelectRectangle(0, 0, mouseX - 50, mouseY - 50);
+      cropLayer.mouseDownSelectedPoint(event, 6);
+      this.workspace.cropLayer = cropLayer;
     }
   }
   public mouseUp(event: any) {

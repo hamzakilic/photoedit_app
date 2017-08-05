@@ -39,9 +39,10 @@ import { ToolsComponent } from './components/tools/tools.component';
 import { LayerSelectedComponent } from './components/layer-selected/layer-selected.component';
 import { LayerPropertiesComponent } from './components/layer-properties/layer-properties.component';
 import { ZoomComponent } from './components/zoom/zoom.component';
-import { CropPropertiesComponent } from './components/crop-properties/crop-properties.component';
+import { SelectionPropertiesComponent } from './components/selection-properties/selection-properties.component';
 import { BusyComponent } from './components/busy/busy.component';
 import { FormResizeComponent } from './components/form-resize/form-resize.component';
+import { LayerTextPropertiesComponent } from './components/layer-text-properties/layer-text-properties.component';
 
 
 
@@ -69,9 +70,10 @@ import { FormResizeComponent } from './components/form-resize/form-resize.compon
     LayerSelectedComponent,
     LayerPropertiesComponent,
     ZoomComponent,
-    CropPropertiesComponent,
+    SelectionPropertiesComponent,
     BusyComponent,
     FormResizeComponent,
+    LayerTextPropertiesComponent,
     
     
     

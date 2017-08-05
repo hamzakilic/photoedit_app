@@ -1,5 +1,4 @@
 import { Command } from './command';
-import { CommandBusy } from './commandBusy';
 import { Message } from '../../lib/message';
 import { MessageBus } from '../../lib/messageBus';
 import { Constants } from '../../lib/constants';
@@ -15,33 +14,22 @@ import { Imaging } from '../../lib/imagealgorithm/imaging';
 
 
 
-export class CmdRotateWorkspace extends CommandBusy {
+export abstract class CommandBusy extends Command {
     
-   
+    protected projectService: ProjectService;
+    protected appService: AppService;
     constructor(projectService: ProjectService, appService: AppService) {
-        super(projectService,appService);
+        super();
 
-       
+        this.projectService = projectService;
+        this.appService = appService;
     }
 
+ public executeAsync():void {
 
-
-    protected execute(): void {
-       
-            if (this.projectService.currentProject)
-                if (this.projectService.currentProject.activeWorkspace) {
-                    let workspace = this.projectService.currentProject.activeWorkspace;
-                        if(workspace)
-                            workspace.rotate90();
-
-                    }
-                
-
-          
-
+     this.appService.busyPromise = new Promise((resolve, reject) => {
+            
+                  setTimeout(()=>{this.execute();resolve()},0);
+         });
     }
-
-
-
-
 }

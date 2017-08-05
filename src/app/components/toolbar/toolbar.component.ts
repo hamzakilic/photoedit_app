@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
 import { LayersInfoComponent } from '../layers-info/layers-info.component'
 import { LayerPropertiesComponent } from '../layer-properties/layer-properties.component';
-import { CropPropertiesComponent } from '../crop-properties/crop-properties.component';
+import { SelectionPropertiesComponent } from '../selection-properties/selection-properties.component';
 
 @Component({
   selector: 'toolbar-component',

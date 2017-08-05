@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CropPropertiesComponent } from './crop-properties.component';
+import { SelectionPropertiesComponent } from './selection-properties.component';
 
-describe('CropPropertiesComponent', () => {
-  let component: CropPropertiesComponent;
-  let fixture: ComponentFixture<CropPropertiesComponent>;
+describe('SelectionPropertiesComponent', () => {
+  let component: SelectionPropertiesComponent;
+  let fixture: ComponentFixture<SelectionPropertiesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CropPropertiesComponent ]
+      declarations: [ SelectionPropertiesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CropPropertiesComponent);
+    fixture = TestBed.createComponent(SelectionPropertiesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

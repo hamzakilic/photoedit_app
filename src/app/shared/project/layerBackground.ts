@@ -17,10 +17,10 @@ export class LayerBackground extends Layer{
 
 
     this.graphics.fillRect(new Rect(0,0,this.width,this.height),'#FFFFFF')
-    for(let i=0;i<this.width;i+=5*this.scale)
-      this.graphics.drawLine(i,0,i,this.height,0.7*this.scale,'#000000');
-    for(let i=0;i<this.height;i+=5*this.scale)
-    this.graphics.drawLine(0,i,this.width,i,0.7*this.scale,'#000000');
+    for(let i=0;i<this.width;i+=10)
+      this.graphics.drawLine(i,0,i,this.height,1,'#000000');
+    for(let i=0;i<this.height;i+=10)
+    this.graphics.drawLine(0,i,this.width,i,1,'#000000');
   }
 
   public dispose(){

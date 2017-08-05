@@ -8,7 +8,7 @@ import { Point } from '../../lib/draw/point';
 import { RotationHelper, RotationMove } from '../../lib/rotationHelper';
 
 
-export class LayerCrop extends Layer {
+export class LayerSelectRectangle extends Layer {
 
    isFinishedContructing:boolean
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Layer } from '../../shared/project/layer';
-import { LayerCrop } from '../../shared/project/layerCrop';
+import { LayerSelectRectangle } from '../../shared/project/layerSelectRectangle';
 import { Callback } from '../../lib/callback';
 import { Point } from '../../lib/draw/point';
 import { Calc } from '../../lib/calc';
@@ -110,8 +110,8 @@ export class LayerSelectedComponent implements OnInit {
 
    public selectedCss(val:number) {
      let classes =  {
-            divSelectedLayer: !(this.surface instanceof LayerCrop) ,
-            divCropLayer: (this.surface instanceof LayerCrop),            
+            divSelectedLayer: !(this.surface instanceof LayerSelectRectangle) ,
+            divSelecRectangleLayer: (this.surface instanceof LayerSelectRectangle),            
             cursornwse: false,
             cursornesw: false,            
             cursorew: false,
