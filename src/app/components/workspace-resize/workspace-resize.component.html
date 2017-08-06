@@ -1,0 +1,12 @@
+
+<div
+class="workspaceResize" 
+[style.width.px]="(isMouseEnter?2:1)*14*workspace.backgroundLayer.scale"
+[style.height.px]="(isMouseEnter?2:1)*14*workspace.backgroundLayer.scale"
+[style.margin-left.px]="workspace.backgroundLayer.width-14*(isMouseEnter?2:1)"
+[style.margin-top.px]="workspace.backgroundLayer.height-14*(isMouseEnter?2:1)"
+[ngClass]="selectedCss()"
+mouse (mouseDown)="mouseDown($event)" 
+(mouseOver)="mouseOver($event)" 
+(mouseLeave)="mouseLeave($event)"> 
+</div>

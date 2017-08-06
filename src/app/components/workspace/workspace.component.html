@@ -3,7 +3,8 @@
 [attr.height]="workspace.backgroundLayer.height"
 [style.width.px]="workspace.backgroundLayer.width*workspace.backgroundLayer.scale"
 [style.height.px]="workspace.backgroundLayer.height*workspace.backgroundLayer.scale"
-style="position: absolute;overflow: hidden;margin:50px"  >
+style="position: absolute;overflow: hidden;margin:50px" 
+>
 <layer-component background [surface]="workspace.backgroundLayer" >
 </layer-component>
 
@@ -12,11 +13,13 @@ style="position: absolute;overflow: hidden;margin:50px"  >
  mouse  (mouseDown)="workspace.mouseDown($event,layer)" >
 </layer-component>
 
-<layer-component *ngIf="workspace.cropLayer" [surface]="workspace.cropLayer"
+<layer-component *ngIf="workspace.selectionRectangleLayer" [surface]="workspace.selectionRectangleLayer"
   style="z-index:500" >
 </layer-component>
 
-
+<workspace-resize [workspace]="workspace">
+  
+</workspace-resize>
 
 </div>
 

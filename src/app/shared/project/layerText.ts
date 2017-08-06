@@ -32,7 +32,7 @@ export class LayerText extends Layer{
     public setText(value: string){
       if(value){
       this._text=value;
-        this.render();
+      this.render();
       }
     }
 

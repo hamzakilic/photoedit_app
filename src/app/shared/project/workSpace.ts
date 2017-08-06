@@ -292,7 +292,10 @@ export class Workspace extends HEventEmitter {
         this._workMode = new WorkModeDefault(this);
         break;
       case Workspace.WorkModeRectangleSelection:
-        this._workMode = new WorkModeCrop(this);
+        this._workMode = new WorkModeSelectionRectangle(this);
+        break;
+        case Workspace.WorkModeResizeWorkspace:
+        this._workMode = new WorkModeResizeWorkspace(this,this.workMode.typeOf);
         break;
       default:
         this._workMode = new WorkModeDefault(this);
@@ -314,8 +317,9 @@ export class Workspace extends HEventEmitter {
   public static readonly WorkModeDefault = 1;
   public static readonly WorkModeRectangleSelection = 2;
   public static readonly WorkModeSelection = 3;
-  public static readonly WorkModeAddTextLayer = 4;
-  public static readonly WorkModeDraw = 5;
+  public static readonly WorkModeResizeWorkspace=4;
+  public static readonly WorkModeAddTextLayer = 5;
+  public static readonly WorkModeDraw = 6;
 
 
 }
@@ -354,9 +358,6 @@ abstract class WorkModeBase {
   }
 
 
-
-
-
 }
 
 
@@ -388,7 +389,7 @@ class WorkModeHand extends WorkModeBase {
   }
 }
 
-class WorkModeCrop extends WorkModeBase {
+class WorkModeSelectionRectangle extends WorkModeBase {
 
   constructor(workspace: Workspace) {
     super(workspace);
@@ -412,9 +413,9 @@ class WorkModeCrop extends WorkModeBase {
       let mouseX = (event.pageX - rect.left) + window.scrollX;
       let mouseY = (event.pageY - rect.top) + window.scrollY;
       //buradaki 50 ve 50 workspace margin left ve top değerleri;
-      let cropLayer = new LayerSelectRectangle(0, 0, mouseX - 50, mouseY - 50);
-      cropLayer.mouseDownSelectedPoint(event, 6);
-      this.workspace.selectionRectangleLayer = cropLayer;
+      let selectionRectangleLayer = new LayerSelectRectangle(0, 0, mouseX - 50, mouseY - 50);
+      selectionRectangleLayer.mouseDownSelectedPoint(event, 6);
+      this.workspace.selectionRectangleLayer = selectionRectangleLayer;
     }
   }
   public mouseUp(event: any) {
@@ -423,6 +424,40 @@ class WorkModeCrop extends WorkModeBase {
   }
 
 }
+
+class WorkModeResizeWorkspace extends WorkModeBase {
+  private previousWorkingMode:number;
+  constructor(workspace: Workspace,previousWorkingMode: number) {
+    super(workspace);
+    this.previousWorkingMode=previousWorkingMode;
+    this.workspace.cssClasses = "mouseNWSE";
+
+  }
+  public get typeOf(): number {
+    return Workspace.WorkModeResizeWorkspace;
+  }
+
+  public mouseMove(event: MouseEvent) {
+  
+  let w=this.workspace.width+event.movementX;
+  let h=this.workspace.height+event.movementY;
+  if(w>20 && h>20){
+    this.workspace.resize(w,h,new Callback(()=>{}));
+  }
+  }
+
+  public mouseDown(event: MouseEvent, layer: Layer) {
+   
+    
+  }
+  public mouseUp(event: any) {
+    
+    this.workspace.selectWorking(this.previousWorkingMode);
+  }
+
+
+}
+
 
 
 

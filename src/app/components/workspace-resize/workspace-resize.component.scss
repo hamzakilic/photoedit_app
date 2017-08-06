@@ -1,0 +1,11 @@
+.workspaceResize{
+
+    background-color: aqua;
+    position: absolute;
+    z-index: 10000;
+    
+}
+
+.workspaceResize:hover{
+    cursor: nwse-resize;
+}

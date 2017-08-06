@@ -43,6 +43,7 @@ import { SelectionPropertiesComponent } from './components/selection-properties/
 import { BusyComponent } from './components/busy/busy.component';
 import { FormResizeComponent } from './components/form-resize/form-resize.component';
 import { LayerTextPropertiesComponent } from './components/layer-text-properties/layer-text-properties.component';
+import { WorkspaceResizeComponent } from './components/workspace-resize/workspace-resize.component';
 
 
 
@@ -74,6 +75,7 @@ import { LayerTextPropertiesComponent } from './components/layer-text-properties
     BusyComponent,
     FormResizeComponent,
     LayerTextPropertiesComponent,
+    WorkspaceResizeComponent,
     
     
     

@@ -13,7 +13,7 @@ export class LayerSelectRectangle extends Layer {
    isFinishedContructing:boolean
 
   constructor(width: number, height: number,left: number, top: number) {
-    super("crop layer");
+    super("select rectangle layer");
     
     this.keepRatio = false;
     this.scaleView = false;
