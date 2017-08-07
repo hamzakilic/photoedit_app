@@ -22,6 +22,7 @@ export class LayerText extends Layer{
     this._fontSize=fontSize;
   }
   public render(): void{
+    this.graphics.setGlobalAlpha(this.globalAlpha);
       this.graphics.save();
       this.graphics.clearRect(new Rect(0,0,this.width,this.height));
       this.graphics.drawString(this.text,this._fontName,this._fontSize);

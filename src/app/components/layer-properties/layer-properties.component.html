@@ -42,6 +42,11 @@
               <input type="number" class="form-control" placeholder="Enter rotate of layer" aria-describedby="sizing-addon2" [value]="layer.rotateAngleDeg"
                 min="-180" max="180" (input)="changeRotateAngle($event.target.value,layer)">
             </div>
+              <div class="input-group height30">
+              <span class="input-group-addon proName" id="sizing-addon2" tooltip="Opacity of layer" placement="right">O</span>
+              <input type="number" class="form-control" placeholder="Enter opacity of layer" aria-describedby="sizing-addon2" [value]="round(layer.globalAlpha*100)"
+                min="0" max="100"  (input)="changeGlobalAlpha($event.target.value,layer)">
+            </div>
             <div class="input-group ">
               <label class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" [(ngModel)]="layer.keepRatio">

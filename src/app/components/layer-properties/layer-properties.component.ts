@@ -80,6 +80,13 @@ export class LayerPropertiesComponent implements OnInit {
   isTextLayer(layer: Layer){
     return layer instanceof LayerText;
   }
+  changeGlobalAlpha(value:any,layer: Layer){
+    let val= parseInt(value);
+    if(val){
+      layer.setGlobalAlpha(val/100);
+      layer.render();
+    }
+  }
 
 
 }

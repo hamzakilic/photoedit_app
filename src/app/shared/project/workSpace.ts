@@ -168,8 +168,8 @@ export class Workspace extends HEventEmitter {
     this.callEvent(Workspace.EVENTRESIZED, afterResized);
 
   }
-  
-   private rotateLayers90(layer:Layer,centerBefore:Point, centerAfter: Point) {
+
+  private rotateLayers90(layer: Layer, centerBefore: Point, centerAfter: Point) {
     let keepRatio = layer.keepRatio;
     layer.keepRatio = false;
     let angle = layer.rotateAngleDeg;
@@ -177,15 +177,15 @@ export class Workspace extends HEventEmitter {
     if (angle > 180) {
       angle = angle - 360;
     }
-    let leftTop =new Point(layer.rectRotated.x,layer.rectRotated.y);
-    
-    
+    let leftTop = new Point(layer.rectRotated.x, layer.rectRotated.y);
+
+
     layer.rotateByDegrees(angle);
-    
-    let rectRotated=layer.rectRotated;
-    
-    
-    let point1 = CalcLayer.calculateLeft(this.width-leftTop.Y-rectRotated.width,layer);
+
+    let rectRotated = layer.rectRotated;
+
+
+    let point1 = CalcLayer.calculateLeft(this.width - leftTop.Y - rectRotated.width, layer);
     layer.setLeft(point1.X);
     layer.setTop(point1.Y);
     point1 = CalcLayer.calculateTop(leftTop.X, layer);
@@ -195,25 +195,25 @@ export class Workspace extends HEventEmitter {
     //layer.setTop(layer.marginTop);
     layer.keepRatio = keepRatio;
   }
- 
+
   public rotate90() {
     let width = this._height;
     let height = this._width;
     //eski center noktası
-    let centerBefore=new Point(this.width/2,this.height/2);
+    let centerBefore = new Point(this.width / 2, this.height / 2);
     this._width = width;
     this._height = height;
-    let centerAfter = new Point(this.width/2,this.height/2);
+    let centerAfter = new Point(this.width / 2, this.height / 2);
     let keepRatio = this.backgroundLayer.keepRatio;
     this.backgroundLayer.keepRatio = false;
     this.backgroundLayer.setWidthHeight(this._width, this._height, new Callback(() => { this.backgroundLayer.render() }));
     this.backgroundLayer.keepRatio = keepRatio;
 
-    this._layers.forEach(layer=>this.rotateLayers90(layer,centerBefore,centerAfter));
+    this._layers.forEach(layer => this.rotateLayers90(layer, centerBefore, centerAfter));
   }
 
   public mouseWheelUpFunc() {
-     console.log('wheelup');
+    console.log('wheelup');
   }
 
   public mouseWheelDownFunc() {
@@ -294,8 +294,8 @@ export class Workspace extends HEventEmitter {
       case Workspace.WorkModeRectangleSelection:
         this._workMode = new WorkModeSelectionRectangle(this);
         break;
-        case Workspace.WorkModeResizeWorkspace:
-        this._workMode = new WorkModeResizeWorkspace(this,this.workMode.typeOf);
+      case Workspace.WorkModeResizeWorkspace:
+        this._workMode = new WorkModeResizeWorkspace(this, this.workMode.typeOf);
         break;
       default:
         this._workMode = new WorkModeDefault(this);
@@ -317,7 +317,7 @@ export class Workspace extends HEventEmitter {
   public static readonly WorkModeDefault = 1;
   public static readonly WorkModeRectangleSelection = 2;
   public static readonly WorkModeSelection = 3;
-  public static readonly WorkModeResizeWorkspace=4;
+  public static readonly WorkModeResizeWorkspace = 4;
   public static readonly WorkModeAddTextLayer = 5;
   public static readonly WorkModeDraw = 6;
 
@@ -426,10 +426,10 @@ class WorkModeSelectionRectangle extends WorkModeBase {
 }
 
 class WorkModeResizeWorkspace extends WorkModeBase {
-  private previousWorkingMode:number;
-  constructor(workspace: Workspace,previousWorkingMode: number) {
+  private previousWorkingMode: number;
+  constructor(workspace: Workspace, previousWorkingMode: number) {
     super(workspace);
-    this.previousWorkingMode=previousWorkingMode;
+    this.previousWorkingMode = previousWorkingMode;
     this.workspace.cssClasses = "mouseNWSE";
 
   }
@@ -438,20 +438,20 @@ class WorkModeResizeWorkspace extends WorkModeBase {
   }
 
   public mouseMove(event: MouseEvent) {
-  
-  let w=this.workspace.width+event.movementX;
-  let h=this.workspace.height+event.movementY;
-  if(w>20 && h>20){
-    this.workspace.resize(w,h,new Callback(()=>{}));
-  }
+
+    let w = this.workspace.width + event.movementX/this.workspace.scale;
+    let h = this.workspace.height + event.movementY/this.workspace.scale;
+    if (w > 20 && h > 20) {
+      this.workspace.resize(w, h, new Callback(() => { }));
+    }
   }
 
   public mouseDown(event: MouseEvent, layer: Layer) {
-   
-    
+
+
   }
   public mouseUp(event: any) {
-    
+
     this.workspace.selectWorking(this.previousWorkingMode);
   }
 

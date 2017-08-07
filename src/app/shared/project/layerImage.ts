@@ -19,6 +19,8 @@ export class LayerImage extends Layer{
     this.img = img;
   }
   public render(): void{
+    this.setGlobalAlpha(this.globalAlpha);
+    
     this.graphics.save();
   
     if(!this.scaleView){

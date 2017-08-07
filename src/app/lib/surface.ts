@@ -24,6 +24,7 @@ export class Surface {
   public keepRatio: boolean;
   public scaleView: boolean;
   public sourceMask: Rect;
+  public _globalAlpha:number;
 
 
   /**
@@ -33,7 +34,14 @@ export class Surface {
     this.keepRatio = true;
     this.sourceMask = undefined;
     this.scaleView = true;
-
+    this._globalAlpha=1.0;
+  }
+  public get globalAlpha():number{
+    return this._globalAlpha;
+  }
+  public setGlobalAlpha(val:number){
+    this._globalAlpha=val;
+    
   }
 
 }
@@ -45,9 +53,6 @@ export class SurfaceCanvas extends Surface {
     this.scale *= 1.1;
     if (this.scale > 3)
       this.scale = 3;
-
-
-
   }
 
   public scaleTo(val: number): void {
@@ -66,8 +71,6 @@ export class SurfaceCanvas extends Surface {
     this.scale *= 0.9;
     if (this.scale < 0.1)
       this.scale = 0.1;
-
-
   }
 
 

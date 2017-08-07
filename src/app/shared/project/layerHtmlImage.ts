@@ -21,6 +21,7 @@ export class LayerHtmlImage extends Layer {
 
   }
   public render(): void {
+    this.graphics.setGlobalAlpha(this.globalAlpha);
     this.graphics.clearRect(new Rect(0, 0, this.width, this.height))
     this.graphics.save();
     /*if (this.rotateAngleDeg != 0) {
