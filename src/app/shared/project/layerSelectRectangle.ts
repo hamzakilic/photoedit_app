@@ -60,6 +60,7 @@ export class LayerSelectRectangle extends Layer {
 
 
   public render(): void {
+      this.graphics.save();
       let rect= new Rect(0,0,this.width,this.height);
       this.graphics.clearRect(rect);
       this.graphics.fillRectRGBA(rect,10,10,50,100);
@@ -67,6 +68,7 @@ export class LayerSelectRectangle extends Layer {
       this.graphics.fillRect(new Rect(this.width-10,0,10,10),"#FFFFFF");
       this.graphics.fillRect(new Rect(this.width-10,this.height-10,10,10),"#FFFFFF");
       this.graphics.fillRect(new Rect(0,this.height-10,10,10),"#FFFFFF");*/
+      this.graphics.restore();
   }
   public dispose() {
 

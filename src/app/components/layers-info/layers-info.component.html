@@ -5,30 +5,33 @@
   <section class="layersSection">
     <div *ngIf="project != undefined">
       <div *ngIf="project.activeWorkspace != undefined">
-        <ul class="list-group">
-          <li class="list-group-item layersLi " [ngClass]="(layer.isSelected)?'layersLiSelected':''"
+        <ng-container *ngFor="let layer of project.activeWorkspace.layers">
+            <div class="container layersLi lineheightmedium" style="padding-left:2px;padding-right:2px" [ngClass]="(layer.isSelected)?'layersLiSelected':''">
+              <div class="row no-gutters" (click)="project.activeWorkspace.makeLayerSelected(layer);">
+                <div class="col-2 myGutter">
+                  
+                  <i class="fa fa-eye mouseoverhand " [class.disabled-icon]="layer.isHidden"  (click)="disableOrEnable(layer)"></i> 
+                   
+               
 
-            *ngFor="let layer of project.activeWorkspace.layers">
+                </div>
+                <div class="col-2 myGutter">
+                <i class="fa fa-minus-circle mouseoverhand "  (click)="removeLayer(layer)"></i> 
+                </div> 
+                <div class="col-8 myGutter">
+                  <span class="mouseoverhand hideOverflowText "> {{layer.name}}</span>
+                </div>
 
-              <div class="row" (click)="project.activeWorkspace.makeLayerSelected(layer);" >
-                <div class="col-2">
-                  <i class="fa fa-eye mouseoverhand " [class.disabled-icon]="layer.isHidden"  aria-hidden="true" (click)="disableOrEnable(layer)"></i>
-                </div>
-                <div class="col-7">
-                  <span  class="mouseoverhand "> {{layer.name}}</span>
-                </div>
-                <div class="col-1">
-                  <i class="fa fa-minus-circle mouseoverhand" aria-hidden="true" (click)="removeLayer(layer)"></i>
-                </div>
+
               </div>
+            </div>
+            
 
 
 
-             
 
-          </li>
 
-        </ul>
+        </ng-container>
       </div>
     </div>
   </section>

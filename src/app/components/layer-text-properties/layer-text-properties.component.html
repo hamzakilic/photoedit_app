@@ -1,21 +1,24 @@
-<div class="input-group height30">
-  <span class="input-group-addon proName" id="sizing-addon2" tooltip="Text of layer" placement="right">T</span>
-  <input type="string" class="form-control" placeholder="Enter text" aria-describedby="sizing-addon2" [value]="layer.text"
-    (input)="changeText($event.target.value,layer)">
+<div class="input-group input-group-sm">
+  <span class="input-group-addon proName" tooltip="Text of layer" placement="right">T</span>
+  <input type="string" class="form-control " style="overflow: hidden; white-space: nowrap;" placeholder="Enter text" aria-describedby="sizing-addon2"
+    [value]="layer.text" (input)="changeText($event.target.value,layer)">
 </div>
-<!-- <div class="input-group height30">
-  <span class="input-group-addon proName" id="sizing-addon2" tooltip="rotate of layer" placement="right">R</span>
-  <input type="number" class="form-control" placeholder="Enter rotate of layer" aria-describedby="sizing-addon2" [value]="layer.rotateAngleDeg"
-    min="-180" max="180" (input)="changeRotateAngle($event.target.value,layer)">
-</div> -->
-<!--
-<div>
-  font bilgisi combobox olacak
+<div class="input-group input-group-sm">
+
+  <span class="input-group-addon proName" tooltip="Font" placement="right">F</span>
   
-  </div>
-  -->
-<!--
-  <div>
-    font size numeric updown olacak
-    </div>
-  -->
+  <autocomplete class="form-control  autoComplete"
+  [allowClear]="true"
+              [items]="items"
+              [disabled]="disabled"
+              (data)="refreshValue($event)"
+              (selected)="selected($event)"
+              (removed)="removed($event)"
+              (typed)="typed($event)"
+              [active]="currentLayerFontFamily()"
+              placeholder="No font selected"></autocomplete>
+</div>
+  
+
+
+    

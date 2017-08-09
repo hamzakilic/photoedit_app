@@ -59,7 +59,7 @@ export class SelectionPropertiesComponent implements OnInit {
 
   }
   cropCancel(){
-    this.project.activeWorkspace.removeCropLayer();
+    this.project.activeWorkspace.removeSelectionRectangleLayer();
   }
 
 

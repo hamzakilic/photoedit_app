@@ -19,10 +19,10 @@ export class LayerImage extends Layer{
     this.img = img;
   }
   public render(): void{
-    this.setGlobalAlpha(this.globalAlpha);
+    
     
     this.graphics.save();
-  
+   this.setGlobalAlpha(this.globalAlpha);
     if(!this.scaleView){
 
       this.graphics.drawImageRect(this.img,this.sourceMask,new Rect(0,0,this.sourceMask.width>this.width?this.width:this.sourceMask.width,this.sourceMask.height>this.height?this.height:this.sourceMask.height));

@@ -303,7 +303,7 @@ export class Workspace extends HEventEmitter {
 
   }
 
-  public removeCropLayer() {
+  public removeSelectionRectangleLayer() {
     this.selectionRectangleLayer = undefined;
 
   }
@@ -367,7 +367,7 @@ class WorkModeDefault extends WorkModeBase {
   constructor(workspace: Workspace) {
     super(workspace);
     this.workspace.cssClasses = "mouseDefault";
-    this.workspace.removeCropLayer();
+    this.workspace.removeSelectionRectangleLayer();
 
   }
   public get typeOf(): number {

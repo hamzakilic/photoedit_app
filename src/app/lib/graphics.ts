@@ -99,14 +99,13 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     this.context.stroke();
   }
 
-  public drawString(text: string,fontFamily: string, fontSize: number){
-    //this.context.font="Arial,16";
+  public drawString(text: string,color:string,fontFamily: string, fontSize: number){
+    this.context.fillStyle=color;
+    this.context.font=fontSize+"px "+fontFamily;
+      this.context.textBaseline="top";
     
-    //this.context.lineWidth=2;
-    this.context.strokeStyle="#00FF00";
-    this.context.strokeText(text,0,50);  
-    //this.context.stroke();
-    //this.context.fillText(text,0,0);
+    this.context.fillText(text,0,0);  
+    
   }
 
   public save(){

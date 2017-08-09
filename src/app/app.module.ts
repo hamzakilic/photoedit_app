@@ -15,6 +15,7 @@ import { TooltipModule } from 'ngx-bootstrap';
 
 
 
+
 import { AppComponent } from './app.component';
 import { NotSupportedBrowserComponent } from './components//notsupportedbrowser/notsupported.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -30,6 +31,7 @@ import { ProjectComponent } from './components/project/project.component';
 import { ProjectService } from './shared/project.service';
 import { KeyboardService } from './shared/keyboard.service';
 import { AppService } from './app.service';
+import {FontService} from './shared/font.service';
 
 import { MouseDirective } from './shared/mouse.directive';
 import { KeyboardDirective } from './shared/keyboard.directive';
@@ -44,6 +46,7 @@ import { BusyComponent } from './components/busy/busy.component';
 import { FormResizeComponent } from './components/form-resize/form-resize.component';
 import { LayerTextPropertiesComponent } from './components/layer-text-properties/layer-text-properties.component';
 import { WorkspaceResizeComponent } from './components/workspace-resize/workspace-resize.component';
+import { AutocompleteComponent,HighlightPipe,OffClickDirective } from './components/autocomplete/autocomplete.component';
 
 
 
@@ -76,6 +79,10 @@ import { WorkspaceResizeComponent } from './components/workspace-resize/workspac
     FormResizeComponent,
     LayerTextPropertiesComponent,
     WorkspaceResizeComponent,
+    AutocompleteComponent,
+    OffClickDirective,
+    HighlightPipe 
+   
     
     
     
@@ -90,9 +97,11 @@ import { WorkspaceResizeComponent } from './components/workspace-resize/workspac
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+  
+
   ],
-  providers: [ProjectService, KeyboardService,AppService],
+  providers: [ProjectService, KeyboardService,AppService,FontService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

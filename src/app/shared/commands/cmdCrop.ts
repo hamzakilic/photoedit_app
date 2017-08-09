@@ -55,7 +55,7 @@ export class CmdCrop extends CommandBusy {
                         if(cropedImage){
                         let newLayer = new LayerImage(cropedImage,"cropedimage");
                             newLayer.scale = selectedLayer.scale;
-                            workspace.removeCropLayer();
+                            workspace.removeSelectionRectangleLayer();
                             workspace.addLayer(newLayer);
                            
                         }

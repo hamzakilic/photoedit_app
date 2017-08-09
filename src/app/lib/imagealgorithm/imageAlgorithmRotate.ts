@@ -37,7 +37,7 @@ export class ImageAlgorithmRotate implements IImageAlgorithmImmutable {
             return this.rotate90Minus(img);
         }
         if (this.angleDegrees == 180 || this.angleDegrees==-180) {
-            debugger;
+            //debugger;
             return this.rotate180(img);
         }
         return this.rotateOther(img);

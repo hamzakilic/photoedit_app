@@ -77,7 +77,8 @@
   right: 0;
   background-color:#535353;
   /* Black*/
-  overflow-x: auto;
+  overflow-x: none;
+  overflow-y:auto;
   /* Disable horizontal scroll */
   border-radius: 0 0 0 0;
   border-left-color: gray;

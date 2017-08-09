@@ -9,7 +9,7 @@ import { AppService } from '../../app.service';
 import { Workspace } from '../project/workSpace';
 import { LayerEmpty } from '../project/layerEmpty';
 import { LayerText } from '../project/layerText';
-
+import { Text } from "../entities/text";
  
 
 
@@ -31,7 +31,12 @@ export class CmdAddTextLayer extends Command {
                 if (this.projectService.currentProject.activeWorkspace) {
                     let workspace = this.projectService.currentProject.activeWorkspace;
                         if(workspace){
-                            let textLayer= new LayerText("Buraya Metin Giriniz","Arial",10,"Text");
+                            let text=new Text();
+                            text.data="Buraya metin giriniz";
+                            text.color="#000000";
+                            text.fontFamily="Times New Roman";
+                            text.fontSize=32;
+                            let textLayer= new LayerText(text,"Text");
                         
                             workspace.addLayer(textLayer); 
                             workspace.makeLayerSelected(textLayer);

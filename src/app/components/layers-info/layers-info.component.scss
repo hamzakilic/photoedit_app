@@ -9,7 +9,7 @@ background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
 
 .layersHeader{
 
-    line-height: 1rem;
+   line-height: 1rem; 
     color: white;
    
     padding-left: 4px;
@@ -33,10 +33,17 @@ background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
 
 
 .list-group-item{
-  padding:5px;
-  white-space: nowrap;
+  /* padding:5px; */
+ /*  white-space: nowrap; */
 }
 
 .disabled-icon {
   opacity:0.3;
 }
+
+
+.myGutter{
+  padding-left: 5px;  
+}
+
+

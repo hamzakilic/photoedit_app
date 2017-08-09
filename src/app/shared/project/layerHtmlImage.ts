@@ -21,9 +21,11 @@ export class LayerHtmlImage extends Layer {
 
   }
   public render(): void {
-    this.graphics.setGlobalAlpha(this.globalAlpha);
-    this.graphics.clearRect(new Rect(0, 0, this.width, this.height))
+    
+    
     this.graphics.save();
+    this.graphics.clearRect(new Rect(0, 0, this.width, this.height));
+    this.graphics.setGlobalAlpha(this.globalAlpha);
     /*if (this.rotateAngleDeg != 0) {
       let tx = this.width  / 2;
       let ty = this.height / 2;

@@ -1,7 +1,7 @@
 .layersInfo{
  margin-top: 10px;
 
-background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
+  background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
   background-image: -webkit-linear-gradient(top, #615c5c, #887f7f);
   min-height: 10%;
   max-height: 10%;
@@ -44,6 +44,11 @@ background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
 
 .proName{
   width:40px;
+}
+.layerTextProperties{
+  display: inline-block;
+    position: relative;
+    width: 100%;
 }
 
 

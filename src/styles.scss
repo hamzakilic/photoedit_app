@@ -12,6 +12,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 
 
+
 .glyphicon {
   @extend .fa;
 
@@ -101,10 +102,20 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
     font-size: small;
 
 }
+  
+.lineheightsmall {
+
+    line-height:1rem;
+    
+}
+.lineheightmedium{
+ line-height:1.5rem;   
+}
 
 .nav-tabs {
     border-bottom: 0px solid #ddd;
-    height:3%;
+    line-height: 0.5rem;
+    /* height:3%; */
 }
 
 
@@ -112,8 +123,9 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
    color: #efefef;
     background-color: #504b4b;
     border-color: #ddd #ddd #fff;
-    line-height: 0.3rem;
+     line-height: 0.5rem; 
 }
+
 
 a {
     color: #252525;
@@ -145,3 +157,15 @@ a {
 .mouseNWSE{
   cursor:nwse-resize;
 }
+
+
+.hideOverflowText
+{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:100%;
+    display:block;
+}
+
+
