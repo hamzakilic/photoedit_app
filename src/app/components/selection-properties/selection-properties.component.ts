@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../shared/project.service';
-import { AppService } from '../../app.service';
-import { Proj } from '../../shared/project/proj';
-import { Layer } from '../../shared/project/layer';
+import { ProjectService } from '../../services/project.service';
+import { AppService } from '../../services/app.service';
+import { Proj } from '../../models/photoedit/proj';
+import { Layer } from '../../models/photoedit/layer';
 import { LayerPropertiesComponent } from '../layer-properties/layer-properties.component';
 import { MessageBus } from '../../lib/messageBus';
-import { Message } from '../../lib/message';
+import { Message } from '../../entities/message';
 import { Callback } from '../../lib/callback';
-import { CmdCrop } from '../../shared/commands/cmdCrop';
+import { CmdCrop } from '../../commands/cmdCrop';
 
 @Component({
   selector: 'selection-properties-component',

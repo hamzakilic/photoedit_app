@@ -1,11 +1,11 @@
-import { debuging} from '../../shared/debuging'
+import { debuging} from '../../debuging'
 import { Callback } from '../../lib/callback';
 import { HImage } from '../../lib/image';
 import { Graphics } from '../../lib/graphics';
-import { SurfaceCanvas } from '../../lib/surface'
+import { SurfaceCanvas } from './surface'
 import { Rect } from '../../lib/draw/rect';
 import { Point } from '../../lib/draw/point';
-import { RotationHelper, RotationMove } from '../../lib/rotationHelper';
+import { RotationHelper, RotationMove } from './lib/rotationHelper';
 
 export abstract class Layer extends SurfaceCanvas {
   private _name: string;

@@ -4,7 +4,7 @@ import { menu } from '../menu';
 import { menuItem } from '../menu';
 import { Utility } from '../../../lib/utility';
 import { ReadFileOrUrl } from '../../../lib/readFileOrUrl';
-import { Message } from '../../../lib/message';
+import { Message } from '../../../entities/message';
 import { MessageBus } from '../../../lib/messageBus';
 
 import { Callback  } from '../../../lib/callback';

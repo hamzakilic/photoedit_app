@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Layer } from '../../shared/project/layer';
-import { LayerSelectRectangle } from '../../shared/project/layerSelectRectangle';
+import { Layer } from '../../models/photoedit/layer';
+import { LayerSelectRectangle } from '../../models/photoedit/layerSelectRectangle';
 import { Callback } from '../../lib/callback';
 import { Point } from '../../lib/draw/point';
 import { Calc } from '../../lib/calc';
-import { RotationHelper } from '../../lib/rotationHelper';
+import { RotationHelper } from '../../models/photoedit/lib/rotationHelper';
 @Component({
   selector: 'layer-selected',
   templateUrl: './layer-selected.component.html',

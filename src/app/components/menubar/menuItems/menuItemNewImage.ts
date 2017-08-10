@@ -2,10 +2,10 @@ import { menu } from '../menu';
 import { menuItem } from '../menu';
 import { Utility } from '../../../lib/utility';
 import { ReadFileOrUrl } from '../../../lib/readFileOrUrl';
-import { Message } from '../../../lib/message';
+import { Message } from '../../../entities/message';
 import { MessageBus } from '../../../lib/messageBus';
-import { CmdShowFormNewImage } from '../../../shared/commands/cmdShowFormNewImage';
-import { ProjectService } from '../../../shared/project.service';
+import { CmdShowFormNewImage } from '../../../commands/cmdShowFormNewImage';
+import { ProjectService } from '../../../services/project.service';
 
 
 

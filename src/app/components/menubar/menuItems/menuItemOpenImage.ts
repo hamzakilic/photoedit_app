@@ -2,16 +2,16 @@ import {menu} from '../menu';
 import {menuItem } from '../menu';
 import {Utility} from '../../../lib/utility';
 import {ReadFileOrUrl} from '../../../lib/readFileOrUrl';
-import {Message} from '../../../lib/message';
+import {Message} from '../../../entities/message';
 import {MessageBus} from '../../../lib/messageBus';
-import {CmdReadImageFromBuffer} from '../../../shared/commands/cmdReadImageFromBuffer';
-import {CmdShowError} from '../../../shared/commands/cmdShowError';
+import {CmdReadImageFromBuffer} from '../../../commands/cmdReadImageFromBuffer';
+import {CmdShowError} from '../../../commands/cmdShowError';
 
 import {Callback } from '../../../lib/callback';
 
 import {menuItemOpenFile} from './menuItemOpenFile'
-import { FileData } from '../../../shared/entities/fileData';
-import { ProjectService } from '../../../shared/project.service';
+import { FileData } from '../../../entities/fileData';
+import { ProjectService } from '../../../services/project.service';
 
 export class menuItemOpenImage extends menuItemOpenFile {
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MenubarComponent } from '../components/menubar/menubar.component';
+import { MenubarComponent } from '../menubar/menubar.component';
 
-import { WorkspaceComponent } from '../components/workspace/workspace.component';
+import { WorkspaceComponent } from '../workspace/workspace.component';
 
 @Component({
   selector: 'layout-component',

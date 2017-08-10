@@ -5,7 +5,7 @@ import { HImage } from '../../lib/image';
 import { Rect } from '../../lib/draw/rect';
 
 import { Point } from '../../lib/draw/point';
-import { RotationHelper, RotationMove } from '../../lib/rotationHelper';
+import { RotationHelper, RotationMove } from './lib/rotationHelper';
 
 
 export class LayerSelectRectangle extends Layer {

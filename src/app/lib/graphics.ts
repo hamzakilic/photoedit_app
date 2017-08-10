@@ -99,9 +99,16 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     this.context.stroke();
   }
 
-  public drawString(text: string,color:string,fontFamily: string, fontSize: number){
+  public drawString(text: string,color:string,fontFamily: string, fontSize: number,isBold: boolean,isItalic:boolean){
+    let style="";
+    if(isBold)
+      style+="Bold ";
+    if(isItalic)
+      style+="Italic ";
+
+
     this.context.fillStyle=color;
-    this.context.font=fontSize+"px "+fontFamily;
+    this.context.font=style+fontSize+"px "+fontFamily;
       this.context.textBaseline="top";
     
     this.context.fillText(text,0,0);  

@@ -1,13 +1,13 @@
-import { Command } from '../commands/command';
-import { Message } from '../../lib/message';
-import {MessageBus} from '../../lib/messageBus';
-import {Constants} from '../../lib/constants';
+import { Command } from './command';
+import { Message } from '../entities/message';
+import {MessageBus} from '../lib/messageBus';
+import {Constants} from '../lib/constants';
 
 import {CmdShowError } from './cmdShowError';
-import { ProjectService } from '../project.service';
-import { Workspace } from '../project/workSpace';
-import { Layer } from '../project/layer';
-import { LayerHtmlImage } from '../project/layerHtmlImage';
+import { ProjectService } from '../services/project.service';
+import { Workspace } from '../models/photoedit/workSpace';
+import { Layer } from '../models/photoedit/layer';
+import { LayerHtmlImage } from '../models/photoedit/layerHtmlImage';
 
 
 export class CmdReadImageFromBuffer extends Command {

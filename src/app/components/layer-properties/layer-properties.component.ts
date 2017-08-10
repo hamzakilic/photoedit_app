@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 import '../../lib/extensions';
-import { ProjectService } from '../../shared/project.service';
-import { Proj } from '../../shared/project/proj';
-import { Layer } from '../../shared/project/layer';
-import { LayerText } from "../../shared/project/layerText";
+import { ProjectService } from '../../services/project.service';
+import { Proj } from '../../models/photoedit/proj';
+import { Layer } from '../../models/photoedit/layer';
+import { LayerText } from "../../models/photoedit/layerText";
 import { Callback } from '../../lib/callback';
 import { Point } from '../../lib/draw/point';
 import { Calc } from '../../lib/calc';
-import {CalcLayer} from "../../shared/project/lib/calcLayer";
+import {CalcLayer} from "../../models/photoedit/lib/calcLayer";
 
 @Component({
   selector: 'layer-properties-component',

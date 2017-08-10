@@ -4,10 +4,10 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 
-import { ProjectService } from '../../shared/project.service';
-import { KeyboardService } from '../../shared/keyboard.service';
+import { ProjectService } from '../../services/project.service';
+import { KeyboardService } from '../../services/keyboard.service';
 import { SurfaceComponent } from '../surface/surface.component';
-import { Workspace } from '../../shared/project/workSpace';
+import { Workspace } from '../../models/photoedit/workSpace';
 
 import { HImage } from '../../lib/image' ;
 import { Callback } from '../../lib/callback';

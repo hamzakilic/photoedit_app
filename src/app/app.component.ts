@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CheckBrowserCapabilities } from './lib/checkBrowserCapabilities';
-import { KeyboardService } from './shared/keyboard.service';
-import { AppService } from './app.service';
+import { KeyboardService } from './services/keyboard.service';
+import { AppService } from './services/app.service';
 import { MessageBus } from './lib/messageBus';
-import { Message } from './lib/message';
+import { Message } from './entities/message';
 import { Callback } from './lib/callback';
 
 @Component({

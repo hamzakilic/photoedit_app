@@ -1,12 +1,12 @@
 import { Command } from './command';
-import { Message } from '../../lib/message';
-import { MessageBus } from '../../lib/messageBus';
-import { Constants } from '../../lib/constants';
+import { Message } from '../entities/message';
+import { MessageBus } from '../lib/messageBus';
+import { Constants } from '../lib/constants';
 
-import { ProjectService } from '../project.service';
-import { Workspace } from '../project/workSpace';
-import { LayerEmpty } from '../project/layerEmpty';
-import { Callback } from '../../lib/callback';
+import { ProjectService } from '../services/project.service';
+import { Workspace } from '../models/photoedit/workSpace';
+import { LayerEmpty } from '../models/photoedit/layerEmpty';
+import { Callback } from '../lib/callback';
 
 
 

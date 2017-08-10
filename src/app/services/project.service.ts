@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Proj} from './project/proj';
+import { Proj} from '../models/photoedit/proj';
 
 @Injectable()
 export class ProjectService {

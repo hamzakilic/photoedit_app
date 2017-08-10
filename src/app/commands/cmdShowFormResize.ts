@@ -1,11 +1,7 @@
 import { Command } from './command';
-import {Message} from '../../lib/message';
-import {MessageBus} from '../../lib/messageBus';
-import {Constants} from '../../lib/constants';
-
-
-
-
+import {Message} from '../entities/message';
+import {MessageBus} from '../lib/messageBus';
+import {Constants} from '../lib/constants';
 
 
 export class CmdShowFormResize extends Command {

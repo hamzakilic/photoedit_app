@@ -1,5 +1,5 @@
 
-import { FileData } from  '../shared/entities/fileData';
+import { FileData } from  '../entities/fileData';
 import { Callback } from '../lib/callback';
 
 export class ReadFileOrUrl {

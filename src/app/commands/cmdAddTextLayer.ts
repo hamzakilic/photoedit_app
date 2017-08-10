@@ -1,14 +1,14 @@
 import { Command } from './command';
 import { CommandBusy } from './commandBusy';
-import { Message } from '../../lib/message';
-import { MessageBus } from '../../lib/messageBus';
-import { Constants } from '../../lib/constants';
+import { Message } from '../entities/message';
+import { MessageBus } from '../lib/messageBus';
+import { Constants } from '../lib/constants';
 
-import { ProjectService } from '../project.service';
-import { AppService } from '../../app.service';
-import { Workspace } from '../project/workSpace';
-import { LayerEmpty } from '../project/layerEmpty';
-import { LayerText } from '../project/layerText';
+import { ProjectService } from '../services/project.service';
+import { AppService } from '../services/app.service';
+import { Workspace } from '../models/photoedit/workSpace';
+import { LayerEmpty } from '../models/photoedit/layerEmpty';
+import { LayerText } from '../models/photoedit/layerText';
 import { Text } from "../entities/text";
  
 

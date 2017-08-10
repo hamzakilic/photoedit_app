@@ -1,24 +1,35 @@
 <div class="input-group input-group-sm">
   <span class="input-group-addon proName" tooltip="Text of layer" placement="right">T</span>
-  <input type="string" class="form-control " style="overflow: hidden; white-space: nowrap;" placeholder="Enter text" aria-describedby="sizing-addon2"
+  <input type="text" class="form-control " style="overflow: hidden; white-space: nowrap;" placeholder="Enter text" aria-describedby="sizing-addon2"
     [value]="layer.text" (input)="changeText($event.target.value,layer)">
 </div>
 <div class="input-group input-group-sm">
 
   <span class="input-group-addon proName" tooltip="Font" placement="right">F</span>
-  
-  <autocomplete class="form-control  autoComplete"
-  [allowClear]="true"
-              [items]="items"
-              [disabled]="disabled"
-              (data)="refreshValue($event)"
-              (selected)="selected($event)"
-              (removed)="removed($event)"
-              (typed)="typed($event)"
-              [active]="currentLayerFontFamily()"
-              placeholder="No font selected"></autocomplete>
+
+  <autocomplete class="form-control  autoComplete" [allowClear]="true" [items]="items" [disabled]="disabled" (data)="refreshValue($event)"
+    (selected)="selected($event)" (removed)="removed($event)" (typed)="typed($event)" [active]="currentLayerFontFamily()" placeholder="No font selected"></autocomplete>
 </div>
-  
 
+<div class="input-group input-group-sm">
+  <span class="input-group-addon proName" tooltip="Fontsize" placement="right">FS</span>
+  <input type="number" class="form-control" placeholder="Enter font size" aria-describedby="sizing-addon2" [value]="currentLayerFontSize()"
+    min="0" max="100" (input)="changeFontSize($event.target.value)">
+</div>
+<div class="input-group ">
+  <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"[value]="currentLayerIsBold()" (change)="changeIsBold($event.target.value)">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description" style="padding-top:5px">Bold</span>
+              </label>
 
-    
+</div>
+
+<div class="input-group ">
+  <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"[value]="currentLayerIsItalic()" (change)="changeIsItalic($event.target.value)">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description" style="padding-top:5px">Italic</span>
+              </label>
+
+</div>

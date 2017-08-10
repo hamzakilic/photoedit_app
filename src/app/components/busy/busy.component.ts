@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
-import { AppService } from "../../app.service";
+import { AppService } from "../../services/app.service";
 
 @Component({
   selector: 'busy-component',

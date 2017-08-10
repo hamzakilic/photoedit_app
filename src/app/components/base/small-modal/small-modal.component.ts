@@ -2,9 +2,9 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
-import { Message } from '../../lib/message';
-import { MessageBus } from '../../lib/messageBus';
-import { Callback  } from '../../lib/callback';
+import { Message } from '../../../entities/message';
+import { MessageBus } from '../../../lib/messageBus';
+import { Callback  } from '../../../lib/callback';
 
 @Component({
   selector: 'smallModal-component',

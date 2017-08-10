@@ -1,6 +1,6 @@
-import { Point } from "./draw/point";
-import { Calc } from "./calc";
-import { SurfaceCanvas } from './surface';
+import { Point } from "../../../lib/draw/point";
+import { Calc } from "../../../lib/calc";
+import { SurfaceCanvas } from '../surface';
 
 /**
  * when a surface is rotated, this class helps  to calculate cursor

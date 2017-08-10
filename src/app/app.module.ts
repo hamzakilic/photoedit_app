@@ -18,23 +18,23 @@ import { TooltipModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NotSupportedBrowserComponent } from './components//notsupportedbrowser/notsupported.component';
-import { LayoutComponent } from './layout/layout.component';
+import { LayoutComponent } from './components/layout/layout.component';
 import { StatusbarComponent } from './components/statusbar/statusbar.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SurfaceComponent } from './components/surface/surface.component';
-import { SmallModalComponent } from './components/small-modal/small-modal.component';
+import { SmallModalComponent } from './components/base/small-modal/small-modal.component';
 import { FormNewImageComponent } from './components/form-new-image/form-new-image.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { ProjectComponent } from './components/project/project.component';
 
-import { ProjectService } from './shared/project.service';
-import { KeyboardService } from './shared/keyboard.service';
-import { AppService } from './app.service';
-import {FontService} from './shared/font.service';
+import { ProjectService } from './services/project.service';
+import { KeyboardService } from './services/keyboard.service';
+import { AppService } from './services/app.service';
+import {FontService} from './services/font.service';
 
-import { MouseDirective } from './shared/mouse.directive';
-import { KeyboardDirective } from './shared/keyboard.directive';
+import { MouseDirective } from './directives/mouse.directive';
+import { KeyboardDirective } from './directives/keyboard.directive';
 import { LayerComponent } from './components/layer/layer.component';
 import { LayersInfoComponent } from './components/layers-info/layers-info.component';
 import { ToolsComponent } from './components/tools/tools.component';
@@ -46,7 +46,7 @@ import { BusyComponent } from './components/busy/busy.component';
 import { FormResizeComponent } from './components/form-resize/form-resize.component';
 import { LayerTextPropertiesComponent } from './components/layer-text-properties/layer-text-properties.component';
 import { WorkspaceResizeComponent } from './components/workspace-resize/workspace-resize.component';
-import { AutocompleteComponent,HighlightPipe,OffClickDirective } from './components/autocomplete/autocomplete.component';
+import { AutocompleteComponent,HighlightPipe,OffClickDirective } from './components/base/autocomplete/autocomplete.component';
 
 
 

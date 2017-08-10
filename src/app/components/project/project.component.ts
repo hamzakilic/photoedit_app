@@ -2,9 +2,9 @@
 
 
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ProjectService } from '../../shared/project.service';
-import { Proj } from '../../shared/project/proj';
-import { Workspace } from '../../shared/project/workSpace';
+import { ProjectService } from '../../services/project.service';
+import { Proj } from '../../models/photoedit/proj';
+import { Workspace } from '../../models/photoedit/workSpace';
 import { WorkspaceComponent } from '../workspace/workspace.component';
 import  '../../lib/extensions';
 

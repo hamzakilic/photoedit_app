@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { Workspace } from '../../shared/project/workSpace';
-import { Proj } from '../../shared/project/proj';
-import { ProjectService } from '../../shared/project.service';
+import { Workspace } from '../../models/photoedit/workSpace';
+import { Proj } from '../../models/photoedit/proj';
+import { ProjectService } from '../../services/project.service';
 import { Callback } from '../../lib/callback';
 
 @Component({

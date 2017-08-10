@@ -4,7 +4,7 @@ import {MessageBus} from '../../lib/messageBus';
 import {Utility} from '../../lib/utility';
 import {Graphics} from '../../lib/graphics';
 import {Callback } from '../../lib/callback';
-import { SurfaceCanvas } from '../../lib/surface'
+import { SurfaceCanvas } from '../../models/photoedit/surface'
 
 
 

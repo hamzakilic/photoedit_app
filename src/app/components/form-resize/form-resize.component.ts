@@ -6,15 +6,15 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { Callback  } from '../../lib/callback';
 import { HImage  } from '../../lib/image';
-import { Message } from '../../lib/message';
+import { Message } from '../../entities/message';
 import { MessageBus } from '../../lib/messageBus';
-import { ProjectService } from '../../shared/project.service';
-import { ValidationService } from '../../shared/validation.service';
-import { Workspace } from '../../shared/project/workSpace';
-import { Layer } from '../../shared/project/layer';
-import { LayerImage } from '../../shared/project/layerImage';
-import { LayerEmpty } from '../../shared/project/layerEmpty';
-import { CmdResizeWorkspace } from '../../shared/commands/cmdResizeWorkspace'
+import { ProjectService } from '../../services/project.service';
+import { ValidationService } from '../../services/validation.service';
+import { Workspace } from '../../models/photoedit/workSpace';
+import { Layer } from '../../models/photoedit/layer';
+import { LayerImage } from '../../models/photoedit/layerImage';
+import { LayerEmpty } from '../../models/photoedit/layerEmpty';
+import { CmdResizeWorkspace } from '../../commands/cmdResizeWorkspace'
 
 @Component({
   selector: 'formResize-component',

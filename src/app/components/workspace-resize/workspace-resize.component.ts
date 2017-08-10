@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Workspace } from '../../shared/project/workSpace';
+import { Workspace } from '../../models/photoedit/workSpace';
 import { Callback } from "../../lib/callback";
 @Component({
   selector: 'workspace-resize',

@@ -4,25 +4,25 @@ import { menu } from './menu';
 import { menuItem } from './menu';
 import { Utility } from '../../lib/utility';
 import { ReadFileOrUrl } from '../../lib/readFileOrUrl';
-import { Message } from '../../lib/message';
+import { Message } from '../../entities/message';
 import { MessageBus } from '../../lib/messageBus';
 import { menuItemOpenFile } from '../menubar/menuItems/menuItemOpenFile';
 import { menuItemOpenImage } from '../menubar/menuItems/menuItemOpenImage';
 import { menuItemNewImage } from '../menubar/menuItems/menuItemNewImage';
 
-import { ProjectService } from '../../shared/project.service';
-import { AppService } from '../../app.service';
+import { ProjectService } from '../../services/project.service';
+import { AppService } from '../../services/app.service';
 
 import { SomeTestFuncs } from '../../lib/someTestFuncs'
 
 import { Callback } from '../../lib/callback';
-import { CmdZoom } from '../../shared/commands/cmdZoom';
-import { CmdTestSomeThing } from '../../shared/commands/cmdTestSomeThing';
-import { CmdNewLayer } from '../../shared/commands/cmdNewLayer';
-import { CmdResizeWorkspace } from '../../shared/commands/cmdResizeWorkspace';
-import { CmdShowFormResize } from '../../shared/commands/cmdShowFormResize';
-import { CmdRotateWorkspace } from '../../shared/commands/cmdRotateWorkspace';
-import { CmdAddTextLayer } from '../../shared/commands/cmdAddTextLayer';
+import { CmdZoom } from '../../commands/cmdZoom';
+
+import { CmdNewLayer } from '../../commands/cmdNewLayer';
+import { CmdResizeWorkspace } from '../../commands/cmdResizeWorkspace';
+import { CmdShowFormResize } from '../../commands/cmdShowFormResize';
+import { CmdRotateWorkspace } from '../../commands/cmdRotateWorkspace';
+import { CmdAddTextLayer } from '../../commands/cmdAddTextLayer';
 
 
 @Component({
@@ -116,8 +116,9 @@ export class MenubarComponent implements OnInit {
   testSomeThingClicked() {
 
     // MessageBus.publish(Message.ShowError,{msg:'hamza'});
-    let cmd = new CmdTestSomeThing('ba', this.projectService);
-    cmd.executeAsync();
+   // let cmd = new CmdTestSomeThing('ba', this.projectService);
+   
+   //cmd.executeAsync();
   }
 
   notImplementedYet() {

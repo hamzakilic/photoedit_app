@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SurfaceComponent } from '../surface/surface.component';
-import { Layer } from '../../shared/project/layer';
+import { Layer } from '../../models/photoedit/layer';
 import { Callback }from '../../lib/callback';
 
 @Component({

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ProjectService } from '../../shared/project.service';
-import { Proj } from '../../shared/project/proj';
-import { Workspace } from '../../shared/project/workSpace';
-import { Layer } from '../../shared/project/layer';
+import { ProjectService } from '../../services/project.service';
+import { Proj } from '../../models/photoedit/proj';
+import { Workspace } from '../../models/photoedit/workSpace';
+import { Layer } from '../../models/photoedit/layer';
 
 @Component({
   selector: 'layersInfo-component',

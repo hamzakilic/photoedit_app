@@ -1,11 +1,11 @@
 
-import { Callback } from './callback';
-import { Graphics } from './graphics';
-import { Rect } from './draw/rect';
-import { Rect2D } from './draw/rect2D';
-import { Point } from './draw/point'
-import { Calc } from './calc';
-import { HImage } from './image';
+import { Callback } from '../../lib/callback';
+import { Graphics } from '../../lib/graphics';
+import { Rect } from '../../lib/draw/rect';
+import { Rect2D } from '../../lib/draw/rect2D';
+import { Point } from '../../lib/draw/point'
+import { Calc } from '../../lib/calc';
+import { HImage } from '../../lib/image';
 
 export class Surface {
 

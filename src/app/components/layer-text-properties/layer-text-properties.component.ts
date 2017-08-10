@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Layer } from "../../shared/project/layer";
-import { LayerText } from "../../shared/project/layerText";
+import { Layer } from "../../models/photoedit/layer";
+import { LayerText } from "../../models/photoedit/layerText";
 
-import { FontService } from "../../shared/font.service";
+import { FontService } from "../../services/font.service";
 
 @Component({
   selector: 'layer-text-properties',
@@ -54,7 +54,31 @@ export class LayerTextPropertiesComponent implements OnInit {
     fonts.push(this.layer.fontFamily);
     return fonts;
   }
- 
+  public currentLayerFontSize():number{
+    return this.layer.fontSize;
+  }
+ public currentLayerIsBold():boolean{
+    return this.layer.isBold;
+  }
+
+  public currentLayerIsItalic():boolean{
+    return this.layer.isItalic;
+  }
+
+public changeIsItalic(value:boolean){
+  this.layer.setIsItalic(value);
+}
+
+
+public changeIsBold(value:boolean){
+  this.layer.setIsBold(value);
+}
+
+public changeFontSize(value:number){
+  this.layer.setFontSize(value);
+}
+
+
   public selected(value:any):void {
     
     this.layer.setFontFamily(value.text);
