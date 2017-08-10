@@ -56,6 +56,7 @@ export class LayerText extends Layer{
     }
     public setColor(val:string){
       this._text.color=val;
+      this.render();
     }
     public get isBold():boolean{
       return this._text.isBold;
@@ -71,6 +72,7 @@ export class LayerText extends Layer{
     }
 
      public setIsItalic(val:boolean){
+       
        this._text.isItalic=val;
        this.render();
     }

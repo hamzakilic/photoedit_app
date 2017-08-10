@@ -12,6 +12,9 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap';
+import { ColorPickerModule } from './modulesext/color-picker';
+import { AutoCompleteModule } from './modulesext/autocomplete';
+
 
 
 
@@ -46,7 +49,9 @@ import { BusyComponent } from './components/busy/busy.component';
 import { FormResizeComponent } from './components/form-resize/form-resize.component';
 import { LayerTextPropertiesComponent } from './components/layer-text-properties/layer-text-properties.component';
 import { WorkspaceResizeComponent } from './components/workspace-resize/workspace-resize.component';
-import { AutocompleteComponent,HighlightPipe,OffClickDirective } from './components/base/autocomplete/autocomplete.component';
+
+
+
 
 
 
@@ -79,9 +84,8 @@ import { AutocompleteComponent,HighlightPipe,OffClickDirective } from './compone
     FormResizeComponent,
     LayerTextPropertiesComponent,
     WorkspaceResizeComponent,
-    AutocompleteComponent,
-    OffClickDirective,
-    HighlightPipe 
+   
+    
    
     
     
@@ -98,7 +102,9 @@ import { AutocompleteComponent,HighlightPipe,OffClickDirective } from './compone
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
-  
+    AutoCompleteModule,
+    ColorPickerModule
+    
 
   ],
   providers: [ProjectService, KeyboardService,AppService,FontService],

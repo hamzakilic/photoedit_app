@@ -4,6 +4,7 @@ import { Layer } from "../../models/photoedit/layer";
 import { LayerText } from "../../models/photoedit/layerText";
 
 import { FontService } from "../../services/font.service";
+import {ColorPickerDirective, ColorPickerService, Rgba} from 'ngx-color-picker';
 
 @Component({
   selector: 'layer-text-properties',
@@ -19,9 +20,12 @@ export class LayerTextPropertiesComponent implements OnInit {
   private fontService:FontService;
   constructor(fontService:FontService) {
     this.fontService=fontService;
+  
+    
    }
 
   ngOnInit() {
+    
   }
 
   changeText(value: any, layer: LayerText){
@@ -65,17 +69,18 @@ export class LayerTextPropertiesComponent implements OnInit {
     return this.layer.isItalic;
   }
 
-public changeIsItalic(value:boolean){
-  this.layer.setIsItalic(value);
+public changeIsItalic(value:any){
+  this.layer.setIsItalic(value.target.checked);
 }
 
 
-public changeIsBold(value:boolean){
-  this.layer.setIsBold(value);
+public changeIsBold(value:any){
+  this.layer.setIsBold(value.target.checked);
 }
 
-public changeFontSize(value:number){
-  this.layer.setFontSize(value);
+public changeFontSize(value:any){
+  if(parseInt(value))
+  this.layer.setFontSize(parseInt(value));
 }
 
 
@@ -94,6 +99,21 @@ public changeFontSize(value:number){
  
   public refreshValue(value:any):void {
     this.value = value;
+  }
+
+  public  get color():string{
+    return this.layer.color;
+  }
+
+   public set color(value:string){
+
+     this.layer.setColor(value);
+  }
+
+  public colorChanging(value:string){
+   console.log(value);
+   this.color=value;
+   
   }
 
 }
