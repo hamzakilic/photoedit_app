@@ -20,6 +20,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
 
   @Input()
   public set items(value:Array<any>) {
+   
     if (!value) {
       this._items = this.itemObjects = [];
     } else {

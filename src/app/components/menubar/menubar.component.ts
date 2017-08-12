@@ -23,6 +23,7 @@ import { CmdResizeWorkspace } from '../../commands/cmdResizeWorkspace';
 import { CmdShowFormResize } from '../../commands/cmdShowFormResize';
 import { CmdRotateWorkspace } from '../../commands/cmdRotateWorkspace';
 import { CmdAddTextLayer } from '../../commands/cmdAddTextLayer';
+import { CmdShowFormFontLoad } from '../../commands/cmdShowFormFontLoad';
 
 
 @Component({
@@ -97,6 +98,11 @@ export class MenubarComponent implements OnInit {
     menuEdit.childs.push(new menuItem("Delete", new Callback(this.notImplementedYet)));
     this.menus.push(menuEdit);
 
+
+      let font = new menu("Font");
+    font.childs.push(new menuItem("Load", new Callback(this.showFormFontLoad)));
+    this.menus.push(font);
+
     let menuHelp = new menu("Help");
     menuHelp.childs.push(new menuItem("About", new Callback(this.showAbout)));
     this.menus.push(menuHelp);
@@ -123,6 +129,10 @@ export class MenubarComponent implements OnInit {
 
   notImplementedYet() {
     MessageBus.publish(Message.ShowError, { msg: 'not implemented yet' });
+  }
+  showFormFontLoad(){
+     let cmd=new CmdShowFormFontLoad();
+     cmd.executeAsync();
   }
 
   showAbout() {

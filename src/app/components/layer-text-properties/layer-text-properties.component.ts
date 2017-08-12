@@ -4,7 +4,7 @@ import { Layer } from "../../models/photoedit/layer";
 import { LayerText } from "../../models/photoedit/layerText";
 
 import { FontService } from "../../services/font.service";
-import {ColorPickerDirective, ColorPickerService, Rgba} from 'ngx-color-picker';
+
 
 @Component({
   selector: 'layer-text-properties',
@@ -111,9 +111,14 @@ public changeFontSize(value:any){
   }
 
   public colorChanging(value:string){
-   console.log(value);
+  
    this.color=value;
    
+  }
+  calculateForeground():string{
+    let color= "#FF"+ this.color.substring(3,5)+"0F";
+   
+    return color;
   }
 
 }

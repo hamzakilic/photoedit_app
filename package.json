@@ -29,6 +29,7 @@
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^1.7.1",
     "rxjs": "^5.4.1",
+    "webfontloader": "^1.6.28",
     "zone.js": "^0.7.6"
   },
   "devDependencies": {

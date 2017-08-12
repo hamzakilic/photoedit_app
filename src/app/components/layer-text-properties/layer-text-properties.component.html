@@ -36,12 +36,12 @@
 <div class="input-group input-group-sm">
   <span class="input-group-addon proName" tooltip="Text color" placement="right">FC</span>
    <input [(colorPicker)]="color" [style.background]="color" [value]="color" [cpPosition]="'top'"
-     
+      [style.color]="calculateForeground()"
       [cpOutputFormat]="'hex'"
       [cpOKButton]="true"
       [cpCancelButton]="true"
       [cpPositionOffset]="0"
-      [cpUseRootViewContainer]="true"
+      [cpUseRootViewContainer]="false"
       [cpAlphaChannel]="'disabled'"
       [cpPositionRelativeToArrow]="false" (colorPickerChange)="colorChanging($event)"/>
 </div>

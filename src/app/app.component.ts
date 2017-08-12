@@ -5,6 +5,7 @@ import { AppService } from './services/app.service';
 import { MessageBus } from './lib/messageBus';
 import { Message } from './entities/message';
 import { Callback } from './lib/callback';
+import { CmdShowFormFontLoad} from './commands/cmdShowFormFontLoad';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,12 @@ export class AppComponent {
   isBrowserOk: boolean;
   constructor(keyboardService: KeyboardService,appService: AppService) {
     this.isBrowserOk = CheckBrowserCapabilities.isOk();
-    
+   
+  }
+
+  ngOninit(){
+      let cmd=new CmdShowFormFontLoad();
+      cmd.executeAsync();
   }
   
 

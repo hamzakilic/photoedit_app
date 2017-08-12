@@ -2,16 +2,16 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
-import { Message } from '../../../entities/message';
-import { MessageBus } from '../../../lib/messageBus';
-import { Callback  } from '../../../lib/callback';
+import { Message } from '../../entities/message';
+import { MessageBus } from '../../lib/messageBus';
+import { Callback  } from '../../lib/callback';
 
 @Component({
-  selector: 'smallModal-component',
-  templateUrl: './small-modal.component.html',
-  styleUrls: ['./small-modal.component.scss']
+  selector: 'messageboxModal-component',
+  templateUrl: './messagebox-modal.component.html',
+  styleUrls: ['./messagebox-modal.component.scss']
 })
-export class SmallModalComponent implements OnInit {
+export class MessageBoxModalComponent implements OnInit {
   @ViewChild("smModal")
   public smModal:ModalDirective;
 

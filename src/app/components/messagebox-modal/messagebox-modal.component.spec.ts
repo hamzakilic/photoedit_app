@@ -5,15 +5,15 @@ import { DebugElement }    from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap';
 
 
-import { SmallModalComponent } from './small-modal.component';
+import { MessageBoxModalComponent } from './messagebox-modal.component';
 
 describe('SmallModalComponent', () => {
-  let component: SmallModalComponent;
-  let fixture: ComponentFixture<SmallModalComponent>;
+  let component: MessageBoxModalComponent;
+  let fixture: ComponentFixture<MessageBoxModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SmallModalComponent ],
+      declarations: [ MessageBoxModalComponent ],
        imports: [
 
     ModalModule.forRoot(),
@@ -24,7 +24,7 @@ describe('SmallModalComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SmallModalComponent);
+    fixture = TestBed.createComponent(MessageBoxModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

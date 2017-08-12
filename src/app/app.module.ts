@@ -26,7 +26,7 @@ import { StatusbarComponent } from './components/statusbar/statusbar.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SurfaceComponent } from './components/surface/surface.component';
-import { SmallModalComponent } from './components/base/small-modal/small-modal.component';
+import { MessageBoxModalComponent } from './components/messagebox-modal/messagebox-modal.component';
 import { FormNewImageComponent } from './components/form-new-image/form-new-image.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { ProjectComponent } from './components/project/project.component';
@@ -50,6 +50,8 @@ import { FormResizeComponent } from './components/form-resize/form-resize.compon
 import { LayerTextPropertiesComponent } from './components/layer-text-properties/layer-text-properties.component';
 import { WorkspaceResizeComponent } from './components/workspace-resize/workspace-resize.component';
 
+import { FormGoogleFontloadComponent } from './components/form-googlefontload/form-googlefontload.component';
+
 
 
 
@@ -67,7 +69,7 @@ import { WorkspaceResizeComponent } from './components/workspace-resize/workspac
     MenubarComponent,
     ToolbarComponent,
     SurfaceComponent,
-    SmallModalComponent,
+    MessageBoxModalComponent,
     FormNewImageComponent,
     WorkspaceComponent,
     ProjectComponent,
@@ -84,6 +86,7 @@ import { WorkspaceResizeComponent } from './components/workspace-resize/workspac
     FormResizeComponent,
     LayerTextPropertiesComponent,
     WorkspaceResizeComponent,
+    FormGoogleFontloadComponent,
    
     
    

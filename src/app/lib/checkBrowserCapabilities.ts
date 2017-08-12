@@ -7,6 +7,7 @@ export class CheckBrowserCapabilities{
    static errMsg: string ="" ;
    static isOk(): boolean{
      let result = true;
+   
     if(!Modernizr.canvas){
       CheckBrowserCapabilities.errMsg +=" canvas not support";
       result =false;

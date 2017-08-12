@@ -12,12 +12,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import {NotSupportedBrowserComponent} from './components/notsupportedbrowser/notsupported.component';
-import { LayoutComponent } from './layout/layout.component';
+import { LayoutComponent } from './components/layout/layout.component';
 import { StatusbarComponent } from './components/statusbar/statusbar.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SurfaceComponent } from './components/surface/surface.component';
-import { SmallModalComponent } from './components/small-modal/small-modal.component';
+import { MessageBoxModalComponent } from './components/messagebox-modal/messagebox-modal.component';
 import { FormNewImageComponent } from './components/form-new-image/form-new-image.component';
 import { ProjectComponent } from './components/project/project.component';
 import { LayersInfoComponent } from './components/layers-info/layers-info.component';
@@ -25,8 +25,8 @@ import { LayersInfoComponent } from './components/layers-info/layers-info.compon
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { LayerComponent } from './components/layer/layer.component';
 
-import { ProjectService } from './shared/project.service';
-import { KeyboardService } from './shared/keyboard.service';
+import { ProjectService } from './services/project.service';
+import { KeyboardService } from './services/keyboard.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -46,7 +46,7 @@ NotSupportedBrowserComponent,
 
     SurfaceComponent,
 
-    SmallModalComponent,
+    MessageBoxModalComponent,
     FormNewImageComponent,
     ProjectComponent,
     WorkspaceComponent,
