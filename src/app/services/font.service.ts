@@ -40,8 +40,27 @@ class genericFonts {
   }
 }
 
+interface googleFont{
+    subsets:Array<any>
+    family:string;
+    category:string;
+}
+class googleFontData{
+  public fontData:googleFont;
+  public loaded:boolean;
+  /**
+   *
+   */
+  constructor(fontData:any) {
+    this.loaded=false;
+    this.fontData=fontData;
+    
+  }
+}
+
 class googleFonts {
   private _http:Http;
+  private _fonts:Array<googleFontData>=undefined;
   /**
    *
    */
@@ -57,8 +76,11 @@ class googleFonts {
       //todo: error durumu handle edilmeli
       //load json file 
       this._http.get("assets/json/googlefonts.json").map((response)=>{return response.json()}).subscribe(data=>{
-       
-        this._fonts=data.items;
+        
+        this._fonts=[];
+        data.items.forEach((elem,index,arr)=>{
+          this._fonts.push(new googleFontData(elem));
+        });
         this._loadedJson=true;
         //pusblish a message 
         MessageBus.publish(Message.GoogleFontsLanguagesGetted,undefined);
@@ -73,15 +95,30 @@ class googleFonts {
 
   }
   
-  private _fonts:Array<any>=undefined;
   
  
-  private loadGoogleFonts(fonts:Array<string>) {
+  
+  private _isLoadingFonts=false;
 
+  public loadGoogleFonts(fonts:Array<string>) {
+    
+    if(this._isLoadingFonts)//dont start loading again
+         return;
+    let notLoaded=[];
+    this._fonts.forEach((value,index,arr)=>{
+        if(!value.loaded){
+          if(fonts.findIndex((e,i,a)=>value.fontData.family===e)==-1)            
+            notLoaded.push(value.fontData.family);
+        }
+    });
+      this._isLoadingFonts=true;
+      
     WebFont.load({
       google: {
-        families: fonts
+        families: notLoaded
       },
+      fontactive: function (familyName, fvd) {  MessageBus.publish(Message.FontLoaded,familyName) },
+      active: function () { this._isLoadingFonts=false; }
       /* loading: function () {  console.log("loading font") },
       active: function () {  console.log("font active") },
       inactive: function () {  console.log("font inactive") },
@@ -98,7 +135,7 @@ class googleFonts {
     let languageNames=[];
     //find google languages of fonts
     this._fonts.forEach((val,index,arr)=>{
-      val.subsets.forEach((lan,lindex,lar)=>{
+      val.fontData.subsets.forEach((lan,lindex,lar)=>{
       if(languageNames.findIndex((elem,eindex,earr)=>elem.id===lan)==-1)//distinct them
             languageNames.push({id:lan,text:lan});
       });
@@ -106,6 +143,28 @@ class googleFonts {
    
     return languageNames;
     
+  }
+
+  public searchFonts(language?:string,fontTypes?:Array<string>):Array<string>{
+     if(!this._fonts)
+      return [];
+    let fonts=[];
+    //find google languages of fonts
+    this._fonts.forEach((val,index,arr)=>{
+      let add=true;
+        if(language && language!="all"){
+          if(val.fontData.subsets.findIndex((el,ind,arrr)=> el==language)==-1){
+            add=false;
+          }
+        }
+        if(fontTypes && fontTypes.length>0){
+          if(fontTypes.findIndex((v,i,a)=>v==val.fontData.category)==-1)
+          add=false;
+        }
+        if(add)
+          fonts.push(val.fontData.family);
+    });
+      return fonts;
   }
 }
 
@@ -136,6 +195,7 @@ export class FontService {
 
 
   public get fonts(): Array<any> {
+   
     return this._fonts;
   }
 
@@ -144,6 +204,24 @@ export class FontService {
     return this._googleFonts.languages;
   }
 
+  public searchGoogleFonts(language?:string,fontTypes?:Array<string>):Array<string>{
+  
+   
+    return  this._googleFonts.searchFonts(language,fontTypes);
+    
+
+  }
+
+  public loadGoogleFonts(){
+
+   new Promise((resolve,reject)=>{ this._googleFonts.loadGoogleFonts([]);resolve();});
+  }
+  
+
 }
+
+
+
+
 
 

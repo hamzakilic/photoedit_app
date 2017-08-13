@@ -55,8 +55,10 @@ export class FormGoogleFontloadComponent implements OnInit {
 
   show() {
 
-    if (!this.smModal.isShown)
+    if (!this.smModal.isShown){
       this.smModal.show();
+      this.fontService.loadGoogleFonts();
+    }
   }
 
   private whenGoogleFontLanguagesGetted(){
@@ -88,8 +90,30 @@ export class FormGoogleFontloadComponent implements OnInit {
 
  
   public refreshValue(value:any):void {
-    debugger;
+   
     this._currentLanguage = value;
+  }
+
+  public isSerif:boolean=false;
+  public isSansSerif:boolean=false;
+  public isDisplay:boolean=false;
+  public isHandwriting:boolean=false;
+  public isMonospace:boolean=false;
+
+  public get googleFonts():Array<string>{
+    debugger;
+    let familyNames=[];
+    if(this.isSerif)
+      familyNames.push("serif");
+     if(this.isSansSerif)
+      familyNames.push("sans-serif");
+      if(this.isDisplay)
+      familyNames.push("display");
+       if(this.isHandwriting)
+      familyNames.push("handwriting");
+        if(this.isMonospace)
+      familyNames.push("monospace");
+    return this.fontService.searchGoogleFonts(this._currentLanguage.id,familyNames);
   }
 
 

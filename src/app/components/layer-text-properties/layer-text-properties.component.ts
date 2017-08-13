@@ -35,8 +35,12 @@ export class LayerTextPropertiesComponent implements OnInit {
     layer.setText(value);
   }
 
-   public get items():Array<string>{
-     return this.fontService.fonts;
+   public get items():Array<any>{
+     let items=[];
+    this.fontService.fonts.forEach((val,index,arr)=>{
+      items.push({id:val,text: "<span style='font-family:"+val+"'>"+val+"</span>"});
+    });
+     return items;
    }
  
   private value:any = {};
@@ -85,8 +89,8 @@ public changeFontSize(value:any){
 
 
   public selected(value:any):void {
-    
-    this.layer.setFontFamily(value.text);
+
+    this.layer.setFontFamily(value.id);
   }
  
   public removed(value:any):void {
