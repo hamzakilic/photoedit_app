@@ -13,66 +13,83 @@
             <div class="row">
 
               <div class="col-md-8">
+                <div class="container">
+                  <div class="row">
+                    <span class="white">Viewing {{ratioOfSearchToTotal}} </span>
+                    <input type="text" class="form-control " style="overflow: hidden; white-space: nowrap;" placeholder="Enter sample text" aria-describedby="sizing-addon2"
+                      [(ngModel)]="sampleText" style="margin-bottom:5px;margin-right:5px">
+                  </div>
+                </div>
 
                 <div class="container-fluid" style="height: 490px;overflow-y: auto;">
                   <div class="row">
-                    <span>Viewing {{ratioOfSearchToTotal}} </span>
-                    <ng-container *ngFor="let item of googleFonts">
-                  <div class="card" style="width: 100%;">
 
-                    <div class="card-block">
-                      <h6 class="card-title">{{item}}</h6>
-                      <p class="card-text" [style.font-family]="item">{{sampleText}}</p>
-                      <a href="#" class="btn btn-primary btn-sm">Add to my fonts</a>
-                    </div>
-                  </div>
+                    <ng-container *ngFor="let item of googleFonts">
+                      <div class="card" style="width: 100%;margin-bottom:5px;margin-right:5px">
+
+                        <div class="card-block" style="padding:0.25rem">
+                          <h6 class="card-title">{{item}}</h6>
+                          <p class="card-text" [style.font-family]="item">{{sampleText}}</p>
+                          <a href="#" class="btn btn-primary btn-sm">Add to my fonts</a>
+                        </div>
+                      </div>
                     </ng-container>
                   </div>
                 </div>
 
               </div>
 
-              <div class="col-md-4 categories">
+              <div class="col-md-4 categories lineheightsmall">
+                <div class="input-group input-group-sm" style="margin-bottom: 5px">
 
-                <span>Categories</span>
-                <div class="input-group input-group-sm">
+                  <span class="input-group-addon proName" tooltip="Search" placement="right">
+                    <i class="fa fa-search"></i>
+                  </span>
+                  <input type="text" keyboard (keyboardDown)="searchKeyDown($event)" class="form-control " style="overflow: hidden; white-space: nowrap;"
+                    placeholder="Search font" aria-describedby="sizing-addon2" [(ngModel)]="searchFontName" >
+
+                </div>
+
+
+                <span class="white" style="margin-bottom: 5px">Categories</span>
+                <div class="input-group input-group-sm" style="margin-bottom: 2px">
                   <span class="input-group-addon">
                     <input type="checkbox" aria-label="Checkbox for following font family" [(ngModel)]="isSerif" > 
                     </span>
-                  <span>Serif</span>
+                  <span class="white">Serif</span>
 
                 </div>
 
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm" style="margin-bottom: 2px">
                   <span class="input-group-addon">
                     <input type="checkbox" aria-label="Checkbox for following font family" [(ngModel)]="isSansSerif">
                     </span>
-                  <span>Sans Serif</span>
+                  <span class="white">Sans Serif</span>
 
                 </div>
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm" style="margin-bottom: 2px">
                   <span class="input-group-addon">
                     <input type="checkbox" aria-label="Checkbox for following font family" [(ngModel)]="isDisplay">
                     </span>
-                  <span>Display</span>
+                  <span class="white">Display</span>
 
                 </div>
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm" style="margin-bottom: 2px">
                   <span class="input-group-addon">
                     <input type="checkbox" aria-label="Checkbox for following font family" [(ngModel)]="isHandwriting">
                     </span>
-                  <span>Handwriting</span>
+                  <span class="white">Handwriting</span>
 
                 </div>
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm" style="margin-bottom: 2px">
                   <span class="input-group-addon">
                     <input type="checkbox" aria-label="Checkbox for following font family" [(ngModel)]="isMonospace">
                     </span>
-                  <span>Monospace</span>
+                  <span class="white">Monospace</span>
 
                 </div>
                 <div>
-                  <span>Languages</span>
+                  <span class="white" style="margin-bottom: 5px">Languages</span>
                   <div class="input-group input-group-sm">
 
                     <autocomplete #autocomplete class="form-control  autoComplete" [allowClear]="true" [items]="languages" (selected)="selected($event)"

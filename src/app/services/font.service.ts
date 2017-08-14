@@ -154,7 +154,7 @@ class googleFonts {
     
   }
 
-  public searchFonts(language?:string,fontTypes?:Array<string>):Array<string>{
+  public searchFonts(language?:string,fontTypes?:Array<string>,search?:string):Array<string>{
      if(!this._fontsMaps)
       return [];
     let fonts=[];
@@ -166,9 +166,13 @@ class googleFonts {
             add=false;
           }
         }
-        if(fontTypes && fontTypes.length>0){
+        if(fontTypes){
           if(fontTypes.findIndex((v,i,a)=>v==val.fontData.category)==-1)
           add=false;
+        }
+        if(search){
+          if(!val.fontData.family.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+            add=false;
         }
         if(add)
           fonts.push(val.fontData.family);
@@ -219,10 +223,10 @@ export class FontService {
     return this._googleFonts.languages;
   }
 
-  public searchGoogleFonts(language?:string,fontTypes?:Array<string>):Array<string>{
+  public searchGoogleFonts(language?:string,fontTypes?:Array<string>,search?:string):Array<string>{
   
    
-    return  this._googleFonts.searchFonts(language,fontTypes);
+    return  this._googleFonts.searchFonts(language,fontTypes,search);
     
 
   }
