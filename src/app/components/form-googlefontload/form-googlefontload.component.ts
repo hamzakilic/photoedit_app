@@ -3,9 +3,16 @@ import { MessageBus } from './../../lib/messageBus';
 import { Message } from './../../entities/message';
 import { Callback } from './../../lib/callback';
 import { FontService } from './../../services/font.service';
+import { AppService } from './../../services/app.service';
 
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AutocompleteComponent} from '../../modulesext/autocomplete/autocomplete.component';
+
+interface language{
+   id:string;
+  text:string;
+}
+
 
 @Component({
   selector: 'formGoogleFontload-component',
@@ -19,19 +26,25 @@ export class FormGoogleFontloadComponent implements OnInit {
   @ViewChild('autocomplete') autocomplete: AutocompleteComponent
   
  private callFunc: Callback;
-  public _languages=[];
-  private fontService: FontService;
-  private _currentLanguage:any;
+  public _languages:Array<language>=[];
+  private _fontService: FontService;
+  private _appService:AppService;
+  private _currentLanguage:language;
   private _allLanguage={id:"all",text:"All"};
   private _callbackWhenGoogleLanguagesGetted:Callback;
-  constructor(fontService: FontService) {
-    this.fontService=fontService;
+  public  sampleText:string;
+  constructor(fontService: FontService,appService:AppService) {
+
+    //todo burası dil desteğine sahip olacak
+    this.sampleText="Sample text";
+    this._fontService=fontService;
+    this._appService=appService;
     this._allLanguage.text="All";//language change yapılacak
     this._currentLanguage=this._allLanguage;
     this._callbackWhenGoogleLanguagesGetted=new Callback(()=>this.whenGoogleFontLanguagesGetted());
     this.callFunc = new Callback(() => this.show());
-    //default all langulage
-    this._languages.push(this._allLanguage);
+    
+   
     
    
 
@@ -57,12 +70,15 @@ export class FormGoogleFontloadComponent implements OnInit {
 
     if (!this.smModal.isShown){
       this.smModal.show();
-      this.fontService.loadGoogleFonts();
+     
+      this._fontService.loadGoogleFonts();
+       
+      
     }
   }
 
   private whenGoogleFontLanguagesGetted(){
-    this.fontService.googleLanguages().forEach((val,index,arr) => {  
+    this._fontService.googleLanguages().forEach((val,index,arr) => {  
       
       if(this._languages.findIndex((elem,index,arr)=>elem.id===val.id)==-1)  
         this._languages.push({id:val.id,text:val.text});
@@ -70,11 +86,16 @@ export class FormGoogleFontloadComponent implements OnInit {
     });
     this.autocomplete.items=this._languages;
   }
-  public get languages():Array<any>{
+  public get languages():Array<language>{
+    let langs=[];
    // console.log('languages lenght:'+this._languages.length);
-    return this._languages;
+    var sortedItems= this._languages.sort((a,b)=> {return a.id.localeCompare(b.id);});
+    langs.push(this._allLanguage);
+    sortedItems.forEach(a=>langs.push(a));
+    //sortedItems.forEach((a)=>{console.log(a.id)});
+    return langs;
   }
-  public currentLanguage():Array<string>{
+  public currentLanguage():Array<language>{
     let currents=[];
     currents.push(this._currentLanguage);
     
@@ -83,13 +104,13 @@ export class FormGoogleFontloadComponent implements OnInit {
 
 
 
-  public selected(value:any):void {    
+  public selected(value:language):void {    
    this._currentLanguage=value;
   }
  
 
  
-  public refreshValue(value:any):void {
+  public refreshValue(value:language):void {
    
     this._currentLanguage = value;
   }
@@ -97,11 +118,11 @@ export class FormGoogleFontloadComponent implements OnInit {
   public isSerif:boolean=false;
   public isSansSerif:boolean=false;
   public isDisplay:boolean=false;
-  public isHandwriting:boolean=false;
+  public isHandwriting:boolean=true;
   public isMonospace:boolean=false;
-
+  private _lastSearchCount:number=0;
   public get googleFonts():Array<string>{
-    debugger;
+   
     let familyNames=[];
     if(this.isSerif)
       familyNames.push("serif");
@@ -113,10 +134,19 @@ export class FormGoogleFontloadComponent implements OnInit {
       familyNames.push("handwriting");
         if(this.isMonospace)
       familyNames.push("monospace");
-    return this.fontService.searchGoogleFonts(this._currentLanguage.id,familyNames);
+        
+    let items= this._fontService.searchGoogleFonts(this._currentLanguage.id,familyNames);
+    this._lastSearchCount=items.length;
+    return items;
   }
 
+  public get ratioOfSearchToTotal():string{
+    return this._lastSearchCount+"/"+this._fontService.totalSizeGooleFonts;
+  }
 
+    
+
+ 
 
   
 
@@ -124,3 +154,5 @@ export class FormGoogleFontloadComponent implements OnInit {
 
 
 }
+
+

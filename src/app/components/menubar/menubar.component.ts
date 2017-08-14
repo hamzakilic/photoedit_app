@@ -100,7 +100,7 @@ export class MenubarComponent implements OnInit {
 
 
       let font = new menu("Font");
-    font.childs.push(new menuItem("Load", new Callback(this.showFormFontLoad)));
+    font.childs.push(new menuItem("Load Google Fonts", new Callback(this.showFormFontLoad)));
     this.menus.push(font);
 
     let menuHelp = new menu("Help");
