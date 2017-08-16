@@ -15,8 +15,10 @@ import { CmdShowFormFontLoad} from './commands/cmdShowFormFontLoad';
 export class AppComponent {
   title = 'app works!';
   isBrowserOk: boolean;
+  private _appservice:AppService;
   constructor(keyboardService: KeyboardService,appService: AppService) {
     this.isBrowserOk = CheckBrowserCapabilities.isOk();
+    this._appservice=appService;
    
   }
 
@@ -24,6 +26,7 @@ export class AppComponent {
       let cmd=new CmdShowFormFontLoad();
       cmd.executeAsync();
   }
+    
   
 
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import { AppService } from "../../services/app.service";
+import { IBusyConfig } from 'angular2-busy';
 
 @Component({
   selector: 'busy-component',
@@ -9,7 +10,7 @@ import { AppService } from "../../services/app.service";
 })
 export class BusyComponent implements OnInit {
 
-  appService: AppService;
+ private appService: AppService;
   constructor(appService: AppService) {
     this.appService = appService;
    }
@@ -18,6 +19,9 @@ export class BusyComponent implements OnInit {
     
     
             
+  }
+  public get loading():IBusyConfig{
+    return this.appService.busyPromise;
   }
 
 }

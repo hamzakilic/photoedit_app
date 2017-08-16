@@ -4,9 +4,13 @@ import { Message } from './../../entities/message';
 import { Callback } from './../../lib/callback';
 import { FontService } from './../../services/font.service';
 import { AppService } from './../../services/app.service';
+import { UserService } from './../../services/user.service';
+import { Font } from './../../entities/font';
 
 import { ModalDirective } from 'ngx-bootstrap/modal';
+
 import { AutocompleteComponent} from '../../modulesext/autocomplete/autocomplete.component';
+
 
 interface language{
    id:string;
@@ -29,17 +33,19 @@ export class FormGoogleFontloadComponent implements OnInit {
   public _languages:Array<language>=[];
   private _fontService: FontService;
   private _appService:AppService;
+  private _userService:UserService;
   private _currentLanguage:language;
   private _allLanguage={id:"all",text:"All"};
   private _callbackWhenGoogleLanguagesGetted:Callback;
   public  sampleText:string;
   public searchFontName:string;
-  constructor(fontService: FontService,appService:AppService) {
+  constructor(fontService: FontService,appService:AppService,userService:UserService) {
 
     //todo burası dil desteğine sahip olacak
     this.sampleText="Sample text";
     this._fontService=fontService;
     this._appService=appService;
+    this._userService=userService;
     this._allLanguage.text="All";//language change yapılacak
     this._currentLanguage=this._allLanguage;
     this._callbackWhenGoogleLanguagesGetted=new Callback(()=>this.whenGoogleFontLanguagesGetted());
@@ -66,13 +72,17 @@ export class FormGoogleFontloadComponent implements OnInit {
 
      this.submitted = true;
   }
+  
 
   show() {
 
     if (!this.smModal.isShown){
+     let firstFonts= this._googleFontsLastSearched.slice(0,5);
+      this._fontService.loadGoogleFonts(firstFonts);
       this.smModal.show();
+      
      
-      this._fontService.loadGoogleFonts();
+      
        
       
     }
@@ -171,9 +181,9 @@ export class FormGoogleFontloadComponent implements OnInit {
 
 
 
-  public googleFonts:Array<string>=[];
+  private  _googleFontsLastSearched:Array<string>=[];
   public search(){
-  console.log('console:'+this.searchFontName);
+   
   
     let familyNames=[];
     if(this.isSerif)
@@ -189,7 +199,18 @@ export class FormGoogleFontloadComponent implements OnInit {
         
     let items= this._fontService.searchGoogleFonts(this._currentLanguage.id,familyNames,this.searchFontName);
     this._lastSearchCount=items.length;
-    this.googleFonts= items;
+      let newList=[];
+     items.forEach((val,index,arr)=>{
+       
+      //newList.push({familyName:val,source:"google",sampleText:this.sampleText});
+      newList.push(val);
+    });
+     this._googleFontsLastSearched=newList;
+     this._fontService.loadGoogleFonts(this._googleFontsLastSearched.slice(0,5));
+    
+  }
+  public get googleFonts():Array<string>{
+     return this._googleFontsLastSearched;
   }
 
   public get ratioOfSearchToTotal():string{
@@ -203,6 +224,23 @@ export class FormGoogleFontloadComponent implements OnInit {
     event.stopPropagation();
   }    
 
+
+  public userHasFont(fontName:string):boolean{
+    return this._userService.hasFont(fontName,"google");
+  }
+  public addToMyFonts(fontName:string){
+    this._userService.addFont(fontName,"google");
+  }
+  public removeFromMyFonts(fontName:string){
+   
+    this._userService.removeFont(fontName,"google");
+  }
+
+  public onScrollFonts(event:any){
+    this._fontService.loadGoogleFonts(this._googleFontsLastSearched.slice(event.start,event.end));
+  }
+
+  
  
 
   

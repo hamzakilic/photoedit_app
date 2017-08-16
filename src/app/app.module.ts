@@ -14,6 +14,7 @@ import { ModalModule } from 'ngx-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap';
 import { ColorPickerModule } from './modulesext/color-picker';
 import { AutoCompleteModule } from './modulesext/autocomplete';
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
 
 
 
@@ -35,6 +36,7 @@ import { ProjectService } from './services/project.service';
 import { KeyboardService } from './services/keyboard.service';
 import { AppService } from './services/app.service';
 import {FontService} from './services/font.service';
+import { UserService } from './services/user.service';
 
 import { MouseDirective } from './directives/mouse.directive';
 import { KeyboardDirective } from './directives/keyboard.directive';
@@ -51,6 +53,8 @@ import { LayerTextPropertiesComponent } from './components/layer-text-properties
 import { WorkspaceResizeComponent } from './components/workspace-resize/workspace-resize.component';
 
 import { FormGoogleFontloadComponent } from './components/form-googlefontload/form-googlefontload.component';
+
+
 
 
 
@@ -87,6 +91,8 @@ import { FormGoogleFontloadComponent } from './components/form-googlefontload/fo
     LayerTextPropertiesComponent,
     WorkspaceResizeComponent,
     FormGoogleFontloadComponent,
+    
+    
    
     
    
@@ -106,11 +112,11 @@ import { FormGoogleFontloadComponent } from './components/form-googlefontload/fo
     FormsModule,
     HttpModule,
     AutoCompleteModule,
-    ColorPickerModule
-    
+    ColorPickerModule,
+    VirtualScrollModule
 
   ],
-  providers: [ProjectService, KeyboardService,AppService,FontService],
+  providers: [ProjectService, KeyboardService,AppService,FontService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

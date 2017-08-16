@@ -4,6 +4,7 @@ import { Layer } from "../../models/photoedit/layer";
 import { LayerText } from "../../models/photoedit/layerText";
 
 import { FontService } from "../../services/font.service";
+import { UserService } from "../../services/user.service";
 
 
 @Component({
@@ -17,9 +18,11 @@ export class LayerTextPropertiesComponent implements OnInit {
   @Input()
   layer: LayerText;
   
-  private fontService:FontService;
-  constructor(fontService:FontService) {
-    this.fontService=fontService;
+  private _fontService:FontService;
+  private _userService:UserService;
+  constructor(fontService:FontService,userService:UserService) {
+    this._fontService=fontService;
+    this._userService = userService;
   
     
    }
@@ -37,8 +40,11 @@ export class LayerTextPropertiesComponent implements OnInit {
 
    public get items():Array<any>{
      let items=[];
-    this.fontService.fonts.forEach((val,index,arr)=>{
+    this._fontService.genericFonts.forEach((val,index,arr)=>{
       items.push({id:val,text: "<span style='font-family:"+val+"'>"+val+"</span>"});
+    });
+    this._userService.extraFonts.forEach((val,index,arr)=>{
+      items.push({id:val.familyName,text: "<span style='font-family:"+val.familyName+"'>"+val.familyName+"</span>"});
     });
      return items;
    }
