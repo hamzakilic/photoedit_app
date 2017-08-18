@@ -1,20 +1,23 @@
 import { HImage } from './image';
 import { Rect } from '../lib/draw/rect'
+import { CanvasTextWrapper } from 'canvas-text-wrapper';
 
 export class Graphics {
-  private context: CanvasRenderingContext2D;
+  private _context: CanvasRenderingContext2D;
   public readonly width: number;
   public readonly height: number;
   public scale: number;
+  private _canvas:HTMLCanvasElement;
   /**
    * creates a graphics context from canvas element
    */
   constructor(element: any, width: number, height: number, scale: number) {
 
-    this.context = element.nativeElement.getContext("2d");
+    this._context = element.nativeElement.getContext("2d");
     this.width = width;
     this.height = height;
     this.scale = scale;
+    this._canvas = element.nativeElement;
    
 
   }
@@ -22,14 +25,14 @@ export class Graphics {
 
   }
   public setGlobalAlpha(value: number){
-    this.context.globalAlpha=value;
+    this._context.globalAlpha=value;
   }
   public putImage(img: HImage) {
     
-    let imageData = this.context.getImageData(0, 0, this.width, this.height);
+    let imageData = this._context.getImageData(0, 0, this.width, this.height);
     var data = imageData.data;
     data.set(img.Pixels);
-    this.context.putImageData(imageData, 0, 0);
+    this._context.putImageData(imageData, 0, 0);
   }
 
    
@@ -39,7 +42,7 @@ export class Graphics {
    * @returns HImage
    */
   public getImage():HImage{
-    let imageData = this.context.getImageData(0, 0, this.width, this.height);    
+    let imageData = this._context.getImageData(0, 0, this.width, this.height);    
     let arr = new Uint8ClampedArray(imageData.data);
     let img = new HImage(this.width,this.height,arr);
     return img;
@@ -54,7 +57,7 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     
     createImageBitmap(imageData).then((bitmap)=>{
       
-       this.context.drawImage(bitmap, sourceRect.x,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height);
+       this._context.drawImage(bitmap, sourceRect.x,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height);
        
     }).catch((ex)=>{
       //TODO: exception durumu handle edilmeli
@@ -63,43 +66,45 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
 
   public drawHtmlImageFit(img: HTMLImageElement, x: number, y: number) {
 
-    this.context.drawImage(img, x, y, img.naturalWidth, img.naturalHeight, 0, 0, this.width, this.height);
+    this._context.drawImage(img, x, y, img.naturalWidth, img.naturalHeight, 0, 0, this.width, this.height);
 
   }
 
  
   public drawHtmlImageRect(img: HTMLImageElement, sourceRect: Rect,destRect:Rect) {
    
-    this.context.drawImage(img, sourceRect.x,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height);
+    this._context.drawImage(img, sourceRect.x,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height);
 
   }
  
 
 
  public fillRectRGBA(rect: Rect, r: number,g: number,b: number,a: number): void {
-    this.context.fillStyle ="rgba("+r+","+g+","+b+","+(a/255)+")";
-    this.context.fillRect(rect.x, rect.y, rect.width, rect.height);
+    this._context.fillStyle ="rgba("+r+","+g+","+b+","+(a/255)+")";
+    this._context.fillRect(rect.x, rect.y, rect.width, rect.height);
   }
 
   public fillRect(rect: Rect, brush: string): void {
-    this.context.fillStyle = brush;
-    this.context.fillRect(rect.x, rect.y, rect.width, rect.height);
+    this._context.fillStyle = brush;
+    this._context.fillRect(rect.x, rect.y, rect.width, rect.height);
   }
   public clearRect(rect: Rect){
-    this.context.clearRect(rect.x,rect.y,rect.width,rect.height);
+    this._context.clearRect(rect.x,rect.y,rect.width,rect.height);
   }
 
   public drawLine(x1: number, y1: number, x2: number, y2: number, lineWidth: number = 1, brush?: string) {
-    this.context.beginPath();
-    this.context.moveTo(x1, y1);
-    this.context.lineTo(x2, y2);
-    this.context.lineWidth = lineWidth;
     if (brush)
-      this.context.strokeStyle = brush;
-    this.context.stroke();
+      this._context.fillStyle = brush;
+    this._context.lineWidth = lineWidth;
+    this._context.beginPath();
+    this._context.moveTo(x1, y1);
+    this._context.lineTo(x2, y2);
+    
+    
+    this._context.stroke();
   }
 
-  public drawString(text: string,color:string,fontFamily: string, fontSize: number,isBold: boolean,isItalic:boolean){
+  public drawString(text: string,color:string,fontFamily: string, fontSize: number,isBold: boolean,isItalic:boolean,alignH: "left" | "center" | "right",alignV:"top" | "middle" | "bottom"){
     let style="";
     if(isBold)
       style+="Bold ";
@@ -107,24 +112,45 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
       style+="Italic ";
 
 
-    this.context.fillStyle=color;
-    this.context.font=style+fontSize+"px "+fontFamily;
-      this.context.textBaseline="top";
+    this._context.fillStyle=color;
+   // this.context.font=style+fontSize+"px "+fontFamily;
+   // this.context.textBaseline="top";
+   // this.context.textAlign="left";
     
-    this.context.fillText(text,0,0);  
+      
+
+    let options={ 
+        font: style+fontSize+"px "+fontFamily,
+        lineHeight: 1,
+        textAlign: alignH,
+        verticalAlign: alignV,
+        paddingX: 0,
+        paddingY: 0,
+        fitParent: false,
+      
+        strokeText: false,
+        sizeToFill: false,
+        maxFontSizeToFill: 0,
+        allowNewLine: true,
+        justifyLines: true,
+        renderHDPI: true,
+        
+    };
+     CanvasTextWrapper(this._canvas, text, options);
     
   }
-
+    
+  
   public save(){
-    this.context.save();
+    this._context.save();
   }
   public restore(){
-    this.context.restore();
+    this._context.restore();
   }
   public translate(w: number,h: number){
-    this.context.translate(w,h);
+    this._context.translate(w,h);
   }
   public rotate(angleDeg: number) {
-      this.context.rotate(angleDeg*Math.PI/180);
+      this._context.rotate(angleDeg*Math.PI/180);
   }
 }

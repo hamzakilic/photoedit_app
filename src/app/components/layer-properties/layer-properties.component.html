@@ -52,7 +52,7 @@
 
               <span class="input-group-addon proName" tooltip="Blend mode" placement="right">B</span>
 
-              <autocomplete class="form-control  autoComplete" [allowClear]="false" [items]="blendModes"  (data)="blendmodeRefreshValue($event,layer)"
+              <autocomplete class="form-control  autoComplete" style="padding:0px" [allowClear]="false" [items]="blendModes"  (data)="blendmodeRefreshValue($event,layer)"
                 (selected)="changeLayerBlendMode($event,layer)"   [active]="getLayerBlendMode(layer)"
                 placeholder="No blend mode selected"></autocomplete>
             </div>

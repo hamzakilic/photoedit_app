@@ -8,6 +8,7 @@ import { Text } from "../../entities/text";
 export class LayerText extends Layer{
 
  private _text:Text;
+ 
 
   constructor(text:Text,name?: string) {
     super(name);
@@ -26,7 +27,7 @@ export class LayerText extends Layer{
        this.graphics.setGlobalAlpha(this.globalAlpha);
       this.graphics.clearRect(new Rect(0,0,this.width,this.height));
       
-      this.graphics.drawString(this._text.data,this._text.color,this._text.fontFamily,this._text.fontSize,this._text.isBold,this._text.isItalic);
+      this.graphics.drawString(this._text.data,this._text.color,this._text.fontFamily,this._text.fontSize,this._text.isBold,this._text.isItalic,this._text.alignH,this._text.alignV);
       this.graphics.restore();
   
     }
@@ -84,6 +85,27 @@ export class LayerText extends Layer{
      public setFontSize(val:number){
        this._text.fontSize=val;
        this.render();
+    }
+
+     public setTextAlignH(value: any){
+      if(value || value==""){
+        this._text.alignH=value;
+        this.render();
+      }
+    }
+
+    public get textAlignH(): string{
+      return this._text.alignH;
+    }
+    public get textAlignV(): string{
+      return this._text.alignV;
+    }
+
+     public setTextAlignV(value: any){
+      if(value || value==""){
+        this._text.alignV=value;
+        this.render();
+      }
     }
 
 

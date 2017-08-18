@@ -36,6 +36,8 @@ export class CmdAddTextLayer extends Command {
                             text.color="#000000";
                             text.fontFamily="Times New Roman";
                             text.fontSize=32;
+                            text.alignH="left";
+                            text.alignV="top";
                             let textLayer= new LayerText(text,"Text");
                         
                             workspace.addLayer(textLayer); 

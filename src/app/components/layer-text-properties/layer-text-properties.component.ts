@@ -132,4 +132,36 @@ public changeFontSize(value:any){
     return color;
   }
 
+  public keyboardDown(event:KeyboardEvent){
+
+    if(event.keyCode==13){
+      this.layer.setText(this.layer.text+"\n");
+      event.stopPropagation();
+    }
+  }
+
+  
+
+  public changeTextAlignmentH(val:string){
+    //["left" , "right" , "center" , ]
+    this.layer.setTextAlignH(val);
+  }
+  public isTextAlignmentH(val:string){
+   
+    return this.layer.textAlignH==val;
+  }
+
+  public changeTextAlignmentV(val:string){
+    //["top" , "middle" , "bottom" ,]
+    this.layer.setTextAlignV(val);
+  }
+  public isTextAlignmentV(val:string){
+   
+    return this.layer.textAlignV==val;
+  }
+
+  
+
+
+
 }

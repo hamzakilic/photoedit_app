@@ -1,21 +1,58 @@
 <div class="input-group input-group-sm">
   <span class="input-group-addon proName" tooltip="Text of layer" placement="right">T</span>
-  <input type="text" class="form-control " style="overflow: hidden; white-space: nowrap;" placeholder="Enter text" aria-describedby="sizing-addon2"
+  <input type="text" class="form-control " keyboard (keyboardDown)="keyboardDown($event)" style="overflow: hidden; white-space: nowrap;" placeholder="Enter text" aria-describedby="sizing-addon2"
     [value]="layer.text" (input)="changeText($event.target.value,layer)">
 </div>
 <div class="input-group input-group-sm">
 
   <span class="input-group-addon proName" tooltip="Font" placement="right">F</span>
 
-  <autocomplete class="form-control  autoComplete" [allowClear]="true" [items]="fontList" [disabled]="disabled" (data)="fontRefreshValue($event)"
-    (selected)="fontSelected($event)" (removed)="fontRemoved($event)" (typed)="fontTyped($event)" [active]="currentLayerFontFamily()" placeholder="No font selected"></autocomplete>
+  <autocomplete class="form-control  autoComplete" style="padding:0px" [allowClear]="true" [items]="fontList" [disabled]="disabled" (data)="fontRefreshValue($event)"
+    (selected)="fontSelected($event)" (removed)="fontRemoved($event)" (typed)="fontTyped($event)" [active]="currentLayerFontFamily()"
+    placeholder="No font selected"></autocomplete>
 </div>
 
 <div class="input-group input-group-sm">
   <span class="input-group-addon proName" tooltip="Fontsize" placement="right">FS</span>
-  <input type="number" class="form-control" placeholder="Enter font size" aria-describedby="sizing-addon2" [value]="currentLayerFontSize()"
+  <input type="number" class="form-control"  placeholder="Enter font size" aria-describedby="sizing-addon2" [value]="currentLayerFontSize()"
     min="0" max="100" (input)="changeFontSize($event.target.value)">
 </div>
+
+
+<div class="input-group input-group-sm" style="margin-top:5px">
+
+  <label tooltip="Left alignment"  placement="top"  class="btn btn-primary btn-sm mouseoverhand"  [ngClass]="isTextAlignmentH('left')?'active':''"
+    (click)="changeTextAlignmentH('left')"  >
+    <i class="fa fa-align-left" aria-hidden="true"></i>
+</label>
+  <label tooltip="Center alignment"  placement="top" class="btn btn-primary btn-sm mouseoverhand"  [ngClass]="isTextAlignmentH('center')?'active':''"
+     (click)="changeTextAlignmentH('center')" >
+    <i class="fa fa-align-justify" aria-hidden="true"></i>
+</label>
+  <label  tooltip="Right alignment"  placement="top" class="btn btn-primary btn-sm mouseoverhand"  [ngClass]="isTextAlignmentH('right')?'active':''"
+    (click)="changeTextAlignmentH('right')" >
+    <i class="fa fa-align-right" aria-hidden="true"></i>
+</label>
+</div>
+
+
+<div class="input-group input-group-sm" style="margin-top:5px">
+
+  <label class="btn btn-primary btn-sm mouseoverhand" data-toggle="button" [ngClass]="isTextAlignmentV('top')?'active':''"
+   aria-pressed="isTextAlignmentV('top')" (click)="changeTextAlignmentV('top')" >
+   <i class="fa fa-angle-up" aria-hidden="true"></i>
+</label>
+  <label type="button" class="btn btn-primary btn-sm mouseoverhand"  [ngClass]="isTextAlignmentV('middle')?'active':''"
+    aria-pressed="isTextAlignmentV('middle')" (click)="changeTextAlignmentV('middle')" >
+    <i class="fa fa-minus" aria-hidden="true"></i>
+</label>
+  <label type="button" class="btn btn-primary btn-sm mouseoverhand"  [ngClass]="isTextAlignmentV('bottom')?'active':''"
+   aria-pressed="isTextAlignmentV('bottom')" (click)="changeTextAlignmentV('bottom')" >
+    <i class="fa fa-angle-down" aria-hidden="true"></i>
+</label>
+</div>
+
+
 <div class="input-group ">
   <label class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input"[value]="currentLayerIsBold()" (change)="changeIsBold($event)">
@@ -35,13 +72,7 @@
 </div>
 <div class="input-group input-group-sm">
   <span class="input-group-addon proName" tooltip="Text color" placement="right">FC</span>
-   <input [(colorPicker)]="color" [style.background]="color" [value]="color" [cpPosition]="'top'"
-      [style.color]="calculateForeground()"
-      [cpOutputFormat]="'hex'"
-      [cpOKButton]="true"
-      [cpCancelButton]="true"
-      [cpPositionOffset]="0"
-      [cpUseRootViewContainer]="false"
-      [cpAlphaChannel]="'disabled'"
-      [cpPositionRelativeToArrow]="false" (colorPickerChange)="colorChanging($event)"/>
+  <input [(colorPicker)]="color" [style.background]="color" [value]="color" [cpPosition]="'top'" [style.color]="calculateForeground()"
+    [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0" [cpUseRootViewContainer]="false"
+    [cpAlphaChannel]="'disabled'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="colorChanging($event)" />
 </div>

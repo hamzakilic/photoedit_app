@@ -5,12 +5,9 @@ export class Text{
     public isItalic:boolean;
     public fontFamily:string;
     public fontSize:number;    
-    public layout:TextLayout;
+   
+    public alignH:"left"|"center"|"right";
+    public alignV:"top"|"middle"|"bottom";
 
 }
 
-export enum TextLayout{
-    Center,
-    Justify,
-
-}
