@@ -17,18 +17,18 @@
 
 
             <div class="input-group input-group-sm">
-              <span class="input-group-addon proName"  tooltip="Width of layer" placement="right">W</span>
+              <span class="input-group-addon proName" tooltip="Width of layer" placement="right">W</span>
 
               <input type="number" class="form-control" placeholder="Enter width of layer" aria-describedby="sizing-addon2" [value]="round(layer.width)"
                 min="10" (input)="changeWidth($event.target.value,layer)">
             </div>
             <div class="input-group input-group-sm">
-              <span class="input-group-addon proName"  tooltip="height of layer" placement="right">H</span>
+              <span class="input-group-addon proName" tooltip="height of layer" placement="right">H</span>
               <input type="number" class="form-control" placeholder="Enter height of layer" aria-describedby="sizing-addon2" [value]="round(layer.height)"
                 min="10" (input)="changeHeight($event.target.value,layer)">
             </div>
             <div class="input-group input-group-sm">
-              <span class="input-group-addon proName"  tooltip="left of layer" placement="right">L</span>
+              <span class="input-group-addon proName" tooltip="left of layer" placement="right">L</span>
               <input type="number" class="form-control" placeholder="Enter left of layer" aria-describedby="sizing-addon2" [value]="round(layer.rectRotated.x)"
                 (input)="changeLeft($event.target.value,layer)">
             </div>
@@ -38,16 +38,26 @@
                 (input)="changeTop($event.target.value,layer)">
             </div>
             <div class="input-group input-group-sm">
-              <span class="input-group-addon proName"  tooltip="rotate of layer" placement="right">R</span>
+              <span class="input-group-addon proName" tooltip="rotate of layer" placement="right">R</span>
               <input type="number" class="form-control" placeholder="Enter rotate of layer" aria-describedby="sizing-addon2" [value]="layer.rotateAngleDeg"
                 min="-180" max="180" (input)="changeRotateAngle($event.target.value,layer)">
             </div>
-              <div class="input-group input-group-sm">
-              <span class="input-group-addon proName"  tooltip="Opacity of layer" placement="right">O</span>
+            <div class="input-group input-group-sm">
+              <span class="input-group-addon proName" tooltip="Opacity of layer" placement="right">O</span>
               <input type="number" class="form-control" placeholder="Enter opacity of layer" aria-describedby="sizing-addon2" [value]="round(layer.globalAlpha*100)"
-                min="0" max="100"  (input)="changeGlobalAlpha($event.target.value,layer)">
+                min="0" max="100" (input)="changeGlobalAlpha($event.target.value,layer)">
             </div>
-            <div class="input-group ">
+
+            <div class="input-group input-group-sm">
+
+              <span class="input-group-addon proName" tooltip="Blend mode" placement="right">B</span>
+
+              <autocomplete class="form-control  autoComplete" [allowClear]="false" [items]="blendModes"  (data)="blendmodeRefreshValue($event,layer)"
+                (selected)="changeLayerBlendMode($event,layer)"   [active]="getLayerBlendMode(layer)"
+                placeholder="No blend mode selected"></autocomplete>
+            </div>
+
+            <div class="input-group input-group-sm ">
               <label class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" [(ngModel)]="layer.keepRatio">
                 <span class="custom-control-indicator"></span>
@@ -64,9 +74,9 @@
 </label>
                 
             </div>-->
-             
-      <layer-text-properties *ngIf="isTextLayer(layer)" class="layerTextProperties" [layer]=layer></layer-text-properties>
-             
+
+            <layer-text-properties *ngIf="isTextLayer(layer)" class="layerTextProperties" [layer]=layer></layer-text-properties>
+
 
           </li>
 

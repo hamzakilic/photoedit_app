@@ -9,6 +9,7 @@ import { Callback } from '../../lib/callback';
 import { Point } from '../../lib/draw/point';
 import { Calc } from '../../lib/calc';
 import {CalcLayer} from "../../models/photoedit/lib/calcLayer";
+import { AutoCompleteItem } from "../../entities/autocompleteItem";
 
 @Component({
   selector: 'layer-properties-component',
@@ -88,5 +89,27 @@ export class LayerPropertiesComponent implements OnInit {
     }
   }
 
+  public get blendModes():Array<string>{
+    
+    return ["normal","multiply","screen","overlay","darken","lighten","color-dodge","color-burn","hard-light",
+    "soft-light","difference","exclusion","hue","saturation","color","luminosity"].sort((a,b)=>a.localeCompare(b));
+  }
+  public changeLayerBlendMode(event:AutoCompleteItem,layer:Layer){
+    layer.setBlendMode(event.id);
+  }
 
+  public blendmodeRefreshValue(event:AutoCompleteItem,layer:Layer){
+    
+    layer.setBlendMode(event.id);
+  }
+  
+
+  
+  public getLayerBlendMode(layer:Layer):Array<AutoCompleteItem>{
+    
+     let modes=[];
+   
+    modes.push({id:layer.blendMode,text:layer.blendMode});
+    return modes;
+  }
 }

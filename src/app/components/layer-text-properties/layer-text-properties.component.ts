@@ -5,6 +5,7 @@ import { LayerText } from "../../models/photoedit/layerText";
 
 import { FontService } from "../../services/font.service";
 import { UserService } from "../../services/user.service";
+import {AutoCompleteItem} from "../../entities/autocompleteItem";
 
 
 @Component({
@@ -38,7 +39,7 @@ export class LayerTextPropertiesComponent implements OnInit {
     layer.setText(value);
   }
 
-   public get items():Array<any>{
+   public get fontList():Array<AutoCompleteItem>{
      let items=[];
     this._fontService.genericFonts.forEach((val,index,arr)=>{
       items.push({id:val,text: "<span style='font-family:"+val+"'>"+val+"</span>"});
@@ -94,20 +95,20 @@ public changeFontSize(value:any){
 }
 
 
-  public selected(value:any):void {
+  public fontSelected(value:any):void {
 
     this.layer.setFontFamily(value.id);
   }
  
-  public removed(value:any):void {
+  public fontRemoved(value:any):void {
     console.log('Removed value is: ', value);
   }
  
-  public typed(value:any):void {
+  public fontTyped(value:any):void {
     console.log('New search input: ', value);
   }
  
-  public refreshValue(value:any):void {
+  public fontRefreshValue(value:any):void {
     this.value = value;
   }
 

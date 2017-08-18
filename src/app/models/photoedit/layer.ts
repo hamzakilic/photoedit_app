@@ -14,11 +14,11 @@ export abstract class Layer extends SurfaceCanvas {
   public canRotate: boolean;
   protected _mouseDownPoint: MouseDownPoint;
   public isMouseDown: boolean;
-  
+  public _blendMode:string;
   constructor(name?: string) {
     super();
     this.sourceMask = undefined;
-    
+    this._blendMode="normal";
     if (name)
       this._name = name;
     else this._name = 'layer';
@@ -30,7 +30,12 @@ export abstract class Layer extends SurfaceCanvas {
     return this._name;
   }
  
-
+  public get blendMode():string{
+    return this._blendMode;
+  }
+  public setBlendMode(val:string){
+    this._blendMode=val;
+  }
 
   public mouseDown(event: MouseEvent) {
     //debuging.log(this.name + " mousedown");
