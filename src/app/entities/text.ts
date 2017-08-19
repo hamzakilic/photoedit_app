@@ -8,6 +8,8 @@ export class Text{
    
     public alignH:"left"|"center"|"right";
     public alignV:"top"|"middle"|"bottom";
+    public isStroked:boolean;
+    public strokedColor:string;
 
 }
 

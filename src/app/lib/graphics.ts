@@ -104,7 +104,7 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     this._context.stroke();
   }
 
-  public drawString(text: string,color:string,fontFamily: string, fontSize: number,isBold: boolean,isItalic:boolean,alignH: "left" | "center" | "right",alignV:"top" | "middle" | "bottom"){
+  public drawString(text: string,color:string,isStroked:boolean,strokedColor:string,fontFamily: string, fontSize: number,isBold: boolean,isItalic:boolean,alignH: "left" | "center" | "right",alignV:"top" | "middle" | "bottom"){
     let style="";
     if(isBold)
       style+="Bold ";
@@ -113,6 +113,9 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
 
 
     this._context.fillStyle=color;
+    if(isStroked)
+      this._context.strokeStyle=strokedColor;
+    console.log(isStroked);
    // this.context.font=style+fontSize+"px "+fontFamily;
    // this.context.textBaseline="top";
    // this.context.textAlign="left";
@@ -128,7 +131,7 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
         paddingY: 0,
         fitParent: false,
       
-        strokeText: false,
+        strokeText: isStroked,
         sizeToFill: false,
         maxFontSizeToFill: 0,
         allowNewLine: true,

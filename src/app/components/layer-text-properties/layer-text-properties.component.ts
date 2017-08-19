@@ -21,10 +21,11 @@ export class LayerTextPropertiesComponent implements OnInit {
   
   private _fontService:FontService;
   private _userService:UserService;
+  
   constructor(fontService:FontService,userService:UserService) {
     this._fontService=fontService;
     this._userService = userService;
-  
+   
     
    }
 
@@ -83,7 +84,13 @@ export class LayerTextPropertiesComponent implements OnInit {
 public changeIsItalic(value:any){
   this.layer.setIsItalic(value.target.checked);
 }
-
+public changeIsStroked(value:any){
+ 
+  this.layer.setIsStroked(value.target.checked);
+}
+public get isStroked():boolean{
+  return this.layer.isStroked;
+}
 
 public changeIsBold(value:any){
   this.layer.setIsBold(value.target.checked);
@@ -121,15 +128,38 @@ public changeFontSize(value:any){
      this.layer.setColor(value);
   }
 
+   public  get strokedColor():string{
+    return this.layer.strokedColor;
+  }
+
+   public set strokedColor(value:string){
+
+     this.layer.setStrokedColor(value);
+  }
+  
+
   public colorChanging(value:string){
   
    this.color=value;
+   
+  }
+
+   public strokedColorChanging(value:string){
+  
+   this.strokedColor=value;
    
   }
   calculateForeground():string{
     let color= "#FF"+ this.color.substring(3,5)+"0F";
    
     return color;
+  }
+   calculateForegroundStrokedColor():string{
+     if(this.strokedColor){
+    let color= "#FF"+ this.strokedColor.substring(3,5)+"0F";
+   
+    return color;
+     }else return "#000000";
   }
 
   public keyboardDown(event:KeyboardEvent){

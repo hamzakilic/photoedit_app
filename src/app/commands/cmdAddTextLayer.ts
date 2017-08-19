@@ -38,6 +38,8 @@ export class CmdAddTextLayer extends Command {
                             text.fontSize=32;
                             text.alignH="left";
                             text.alignV="top";
+                            text.isStroked=false;
+                            text.strokedColor="#000";
                             let textLayer= new LayerText(text,"Text");
                         
                             workspace.addLayer(textLayer); 

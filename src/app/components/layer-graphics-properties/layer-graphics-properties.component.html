@@ -1,0 +1,20 @@
+<div style="width:100%">
+<div class="input-group input-group-sm " style="width:100%">
+  <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input form-control"[value]="hasBackground" (change)="changeHasBackgroundColor($event)">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description" style="padding-top:5px">Background Color</span>
+              </label>
+
+</div>
+
+<div class="input-group input-group-sm" style="width: 100%">
+  <span class="input-group-addon proName" tooltip="Background color" placement="right">BC</span>
+ 
+  <input [(colorPicker)]="backgroundColor" class="form-control" [disabled]="disabled" [style.background]="backgroundColor" [value]="backgroundColor" [cpPosition]="'top'" 
+  [style.color]="calculateForegroundColor()"
+    [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
+     [cpUseRootViewContainer]="false"
+    [cpAlphaChannel]="'disabled'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="changeBackgroundColor($event)" />
+</div>
+  <div>

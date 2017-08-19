@@ -54,6 +54,8 @@ import { WorkspaceResizeComponent } from './components/workspace-resize/workspac
 
 import { FormGoogleFontloadComponent } from './components/form-googlefontload/form-googlefontload.component';
 
+import { LayerGraphicsPropertiesComponent } from './components/layer-graphics-properties/layer-graphics-properties.component';
+
 
 
 
@@ -91,6 +93,7 @@ import { FormGoogleFontloadComponent } from './components/form-googlefontload/fo
     LayerTextPropertiesComponent,
     WorkspaceResizeComponent,
     FormGoogleFontloadComponent,
+    LayerGraphicsPropertiesComponent,
     
     
    

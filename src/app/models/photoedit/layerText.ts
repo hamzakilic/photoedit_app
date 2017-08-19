@@ -1,11 +1,12 @@
 import { Layer } from './layer';
+import { LayerGraphics } from './layerGraphics';
 import { Graphics } from '../../lib/graphics';
 import { Callback } from '../../lib/callback';
 import { HImage  } from '../../lib/image';
 import { Rect} from '../../lib/draw/rect';
 import { Text } from "../../entities/text";
 
-export class LayerText extends Layer{
+export class LayerText extends LayerGraphics{
 
  private _text:Text;
  
@@ -26,8 +27,9 @@ export class LayerText extends Layer{
       this.graphics.save();
        this.graphics.setGlobalAlpha(this.globalAlpha);
       this.graphics.clearRect(new Rect(0,0,this.width,this.height));
-      
-      this.graphics.drawString(this._text.data,this._text.color,this._text.fontFamily,this._text.fontSize,this._text.isBold,this._text.isItalic,this._text.alignH,this._text.alignV);
+      if(this._backgroundColor)
+        this.graphics.fillRect(new Rect(0,0,this.width,this.height),this._backgroundColor);
+      this.graphics.drawString(this._text.data,this._text.color,this._text.isStroked, this._text.strokedColor,this._text.fontFamily,this._text.fontSize,this._text.isBold,this._text.isItalic,this._text.alignH,this._text.alignV);
       this.graphics.restore();
   
     }
@@ -59,6 +61,23 @@ export class LayerText extends Layer{
       this._text.color=val;
       this.render();
     }
+
+    public get strokedColor():string{
+      return this._text.strokedColor;
+    }
+    public setStrokedColor(val:string){
+      this._text.strokedColor=val;
+      this.render();
+    }
+
+     public get isStroked():boolean{
+      return this._text.isStroked;
+    }
+    public setIsStroked(val:boolean){
+      this._text.isStroked=val;
+      this.render();
+    }
+
     public get isBold():boolean{
       return this._text.isBold;
     }

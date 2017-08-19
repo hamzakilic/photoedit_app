@@ -5,6 +5,7 @@ import { ProjectService } from '../../services/project.service';
 import { Proj } from '../../models/photoedit/proj';
 import { Layer } from '../../models/photoedit/layer';
 import { LayerText } from "../../models/photoedit/layerText";
+import { LayerGraphics } from "../../models/photoedit/layerGraphics";
 import { Callback } from '../../lib/callback';
 import { Point } from '../../lib/draw/point';
 import { Calc } from '../../lib/calc';
@@ -80,6 +81,9 @@ export class LayerPropertiesComponent implements OnInit {
   }
   isTextLayer(layer: Layer){
     return layer instanceof LayerText;
+  }
+   isGraphicsLayer(layer: Layer){
+    return layer instanceof LayerGraphics;
   }
   changeGlobalAlpha(value:any,layer: Layer){
     let val= parseInt(value);

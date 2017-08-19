@@ -75,9 +75,9 @@
                 
             </div>-->
 
-            <layer-text-properties *ngIf="isTextLayer(layer)" class="layerTextProperties" [layer]=layer></layer-text-properties>
-
-
+           
+            <layer-graphics-properties *ngIf="isGraphicsLayer(layer)" class="layerGraphicsProperties" [layer]=layer></layer-graphics-properties>
+             <layer-text-properties *ngIf="isTextLayer(layer)" class="layerTextProperties" [layer]=layer></layer-text-properties>
           </li>
 
         </ul>

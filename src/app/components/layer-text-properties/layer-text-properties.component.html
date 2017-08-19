@@ -53,7 +53,7 @@
 </div>
 
 
-<div class="input-group ">
+<div class="input-group input-group-sm ">
   <label class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input"[value]="currentLayerIsBold()" (change)="changeIsBold($event)">
                 <span class="custom-control-indicator"></span>
@@ -72,7 +72,29 @@
 </div>
 <div class="input-group input-group-sm">
   <span class="input-group-addon proName" tooltip="Text color" placement="right">FC</span>
-  <input [(colorPicker)]="color" [style.background]="color" [value]="color" [cpPosition]="'top'" [style.color]="calculateForeground()"
-    [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0" [cpUseRootViewContainer]="false"
+  <input [(colorPicker)]="color" [style.background]="color" [value]="color" [cpPosition]="'top'" 
+  [style.color]="calculateForeground()"
+    [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
+     [cpUseRootViewContainer]="false"
     [cpAlphaChannel]="'disabled'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="colorChanging($event)" />
 </div>
+
+<div class="input-group input-group-sm ">
+  <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"[value]="isStroked" (change)="changeIsStroked($event)">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description" style="padding-top:5px">Stroked</span>
+              </label>
+
+</div>
+
+<div class="input-group input-group-sm">
+  <span class="input-group-addon proName" tooltip="Stroke color" placement="right">SC</span>
+ 
+  <input [(colorPicker)]="strokedColor" class="form-control" [style.background]="strokedColor" [value]="strokedColor" [cpPosition]="'top'" 
+  [style.color]="calculateForegroundStrokedColor()"
+    [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
+     [cpUseRootViewContainer]="false"
+    [cpAlphaChannel]="'disabled'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="strokedColorChanging($event)" />
+</div>
+
