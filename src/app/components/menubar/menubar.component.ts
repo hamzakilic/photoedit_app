@@ -24,6 +24,7 @@ import { CmdShowFormResize } from '../../commands/cmdShowFormResize';
 import { CmdRotateWorkspace } from '../../commands/cmdRotateWorkspace';
 import { CmdAddTextLayer } from '../../commands/cmdAddTextLayer';
 import { CmdShowFormFontLoad } from '../../commands/cmdShowFormFontLoad';
+import { CmdEffect1977 } from '../../commands/cmdEffect1977';
 
 
 @Component({
@@ -98,8 +99,11 @@ export class MenubarComponent implements OnInit {
     menuEdit.childs.push(new menuItem("Delete", new Callback(this.notImplementedYet)));
     this.menus.push(menuEdit);
 
+     let effects = new menu("Effects");
+    effects.childs.push(new menuItem("1977", new Callback(()=>this.effect1977())));
+    this.menus.push(effects);
 
-      let font = new menu("Font");
+    let font = new menu("Font");
     font.childs.push(new menuItem("Load Google Fonts", new Callback(this.showFormFontLoad)));
     this.menus.push(font);
 
@@ -167,6 +171,11 @@ export class MenubarComponent implements OnInit {
 
   rotate() {
     let cmd = new CmdRotateWorkspace(this.projectService, this.appService);
+    cmd.executeAsync();
+  }
+
+   effect1977() {
+    let cmd = new CmdEffect1977(this.projectService, this.appService);
     cmd.executeAsync();
   }
 

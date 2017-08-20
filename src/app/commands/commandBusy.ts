@@ -28,8 +28,8 @@ export abstract class CommandBusy extends Command {
  public executeAsync():void {
 
      this.appService.doBusy(new Promise((resolve, reject) => {
-            
-                  this.execute();resolve();
+                
+              setTimeout(()=>{this.execute();resolve();},0);
          }));
     }
 }

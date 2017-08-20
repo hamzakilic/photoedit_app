@@ -127,6 +127,21 @@ export class Workspace extends HEventEmitter {
       this.selectionRectangleLayer = undefined;
   }
 
+
+  public replaceLayer(source: Layer, destination: Layer) {
+    let index=this._layers.findIndex(p=>p==source);
+    if(index>-1){
+    destination.setBlendMode(destination.blendMode);
+    destination.setGlobalAlpha(source.globalAlpha);
+    destination.isSelected = true;
+    destination.rotateAngleDeg = source.rotateAngleDeg;
+    destination.marginLeft = source.marginLeft;
+    destination.marginTop = source.marginTop;
+    this._layers[index]=destination;
+    source.dispose();
+    }
+  }
+
   public clearLayers() {
     this._layers = [];
   }
@@ -439,8 +454,8 @@ class WorkModeResizeWorkspace extends WorkModeBase {
 
   public mouseMove(event: MouseEvent) {
 
-    let w = this.workspace.width + event.movementX/this.workspace.scale;
-    let h = this.workspace.height + event.movementY/this.workspace.scale;
+    let w = this.workspace.width + event.movementX / this.workspace.scale;
+    let h = this.workspace.height + event.movementY / this.workspace.scale;
     if (w > 20 && h > 20) {
       this.workspace.resize(w, h, new Callback(() => { }));
     }
