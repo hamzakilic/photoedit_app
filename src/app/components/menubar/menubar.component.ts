@@ -109,7 +109,7 @@ export class MenubarComponent implements OnInit {
     workspace.childs.push(new menuItem("Rotate 90", new Callback(() => { this.rotate() })));
     this.menus.push(workspace);
 
-     let effects = new menu("Effects");
+    let effects = new menu("Effects");
     this._effectService.effects.items.forEach((val)=>{
     effects.childs.push(new menuItem(val.name, new Callback(()=>this.effect(val.name))));
     
