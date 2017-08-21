@@ -15,7 +15,7 @@
 #projectfiles {
   position: fixed;
   display: block;
-  width: 86%;
+  width: 84%;
   left:0px;
   top:3%;
   height:95%;
@@ -33,7 +33,7 @@
 
 
 .statusbar {
-  width: 86%;
+  width: 84%;
   position: fixed;
 
   height: 2%;
@@ -67,8 +67,9 @@
 
 .toolbar {
   top: 3%;
-  width: 14%;
+  width: 16%;
   height: 100%;
+  widows: 100%;
   /* 100% Full-height */
   position: fixed;
   /* Stay in place */
@@ -78,7 +79,7 @@
   background-color:#535353;
   /* Black*/
   overflow-x: none;
-  overflow-y:auto;
+  overflow-y:none;
   /* Disable horizontal scroll */
   border-radius: 0 0 0 0;
   border-left-color: gray;

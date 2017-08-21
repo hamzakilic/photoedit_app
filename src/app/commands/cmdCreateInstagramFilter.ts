@@ -15,7 +15,7 @@ import { Imaging } from '../lib/imagealgorithm/imaging';
 import { ImageAlgorithm1977} from  '../lib/imagealgorithm/imageAlgorithm1977';
 
 
-export class CmdEffect1977 extends CommandBusy {
+export class CmdCreateInstagramFilter extends CommandBusy {
    
    
     constructor(projectService: ProjectService, appService: AppService) {
@@ -35,23 +35,29 @@ export class CmdEffect1977 extends CommandBusy {
                         debugger;
                         
 
-                        let isLayer0Crop = false;
-                        let selectedLayer = workspace.layers.find((layer) => layer.isSelected);
-                        if (!selectedLayer) {
-                            //selected layer yok ise layer 0 crop yapılacak
-                            selectedLayer = workspace.layers[0];
-                            isLayer0Crop = true;
+                       let selectedLayer=workspace.layers.find(p=>p.isSelected);
+                       if(selectedLayer==undefined)
+                        {
+                            console.warn("select a layer");
+                            return;
                         }
-                        
-                        if(selectedLayer){
-                            let effect= new ImageAlgorithm1977();
-                            let img=effect.process(selectedLayer.getImage());
-                            let newLayer =new LayerImage(img,selectedLayer.name);
-                            workspace.replaceLayer(selectedLayer,newLayer);
-                            
-                            
-                            
-                        }
+                       let filteredImage=selectedLayer.getImage();
+                       
+                        if(filteredImage.Pixels.length<256*256*4)
+                            {
+                                console.warn("filtered is not valid");
+                                return;
+                            }
+                            let filtering={r:[],g:[],b:[]};
+                       for(let i=0;i<256;++i){
+                           let r= filteredImage.Pixels[i*4+0];
+                           let g=filteredImage.Pixels[i*4+1];
+                           let b=filteredImage.Pixels[i*4+2];
+                           filtering.r[i]=r;
+                           filtering.g[i]=g;
+                           filtering.b[i]=b;
+                       }
+                       console.log(JSON.stringify(filtering));
 
 
 

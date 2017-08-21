@@ -1,10 +1,20 @@
-<tabset #staticTabs class="lineheightsmall">
-    <tab  *ngFor="let tab of tabs"  heading={{tab.title}}  >
-      <zoom-component></zoom-component>
-      <tools-component></tools-component>
-      <layer-properties-component></layer-properties-component>
-      <layersInfo-component></layersInfo-component>
-      <selection-properties-component></selection-properties-component>
-    </tab>
+<div class="lineheightsmall">
+   <div class="container no-gutters" style="padding-left: 0px;padding-right:0px">
+     <div class="row no-gutters">
+     <div class="col-md-2 ">
+        <tools-component></tools-component>
+     </div>
+     <div class="col-md-10">
+        <zoom-component></zoom-component>
+        
+        
+        <layersInfo-component></layersInfo-component>
+        <layer-properties-component></layer-properties-component>
+        <selection-properties-component></selection-properties-component>
+     </div>
+     </div>
+   </div>
+     
+   
 
-  </tabset>
+  </div>

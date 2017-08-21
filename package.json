@@ -24,6 +24,7 @@
     "@angular/router": "^4.2.4",
     "@types/modernizr": "^3.3.0",
     "angular2-busy": "^2.0.4",
+    "angular2-draggable": "^1.0.5",
     "angular2-virtual-scroll": "^0.2.0",
     "bootstrap": "^4.0.0-alpha.6",
     "canvas-text-wrapper": "^0.10.1",

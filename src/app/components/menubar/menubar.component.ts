@@ -12,6 +12,7 @@ import { menuItemNewImage } from '../menubar/menuItems/menuItemNewImage';
 
 import { ProjectService } from '../../services/project.service';
 import { AppService } from '../../services/app.service';
+import { EffectService } from '../../services/effect.service';
 
 import { SomeTestFuncs } from '../../lib/someTestFuncs'
 
@@ -24,7 +25,10 @@ import { CmdShowFormResize } from '../../commands/cmdShowFormResize';
 import { CmdRotateWorkspace } from '../../commands/cmdRotateWorkspace';
 import { CmdAddTextLayer } from '../../commands/cmdAddTextLayer';
 import { CmdShowFormFontLoad } from '../../commands/cmdShowFormFontLoad';
-import { CmdEffect1977 } from '../../commands/cmdEffect1977';
+import { CmdShowFormLayerProperties } from '../../commands/cmdShowFormLayerProperties';
+
+import { CmdEffect } from '../../commands/cmdEffect';
+import { CmdCreateInstagramFilter } from '../../commands/cmdCreateInstagramFilter';
 
 
 @Component({
@@ -34,21 +38,21 @@ import { CmdEffect1977 } from '../../commands/cmdEffect1977';
 })
 export class MenubarComponent implements OnInit {
   public menus: menu[];
-  private projectService: ProjectService;
-  private appService: AppService;
-  constructor(projectService: ProjectService, appservice: AppService) {
-    this.projectService = projectService;
-    this.appService = appservice;
+  private _projectService: ProjectService;
+  private _appService: AppService;
+  private _effectService:EffectService;
+  constructor(projectService: ProjectService, appservice: AppService,effectService:EffectService) {
+    this._projectService = projectService;
+    this._appService = appservice;
+    this._effectService=effectService;
     this.menus = [];
 
-    let menuFile = new menu("Workspace");
+    let menuFile = new menu("File");
     menuFile.childs.push(new menuItemNewImage(projectService));
     menuFile.childs.push(new menuItemOpenImage(projectService));
     let divider = new menuItem('divider', undefined);
     divider.isDivider = true;
-    menuFile.childs.push(divider);
-    menuFile.childs.push(new menuItem("Resize", new Callback(() => (this.resize()))));
-    menuFile.childs.push(new menuItem("Rotate 90", new Callback(() => { this.rotate() })));
+    menuFile.childs.push(divider);   
     this.menus.push(menuFile);
 
     let divider2 = new menuItem('divider', undefined);
@@ -83,6 +87,12 @@ export class MenubarComponent implements OnInit {
     //this.menus.push(menuImage);
 
 
+    let menuEdit = new menu("Edit");
+    menuEdit.childs.push(new menuItem("Cut", new Callback(this.notImplementedYet)));
+    menuEdit.childs.push(new menuItem("Copy", new Callback(this.notImplementedYet)));
+    menuEdit.childs.push(new menuItem("Paste", new Callback(this.notImplementedYet)));
+    menuEdit.childs.push(new menuItem("Delete", new Callback(this.notImplementedYet)));
+    this.menus.push(menuEdit);
 
     let menuLayers = new menu("Layer");
     menuLayers.childs.push(new menuItem("New", new Callback(() => { this.newLayer() })));
@@ -92,20 +102,27 @@ export class MenubarComponent implements OnInit {
     this.menus.push(menuLayers);
 
 
-    let menuEdit = new menu("Edit");
-    menuEdit.childs.push(new menuItem("Cut", new Callback(this.notImplementedYet)));
-    menuEdit.childs.push(new menuItem("Copy", new Callback(this.notImplementedYet)));
-    menuEdit.childs.push(new menuItem("Paste", new Callback(this.notImplementedYet)));
-    menuEdit.childs.push(new menuItem("Delete", new Callback(this.notImplementedYet)));
-    this.menus.push(menuEdit);
+    
+
+    let workspace = new menu("Workspace");
+    workspace.childs.push(new menuItem("Resize", new Callback(() => (this.resize()))));
+    workspace.childs.push(new menuItem("Rotate 90", new Callback(() => { this.rotate() })));
+    this.menus.push(workspace);
 
      let effects = new menu("Effects");
-    effects.childs.push(new menuItem("1977", new Callback(()=>this.effect1977())));
+    this._effectService.effects.items.forEach((val)=>{
+    effects.childs.push(new menuItem(val.name, new Callback(()=>this.effect(val.name))));
+    
+    });
     this.menus.push(effects);
 
     let font = new menu("Font");
     font.childs.push(new menuItem("Load Google Fonts", new Callback(this.showFormFontLoad)));
     this.menus.push(font);
+
+    let window = new menu("Window");
+    window.childs.push(new menuItem("Show Layer Properties", new Callback(this.showFormLayerProperties)));
+    this.menus.push(window);
 
     let menuHelp = new menu("Help");
     menuHelp.childs.push(new menuItem("About", new Callback(this.showAbout)));
@@ -113,7 +130,7 @@ export class MenubarComponent implements OnInit {
 
 
     let menuTest = new menu("Test");
-    menuTest.childs.push(new menuItem("Test Something", new Callback(() => { this.testSomeThingClicked(); })));
+    menuTest.childs.push(new menuItem("Create Instagram", new Callback(() => { this.createInstagramFilter(); })));
     this.menus.push(menuTest);
 
 
@@ -123,12 +140,12 @@ export class MenubarComponent implements OnInit {
   ngOnInit() {
   }
 
-  testSomeThingClicked() {
+  createInstagramFilter() {
 
-    // MessageBus.publish(Message.ShowError,{msg:'hamza'});
-   // let cmd = new CmdTestSomeThing('ba', this.projectService);
+    
+    let cmd = new CmdCreateInstagramFilter(this._projectService,this._appService);
    
-   //cmd.executeAsync();
+    cmd.executeAsync();
   }
 
   notImplementedYet() {
@@ -139,29 +156,34 @@ export class MenubarComponent implements OnInit {
      cmd.executeAsync();
   }
 
+  showFormLayerProperties(){
+    let cmd=new CmdShowFormLayerProperties();
+    cmd.executeAsync();
+ }
+
   showAbout() {
     MessageBus.publish(Message.ShowAbout, undefined);
   }
   zoomIn() {
-    let cmd = new CmdZoom(CmdZoom.In, this.projectService);
+    let cmd = new CmdZoom(CmdZoom.In, this._projectService);
     cmd.executeAsync();
   }
 
   zoomOut() {
-    let cmd = new CmdZoom(CmdZoom.Out, this.projectService);
+    let cmd = new CmdZoom(CmdZoom.Out, this._projectService);
     cmd.executeAsync();
   }
   newLayer() {
-    let cmd = new CmdNewLayer(this.projectService);
+    let cmd = new CmdNewLayer(this._projectService);
     cmd.executeAsync();
   }
   newTextLayer(){
-    let cmd= new CmdAddTextLayer(this.projectService,this.appService);
+    let cmd= new CmdAddTextLayer(this._projectService,this._appService);
     cmd.executeAsync();
   }
 
   newLayerFromAFile() {
-    let cmd = new CmdNewLayer(this.projectService);
+    let cmd = new CmdNewLayer(this._projectService);
     cmd.executeAsync();
   }
   resize() {
@@ -170,14 +192,16 @@ export class MenubarComponent implements OnInit {
   }
 
   rotate() {
-    let cmd = new CmdRotateWorkspace(this.projectService, this.appService);
+    let cmd = new CmdRotateWorkspace(this._projectService, this._appService);
     cmd.executeAsync();
   }
 
-   effect1977() {
-    let cmd = new CmdEffect1977(this.projectService, this.appService);
+   effect(name:string) {
+    let cmd = new CmdEffect(name,this._projectService, this._appService,this._effectService);
     cmd.executeAsync();
   }
+
+
 
 
   isMenuItem(item: any): boolean {

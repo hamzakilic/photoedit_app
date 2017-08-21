@@ -1,8 +1,8 @@
-<div>
-  <div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="overflow-y: initial !important">
-      <div class="modal-content">
-        <div class="modal-header">
+
+  <div  bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div  class="modal-dialog" style="overflow-y: initial !important">
+      <div ngDraggable [handle]="modalHeader" class="modal-content">
+        <div  #modalHeader  class="modal-header">
           <h4 class="modal-title pull-left">Font Loading</h4>
           <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
           <span aria-hidden="true">&times;</span>
@@ -116,4 +116,4 @@
       </div>
     </div>
   </div>
-</div>
+

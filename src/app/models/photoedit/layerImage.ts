@@ -17,6 +17,7 @@ export class LayerImage extends Layer{
     this.canRotate = true;
 
     this.img = img;
+    
   }
   public render(): void{
     

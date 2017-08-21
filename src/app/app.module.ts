@@ -5,8 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {BusyModule} from 'angular2-busy';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BusyModule } from 'angular2-busy';
 
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap';
@@ -15,7 +15,7 @@ import { TooltipModule } from 'ngx-bootstrap';
 import { ColorPickerModule } from './modulesext/color-picker';
 import { AutoCompleteModule } from './modulesext/autocomplete';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
-
+import { AngularDraggableModule } from 'angular2-draggable';
 
 
 
@@ -35,8 +35,10 @@ import { ProjectComponent } from './components/project/project.component';
 import { ProjectService } from './services/project.service';
 import { KeyboardService } from './services/keyboard.service';
 import { AppService } from './services/app.service';
-import {FontService} from './services/font.service';
+import { FontService } from './services/font.service';
 import { UserService } from './services/user.service';
+import { EffectService } from './services/effect.service';
+
 
 import { MouseDirective } from './directives/mouse.directive';
 import { KeyboardDirective } from './directives/keyboard.directive';
@@ -55,6 +57,7 @@ import { WorkspaceResizeComponent } from './components/workspace-resize/workspac
 import { FormGoogleFontloadComponent } from './components/form-googlefontload/form-googlefontload.component';
 
 import { LayerGraphicsPropertiesComponent } from './components/layer-graphics-properties/layer-graphics-properties.component';
+
 
 
 
@@ -93,15 +96,15 @@ import { LayerGraphicsPropertiesComponent } from './components/layer-graphics-pr
     LayerTextPropertiesComponent,
     WorkspaceResizeComponent,
     FormGoogleFontloadComponent,
-    LayerGraphicsPropertiesComponent,
-    
-    
-   
-    
-   
-    
-    
-    
+    LayerGraphicsPropertiesComponent
+
+
+
+
+
+
+
+
   ],
   imports: [
     BsDropdownModule.forRoot(),
@@ -116,10 +119,11 @@ import { LayerGraphicsPropertiesComponent } from './components/layer-graphics-pr
     HttpModule,
     AutoCompleteModule,
     ColorPickerModule,
-    VirtualScrollModule
+    VirtualScrollModule,
+    AngularDraggableModule
 
   ],
-  providers: [ProjectService, KeyboardService,AppService,FontService,UserService],
+  providers: [ProjectService, KeyboardService, AppService, FontService, UserService, EffectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
