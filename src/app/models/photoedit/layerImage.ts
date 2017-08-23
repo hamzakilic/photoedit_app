@@ -6,7 +6,7 @@ import { Rect} from '../../lib/draw/rect';
 
 export class LayerImage extends Layer{
 
-  private img: HImage;
+  protected img: HImage;
 
   constructor(img:HImage,name?: string) {
     super(name);
@@ -23,6 +23,7 @@ export class LayerImage extends Layer{
     
     
     this.graphics.save();
+    this.graphics.clearRect(new Rect(0,0,this.width,this.height));
    this.setGlobalAlpha(this.globalAlpha);
     if(!this.scaleView){
 
@@ -35,4 +36,5 @@ export class LayerImage extends Layer{
   public dispose(){
 
   }
+ 
 }

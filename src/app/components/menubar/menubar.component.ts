@@ -26,6 +26,7 @@ import { CmdRotateWorkspace } from '../../commands/cmdRotateWorkspace';
 import { CmdAddTextLayer } from '../../commands/cmdAddTextLayer';
 import { CmdShowFormFontLoad } from '../../commands/cmdShowFormFontLoad';
 import { CmdShowFormLayerProperties } from '../../commands/cmdShowFormLayerProperties';
+import { CmdShowFormEffectInstagram} from '../../commands/cmdShowFormEffectInstagram';
 
 import { CmdEffect } from '../../commands/cmdEffect';
 import { CmdCreateInstagramFilter } from '../../commands/cmdCreateInstagramFilter';
@@ -58,35 +59,11 @@ export class MenubarComponent implements OnInit {
     let divider2 = new menuItem('divider', undefined);
     divider2.isDivider = true;
 
+   
 
 
 
-
-
-    /*let menuView = new menu("View");
-
-    menuView.childs.push(new menuItem("Zoom in",new Callback(()=>{ this.zoomIn()})));
-    menuView.childs.push(new menuItem("Zoom out",new Callback(()=>{this.zoomOut()})));
-    menuView.childs.push(new menuItem("Zoom fit",new Callback(this.notImplementedYet)));
-    menuView.childs.push(new menuItem("Zoom fitH",new Callback(this.notImplementedYet)));
-    menuView.childs.push(new menuItem("Zoom fitW",new Callback(this.notImplementedYet)));
-    menuView.childs.push(new menuItem("Zoom fitW",new Callback(this.notImplementedYet)));
-    menuView.childs.push(divider);
-    this.menus.push(menuView);*/
-
-
-    //let menuImage = new menu("Background");
-
-
-    /* let subMenuImage=new menu("Rotate");
-    subMenuImage.childs.push(new menuItem("Rotate 90",new Callback(()=>(this.rotate(90)))));  
-     subMenuImage.childs.push(new menuItem("Rotate 180",new Callback(()=>(this.rotate(180)))));
-      subMenuImage.childs.push(new menuItem("Rotate -90",new Callback(()=>(this.rotate(-90)))))  
-       subMenuImage.childs.push(new menuItem("Rotate -180",new Callback(()=>(this.rotate(-180)))))    
-    menuImage.childs.push(subMenuImage); */
-    //this.menus.push(menuImage);
-
-
+    
     let menuEdit = new menu("Edit");
     menuEdit.childs.push(new menuItem("Cut", new Callback(this.notImplementedYet)));
     menuEdit.childs.push(new menuItem("Copy", new Callback(this.notImplementedYet)));
@@ -110,12 +87,9 @@ export class MenubarComponent implements OnInit {
     this.menus.push(workspace);
 
     let effects = new menu("Effects");
-    this._effectService.effects.items.forEach((val)=>{
-    effects.childs.push(new menuItem(val.name, new Callback(()=>this.effect(val.name))));
-    
-    });
+    effects.childs.push(new menuItem("Instagram like", new Callback(this.showFormInstagramLike)));
     this.menus.push(effects);
-
+    
     let font = new menu("Font");
     font.childs.push(new menuItem("Load Google Fonts", new Callback(this.showFormFontLoad)));
     this.menus.push(font);
@@ -159,6 +133,11 @@ export class MenubarComponent implements OnInit {
   showFormLayerProperties(){
     let cmd=new CmdShowFormLayerProperties();
     cmd.executeAsync();
+ }
+
+ showFormInstagramLike(){
+  let cmd=new CmdShowFormEffectInstagram();
+  cmd.executeAsync();
  }
 
   showAbout() {

@@ -27,6 +27,8 @@ export class FormNewImageComponent implements OnInit {
   @ViewChild("smModal")
   public smModal: ModalDirective;
 
+  width: number;
+  height: number;
   private callFunc: Callback;
   private formNewImage: FormGroup;
   private projectService: ProjectService;
@@ -35,20 +37,20 @@ export class FormNewImageComponent implements OnInit {
     this.width = 16*30;
     this.height = 9*30;
     this.projectService = projectService;
+    this.formNewImage = fb.group({
+      width: [this.width, ValidationService.widthHeightValidator],
+      height: [this.height, ValidationService.widthHeightValidator]
+    });
   }
 
-  width: number;
-  height: number;
+ 
   public get Form(): FormGroup{
     return this.formNewImage;
 
   }
 
   ngOnInit() {
-    this.formNewImage = this.fb.group({
-      width: [this.width, ValidationService.widthHeightValidator],
-      height: [this.height, ValidationService.widthHeightValidator]
-    });
+    
 
     MessageBus.subscribe(Message.ShowFormNewImage, this.callFunc);
   }

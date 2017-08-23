@@ -33,6 +33,7 @@ export class SurfaceComponent  implements OnInit,OnChanges,DoCheck {
    }
 
   ngOnInit() {
+    
 
   }
   ngAfterViewInit(){

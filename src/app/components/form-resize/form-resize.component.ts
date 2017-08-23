@@ -36,6 +36,11 @@ export class FormResizeComponent implements OnInit {
     this.scale=1;
     this.keepRatio=true;
     this.projectService = projectService;
+    this.formResize = this.fb.group({
+      width: [this.width, ValidationService.widthHeightValidator],
+      height: [this.height, ValidationService.widthHeightValidator],
+      keepRatio:[this.keepRatio]
+    });
   
   }
 
@@ -50,11 +55,7 @@ export class FormResizeComponent implements OnInit {
 
   ngOnInit() {
     
-    this.formResize = this.fb.group({
-      width: [this.width, ValidationService.widthHeightValidator],
-      height: [this.height, ValidationService.widthHeightValidator],
-      keepRatio:[this.keepRatio]
-    });
+   
     //console.log("initializing subsribe");
     MessageBus.subscribe(Message.ShowFormResize, this.callFunc);
   }

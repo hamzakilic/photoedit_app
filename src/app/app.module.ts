@@ -57,6 +57,7 @@ import { WorkspaceResizeComponent } from './components/workspace-resize/workspac
 import { FormGoogleFontloadComponent } from './components/form-googlefontload/form-googlefontload.component';
 
 import { LayerGraphicsPropertiesComponent } from './components/layer-graphics-properties/layer-graphics-properties.component';
+import { FormEffectsInstagramComponent } from './components/form-effects-instagram/form-effects-instagram.component';
 
 
 
@@ -96,7 +97,8 @@ import { LayerGraphicsPropertiesComponent } from './components/layer-graphics-pr
     LayerTextPropertiesComponent,
     WorkspaceResizeComponent,
     FormGoogleFontloadComponent,
-    LayerGraphicsPropertiesComponent
+    LayerGraphicsPropertiesComponent,
+    FormEffectsInstagramComponent
 
 
 

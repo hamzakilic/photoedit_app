@@ -66,6 +66,8 @@ export class HImage extends HEventEmitter {
      public processImmutable(algorithm:IImageAlgorithmImmutable):HImage{
         return algorithm.process(this);
     }
+
+   
     
 
 
