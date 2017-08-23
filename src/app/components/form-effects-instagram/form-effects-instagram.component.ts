@@ -15,6 +15,7 @@ import {LayerImageEffect} from "../../models/photoedit/layerImageEffect";
 import { HImage} from "../../lib/image";
 import { ImageAlgorithmEffect} from "../../lib/imagealgorithm/imageAlgorithmEffect";
 import { ImageAlgorithmClone} from "../../lib/imagealgorithm/imageAlgorithmClone";
+import { CmdEffect } from "../../commands/cmdEffect";
  
 import { AutocompleteComponent} from '../../modulesext/autocomplete/autocomplete.component';
 
@@ -35,14 +36,16 @@ export class FormEffectsInstagramComponent implements OnInit {
 
   private _effectService:EffectService;
   private _projectService:ProjectService;
+  private _appService:AppService;
   private callFunc:Callback;
 
   public effectLayer:LayerImageEffect;
   private _emptyEffectLayer:LayerImageEffect;
-  constructor(effectService:EffectService,projectService:ProjectService) {
+  constructor(effectService:EffectService,projectService:ProjectService,appService:AppService) {
       this.callFunc=new Callback(()=>{this.show()});
       this._effectService=effectService;
       this._projectService=projectService;
+      this._appService=appService;
       let layer=new LayerImageEffect(new HImage(320,240));   
       layer.whenCreatedGraphicsAgain=new Callback(()=>layer.render());
       layer.resizedAgain=false;   
@@ -128,9 +131,10 @@ export class FormEffectsInstagramComponent implements OnInit {
 
       return this.effectLayer;
  }
+ private _lastSelectedEffect:string;
 
  applyEffect(effectName:string){
-
+  this._lastSelectedEffect=effectName;
   let originalImage=  this.effectLayer.getOriginalImage();
   let effectFounded= this._effectService.effects.items.find(p=>p.name==effectName);
   if(effectFounded){
@@ -138,6 +142,14 @@ export class FormEffectsInstagramComponent implements OnInit {
    let img = effect.process(originalImage);
     this.effectLayer.setImg(img);
   }
+ }
+
+ close(){
+   if(this._lastSelectedEffect){
+     let cmd=new CmdEffect(this._lastSelectedEffect,this._projectService,this._appService,this._effectService);
+     cmd.executeAsync();
+   }
+   this.smModal.hide();
  }
 
 
