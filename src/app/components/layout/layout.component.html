@@ -3,16 +3,37 @@
     <menubar-component></menubar-component>
   </div>
 
-  <div class="toolbar gray-dark">
-    <toolbar-component></toolbar-component>
-  </div>
+
   <div id="projectfiles">
     <project-component></project-component>
 
 
   </div>
-  <div class="statusbar gray-light">
+  <!-- <div class="statusbar gray-light">
     <statusbar-component></statusbar-component>
+  </div> -->
+  <div ngDraggable class="panelLayerProperties" [handle]="panelHeaderProperties">
+    <div #panelHeaderProperties class="modal-header unselectableText">
+      <span>Layer Properties</span>
+    </div>
+      <layer-properties-component>
+
+      </layer-properties-component>
   </div>
+
+  <div ngDraggable class="panelLayersInfo" [handle]="panelHeaderInfo">
+      <div #panelHeaderInfo class="modal-header unselectableText">
+        <span>Layers</span>
+      </div>
+      <layersInfo-component></layersInfo-component>
+    </div>
+
+
+    <div  class="panelZoom" >
+        
+        <zoom-component></zoom-component>
+    </div>
+  
+
 
 </div>
