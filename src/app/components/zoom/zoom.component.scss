@@ -1,9 +1,9 @@
 .zoomInfo{
- margin-top: 10px;
+
     
  background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
   background-image: -webkit-linear-gradient(top, #615c5c, #887f7f);
-  
+  border-radius: 30px;
 }
 
 .zoomHeader{
@@ -11,7 +11,7 @@
       line-height: 1rem;
     color: white;
    
-    padding-left: 4px;
+    padding-left: 15px;
 
 }
 .zoomButton{
@@ -29,9 +29,16 @@
     margin-left: 0px !important;
     padding-right: 0px;
     padding-left: 0px;
+    display: inline-block;
+    width: 100%;
     
 }
 .minusB{
       padding-left: 2px;
+      padding-right:2px;
+}
+
+.progress{
+    margin-top:4px;
 }
 

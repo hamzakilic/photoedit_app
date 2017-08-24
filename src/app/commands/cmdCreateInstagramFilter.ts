@@ -12,7 +12,7 @@ import { LayerImage } from '../models/photoedit/layerImage';
 import { Calc } from '../lib/calc';
 import { Rect } from '../lib/draw/rect';
 import { Imaging } from '../lib/imagealgorithm/imaging';
-import { ImageAlgorithm1977} from  '../lib/imagealgorithm/imageAlgorithm1977';
+
 
 
 export class CmdCreateInstagramFilter extends CommandBusy {
