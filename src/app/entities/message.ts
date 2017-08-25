@@ -6,6 +6,7 @@ export class Message{
   public static ShowBusy='showBusy';
   public static ShowFormFontLoad="showFormFontLoad";
   public static ShowFormEffectsInstagram="showFormEffectsInstagram";
+  public static ShowFormSampleImages="showFormSampleImages";
   public static ShowFormLayerProperties="showFormLayerProperties";
   public static GoogleFontsLanguagesGetted="googleFontsLanguagesGetted";
   public static FontLoaded="fontLoaded";

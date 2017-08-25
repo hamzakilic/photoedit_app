@@ -93,11 +93,7 @@ class googleFonts {
         this._loadedJson = true;
         //pusblish a message 
         MessageBus.publish(Message.GoogleFontsLanguagesGetted, undefined);
-        /* let fontNames=[];
-        this._fonts.forEach((val,index,arr)=>{
-          fontNames.push(val.family);
-        });
-        this.loadGoogleFonts(fontNames); */
+        
 
       }, err => { console.log(err); this._loadedJson = false; })
     }

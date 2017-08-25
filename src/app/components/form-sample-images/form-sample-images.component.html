@@ -1,0 +1,28 @@
+<div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="overflow-y: initial !important">
+    <div ngDraggable [handle]="modalHeader" class="modal-content" style="width:800px">
+      <div #modalHeader class="modal-header">
+        <h4 class="modal-title pull-left">Effects</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+      </div>
+      <div class="modal-body" style="height:530px;overflow-y:auto;color:black">
+        <div class="container-fluid">
+          <div class="row">
+
+            <div *ngFor="let file of images" class="card text-center mouseoverhand" style="display:inline-block;margin:5px">
+
+              <div class="card-block">
+                <img [src]="link(file)" alt="{{file}}" (click)="loadFile(file)">
+              </div>
+            </div>
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

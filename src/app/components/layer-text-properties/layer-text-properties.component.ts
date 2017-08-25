@@ -103,7 +103,7 @@ public changeFontSize(value:any){
 
 
   public fontSelected(value:any):void {
-
+  
     this.layer.setFontFamily(value.id);
   }
  
@@ -116,6 +116,7 @@ public changeFontSize(value:any){
   }
  
   public fontRefreshValue(value:any):void {
+    
     this.value = value;
   }
 
