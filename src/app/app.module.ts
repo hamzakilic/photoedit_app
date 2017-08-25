@@ -25,7 +25,7 @@ import { NotSupportedBrowserComponent } from './components//notsupportedbrowser/
 import { LayoutComponent } from './components/layout/layout.component';
 import { StatusbarComponent } from './components/statusbar/statusbar.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+
 import { SurfaceComponent } from './components/surface/surface.component';
 import { MessageBoxModalComponent } from './components/messagebox-modal/messagebox-modal.component';
 import { FormNewImageComponent } from './components/form-new-image/form-new-image.component';
@@ -58,6 +58,7 @@ import { FormGoogleFontloadComponent } from './components/form-googlefontload/fo
 
 import { LayerGraphicsPropertiesComponent } from './components/layer-graphics-properties/layer-graphics-properties.component';
 import { FormEffectsInstagramComponent } from './components/form-effects-instagram/form-effects-instagram.component';
+import { FormSampleImagesComponent } from './components/form-sample-images/form-sample-images.component';
 
 
 
@@ -77,7 +78,7 @@ import { FormEffectsInstagramComponent } from './components/form-effects-instagr
     LayoutComponent,
     StatusbarComponent,
     MenubarComponent,
-    ToolbarComponent,
+    
     SurfaceComponent,
     MessageBoxModalComponent,
     FormNewImageComponent,
@@ -98,7 +99,8 @@ import { FormEffectsInstagramComponent } from './components/form-effects-instagr
     WorkspaceResizeComponent,
     FormGoogleFontloadComponent,
     LayerGraphicsPropertiesComponent,
-    FormEffectsInstagramComponent
+    FormEffectsInstagramComponent,
+    FormSampleImagesComponent
 
 
 

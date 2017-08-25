@@ -7,7 +7,7 @@
 
   <span class="input-group-addon proName" tooltip="Font" placement="right">F</span>
 
-  <autocomplete class="form-control  autoComplete" style="padding:0px" [allowClear]="true" [items]="fontList" [disabled]="disabled" (data)="fontRefreshValue($event)"
+  <autocomplete class="form-control  autoComplete" style="padding:0px" [allowClear]="false" [items]="fontList" [disabled]="disabled" (data)="fontRefreshValue($event)"
     (selected)="fontSelected($event)" (removed)="fontRemoved($event)" (typed)="fontTyped($event)" [active]="currentLayerFontFamily()"
     placeholder="No font selected"></autocomplete>
 </div>

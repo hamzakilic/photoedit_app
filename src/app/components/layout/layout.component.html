@@ -12,7 +12,7 @@
   <!-- <div class="statusbar gray-light">
     <statusbar-component></statusbar-component>
   </div> -->
-  <div ngDraggable class="panelLayerProperties" [handle]="panelHeaderProperties">
+  <div *ngIf="hasLayer" ngDraggable class="panelLayerProperties" [handle]="panelHeaderProperties">
     <div #panelHeaderProperties class="modal-header unselectableText">
       <span>Layer Properties</span>
     </div>
@@ -21,7 +21,7 @@
       </layer-properties-component>
   </div>
 
-  <div ngDraggable class="panelLayersInfo" [handle]="panelHeaderInfo">
+  <div *ngIf="hasLayer" ngDraggable class="panelLayersInfo" [handle]="panelHeaderInfo">
       <div #panelHeaderInfo class="modal-header unselectableText">
         <span>Layers</span>
       </div>
@@ -29,7 +29,7 @@
     </div>
 
 
-    <div  class="panelZoom" >
+    <div *ngIf="hasLayer" class="panelZoom" >
         
         <zoom-component></zoom-component>
     </div>

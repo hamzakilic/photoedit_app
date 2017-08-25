@@ -27,6 +27,7 @@ import { CmdAddTextLayer } from '../../commands/cmdAddTextLayer';
 import { CmdShowFormFontLoad } from '../../commands/cmdShowFormFontLoad';
 import { CmdShowFormLayerProperties } from '../../commands/cmdShowFormLayerProperties';
 import { CmdShowFormEffectInstagram} from '../../commands/cmdShowFormEffectInstagram';
+import { CmdShowFormSampleImages } from '../../commands/cmdShowFormSampleImages';
 
 import { CmdEffect } from '../../commands/cmdEffect';
 import { CmdCreateInstagramFilter } from '../../commands/cmdCreateInstagramFilter';
@@ -49,8 +50,10 @@ export class MenubarComponent implements OnInit {
     this.menus = [];
 
     let menuFile = new menu("File");
+    
     menuFile.childs.push(new menuItemNewImage(projectService));
     menuFile.childs.push(new menuItemOpenImage(projectService));
+    menuFile.childs.push(new menuItem("Sample Images", new Callback(() => { this.showFormSampleImages(true) })));
     let divider = new menuItem('divider', undefined);
     divider.isDivider = true;
     menuFile.childs.push(divider);   
@@ -71,20 +74,23 @@ export class MenubarComponent implements OnInit {
     menuEdit.childs.push(new menuItem("Delete", new Callback(this.notImplementedYet)));
     this.menus.push(menuEdit);
 
-    let menuLayers = new menu("Layer");
-    menuLayers.childs.push(new menuItem("New", new Callback(() => { this.newLayer() })));
-    menuLayers.childs.push(new menuItem("New from selection", new Callback(this.notImplementedYet)));
-    menuLayers.childs.push(new menuItemOpenImage(projectService, "New from a file", false));
-     menuLayers.childs.push(new menuItem("New text layer", new Callback(()=>this.newTextLayer())));
-    this.menus.push(menuLayers);
+
 
 
     
 
-    let workspace = new menu("Workspace");
+    let workspace = new menu("Image");
     workspace.childs.push(new menuItem("Resize", new Callback(() => (this.resize()))));
     workspace.childs.push(new menuItem("Rotate 90", new Callback(() => { this.rotate() })));
     this.menus.push(workspace);
+
+    let menuLayers = new menu("Layer");
+    menuLayers.childs.push(new menuItem("New", new Callback(() => { this.newLayer() })));
+    menuLayers.childs.push(new menuItem("New from selection", new Callback(this.notImplementedYet)));
+    menuLayers.childs.push(new menuItemOpenImage(projectService, "New from a file", false));
+    menuLayers.childs.push(new menuItem("New text layer", new Callback(()=>this.newTextLayer())));
+    menuLayers.childs.push(new menuItem("New from sample images", new Callback(()=>this.showFormSampleImages(false))));
+    this.menus.push(menuLayers);
 
     let effects = new menu("Effects");
     effects.childs.push(new menuItem("Instagram like", new Callback(this.showFormInstagramLike)));
@@ -94,9 +100,9 @@ export class MenubarComponent implements OnInit {
     font.childs.push(new menuItem("Load Google Fonts", new Callback(this.showFormFontLoad)));
     this.menus.push(font);
 
-    let window = new menu("Window");
+ /*    let window = new menu("Window");
     window.childs.push(new menuItem("Show Layer Properties", new Callback(this.showFormLayerProperties)));
-    this.menus.push(window);
+    this.menus.push(window); */
 
     let menuHelp = new menu("Help");
     menuHelp.childs.push(new menuItem("About", new Callback(this.showAbout)));
@@ -139,6 +145,13 @@ export class MenubarComponent implements OnInit {
   let cmd=new CmdShowFormEffectInstagram();
   cmd.executeAsync();
  }
+/**
+ * opens sample images dialog for adding new workspace or layer
+ */
+ showFormSampleImages(openAsWorkspace:boolean){
+  let cmd=new CmdShowFormSampleImages(openAsWorkspace);
+  cmd.executeAsync();
+}
 
   showAbout() {
     MessageBus.publish(Message.ShowAbout, undefined);
