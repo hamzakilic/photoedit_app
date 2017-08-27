@@ -15,12 +15,12 @@ import { Effect } from '../entities/effect';
 import { Calc } from '../lib/calc';
 import { Rect } from '../lib/draw/rect';
 import { Imaging } from '../lib/imagealgorithm/imaging';
-import { ImageAlgorithmBrightness } from '../lib/imagealgorithm/imageAlgorithmBrightness';
-import { ImageAlgorithmContrast } from '../lib/imagealgorithm/imageAlgorithmContrast';
+import { ImageAlgorithmMath } from '../lib/imagealgorithm/imageAlgorithmMath';
+import { ImageColorMath,ImageColorMathBrightness,ImageColorMathContrast} from '../lib/imagealgorithm/imageColorMath';
 
 
 
-export class CmdAdjustBrightnessContrast extends CommandBusy {
+export class CmdAdjustColors extends CommandBusy {
 
      private _brightness:number;
      private _constrast:number;
@@ -52,17 +52,15 @@ export class CmdAdjustBrightnessContrast extends CommandBusy {
 
                         if (selectedLayer) {
                             let img=selectedLayer.getImage();
-                            
+                            let maths=[];
                             if(this._brightness!=0){
-                            let brightnessAlgorightm = new ImageAlgorithmBrightness(this._brightness);
-                            img = brightnessAlgorightm.process(img);
+                             maths.push(new ImageColorMathBrightness(this._brightness));
                             }
                             if(this._constrast!=0){
-                            let contrastAlgorithm = new ImageAlgorithmContrast(this._brightness);
-                            img = contrastAlgorithm.process(img);
+                                maths.push(new ImageColorMathBrightness(this._constrast));
                             }
-
-
+                            let algo=new ImageAlgorithmMath(maths);
+                            img= algo.process(img);
                             let newLayer = new LayerImage(img, selectedLayer.name);
                             workspace.replaceLayer(selectedLayer, newLayer);
 
