@@ -17,8 +17,8 @@ export class LayerImageEffect extends LayerImage{
     this.width = img.width;
     this.height = img.height;
     this.canRotate = true;
-    let cloner= new ImageAlgorithmClone();
-    this._orgImage=cloner.process(img);
+  /*   let cloner= new ImageAlgorithmClone();
+    this._orgImage=cloner.process(img); */
  
    
     
@@ -29,9 +29,17 @@ export class LayerImageEffect extends LayerImage{
   }
   public setImg(img:HImage){
     this.img=img;
+    this.sourceMask=new Rect(0,0,img.width,img.height);
+    this.width=img.width;
+    this.height=img.height;
     this.render();
   }
+  public setOrgImage(img:HImage){
+   
+    this._orgImage=img;
+  }
   public getOriginalImage():HImage{
+   
     let cloner= new ImageAlgorithmClone();
     let cloned=cloner.process(this._orgImage);
     return cloned;

@@ -23,7 +23,7 @@ import { AngularDraggableModule } from 'angular2-draggable';
 import { AppComponent } from './app.component';
 import { NotSupportedBrowserComponent } from './components//notsupportedbrowser/notsupported.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { StatusbarComponent } from './components/statusbar/statusbar.component';
+
 import { MenubarComponent } from './components/menubar/menubar.component';
 
 import { SurfaceComponent } from './components/surface/surface.component';
@@ -57,8 +57,10 @@ import { WorkspaceResizeComponent } from './components/workspace-resize/workspac
 import { FormGoogleFontloadComponent } from './components/form-googlefontload/form-googlefontload.component';
 
 import { LayerGraphicsPropertiesComponent } from './components/layer-graphics-properties/layer-graphics-properties.component';
-import { FormEffectsInstagramComponent } from './components/form-effects-instagram/form-effects-instagram.component';
+import { FormColorRemapComponent } from './components/form-color-remap/form-color-remap.component';
 import { FormSampleImagesComponent } from './components/form-sample-images/form-sample-images.component';
+import { FormColorAdjustmentComponent } from './components/form-color-adjustment/form-color-adjustment.component';
+import { TrackbarComponent } from './components/trackbar/trackbar.component';
 
 
 
@@ -76,7 +78,7 @@ import { FormSampleImagesComponent } from './components/form-sample-images/form-
     AppComponent,
     NotSupportedBrowserComponent,
     LayoutComponent,
-    StatusbarComponent,
+    
     MenubarComponent,
     
     SurfaceComponent,
@@ -99,8 +101,10 @@ import { FormSampleImagesComponent } from './components/form-sample-images/form-
     WorkspaceResizeComponent,
     FormGoogleFontloadComponent,
     LayerGraphicsPropertiesComponent,
-    FormEffectsInstagramComponent,
-    FormSampleImagesComponent
+    FormColorRemapComponent,
+    FormSampleImagesComponent,
+    FormColorAdjustmentComponent,
+    TrackbarComponent
 
 
 

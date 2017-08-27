@@ -15,17 +15,19 @@ import { Effect } from '../entities/effect';
 import { Calc } from '../lib/calc';
 import { Rect } from '../lib/draw/rect';
 import { Imaging } from '../lib/imagealgorithm/imaging';
-import { ImageAlgorithmEffect } from '../lib/imagealgorithm/imageAlgorithmEffect';
+import { ImageAlgorithmBrightness } from '../lib/imagealgorithm/imageAlgorithmBrightness';
+import { ImageAlgorithmContrast } from '../lib/imagealgorithm/imageAlgorithmContrast';
 
 
-export class CmdEffect extends CommandBusy {
 
-    private _effectService: EffectService;
-    private _effectName:string;
-    constructor(effectName:string, projectService: ProjectService, appService: AppService, effectService: EffectService) {
+export class CmdAdjustBrightnessContrast extends CommandBusy {
+
+     private _brightness:number;
+     private _constrast:number;
+    constructor(brightness:number,contrast:number,  projectService: ProjectService, appService: AppService) {
         super(projectService, appService);
-        this._effectService = effectService;
-        this._effectName=effectName;
+       this._brightness=brightness;
+       this._constrast=contrast;
 
 
     }
@@ -37,10 +39,8 @@ export class CmdEffect extends CommandBusy {
         if (this.projectService.currentProject)
             if (this.projectService.currentProject.activeWorkspace) {
                 let workspace = this.projectService.currentProject.activeWorkspace;
-                if (workspace && workspace.layers.length > 0
-                     && this._effectService.effects && this._effectService.effects.items) {
-                    let effectValue = this._effectService.effects.items.find(p => p.name === this._effectName);
-                    if (effectValue) {
+                if (workspace && workspace.hasLayer) {
+                   
 
 
                         let selectedLayer = workspace.layers.find((layer) => layer.isSelected);
@@ -51,15 +51,25 @@ export class CmdEffect extends CommandBusy {
                         }
 
                         if (selectedLayer) {
-                            let effect = new ImageAlgorithmEffect(effectValue);
-                            let img = effect.process(selectedLayer.getImage());
+                            let img=selectedLayer.getImage();
+                            
+                            if(this._brightness!=0){
+                            let brightnessAlgorightm = new ImageAlgorithmBrightness(this._brightness);
+                            img = brightnessAlgorightm.process(img);
+                            }
+                            if(this._constrast!=0){
+                            let contrastAlgorithm = new ImageAlgorithmContrast(this._brightness);
+                            img = contrastAlgorithm.process(img);
+                            }
+
+
                             let newLayer = new LayerImage(img, selectedLayer.name);
                             workspace.replaceLayer(selectedLayer, newLayer);
 
 
 
                         }
-                    }
+                    
 
 
                 }

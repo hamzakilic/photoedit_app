@@ -26,10 +26,11 @@ import { CmdRotateWorkspace } from '../../commands/cmdRotateWorkspace';
 import { CmdAddTextLayer } from '../../commands/cmdAddTextLayer';
 import { CmdShowFormFontLoad } from '../../commands/cmdShowFormFontLoad';
 import { CmdShowFormLayerProperties } from '../../commands/cmdShowFormLayerProperties';
-import { CmdShowFormEffectInstagram} from '../../commands/cmdShowFormEffectInstagram';
+import { CmdShowFormColorRemap} from '../../commands/cmdShowFormColorRemap';
+import { CmdShowFormColorAdjustments} from '../../commands/cmdShowFormColorAdjustment';
 import { CmdShowFormSampleImages } from '../../commands/cmdShowFormSampleImages';
 
-import { CmdEffect } from '../../commands/cmdEffect';
+import { CmdColorRemap } from '../../commands/cmdColorRemap';
 import { CmdCreateInstagramFilter } from '../../commands/cmdCreateInstagramFilter';
 
 
@@ -92,9 +93,10 @@ export class MenubarComponent implements OnInit {
     menuLayers.childs.push(new menuItem("New from sample images", new Callback(()=>this.showFormSampleImages(false))));
     this.menus.push(menuLayers);
 
-    let effects = new menu("Effects");
-    effects.childs.push(new menuItem("Instagram like", new Callback(this.showFormInstagramLike)));
-    this.menus.push(effects);
+    let filters = new menu("Filters");
+    filters.childs.push(new menuItem("Color remap", new Callback(this.showFormColorRemap)));
+    filters.childs.push(new menuItem("Color adjustment", new Callback(this.showFormColorAdjustment)));
+    this.menus.push(filters);
     
     let font = new menu("Font");
     font.childs.push(new menuItem("Load Google Fonts", new Callback(this.showFormFontLoad)));
@@ -141,8 +143,13 @@ export class MenubarComponent implements OnInit {
     cmd.executeAsync();
  }
 
- showFormInstagramLike(){
-  let cmd=new CmdShowFormEffectInstagram();
+ showFormColorRemap(){
+  let cmd=new CmdShowFormColorRemap();
+  cmd.executeAsync();
+ }
+
+ showFormColorAdjustment(){
+  let cmd=new CmdShowFormColorAdjustments();
   cmd.executeAsync();
  }
 /**
@@ -188,8 +195,8 @@ export class MenubarComponent implements OnInit {
     cmd.executeAsync();
   }
 
-   effect(name:string) {
-    let cmd = new CmdEffect(name,this._projectService, this._appService,this._effectService);
+   colorRemap(name:string) {
+    let cmd = new CmdColorRemap(name,this._projectService, this._appService,this._effectService);
     cmd.executeAsync();
   }
 

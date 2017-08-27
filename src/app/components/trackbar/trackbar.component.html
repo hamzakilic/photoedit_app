@@ -1,0 +1,29 @@
+<div class="rowEx" mouse (mouseUp)="mouseUp()" (mouseMove)="mouseMove($event)" (mouseLeave)="mouseLeave()" >
+<div class="container no-gutters">
+    <div class="row no-gutters">
+      <div class="col-md-2 col-sm-2 col-lg-1">
+        <span class=" minusB">
+    <i class="fa fa-minus-circle  mouseoverhand "   aria-hidden="true" (click)="minus()"></i>  
+  </span>
+      </div>
+      <div class="col-md-8 col-sm-8 col-lg-10">
+        <div #progressdiv class="progress  bar " mouse (mouseDown)="mouseDownProgress($event)">
+
+          <span class="active progressbar" [style.width.%]="position" >
+  
+    </span>
+          <span class="zoomButton">
+    <i class="fa fa-circle fa-lg mouseoverhand"  mouse (mouseDown)="mouseDown()"  aria-hidden="true" ></i>
+    </span>
+
+
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-2 col-lg-1">
+        <span class="minusB">
+  <i class="fa fa-plus-circle  mouseoverhand " aria-hidden="true" (click)="plus()" ></i>  
+  </span>
+      </div>
+    </div>
+  </div>
+</div>

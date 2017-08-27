@@ -4,9 +4,9 @@ import { HImage } from '../image';
 import { Effect } from '../../entities/effect';
 
 /**
-* creates a Clarendon filtered image
+* creates a  filtered image
 */
-export class ImageAlgorithmEffect implements IImageAlgorithmMutable {
+export class ImageAlgorithmColorRemap implements IImageAlgorithmMutable {
 
     private _effect: Effect;
     constructor(effect:Effect) {

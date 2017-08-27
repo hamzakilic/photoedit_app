@@ -42,6 +42,7 @@ export class Graphics {
    * @returns HImage
    */
   public getImage():HImage{
+    
     let imageData = this._context.getImageData(0, 0, this.width, this.height);    
     let arr = new Uint8ClampedArray(imageData.data);
     let img = new HImage(this.width,this.height,arr);
