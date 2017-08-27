@@ -8,7 +8,7 @@ import {Constants} from '../lib/constants';
 
 
 
-export class CmdShowFormEffectInstagram extends Command {
+export class CmdShowFormColorRemap extends Command {
 
   constructor() {
     super();
@@ -16,6 +16,6 @@ export class CmdShowFormEffectInstagram extends Command {
   }
   protected execute(): void {
 
-      MessageBus.publish(Message.ShowFormEffectsInstagram,undefined);
+      MessageBus.publish(Message.ShowFormColorRemap,undefined);
   }
 }

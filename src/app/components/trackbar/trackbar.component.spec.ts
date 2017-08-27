@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StatusbarComponent } from './statusbar.component';
+import { TrackbarComponent } from './trackbar.component';
 
-describe('StatusbarComponent', () => {
-  let component: StatusbarComponent;
-  let fixture: ComponentFixture<StatusbarComponent>;
+describe('TrackbarComponent', () => {
+  let component: TrackbarComponent;
+  let fixture: ComponentFixture<TrackbarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StatusbarComponent ]
+      declarations: [ TrackbarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StatusbarComponent);
+    fixture = TestBed.createComponent(TrackbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

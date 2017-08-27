@@ -5,8 +5,9 @@ export class Message{
   public static ShowAbout='showAbout';
   public static ShowBusy='showBusy';
   public static ShowFormFontLoad="showFormFontLoad";
-  public static ShowFormEffectsInstagram="showFormEffectsInstagram";
+  public static ShowFormColorRemap="showFormColorRemap";
   public static ShowFormSampleImages="showFormSampleImages";
+  public static ShowFormColorAdjustments="showFormColorAdjustments";
   public static ShowFormLayerProperties="showFormLayerProperties";
   public static GoogleFontsLanguagesGetted="googleFontsLanguagesGetted";
   public static FontLoaded="fontLoaded";

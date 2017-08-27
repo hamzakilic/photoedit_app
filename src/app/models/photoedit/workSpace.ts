@@ -134,6 +134,7 @@ export class Workspace extends HEventEmitter {
     destination.setBlendMode(destination.blendMode);
     destination.setGlobalAlpha(source.globalAlpha);
     destination.isSelected = true;
+    destination.scale=this.scale;
     destination.rotateAngleDeg = source.rotateAngleDeg;
     destination.marginLeft = source.marginLeft;
     destination.marginTop = source.marginTop;

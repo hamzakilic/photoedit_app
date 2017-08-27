@@ -13,18 +13,18 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Effect } from "../../entities/effect";
 import {LayerImageEffect} from "../../models/photoedit/layerImageEffect";
 import { HImage} from "../../lib/image";
-import { ImageAlgorithmEffect} from "../../lib/imagealgorithm/imageAlgorithmEffect";
+import { ImageAlgorithmColorRemap} from "../../lib/imagealgorithm/imageAlgorithmColorRemap";
 import { ImageAlgorithmClone} from "../../lib/imagealgorithm/imageAlgorithmClone";
-import { CmdEffect } from "../../commands/cmdEffect";
+import { CmdColorRemap } from "../../commands/cmdColorRemap";
  
 import { AutocompleteComponent} from '../../modulesext/autocomplete/autocomplete.component';
 
 @Component({
-  selector: 'form-effects-instagram',
-  templateUrl: './form-effects-instagram.component.html',
-  styleUrls: ['./form-effects-instagram.component.scss']
+  selector: 'form-color-remap',
+  templateUrl: './form-color-remap.component.html',
+  styleUrls: ['./form-color-remap.component.scss']
 })
-export class FormEffectsInstagramComponent implements OnInit {
+export class FormColorRemapComponent implements OnInit {
 
   @ViewChild("smModal")
   public smModal: ModalDirective;
@@ -41,13 +41,14 @@ export class FormEffectsInstagramComponent implements OnInit {
 
   public effectLayer:LayerImageEffect;
   private _emptyEffectLayer:LayerImageEffect;
+  private _initialized=false;
   constructor(effectService:EffectService,projectService:ProjectService,appService:AppService) {
       this.callFunc=new Callback(()=>{this.show()});
       this._effectService=effectService;
       this._projectService=projectService;
       this._appService=appService;
       let layer=new LayerImageEffect(new HImage(320,240));   
-      layer.whenCreatedGraphicsAgain=new Callback(()=>layer.render());
+      layer.whenCreatedGraphicsAgain=new Callback(()=>{layer.render();});
       layer.resizedAgain=false;   
       this._emptyEffectLayer=layer;
 
@@ -56,11 +57,11 @@ export class FormEffectsInstagramComponent implements OnInit {
 
   ngOnInit() {   
     
-    MessageBus.subscribe(Message.ShowFormEffectsInstagram, this.callFunc);
+    MessageBus.subscribe(Message.ShowFormColorRemap, this.callFunc);
     
   }
   ngOnDestroy() {
-    MessageBus.unsubscribe(Message.ShowFormEffectsInstagram, this.callFunc);
+    MessageBus.unsubscribe(Message.ShowFormColorRemap, this.callFunc);
     
   }
   submitted = false;
@@ -93,7 +94,7 @@ export class FormEffectsInstagramComponent implements OnInit {
              
           }
           let layer=new LayerImageEffect(selectedLayer.getImage());
-          let rect={width:550,height:450};
+          let rect={width:480,height:320};
           let scaleX= rect.width/layer.width;
           let scaleY= rect.height/layer.height;
           
@@ -107,10 +108,10 @@ export class FormEffectsInstagramComponent implements OnInit {
 
           }
       
-          layer.whenCreatedGraphicsAgain=new Callback(()=>layer.render());
+          layer.whenCreatedGraphicsAgain=new Callback(()=>{layer.render();});
           layer.resizedAgain=false;         
           this.effectLayer= layer;
-          
+          this._initialized=false;
         }
 
         
@@ -134,11 +135,15 @@ export class FormEffectsInstagramComponent implements OnInit {
  private _lastSelectedEffect:string;
 
  applyEffect(effectName:string){
+   if(!this._initialized){
+     this.effectLayer.setOrgImage(this.effectLayer.getImage());
+     this._initialized=true;
+   }
   this._lastSelectedEffect=effectName;
   let originalImage=  this.effectLayer.getOriginalImage();
   let effectFounded= this._effectService.effects.items.find(p=>p.name==effectName);
   if(effectFounded){
-    let effect = new ImageAlgorithmEffect(effectFounded);
+    let effect = new ImageAlgorithmColorRemap(effectFounded);
    let img = effect.process(originalImage);
     this.effectLayer.setImg(img);
   }
@@ -146,7 +151,7 @@ export class FormEffectsInstagramComponent implements OnInit {
 
  close(){
    if(this._lastSelectedEffect){
-     let cmd=new CmdEffect(this._lastSelectedEffect,this._projectService,this._appService,this._effectService);
+     let cmd=new CmdColorRemap(this._lastSelectedEffect,this._projectService,this._appService,this._effectService);
      cmd.executeAsync();
    }
    this.smModal.hide();
