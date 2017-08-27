@@ -19,7 +19,7 @@ export class ImageColorMathBrightness extends ImageColorMath{
     
 }
 
-export class ImageColorMathContract extends ImageColorMath{
+export class ImageColorMathContrast extends ImageColorMath{
     private _contrast:number
     private _factor:number;
     constructor(constrat:number) {

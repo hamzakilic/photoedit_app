@@ -17,7 +17,9 @@ import { ImageAlgorithmBrightness } from "../../lib/imagealgorithm/imageAlgorith
 import { ImageAlgorithmContrast } from "../../lib/imagealgorithm/imageAlgorithmContrast";
 import { ImageAlgorithmGamma } from "../../lib/imagealgorithm/imageAlgorithmGamma";
 import { ImageAlgorithmClone } from "../../lib/imagealgorithm/imageAlgorithmClone";
-import { CmdAdjustBrightnessContrast }  from "../../commands/cmdAdjustBrightnessContrast";
+import { ImageAlgorithmMath} from "../../lib/imagealgorithm/imageAlgorithmMath";
+import { ImageColorMath,ImageColorMathBrightness,ImageColorMathContrast} from "../../lib/imagealgorithm/imageColorMath";
+import { CmdAdjustColors }  from "../../commands/cmdAdjustColors";
 
 
 import { AutocompleteComponent } from '../../modulesext/autocomplete/autocomplete.component';
@@ -181,14 +183,13 @@ export class FormColorAdjustmentComponent implements OnInit {
       
       this._filterPromise=new Promise((resolve,reject)=>{
       let originalImage = this.effectLayer.getOriginalImage();
-      if (this.brightness != 0) {
-        let filter = new ImageAlgorithmBrightness(this.brightness);
-        originalImage = filter.process(originalImage);
-      }
-      if (this.contrast != 0) {
-        let filter = new ImageAlgorithmContrast(this.contrast);
-        originalImage = filter.process(originalImage);
-      }
+      let maths=[];
+      if(this.brightness!=0)
+        maths.push(new ImageColorMathBrightness(this.brightness));
+      if(this.contrast!=0)
+        maths.push(new ImageColorMathContrast(this.contrast));
+      let algoMaths=new ImageAlgorithmMath(maths);
+      originalImage= algoMaths.process(originalImage);
 
       this.effectLayer.setImg(originalImage);
       resolve();
@@ -199,7 +200,7 @@ export class FormColorAdjustmentComponent implements OnInit {
   }
 
   close() {
-    let cmd=new CmdAdjustBrightnessContrast(this.brightness,this.contrast,this._projectService,this._appService);
+    let cmd=new CmdAdjustColors(this.brightness,this.contrast,this._projectService,this._appService);
     cmd.executeAsync();
 
     this.smModal.hide();
