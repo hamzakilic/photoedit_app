@@ -31,7 +31,11 @@ import { CmdShowFormColorAdjustments} from '../../commands/cmdShowFormColorAdjus
 import { CmdShowFormSampleImages } from '../../commands/cmdShowFormSampleImages';
 
 import { CmdColorRemap } from '../../commands/cmdColorRemap';
+import { CmdExecuteImageAlgorithms } from '../../commands/cmdExecuteImageAlgorithms';
 import { CmdCreateInstagramFilter } from '../../commands/cmdCreateInstagramFilter';
+
+import { ImageAlgorithmFlip } from '../../lib/imagealgorithm/imageAlgorithmFlip';
+import { ImageAlgorithmGrayscale } from '../../lib/imagealgorithm/imageAlgorithmGrayscale';
 
 
 @Component({
@@ -83,6 +87,12 @@ export class MenubarComponent implements OnInit {
     let workspace = new menu("Image");
     workspace.childs.push(new menuItem("Resize", new Callback(() => (this.resize()))));
     workspace.childs.push(new menuItem("Rotate 90", new Callback(() => { this.rotate() })));
+    let wDivider=new menuItem("divider",undefined);
+    wDivider.isDivider=true;
+    workspace.childs.push(wDivider);
+    workspace.childs.push(new menuItem("Flip Horizontal", new Callback(() => { this.flipImage(true) })));
+    workspace.childs.push(new menuItem("Flip Vertical", new Callback(() => { this.flipImage(false) })));
+
     this.menus.push(workspace);
 
     let menuLayers = new menu("Layer");
@@ -91,11 +101,17 @@ export class MenubarComponent implements OnInit {
     menuLayers.childs.push(new menuItemOpenImage(projectService, "New from a file", false));
     menuLayers.childs.push(new menuItem("New text layer", new Callback(()=>this.newTextLayer())));
     menuLayers.childs.push(new menuItem("New from sample images", new Callback(()=>this.showFormSampleImages(false))));
+    let wDivider2=new menuItem("divider",undefined);
+    wDivider2.isDivider=true;
+    menuLayers.childs.push(wDivider2);
+    menuLayers.childs.push(new menuItem("Flip Horizontal", new Callback(() => { this.flipImage(true) })));
+    menuLayers.childs.push(new menuItem("Flip Vertical", new Callback(() => { this.flipImage(false) })));
     this.menus.push(menuLayers);
 
     let filters = new menu("Filters");
     filters.childs.push(new menuItem("Color remap", new Callback(this.showFormColorRemap)));
     filters.childs.push(new menuItem("Color adjustment", new Callback(this.showFormColorAdjustment)));
+    filters.childs.push(new menuItem("Grayscale", new Callback(()=>this.grayscale())));
     this.menus.push(filters);
     
     let font = new menu("Font");
@@ -189,6 +205,18 @@ export class MenubarComponent implements OnInit {
     let cmd = new CmdShowFormResize();
     cmd.executeAsync();
   }
+
+  flipImage(isHorizontal:boolean) {
+    let cmd = new CmdExecuteImageAlgorithms([new ImageAlgorithmFlip(isHorizontal)],this._projectService,this._appService );
+    cmd.executeAsync();
+  }
+
+  
+  grayscale() {
+    let cmd = new CmdExecuteImageAlgorithms([new ImageAlgorithmGrayscale(1)],this._projectService,this._appService );
+    cmd.executeAsync();
+  }
+
 
   rotate() {
     let cmd = new CmdRotateWorkspace(this._projectService, this._appService);

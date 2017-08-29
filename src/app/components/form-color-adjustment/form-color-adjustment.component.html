@@ -45,6 +45,32 @@
                   </div>
                 </li>
 
+                <li class="list-group-item list-group-item-action mouseover " style="padding:0px;margin-bottom:5px">
+                    <div class="trackbar">
+                      <header class="trackbar-header">
+                        <span>Saturation</span>
+                        <span>{{saturation}} </span>
+  
+                      </header>
+                      <section class="trackbar-section">
+                        <trackbar-component [value]="saturation" [min]=-100 [max]=100 [step]=1 (valueChanged)="saturationChanged($event)"></trackbar-component>
+                      </section>
+                    </div>
+                  </li>
+
+                  <li class="list-group-item list-group-item-action mouseover " style="padding:0px;margin-bottom:5px">
+                      <div class="trackbar">
+                        <header class="trackbar-header">
+                          <span>Light</span>
+                          <span>{{light}} </span>
+    
+                        </header>
+                        <section class="trackbar-section">
+                          <trackbar-component [value]="saturation" [min]=-100 [max]=100 [step]=1 (valueChanged)="lightChanged($event)"></trackbar-component>
+                        </section>
+                      </div>
+                    </li>
+
                 
 
               </ul>

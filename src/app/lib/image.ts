@@ -77,11 +77,25 @@ export class HImage extends HEventEmitter {
 
 }
 
-export interface IImageAlgorithmMutable{
+/**
+ * executes an image algorithm on image
+ */
+export interface IImageAlgorithm{
     process(img: HImage): HImage;
 }
-export interface IImageAlgorithmImmutable{
-    process(img: HImage): HImage;
+
+/**
+ * executes a mutable image algorithm on image
+ */
+export interface IImageAlgorithmMutable extends IImageAlgorithm{
+    
+}
+
+/**
+ * executes a immutable image algorithm on image
+ */
+export interface IImageAlgorithmImmutable extends IImageAlgorithm{
+   
 }
 
 

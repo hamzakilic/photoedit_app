@@ -15,19 +15,19 @@ import { Effect } from '../entities/effect';
 import { Calc } from '../lib/calc';
 import { Rect } from '../lib/draw/rect';
 import { Imaging } from '../lib/imagealgorithm/imaging';
-import { ImageAlgorithmMath } from '../lib/imagealgorithm/imageAlgorithmMath';
-import { ImageColorMath,ImageColorMathBrightness,ImageColorMathContrast} from '../lib/imagealgorithm/imageColorMath';
+import { IImageAlgorithm, IImageAlgorithmImmutable,IImageAlgorithmMutable } from '../lib/image';
 
 
 
-export class CmdAdjustColors extends CommandBusy {
 
-     private _brightness:number;
-     private _constrast:number;
-    constructor(brightness:number,contrast:number,  projectService: ProjectService, appService: AppService) {
+
+
+export class CmdExecuteImageAlgorithms extends CommandBusy {
+
+    private _algorithms:Array<IImageAlgorithm>;
+    constructor(algorithms:Array<IImageAlgorithm>,  projectService: ProjectService, appService: AppService) {
         super(projectService, appService);
-       this._brightness=brightness;
-       this._constrast=contrast;
+      this._algorithms=algorithms;
 
 
     }
@@ -52,15 +52,10 @@ export class CmdAdjustColors extends CommandBusy {
 
                         if (selectedLayer) {
                             let img=selectedLayer.getImage();
-                            let maths=[];
-                            if(this._brightness!=0){
-                             maths.push(new ImageColorMathBrightness(this._brightness));
+                            
+                            for(let i=0;i<this._algorithms.length;++i){
+                                img=this._algorithms[i].process(img);
                             }
-                            if(this._constrast!=0){
-                                maths.push(new ImageColorMathBrightness(this._constrast));
-                            }
-                            let algo=new ImageAlgorithmMath(maths);
-                            img= algo.process(img);
                             let newLayer = new LayerImage(img, selectedLayer.name);
                             workspace.replaceLayer(selectedLayer, newLayer);
 

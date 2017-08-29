@@ -13,7 +13,13 @@ export class TrackbarComponent implements OnInit {
   @Input()
   max: number;
   @Input()
-  value: number;
+  set value(val:number){
+    this._value=val;
+    this.calculatePosition();
+  };
+  get value():number{
+    return this._value;
+  }
   @Input()
   step: number = 10;
 
@@ -22,7 +28,7 @@ export class TrackbarComponent implements OnInit {
 
 
 
-
+  private _value:number;
   public position: number;
 
   private isMouseDown: boolean;
