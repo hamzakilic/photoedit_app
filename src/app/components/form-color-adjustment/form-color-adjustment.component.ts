@@ -13,13 +13,14 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Effect } from "../../entities/effect";
 import { LayerImageEffect } from "../../models/photoedit/layerImageEffect";
 import { HImage } from "../../lib/image";
-import { ImageAlgorithmBrightness } from "../../lib/imagealgorithm/imageAlgorithmBrightness";
-import { ImageAlgorithmContrast } from "../../lib/imagealgorithm/imageAlgorithmContrast";
+
 import { ImageAlgorithmGamma } from "../../lib/imagealgorithm/imageAlgorithmGamma";
 import { ImageAlgorithmClone } from "../../lib/imagealgorithm/imageAlgorithmClone";
-import { ImageAlgorithmMath} from "../../lib/imagealgorithm/imageAlgorithmMath";
-import { ImageColorMath,ImageColorMathBrightness,ImageColorMathContrast} from "../../lib/imagealgorithm/imageColorMath";
-import { CmdAdjustColors }  from "../../commands/cmdAdjustColors";
+import { ImageAlgorithmBrightness } from "../../lib/imagealgorithm/imageAlgorithmBrightness";
+import { ImageAlgorithmContrast } from "../../lib/imagealgorithm/imageAlgorithmContrast";
+import { ImageAlgorithmSaturationLight } from "../../lib/imagealgorithm/imageAlgorithmSaturationLight";
+
+import { CmdExecuteImageAlgorithms }  from "../../commands/cmdExecuteImageAlgorithms";
 
 
 import { AutocompleteComponent } from '../../modulesext/autocomplete/autocomplete.component';
@@ -49,6 +50,8 @@ export class FormColorAdjustmentComponent implements OnInit {
   private _brightness: number = 0;
   private _contrast: number = 0;
   private _gamma: number = 1;
+  private _saturation:number=0;
+  private _light:number=0;
   private _initialized = false;
   constructor(projectService: ProjectService, appService: AppService) {
     this.callFunc = new Callback(() => { this.show() });
@@ -84,6 +87,8 @@ export class FormColorAdjustmentComponent implements OnInit {
       this._brightness = 0;
       this._contrast = 0;
       this._gamma = 1;
+      this._saturation=0;
+      this._light=0;
       this.smModal.show();
 
       this.effectLayer = this._emptyEffectLayer;
@@ -172,6 +177,32 @@ export class FormColorAdjustmentComponent implements OnInit {
 
   }
 
+
+  public get saturation(): number {
+    return this._saturation.extRound();
+  }
+  public set saturation(val: number) {
+    this._saturation = val;
+  }
+  saturationChanged(value: number) {
+    this._saturation = value;
+    this.filterValues();
+
+  }
+
+  public get light(): number {
+    return this._light.extRound();
+  }
+  public set light(val: number) {
+    this._light = val;
+  }
+  lightChanged(value: number) {
+    this._light = value;
+    this.filterValues();
+
+  }
+
+
   _filterPromise: Promise<any>;
   filterValues() {
 
@@ -182,16 +213,29 @@ export class FormColorAdjustmentComponent implements OnInit {
     if (!this._filterPromise) {
       
       this._filterPromise=new Promise((resolve,reject)=>{
-      let originalImage = this.effectLayer.getOriginalImage();
-      let maths=[];
-      if(this.brightness!=0)
-        maths.push(new ImageColorMathBrightness(this.brightness));
-      if(this.contrast!=0)
-        maths.push(new ImageColorMathContrast(this.contrast));
-      let algoMaths=new ImageAlgorithmMath(maths);
-      originalImage= algoMaths.process(originalImage);
+      let img = this.effectLayer.getOriginalImage();
+     
+      if(this.brightness!=0){
+        let algo=new ImageAlgorithmBrightness(this.brightness);
+        img=algo.process(img);
+      }
+      if(this.contrast!=0){
+        let algo=new ImageAlgorithmContrast(this.contrast);
+        img=algo.process(img);
+      }
 
-      this.effectLayer.setImg(originalImage);
+      if(this.saturation!=0){
+        let algo=new ImageAlgorithmSaturationLight(this.saturation/100,false);
+        img=algo.process(img);
+      }
+
+      if(this.light!=0){
+        let algo=new ImageAlgorithmSaturationLight(this.light/100,true);
+        img=algo.process(img);
+      }
+     
+
+      this.effectLayer.setImg(img);
       resolve();
       
     }).then(()=>this._filterPromise=undefined).catch(()=>this._filterPromise=undefined);
@@ -200,8 +244,29 @@ export class FormColorAdjustmentComponent implements OnInit {
   }
 
   close() {
-    let cmd=new CmdAdjustColors(this.brightness,this.contrast,this._projectService,this._appService);
+    let algos=[];
+    if(this.brightness!=0){
+      let algo=new ImageAlgorithmBrightness(this.brightness);
+     algos.push(algo);
+    }
+    if(this.contrast!=0){
+      let algo=new ImageAlgorithmContrast(this.contrast);
+      algos.push(algo);
+    }
+
+    if(this.saturation!=0){
+      let algo=new ImageAlgorithmSaturationLight(this.saturation/100,false);
+      algos.push(algo);
+    }
+
+    if(this.light!=0){
+      let algo=new ImageAlgorithmSaturationLight(this.light/100,true);
+      algos.push(algo);
+    }
+    if(algos.length>0){
+    let cmd=new CmdExecuteImageAlgorithms(algos,this._projectService,this._appService);
     cmd.executeAsync();
+    }
 
     this.smModal.hide();
   }
