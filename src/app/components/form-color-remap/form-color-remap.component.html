@@ -1,6 +1,6 @@
 <div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="overflow-y: initial !important">
-    <div ngDraggable [handle]="modalHeader" class="modal-content" style="width:800px">
+    <div ngDraggable [handle]="modalHeader" class="modal-content" style="width:700px">
       <div #modalHeader class="modal-header">
         <h4 class="modal-title pull-left">Effects</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
@@ -15,8 +15,8 @@
             </div>
 
             <div class="col-md-3 effectscolumn" style="height: 480px;overflow-y: auto">
-              <ul class="list-group" *ngFor="let item of effects">
-                <li class="list-group-item list-group-item-action mouseover " style="padding:0px;margin-bottom:5px">
+              <ul class="list-group" >
+                <li  *ngFor="let item of effects" class="list-group-item list-group-item-action mouseover " style="padding:0px;margin-bottom:5px">
                   <a href="#" class="btn btn-primary btn-sm" style="width:100%" role="button" (click)="applyEffect(item.name)">
                      {{item.name}}
                   </a>
@@ -45,4 +45,4 @@
       </div>
     </div>
   </div>
-</div>
+

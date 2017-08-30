@@ -18,6 +18,22 @@ export class ImageAlgorithmGrayscale implements IImageAlgorithmMutable {
            this.selectedFunc=this.version1;break;
            case 2:
            this.selectedFunc=this.version2;break;
+           case 3:
+           this.selectedFunc=this.version3;break;
+           case 4:
+           this.selectedFunc=this.version4;break;
+           case 5:
+           this.selectedFunc=this.version5;break;
+           case 6:
+           this.selectedFunc=this.version6;break;
+           case 7:
+           this.selectedFunc=this.version7;break;
+           case 8:
+           this.selectedFunc=this.version8;break;
+           case 9:
+           this.selectedFunc=this.version9;break;
+           case 10:
+           this.selectedFunc=this.version10;break;
            default:
            this.selectedFunc=this.version1;break;
 
@@ -71,6 +87,48 @@ export class ImageAlgorithmGrayscale implements IImageAlgorithmMutable {
        return temp.extRound();
         });
     }
+
+    private version5(img:HImage):HImage{
+        return this.common(img,(r,g,b)=>{
+        let temp=(Math.max(r,g,b));
+       return temp.extRound();
+        });
+    }
+
+    private version6(img:HImage):HImage{
+        return this.common(img,(r,g,b)=>{
+        let temp=(Math.min(r,g,b));
+       return temp.extRound();
+        });
+    }
+
+    private version7(img:HImage):HImage{
+        return this.common(img,(r,g,b)=>{
+        let temp=r;
+       return temp;
+        });
+    }
+    private version8(img:HImage):HImage{
+        return this.common(img,(r,g,b)=>{
+        let temp=g;
+       return temp;
+        });
+    }
+    private version9(img:HImage):HImage{
+        return this.common(img,(r,g,b)=>{
+        let temp=b;
+       return temp;
+        });
+    }
+    private version10(img:HImage):HImage{
+        return this.common(img,(r,g,b)=>{
+            let ConversionFactor = 255 / (16 - 1)
+            let AverageValue = (r + g + b) / 3
+            let Gray = (((AverageValue / ConversionFactor) + 0.5) * ConversionFactor).extRound()
+        let temp=Gray;
+       return temp;
+        });
+    } 
     
     
     

@@ -6,6 +6,7 @@ export class Message{
   public static ShowBusy='showBusy';
   public static ShowFormFontLoad="showFormFontLoad";
   public static ShowFormColorRemap="showFormColorRemap";
+  public static ShowFormGrayscale="showFormGrayscale";
   public static ShowFormSampleImages="showFormSampleImages";
   public static ShowFormColorAdjustments="showFormColorAdjustments";
   public static ShowFormLayerProperties="showFormLayerProperties";

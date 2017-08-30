@@ -29,6 +29,7 @@ import { CmdShowFormLayerProperties } from '../../commands/cmdShowFormLayerPrope
 import { CmdShowFormColorRemap} from '../../commands/cmdShowFormColorRemap';
 import { CmdShowFormColorAdjustments} from '../../commands/cmdShowFormColorAdjustment';
 import { CmdShowFormSampleImages } from '../../commands/cmdShowFormSampleImages';
+import { CmdShowFormGrayscale } from '../../commands/cmdShowFormGrayscale';
 
 import { CmdColorRemap } from '../../commands/cmdColorRemap';
 import { CmdExecuteImageAlgorithms } from '../../commands/cmdExecuteImageAlgorithms';
@@ -111,7 +112,7 @@ export class MenubarComponent implements OnInit {
     let filters = new menu("Filters");
     filters.childs.push(new menuItem("Color remap", new Callback(this.showFormColorRemap)));
     filters.childs.push(new menuItem("Color adjustment", new Callback(this.showFormColorAdjustment)));
-    filters.childs.push(new menuItem("Grayscale", new Callback(()=>this.grayscale())));
+    filters.childs.push(new menuItem("Grayscale", new Callback(this.showFormGrayscale)));
     this.menus.push(filters);
     
     let font = new menu("Font");
@@ -168,6 +169,13 @@ export class MenubarComponent implements OnInit {
   let cmd=new CmdShowFormColorAdjustments();
   cmd.executeAsync();
  }
+
+ showFormGrayscale(){
+   
+  let cmd=new CmdShowFormGrayscale();
+  cmd.executeAsync();
+ }
+
 /**
  * opens sample images dialog for adding new workspace or layer
  */
