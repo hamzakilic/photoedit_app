@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Layer } from '../../models/photoedit/layer';
 import { LayerSelectRectangle } from '../../models/photoedit/layerSelectRectangle';
+
 import { Callback } from '../../lib/callback';
 import { Point } from '../../lib/draw/point';
 import { Calc } from '../../lib/calc';
@@ -136,6 +137,11 @@ export class LayerSelectedComponent implements OnInit {
           default:break;
         }
    }
+
+
+
+
+   
 
    
  

@@ -14,7 +14,7 @@
   </div> -->
   <div *ngIf="hasLayer" ngDraggable class="panelLayerProperties" [handle]="panelHeaderProperties">
     <div #panelHeaderProperties class="modal-header unselectableText">
-      <span>Layer Properties</span>
+      Layer Properties
     </div>
       <layer-properties-component>
 
@@ -23,7 +23,7 @@
 
   <div *ngIf="hasLayer" ngDraggable class="panelLayersInfo" [handle]="panelHeaderInfo">
       <div #panelHeaderInfo class="modal-header unselectableText">
-        <span>Layers</span>
+        Layers
       </div>
       <layersInfo-component></layersInfo-component>
     </div>
@@ -33,6 +33,17 @@
         
         <zoom-component></zoom-component>
     </div>
+
+      <div *ngIf="hasLayer" ngDraggable class="panelToolbox" [handle]="panelHeaderToolbox">
+      <div #panelHeaderToolbox class="modal-header unselectableText">
+       Toolbox
+      </div>
+      <tools-component></tools-component>
+    
+    </div>
+
+   
+
   
 
 

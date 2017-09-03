@@ -2,6 +2,7 @@ import { Layer } from './layer';
 import { LayerEmpty } from './layerEmpty';
 import { LayerBackground } from './layerBackground';
 import { LayerSelectRectangle } from './layerSelectRectangle';
+import { LayerCropRectangle } from './layerCropRectangle';
 
 import { Graphics } from '../../lib/graphics';
 import { Callback } from '../../lib/callback';
@@ -128,7 +129,7 @@ export class Workspace extends HEventEmitter {
   }
 
 
-  public replaceLayer(source: Layer, destination: Layer) {
+  public replaceLayer(source: Layer, destination: Layer,marginLeft?:number,marginTop?:number) {
     let index=this._layers.findIndex(p=>p==source);
     if(index>-1){
     destination.setBlendMode(destination.blendMode);
@@ -136,8 +137,8 @@ export class Workspace extends HEventEmitter {
     destination.isSelected = true;
     destination.scale=this.scale;
     destination.rotateAngleDeg = source.rotateAngleDeg;
-    destination.marginLeft = source.marginLeft;
-    destination.marginTop = source.marginTop;
+    destination.marginLeft =marginLeft?marginLeft:  source.marginLeft;
+    destination.marginTop = marginTop?marginTop:source.marginTop;
     this._layers[index]=destination;
     source.dispose();
     }
@@ -313,6 +314,9 @@ export class Workspace extends HEventEmitter {
       case Workspace.WorkModeResizeWorkspace:
         this._workMode = new WorkModeResizeWorkspace(this, this.workMode.typeOf);
         break;
+        case Workspace.WorkModeCrop:
+        this._workMode = new WorkModeCrop(this);
+        break;
       default:
         this._workMode = new WorkModeDefault(this);
     }
@@ -334,8 +338,9 @@ export class Workspace extends HEventEmitter {
   public static readonly WorkModeRectangleSelection = 2;
   public static readonly WorkModeSelection = 3;
   public static readonly WorkModeResizeWorkspace = 4;
-  public static readonly WorkModeAddTextLayer = 5;
+  public static readonly WorkModeAddTextLayer = 5;  
   public static readonly WorkModeDraw = 6;
+  public static readonly WorkModeCrop = 7;
 
 
 }
@@ -429,7 +434,7 @@ class WorkModeSelectionRectangle extends WorkModeBase {
       let mouseX = (event.pageX - rect.left) + window.scrollX;
       let mouseY = (event.pageY - rect.top) + window.scrollY;
       //buradaki 50 ve 50 workspace margin left ve top değerleri;
-      let selectionRectangleLayer = new LayerSelectRectangle(0, 0, mouseX - 50, mouseY - 50);
+      let selectionRectangleLayer = this.createLayer(0, 0, mouseX - 50, mouseY - 50);
       selectionRectangleLayer.mouseDownSelectedPoint(event, 6);
       this.workspace.selectionRectangleLayer = selectionRectangleLayer;
     }
@@ -439,7 +444,30 @@ class WorkModeSelectionRectangle extends WorkModeBase {
       this.workspace.selectionRectangleLayer.mouseUp(event);
   }
 
+  protected createLayer(width:number,height:number,left:number,top:number){
+    return new LayerSelectRectangle(width,height,left,top);
+  }
+
 }
+
+
+class WorkModeCrop extends WorkModeSelectionRectangle {
+  
+    constructor(workspace: Workspace) {
+      super(workspace);
+      
+    }
+    public get typeOf(): number {
+      return Workspace.WorkModeCrop;
+    }
+    protected createLayer(width:number,height:number,left:number,top:number){
+      return new LayerCropRectangle(width,height,left,top);
+    }
+  
+    
+  
+  }
+
 
 class WorkModeResizeWorkspace extends WorkModeBase {
   private previousWorkingMode: number;

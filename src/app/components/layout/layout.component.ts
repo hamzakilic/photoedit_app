@@ -27,4 +27,12 @@ export class LayoutComponent implements OnInit {
     return false;
   }
 
+  public get hasSelectionLayer():boolean{
+    let hasLayer = this.hasLayer 
+    if(hasLayer)
+    if(this.project.activeWorkspace.selectionRectangleLayer)
+      return hasLayer;
+    return false;
+  }
+
 }

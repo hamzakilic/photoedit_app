@@ -100,8 +100,8 @@
 
 .panelLayersInfo{
   position: fixed;
-  right: 20%;
-  top:30%;
+  right: 30%;
+  top:10%;
   width: 250px;
   max-height: 90vh;
   overflow-y: auto;
@@ -114,6 +114,17 @@
   z-index: auto;
   width: 20%;
 }
+
+.panelToolbox{
+  position:absolute;
+  top:10%;
+  right:50%;
+  z-index: auto;
+  
+  min-width: 80px;
+  max-width: 100px;
+}
+
 
 .panelHeader{
   height:1rem;

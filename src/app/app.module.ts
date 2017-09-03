@@ -62,6 +62,7 @@ import { FormSampleImagesComponent } from './components/form-sample-images/form-
 import { FormColorAdjustmentComponent } from './components/form-color-adjustment/form-color-adjustment.component';
 import { FormGrayscaleComponent } from './components/form-grayscale/form-grayscale.component';
 import { TrackbarComponent } from './components/trackbar/trackbar.component';
+import { CropPropertiesComponent } from './components/crop-properties/crop-properties.component';
 
 
 
@@ -106,7 +107,8 @@ import { TrackbarComponent } from './components/trackbar/trackbar.component';
     FormSampleImagesComponent,
     FormColorAdjustmentComponent,
     TrackbarComponent,
-    FormGrayscaleComponent
+    FormGrayscaleComponent,
+    CropPropertiesComponent
 
 
 

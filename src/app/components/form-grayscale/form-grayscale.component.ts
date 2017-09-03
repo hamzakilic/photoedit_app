@@ -97,7 +97,7 @@ export class FormGrayscaleComponent implements OnInit {
 
           }
           let layer = new LayerImageEffect(selectedLayer.getImage());
-          let rect = { width: 480, height: 320 };
+          let rect = { width: 360, height: 320 };
           let scaleX = rect.width / layer.width;
           let scaleY = rect.height / layer.height;
 
@@ -122,14 +122,13 @@ export class FormGrayscaleComponent implements OnInit {
   private _grayscaleVersions=[
     new EntityIdName(1,"Version1"),
   new EntityIdName(2,"Version2"),
+  
   new EntityIdName(3,"Version3"),
   new EntityIdName(4,"Version4"),
   new EntityIdName(5,"Version5"),
   new EntityIdName(6,"Version6"),
   new EntityIdName(7,"Version7"),
-  new EntityIdName(8,"Version8"),
-  new EntityIdName(9,"Version9"),
-  new EntityIdName(10,"Version10")];
+  new EntityIdName(8,"Version8")];
 
   public get x(): Array<any> {
     return this._grayscaleVersions;

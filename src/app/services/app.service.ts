@@ -7,7 +7,10 @@ export class AppService {
   private _busyPromise: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   constructor() {
-   // this.busyPromise = undefined;
+    this._busyPromise.message='Busy';
+    this._busyPromise.minDuration=10;
+    this._busyPromise.delay=200;
+
   
   }
   public doBusy(promise:Promise<any>):Promise<any>{

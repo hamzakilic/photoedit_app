@@ -35,6 +35,7 @@ export class CmdCrop extends CommandBusy {
                         
                         //zaten döndürme olmadığı için sorun yok
                         let cropLayerRect =workspace.selectionRectangleLayer.rect;
+                        
 
                         let isLayer0Crop = false;
                         let selectedLayer = workspace.layers.find((layer) => layer.isSelected);
@@ -56,7 +57,8 @@ export class CmdCrop extends CommandBusy {
                         let newLayer = new LayerImage(cropedImage,"cropedimage");
                             newLayer.scale = selectedLayer.scale;
                             workspace.removeSelectionRectangleLayer();
-                            workspace.addLayer(newLayer);
+                           // workspace.addLayer(newLayer);
+                           workspace.replaceLayer(selectedLayer,newLayer,cropLayerRect.x,cropLayerRect.y);
                            
                         }
 

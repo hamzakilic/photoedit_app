@@ -18,6 +18,7 @@ export class ImageAlgorithmGrayscale implements IImageAlgorithmMutable {
            this.selectedFunc=this.version1;break;
            case 2:
            this.selectedFunc=this.version2;break;
+          
            case 3:
            this.selectedFunc=this.version3;break;
            case 4:
@@ -30,10 +31,6 @@ export class ImageAlgorithmGrayscale implements IImageAlgorithmMutable {
            this.selectedFunc=this.version7;break;
            case 8:
            this.selectedFunc=this.version8;break;
-           case 9:
-           this.selectedFunc=this.version9;break;
-           case 10:
-           this.selectedFunc=this.version10;break;
            default:
            this.selectedFunc=this.version1;break;
 
@@ -74,7 +71,7 @@ export class ImageAlgorithmGrayscale implements IImageAlgorithmMutable {
         });
     }
 
-    private version3(img:HImage):HImage{
+    /* private version3(img:HImage):HImage{
         return this.common(img,(r,g,b)=>{
         let temp=(r*0.2126+g*0.7152+b*0.0722)
        return temp.extRound();
@@ -86,41 +83,41 @@ export class ImageAlgorithmGrayscale implements IImageAlgorithmMutable {
         let temp=(r*0.299+g*0.587+b*0.114)
        return temp.extRound();
         });
-    }
+    } */
 
-    private version5(img:HImage):HImage{
+    private version3(img:HImage):HImage{
         return this.common(img,(r,g,b)=>{
         let temp=(Math.max(r,g,b));
        return temp.extRound();
         });
     }
 
-    private version6(img:HImage):HImage{
+    private version4(img:HImage):HImage{
         return this.common(img,(r,g,b)=>{
         let temp=(Math.min(r,g,b));
        return temp.extRound();
         });
     }
 
-    private version7(img:HImage):HImage{
+    private version5(img:HImage):HImage{
         return this.common(img,(r,g,b)=>{
         let temp=r;
        return temp;
         });
     }
-    private version8(img:HImage):HImage{
+    private version6(img:HImage):HImage{
         return this.common(img,(r,g,b)=>{
         let temp=g;
        return temp;
         });
     }
-    private version9(img:HImage):HImage{
+    private version7(img:HImage):HImage{
         return this.common(img,(r,g,b)=>{
         let temp=b;
        return temp;
         });
     }
-    private version10(img:HImage):HImage{
+    private version8(img:HImage):HImage{
         return this.common(img,(r,g,b)=>{
             let ConversionFactor = 255 / (16 - 1)
             let AverageValue = (r + g + b) / 3

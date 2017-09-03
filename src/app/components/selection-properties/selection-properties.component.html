@@ -1,11 +1,10 @@
+<div class="layersInfo">
 <div *ngIf="project != undefined">
 
   <div *ngIf="project.activeWorkspace != undefined ">
     <div *ngIf="project.activeWorkspace.selectionRectangleLayer != undefined ">
-      <div class="layersInfo">
-        <header class="layersHeader">
-          <span>Selection Properties</span>
-        </header>
+     
+       
         <section>
           <label class="btn btn-primary buttonpadding mouseoverhand btn-sm " (click)="cropOk()" tooltip="crop selected layer or image"
             placement="right">

@@ -1,0 +1,24 @@
+<div *ngIf="isVisible" class="cropProperties"
+[style.margin-left.px]="marginLeft"
+[style.margin-top.px]="marginTop" >
+    
+     
+         
+           
+            <div class="container">
+              <div class="row">
+              <label class="btn btn-primary buttonpadding mouseoverhand btn-sm " (click)="cropOk()" tooltip="crop selected layer or image"
+                placement="right">
+              <i class="fa fa-check "  aria-hidden="true" ></i>
+              
+          </label>
+              </div>
+            <div class="row">
+    
+              <label class="btn btn-primary  buttonpadding mouseoverhand btn-sm" (click)="cropCancel()" tooltip="cancel crop" placement="right">
+              <i class="fa fa-times"  aria-hidden="true" ></i>
+          </label>
+            </div>
+            </div>
+       
+</div>

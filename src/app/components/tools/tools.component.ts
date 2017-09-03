@@ -25,8 +25,7 @@ export class ToolsComponent implements OnInit {
   }
 
 
-  public iddefault= "iddefault";
-  public idcrop="idcrop";
+  
 
   removeActiveCss(){
     var labels = document.querySelectorAll(".toolsInfo > section > div > div > div> label");
@@ -50,8 +49,19 @@ export class ToolsComponent implements OnInit {
     if(this.project.activeWorkspace){
       this.project.activeWorkspace.selectWorking(Workspace.WorkModeDefault);
       this.removeActiveCss();
-      this.makeActiveCss(this.iddefault);
+      this.makeActiveCss("default");
     }
+
+  }
+
+  selectCrop(){
+    if(this.project)
+      if(this.project.activeWorkspace){
+        this.project.activeWorkspace.selectWorking(Workspace.WorkModeCrop);
+        this.removeActiveCss();
+        this.makeActiveCss("selectCrop");
+  
+      }
 
   }
 
@@ -61,7 +71,7 @@ export class ToolsComponent implements OnInit {
     if(this.project.activeWorkspace){
       this.project.activeWorkspace.selectWorking(Workspace.WorkModeRectangleSelection);
       this.removeActiveCss();
-      this.makeActiveCss(this.idcrop);
+      this.makeActiveCss("selectRectangle");
 
     }
 
