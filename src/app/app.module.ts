@@ -60,6 +60,7 @@ import { LayerGraphicsPropertiesComponent } from './components/layer-graphics-pr
 import { FormColorRemapComponent } from './components/form-color-remap/form-color-remap.component';
 import { FormSampleImagesComponent } from './components/form-sample-images/form-sample-images.component';
 import { FormColorAdjustmentComponent } from './components/form-color-adjustment/form-color-adjustment.component';
+import { FormGrayscaleComponent } from './components/form-grayscale/form-grayscale.component';
 import { TrackbarComponent } from './components/trackbar/trackbar.component';
 
 
@@ -104,7 +105,8 @@ import { TrackbarComponent } from './components/trackbar/trackbar.component';
     FormColorRemapComponent,
     FormSampleImagesComponent,
     FormColorAdjustmentComponent,
-    TrackbarComponent
+    TrackbarComponent,
+    FormGrayscaleComponent
 
 
 
