@@ -46,10 +46,12 @@ export class CmdCrop extends CommandBusy {
                         }
                         let selectedLayerRect =selectedLayer.rect;
                         //scale croped retangle
+                        
                         if(selectedLayer.scale!=1.0){
+                            
                         cropLayerRect = Calc.scaleRect(cropLayerRect,1/selectedLayer.scale);
-                            cropLayerRect.x+=selectedLayerRect.x;
-                            cropLayerRect.y+=selectedLayerRect.y;
+                           // cropLayerRect.x-=selectedLayerRect.x;
+                           // cropLayerRect.y-=selectedLayerRect.y;
 
                         }
                         let cropedImage=Imaging.crop2(selectedLayer.getImage(),selectedLayerRect, cropLayerRect,selectedLayer.rotateAngleDeg);

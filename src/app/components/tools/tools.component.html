@@ -1,32 +1,45 @@
 <div class="toolsInfo">
   <header class="toolsHeader">
-   
+
   </header>
   <section class="toolsSection">
-<div *ngIf="project != undefined">
+    <div *ngIf="project != undefined">
 
       <div *ngIf="project.activeWorkspace != undefined">
         <div *ngIf="project.activeWorkspace.hasLayer">
 
-      <label id="default" class="btn btn-primary buttonpadding mouseoverhand btn-sm active" (click)="selectDefault()" tooltip="Hand tool"  placement="right">
-          <i class="fa fa-mouse-pointer "  aria-hidden="true" ></i>
+          <label id="default" class="btn btn-primary buttonpadding mouseoverhand btn-sm active" (click)="selectDefault()" tooltip="Hand tool"
+            placement="right">
+        <img src="assets/icons/mouse.png">
       </label>
 
-      <label id="crop" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " (click)="selectCrop()" tooltip="Crop tool"  placement="right">
-          <i class="fa fa-crop   "  aria-hidden="true" ></i>
+          <label id="crop" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " (click)="selectCrop()" tooltip="Crop tool"
+            placement="right">
+        <img src="assets/icons/crop.png">
       </label>
 
-      
-      <label id="selectRectangle" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " (click)="selectRectangleSelection()" tooltip="Crop tool"  placement="right">
-          <img src="assets/icons/selection.ico">
+
+          <label id="selectRectangle" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " (click)="selectRectangleSelection()"
+            tooltip="Rectangle selection" placement="right">
+          <img src="assets/icons/selectrectangle.png">
       </label>
 
-      
-      
+          <label id="selectEllipse" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " (click)="selectEllipseSelection()"
+            tooltip="Ellipse selection" placement="right">
+        <img src="assets/icons/selectellipse.png">
+    </label>
+          <label id="selectFree" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " (click)="selectFreeSelection()"
+            tooltip="Free selection" placement="right">
+      <img src="assets/icons/selectfree.png">
+  </label>
+
+
+
+
+        </div>
+
+      </div>
     </div>
-    
-  </div>
-</div>
 
 
 

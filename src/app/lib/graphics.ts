@@ -1,6 +1,9 @@
 import { HImage } from './image';
 import { Rect } from '../lib/draw/rect'
 import { CanvasTextWrapper } from 'canvas-text-wrapper';
+     
+
+
 
 export class Graphics {
   private _context: CanvasRenderingContext2D;
@@ -143,6 +146,29 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
      CanvasTextWrapper(this._canvas, text, options);
     
   }
+
+  public fillStyle(brush:string){
+    this._context.fillStyle=brush;
+  }
+  public beginPath(){
+    this._context.beginPath();
+  }
+  public drawArc(centerX:number,centerY:number,radius:number,startAngle:number,endAngle:number){
+    this._context.arc(centerX,centerY,radius,startAngle,endAngle);
+  }
+  public closePath(){
+    this._context.closePath();
+  }
+  public lineWidth(width:number){
+    this._context.lineWidth=width;
+  }
+
+  public fill(){
+    this._context.fill();
+  }
+  
+
+
     
   
   public save(){
@@ -157,4 +183,17 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
   public rotate(angleDeg: number) {
       this._context.rotate(angleDeg*Math.PI/180);
   }
+  public setScale(x:number,y:number){
+    this._context.scale(x,y);
+  }
+
+  public moveTo(x: number, y: number)  {
+    this._context.moveTo(x,y);
+  }
+
+  public bezierCurveTo(cp1x:number, cp1y:number, cp2x:number, cp2y:number, x:number, y:number){
+    this._context.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
+  }
+
+  
 }

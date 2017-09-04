@@ -1,3 +1,4 @@
+import { LayerSelectEllipse } from './layerSelectEllipse';
 import { Layer } from './layer';
 import { LayerEmpty } from './layerEmpty';
 import { LayerBackground } from './layerBackground';
@@ -169,16 +170,20 @@ export class Workspace extends HEventEmitter {
     if (height <= 0)
       this._height = 100;
     else this._height = height;
+    let changeLayer0=this._layers.length>0 && this.backgroundLayer.width== this._layers[0].width && this.backgroundLayer.height==this._layers[0].height;
+
     let keepRatio = this.backgroundLayer.keepRatio;
     this.backgroundLayer.keepRatio = false;
     this.backgroundLayer.setWidthHeight(this._width, this._height, new Callback(() => { this.backgroundLayer.render() }));
     this.backgroundLayer.keepRatio = keepRatio;
 
-    if (this._layers.length > 0) {
+    if (this._layers.length > 0 && changeLayer0) {
+      
       keepRatio = this._layers[0].keepRatio;
       this._layers[0].keepRatio = false;
       this._layers[0].setWidthHeight(this._width, this._height, new Callback(() => { this._layers[0].render() }));
       this._layers[0].keepRatio = keepRatio;
+    
     }
 
 
@@ -317,6 +322,9 @@ export class Workspace extends HEventEmitter {
         case Workspace.WorkModeCrop:
         this._workMode = new WorkModeCrop(this);
         break;
+        case Workspace.WorkModeEllipseSelection:
+        this._workMode = new WorkModeSelectionEllipse(this);
+        break;
       default:
         this._workMode = new WorkModeDefault(this);
     }
@@ -341,6 +349,7 @@ export class Workspace extends HEventEmitter {
   public static readonly WorkModeAddTextLayer = 5;  
   public static readonly WorkModeDraw = 6;
   public static readonly WorkModeCrop = 7;
+  public static readonly WorkModeEllipseSelection = 8;
 
 
 }
@@ -467,6 +476,23 @@ class WorkModeCrop extends WorkModeSelectionRectangle {
     
   
   }
+
+  class WorkModeSelectionEllipse extends WorkModeSelectionRectangle {
+    
+      constructor(workspace: Workspace) {
+        super(workspace);
+        
+      }
+      public get typeOf(): number {
+        return Workspace.WorkModeEllipseSelection;
+      }
+      protected createLayer(width:number,height:number,left:number,top:number){
+        return new LayerSelectEllipse(width,height,left,top);
+      }
+    
+      
+    
+    }
 
 
 class WorkModeResizeWorkspace extends WorkModeBase {

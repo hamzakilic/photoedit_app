@@ -77,6 +77,20 @@ export class ToolsComponent implements OnInit {
 
   }
 
+
+  selectEllipseSelection(){
+    
+        if(this.project)
+        if(this.project.activeWorkspace){
+          this.project.activeWorkspace.selectWorking(Workspace.WorkModeEllipseSelection);
+          this.removeActiveCss();
+          this.makeActiveCss("selectRectangle");
+    
+        }
+    
+      }
+    
+
   selectAddTextLayer(){
 
   }

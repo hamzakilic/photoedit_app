@@ -92,7 +92,7 @@
 .panelLayerProperties{
   position: absolute;
   right: 10%;
-  top:10%;
+  bottom:10%;
   width: 250px;
   max-height: 90vh;
   overflow-y: auto;
@@ -100,7 +100,7 @@
 
 .panelLayersInfo{
   position: fixed;
-  right: 30%;
+  right: 10%;
   top:10%;
   width: 250px;
   max-height: 90vh;
@@ -118,7 +118,7 @@
 .panelToolbox{
   position:absolute;
   top:10%;
-  right:50%;
+  right:30%;
   z-index: auto;
   
   min-width: 80px;

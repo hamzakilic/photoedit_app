@@ -39,12 +39,9 @@ export class CropPropertiesComponent implements OnInit {
     
       if(this.workspace)
         if(this.workspace.selectionRectangleLayer)
-          if(this.workspace.selectionRectangleLayer instanceof LayerCropRectangle){            
+          if(this.workspace.selectionRectangleLayer instanceof LayerCropRectangle)            
             return true;
-          }
-      else {
-        console.log(typeof(this.workspace.selectionRectangleLayer));
-      }
+         
     return false;
   }
   public cropOk(){
