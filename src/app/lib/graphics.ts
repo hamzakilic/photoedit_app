@@ -195,5 +195,9 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     this._context.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
   }
 
+  public ellipse(x:number, y:number, radiusX:number, radiusY:number, rotation:number, startAngle:number, endAngle:number){
+    this._context.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
+  }
+
   
 }

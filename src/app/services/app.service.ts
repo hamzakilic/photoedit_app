@@ -8,8 +8,8 @@ export class AppService {
 
   constructor() {
     this._busyPromise.message='Busy';
-    this._busyPromise.minDuration=10;
-    this._busyPromise.delay=200;
+    
+    this._busyPromise.delay=1;
 
   
   }

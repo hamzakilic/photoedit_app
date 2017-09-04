@@ -3,7 +3,7 @@
     <div  class="modal-dialog" style="overflow-y: initial !important">
       <div ngDraggable [handle]="modalHeader" class="modal-content">
         <div  #modalHeader  class="modal-header">
-          <h4 class="modal-title pull-left">Font Loading</h4>
+          <h6 class="modal-title pull-left unselectableText">Font Loading</h6>
           <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -15,7 +15,7 @@
               <div class="col-md-8">
                 <div class="container">
                   <div class="row">
-                    <span class="white">Viewing {{ratioOfSearchToTotal}} </span>
+                    <span class="white unselectableText">Viewing {{ratioOfSearchToTotal}} </span>
                     <input type="text" class="form-control " style="overflow: hidden; white-space: nowrap;" placeholder="Enter sample text" aria-describedby="sizing-addon2"
                       [(ngModel)]="sampleText" style="margin-bottom:5px;">
                   </div>
@@ -32,7 +32,7 @@
                       <div *ngFor="let item of viewPortItems" class="card" style="margin-bottom:5px;margin-right:5px">
                         <div class="card-block" style="padding:0.25rem">
                           <h6 class="card-title">{{item}}</h6>
-                          <p class="card-text" [style.font-family]="item" style="font-size: large">{{sampleText}}</p>
+                          <p class="card-text " [style.font-family]="item" style="font-size: large">{{sampleText}}</p>
                           <a href="#" *ngIf="!userHasFont(item)" class="btn btn-primary btn-sm" (click)="addToMyFonts(item)">Add to my fonts</a>
                           <a href="#" *ngIf="userHasFont(item)" class="btn btn-primary btn-sm" (click)="removeFromMyFonts(item)">Remove from my fonts</a>
                         </div>
@@ -63,7 +63,7 @@
                   <span class="input-group-addon">
                     <input type="checkbox" aria-label="Checkbox for following font family" [(ngModel)]="isSerif" > 
                     </span>
-                  <span class="white">Serif</span>
+                  <span class="white unselectableText">Serif</span>
 
                 </div>
 
@@ -71,32 +71,32 @@
                   <span class="input-group-addon">
                     <input type="checkbox" aria-label="Checkbox for following font family" [(ngModel)]="isSansSerif">
                     </span>
-                  <span class="white">Sans Serif</span>
+                  <span class="white unselectableText">Sans Serif</span>
 
                 </div>
                 <div class="input-group input-group-sm" style="margin-bottom: 2px">
                   <span class="input-group-addon">
                     <input type="checkbox" aria-label="Checkbox for following font family" [(ngModel)]="isDisplay">
                     </span>
-                  <span class="white">Display</span>
+                  <span class="white unselectableText">Display</span>
 
                 </div>
                 <div class="input-group input-group-sm" style="margin-bottom: 2px">
                   <span class="input-group-addon">
                     <input type="checkbox" aria-label="Checkbox for following font family" [(ngModel)]="isHandwriting">
                     </span>
-                  <span class="white">Handwriting</span>
+                  <span class="white unselectableText">Handwriting</span>
 
                 </div>
                 <div class="input-group input-group-sm" style="margin-bottom: 2px">
                   <span class="input-group-addon">
-                    <input type="checkbox" aria-label="Checkbox for following font family" [(ngModel)]="isMonospace">
+                    <input type="checkbox " aria-label="Checkbox for following font family" [(ngModel)]="isMonospace">
                     </span>
-                  <span class="white">Monospace</span>
+                  <span class="white unselectableText">Monospace</span>
 
                 </div>
                 <div>
-                  <span class="white" style="margin-bottom: 5px">Languages</span>
+                  <span class="white unselectableText" style="margin-bottom: 5px">Languages</span>
                   <div class="input-group input-group-sm">
 
                     <autocomplete #autocomplete class="form-control  autoComplete" [allowClear]="true" [items]="languages" (selected)="selected($event)"

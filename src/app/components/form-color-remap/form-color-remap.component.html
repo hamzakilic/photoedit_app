@@ -1,7 +1,7 @@
 <div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="overflow-y: initial !important">
     <div ngDraggable [handle]="modalHeader" class="modal-content" style="width:700px">
-      <div #modalHeader class="modal-header">
+      <div #modalHeader class="modal-header unselectableText">
         <h4 class="modal-title pull-left">Effects</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
             <span aria-hidden="true">&times;</span>

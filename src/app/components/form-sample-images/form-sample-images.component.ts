@@ -17,70 +17,72 @@ import { ProjectService } from '../../services/project.service';
   styleUrls: ['./form-sample-images.component.scss']
 })
 export class FormSampleImagesComponent implements OnInit {
-  
+
   @ViewChild("smModal")
   public smModal: ModalDirective;
 
-  private callFunc:Callback;
-  private _http:Http;
-  private _projectService:ProjectService;
-  private _openAsWorkspace:boolean;
-  constructor(http:Http,projectService:ProjectService) {
-    this.callFunc=new Callback((openAsWorkspace:boolean)=>{this.show(openAsWorkspace)});
-    this._http=http;
-    this._projectService=projectService;
-   }
+  private callFunc: Callback;
+  private _http: Http;
+  private _projectService: ProjectService;
+  private _openAsWorkspace: boolean;
+  constructor(http: Http, projectService: ProjectService) {
+    this.callFunc = new Callback((openAsWorkspace: boolean) => { this.show(openAsWorkspace) });
+    this._http = http;
+    this._projectService = projectService;
+  }
 
-  ngOnInit() {   
-    
+  ngOnInit() {
+
     MessageBus.subscribe(Message.ShowFormSampleImages, this.callFunc);
-    
+   
+
   }
   ngOnDestroy() {
     MessageBus.unsubscribe(Message.ShowFormSampleImages, this.callFunc);
-    
+
   }
 
-  show(openAsWorkspace:boolean) {
-      this._openAsWorkspace=openAsWorkspace;
-        if (!this.smModal.isShown){
-        
-          this.smModal.show();
-        }
-      }
+  show(openAsWorkspace: boolean) {
+    this._openAsWorkspace = openAsWorkspace;
+   
+    if (!this.smModal.isShown) {
 
-      public get images():Array<string>{
-        return ["city_320","eagle_320","flower_320","love_320","newyork_320","sunset_320"];
-      }
+      this.smModal.show();
+    }
+  }
 
-      public link(filename:string):string{
-        return "assets/samples/"+filename+".jpg";
-      }
+  public get images(): Array<string> {
+    return ["city_320", "eagle_320", "flower_320", "love_320", "newyork_320", "sunset_320"];
+  }
 
-      loadFile(filename:string){
-        //todo: on error what will we do
-           
-           let newFileName=filename.replace("320","640")+".jpg";
-           let url="assets/samples/"+newFileName;
-           
-           let cmd= new CmdReadImageFromBufferorUrl(url,filename,this._projectService,this._openAsWorkspace);
-           cmd.executeAsync();
-          /*  this._http.get(url).subscribe((response)=> {
-             if(response.status==200){
-             let createWorkspace = this._projectService.currentProject.workspaces.length==0;
-            let cmd= new CmdReadImageFromBuffer(response.arrayBuffer(),filename,this._projectService,createWorkspace);
-            cmd.executeAsync();
-             }else{
-              MessageBus.publish(Message.ShowError,{msg: "Image could not load:"+ response.statusText});
-             }
+  public link(filename: string): string {
+    return "assets/samples/" + filename + ".jpg";
+  }
 
-           },(error:any)=>{
-              if(error.statusText)
-                MessageBus.publish(Message.ShowError,{msg: "Image could not load:"+ error.statusText});
-           }); */
+  loadFile(filename: string) {
+    //todo: on error what will we do
 
-           this.smModal.hide();
+    let newFileName = filename.replace("320", "640") + ".jpg";
+    let url = "assets/samples/" + newFileName;
 
-      }
+    let cmd = new CmdReadImageFromBufferorUrl(url, filename, this._projectService, this._openAsWorkspace);
+    cmd.executeAsync();
+    /*  this._http.get(url).subscribe((response)=> {
+       if(response.status==200){
+       let createWorkspace = this._projectService.currentProject.workspaces.length==0;
+      let cmd= new CmdReadImageFromBuffer(response.arrayBuffer(),filename,this._projectService,createWorkspace);
+      cmd.executeAsync();
+       }else{
+        MessageBus.publish(Message.ShowError,{msg: "Image could not load:"+ response.statusText});
+       }
+
+     },(error:any)=>{
+        if(error.statusText)
+          MessageBus.publish(Message.ShowError,{msg: "Image could not load:"+ error.statusText});
+     }); */
+
+    this.smModal.hide();
+
+  }
 
 }
