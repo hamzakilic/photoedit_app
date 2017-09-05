@@ -19,5 +19,7 @@ export class LayerCropRectangle extends LayerSelectRectangle {
 
   }
 
+ 
+
    
 }

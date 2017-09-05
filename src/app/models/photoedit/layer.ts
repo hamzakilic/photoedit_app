@@ -27,6 +27,12 @@ export abstract class Layer extends SurfaceCanvas {
     this._mouseDownPoint = new MouseDownPoint();
 
   }
+
+  public get classes():any{
+    if(this.isSelected)
+      return { clayerSelected:true };
+    return { clayerEmpty:true};
+  }
   
   public get name(): string {
     return this._name;

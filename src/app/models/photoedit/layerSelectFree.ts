@@ -11,13 +11,13 @@ import { RotationHelper, RotationMove } from './lib/rotationHelper';
 
 export class LayerSelectFree extends LayerSelectRectangle {
 
-   isFinishedContructing:boolean
+   
 
   constructor(width: number, height: number,left: number, top: number) {
     super(width,height,left,top);
     
     
-     this.isSelected= false;
+     
 
 
 

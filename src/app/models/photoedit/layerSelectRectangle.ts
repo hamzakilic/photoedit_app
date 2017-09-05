@@ -31,6 +31,10 @@ export class LayerSelectRectangle extends Layer {
 
   }
 
+  public get classes():any{   
+    return { clayerEmpty:true};
+  }
+
    public mouseMove(event: MouseEvent) {
     if(this.isFinishedContructing){
      super.mouseMove(event);

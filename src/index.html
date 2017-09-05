@@ -16,7 +16,35 @@
   
   <!-- Enable bootstrap 4 theme -->
   <script>window.__theme = 'bs4';</script>
-  <app-root>Loading...</app-root>
+  <app-root>
+    <style>
+      app-root{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      body {
+    background:#535353;;
+    margin: 0;
+    padding: 0;
+  }
+  .loader{
+    display: flex;
+        justify-content: center;
+        align-items: center;
+  }
+    </style>  
+    <div>
+        <div class="loader" >
+            <img src="assets/icons/loader.gif">
+          </div>
+      <div >
+        <img src="assets/icons/logo.png">
+      </div>
+     
+    </div>
+  </app-root>
 
 </body>
 </html>
