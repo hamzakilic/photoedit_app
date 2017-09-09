@@ -18,80 +18,92 @@ export class ToolsComponent implements OnInit {
   constructor(projectService: ProjectService) {
     this.projectService = projectService;
 
-    this.project= this.projectService.currentProject;
-   }
+    this.project = this.projectService.currentProject;
+  }
 
   ngOnInit() {
   }
 
 
-  
 
-  removeActiveCss(){
+
+  removeActiveCss() {
     var labels = document.querySelectorAll(".toolsInfo > section > div > div > div> label");
-    for(let i = 0; i<labels.length;++i)
+    for (let i = 0; i < labels.length; ++i)
       labels.item(i).classList.remove("active");
   }
-  makeActiveCss(id){
+  makeActiveCss(id) {
     var labels = document.querySelectorAll(".toolsInfo > section > div > div > div > label");
-    
-    for(let i = 0; i<labels.length;++i)
-    if(labels.item(i).id==id){
-      
-      labels.item(i).classList.add("active");
-    }
+
+    for (let i = 0; i < labels.length; ++i)
+      if (labels.item(i).id == id) {
+
+        labels.item(i).classList.add("active");
+      }
 
   }
 
-  selectDefault(){
+  selectDefault() {
 
-    if(this.project)
-    if(this.project.activeWorkspace){
-      this.project.activeWorkspace.selectWorking(Workspace.WorkModeDefault);
-      this.removeActiveCss();
-      this.makeActiveCss("default");
-    }
+    if (this.project)
+      if (this.project.activeWorkspace) {
+        this.project.activeWorkspace.selectWorking(Workspace.WorkModeDefault);
+        this.removeActiveCss();
+        this.makeActiveCss("default");
+      }
 
   }
 
-  selectCrop(){
-    if(this.project)
-      if(this.project.activeWorkspace){
+  selectCrop() {
+    if (this.project)
+      if (this.project.activeWorkspace) {
         this.project.activeWorkspace.selectWorking(Workspace.WorkModeCrop);
         this.removeActiveCss();
         this.makeActiveCss("selectCrop");
-  
+
       }
 
   }
 
-  selectRectangleSelection(){
+  selectRectangleSelection() {
 
-    if(this.project)
-    if(this.project.activeWorkspace){
-      this.project.activeWorkspace.selectWorking(Workspace.WorkModeRectangleSelection);
-      this.removeActiveCss();
-      this.makeActiveCss("selectRectangle");
+    if (this.project)
+      if (this.project.activeWorkspace) {
+        this.project.activeWorkspace.selectWorking(Workspace.WorkModeRectangleSelection);
+        this.removeActiveCss();
+        this.makeActiveCss("selectRectangle");
 
-    }
+      }
 
   }
 
 
-  selectEllipseSelection(){
-    
-        if(this.project)
-        if(this.project.activeWorkspace){
-          this.project.activeWorkspace.selectWorking(Workspace.WorkModeEllipseSelection);
-          this.removeActiveCss();
-          this.makeActiveCss("selectRectangle");
-    
-        }
-    
-      }
-    
+  selectEllipseSelection() {
 
-  selectAddTextLayer(){
+    if (this.project)
+      if (this.project.activeWorkspace) {
+        this.project.activeWorkspace.selectWorking(Workspace.WorkModeEllipseSelection);
+        this.removeActiveCss();
+        this.makeActiveCss("selectEllipse");
+
+      }
+
+  }
+
+  selectLassoSelection() {
+
+    if (this.project)
+      if (this.project.activeWorkspace) {
+        this.project.activeWorkspace.selectWorking(Workspace.WorkModeLassoSelection);
+        this.removeActiveCss();
+        this.makeActiveCss("selectLasso");
+
+      }
+
+  }
+
+
+  selectAddTextLayer() {
 
   }
 

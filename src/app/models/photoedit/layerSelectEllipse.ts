@@ -16,13 +16,7 @@ export class LayerSelectEllipse extends LayerSelectRectangle {
   constructor(width: number, height: number, left: number, top: number) {
     super(width, height, left, top);
 
-
-
-
-
   }
-
-
 
 
 
@@ -32,30 +26,8 @@ export class LayerSelectEllipse extends LayerSelectRectangle {
     let rect = new Rect(0, 0, this.width, this.height);
     this.graphics.clearRect(rect);
     let centerX = this.width / 2;
-    let centerY = this.height / 2;
-    
-   /* this.graphics.beginPath();
-    
-    this.graphics.moveTo(centerX, centerY - this.height/2); // A1
-    
-    this.graphics.bezierCurveTo(
-      centerX + this.width/2, centerY - this.height/2, // C1
-      centerX + this.width/2, centerY + this.height/2, // C2
-      centerX, centerY + this.height/2); // A2
+    let centerY = this.height / 2;    
   
-    this.graphics.bezierCurveTo(
-      centerX - this.width/2, centerY + this.height/2, // C3
-      centerX - this.width/2, centerY - this.height/2, // C4
-      centerX, centerY - this.height/2); // A1
-   
-    
-    
-    this.graphics.fillStyle("rgba(" + 10 + "," + 10 + "," + 50 + "," + (100 / 255) + ")");
-
-    
-    this.graphics.fill();
-    
-    this.graphics.closePath();	*/
     this.graphics.beginPath();
     this.graphics.ellipse(centerX,centerY,this.width/2,this.height/2,0,0,2*Math.PI);
     this.graphics.fillStyle("rgba(" + 10 + "," + 10 + "," + 50 + "," + (100 / 255) + ")");
@@ -67,8 +39,49 @@ export class LayerSelectEllipse extends LayerSelectRectangle {
     this.graphics.restore();
   }
   public dispose() {
-
+    super.dispose();
   }
+
+  protected renderAnimation():void{
+    
+    if(this.graphics){
+     
+    this.graphics.save();
+    let rect = new Rect(0, 0, this.width, this.height);
+    this.graphics.clearRect(rect);
+    
+    let splitSize=2;
+    let totalParts=180;
+    let lh=4;//linewidth
+    
+    this.frameCounter++;
+    let dividen=this.frameCounter%totalParts;
+    
+    
+        
+    let centerX = this.width / 2;
+    let centerY = this.height / 2; 
+    this.graphics.strokeStyle(this.strokeStyle);   
+    for(let x=0;x<totalParts;x+=1){     
+      
+        if((x+dividen)%2==0){
+          this.graphics.beginPath();
+          this.graphics.ellipse(centerX,centerY,this.width/2,this.height/2,0,x*splitSize*Math.PI/180,(x*splitSize+splitSize)*Math.PI/180);
+          this.graphics.stroke();
+        
+      }
+      
+      
+    }
+   
+    this.graphics.restore();
+    setTimeout(()=>{
+      if(this.animation)
+     this.animation=window.requestAnimationFrame(()=>this.renderAnimation());
+   },1000/3);
+  
+  }
+}
 
   public selectedCss() {
     let classes = {

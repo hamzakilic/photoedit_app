@@ -49,28 +49,30 @@ export class Surface {
 export class SurfaceCanvas extends Surface {
   public graphics: Graphics;
   public resizedAgain = false;
+  readonly maxScale=10;
+  readonly minScale=0.3;
   public scalePlus(): void {
-    this.scale *= 1.1;
-    if (this.scale > 3)
-      this.scale = 3;
+    this.scale += 1;
+    if (this.scale > this.maxScale)
+      this.scale = this.maxScale;
   }
 
   public scaleTo(val: number): void {
 
-    if (val > 3)
-      val = 3;
-    if (val < 0.1)
-      val = 0.1;
+    if (val > this.maxScale)
+      val = this.maxScale;
+    if (val < this.minScale)
+      val = this.minScale;
     this.scale = val;
-
+    
 
 
   }
 
   public scaleMinus(): void {
-    this.scale *= 0.9;
-    if (this.scale < 0.1)
-      this.scale = 0.1;
+    this.scale -= 0.1;
+    if (this.scale < this.minScale)
+      this.scale = this.minScale;
   }
 
 

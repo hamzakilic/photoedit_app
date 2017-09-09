@@ -13,6 +13,7 @@ import { Utility } from '../../lib/utility';
 import { CalcLayer } from "./lib/calcLayer";
 import { Calc } from '../../lib/calc';
 import { Point } from "../../lib/draw/point";
+import { LayerSelectLasso } from "./layerSelectLasso";
 
 
 export class Workspace extends HEventEmitter {
@@ -294,17 +295,19 @@ export class Workspace extends HEventEmitter {
   public zoomTo(val: number) {
     this.backgroundLayer.scaleTo(val);
     this._layers.forEach((item) => item.scaleTo(val));
+    
   }
   public zoomIn() {
     this.backgroundLayer.scalePlus();
     this._layers.forEach((item) => item.scalePlus());
-
+    
 
   }
 
   public zoomOut() {
     this.backgroundLayer.scaleMinus();
     this._layers.forEach((item) => item.scaleMinus());
+    
   }
 
   public selectWorking(working: number) {
@@ -324,6 +327,9 @@ export class Workspace extends HEventEmitter {
         break;
         case Workspace.WorkModeEllipseSelection:
         this._workMode = new WorkModeSelectionEllipse(this);
+        break;
+        case Workspace.WorkModeLassoSelection:
+        this._workMode = new WorkModeSelectionLasso(this);
         break;
       default:
         this._workMode = new WorkModeDefault(this);
@@ -350,15 +356,22 @@ export class Workspace extends HEventEmitter {
   public static readonly WorkModeDraw = 6;
   public static readonly WorkModeCrop = 7;
   public static readonly WorkModeEllipseSelection = 8;
+  public static readonly WorkModeLassoSelection = 9;
+  public static readonly WorkModePolygonalSelection = 10;
+  public static readonly WorkModeMagneticSelection = 11;
 
 
 }
 
 abstract class WorkModeBase {
   protected workspace: Workspace;
-
+  protected canvasElement:any;
   constructor(workspace: Workspace) {
     this.workspace = workspace;
+    if(this.workspace.selectionRectangleLayer){
+      this.workspace.selectionRectangleLayer.dispose();
+      this.canvasElement=this.workspace.selectionRectangleLayer.htmlElement;
+    }
     this.workspace.selectionRectangleLayer = undefined;
     this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event); });
   }
@@ -424,6 +437,7 @@ class WorkModeSelectionRectangle extends WorkModeBase {
   constructor(workspace: Workspace) {
     super(workspace);
     this.workspace.cssClasses = "mouseCross";
+    
 
   }
   public get typeOf(): number {
@@ -437,16 +451,22 @@ class WorkModeSelectionRectangle extends WorkModeBase {
   }
 
   public mouseDown(event: MouseEvent, layer: Layer) {
+    
 
     if (this.workspace.selectionRectangleLayer == undefined) {
+     
       var rect = this.workspace.nativeElement.getBoundingClientRect();
       let mouseX = (event.pageX - rect.left) + window.scrollX;
       let mouseY = (event.pageY - rect.top) + window.scrollY;
       //buradaki 50 ve 50 workspace margin left ve top değerleri;
       let selectionRectangleLayer = this.createLayer(0, 0, mouseX - 50, mouseY - 50);
       selectionRectangleLayer.mouseDownSelectedPoint(event, 6);
+      if(this.workspace.selectionRectangleLayer)
+        this.workspace.selectionRectangleLayer.dispose();
       this.workspace.selectionRectangleLayer = selectionRectangleLayer;
+     // this.workspace.selectionRectangleLayer.mouseDown(event);
     }
+    
   }
   public mouseUp(event: any) {
     if (this.workspace.selectionRectangleLayer)
@@ -493,6 +513,53 @@ class WorkModeCrop extends WorkModeSelectionRectangle {
       
     
     }
+
+    class WorkModeSelectionLasso extends WorkModeSelectionRectangle {
+        
+        constructor(workspace: Workspace) {
+         
+          super(workspace);
+          this.workspace.cssClasses = "mouseCross";
+          
+          this.workspace.selectionRectangleLayer=this.createLayer(0,0,0,0);
+          
+          
+        }
+        public get typeOf(): number {
+          return Workspace.WorkModeLassoSelection;
+        }
+
+        public mouseMove(event: MouseEvent) {
+          if (this.workspace.selectionRectangleLayer)
+            this.workspace.selectionRectangleLayer.mouseMove(event);
+      
+        }
+      
+        public mouseDown(event: MouseEvent, layer: Layer) {
+      
+          if (this.workspace.selectionRectangleLayer != undefined) {        
+           
+           
+           this.workspace.selectionRectangleLayer.mouseDown(event);
+          }
+          
+        }
+        public mouseUp(event: any) {
+          if (this.workspace.selectionRectangleLayer)
+            this.workspace.selectionRectangleLayer.mouseUp(event);
+        }
+       
+
+        
+        protected createLayer(width:number,height:number,left:number,top:number){
+          let layer= new LayerSelectLasso(this.workspace.backgroundLayer.width,this.workspace.backgroundLayer.height,this.workspace.backgroundLayer.marginLeft,this.workspace.backgroundLayer.marginTop);
+          layer.htmlElement=this.canvasElement;
+          return layer;
+        }
+      
+        
+      
+      }
 
 
 class WorkModeResizeWorkspace extends WorkModeBase {

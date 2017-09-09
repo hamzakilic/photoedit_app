@@ -11,11 +11,13 @@ export abstract class Layer extends SurfaceCanvas {
   private _name: string;
   public isHidden: boolean;
   public isSelected: boolean;
+  public showSelected:boolean;
   public canRotate: boolean;
   protected _mouseDownPoint: MouseDownPoint;
   public isMouseDown: boolean;
   public _blendMode:string;
   
+  public htmlElement:any;
   constructor(name?: string) {
     super();
     this.sourceMask = undefined;
@@ -25,7 +27,7 @@ export abstract class Layer extends SurfaceCanvas {
     else this._name = 'layer';
     this.isHidden = false;
     this._mouseDownPoint = new MouseDownPoint();
-
+    this.showSelected=true;
   }
 
   public get classes():any{
@@ -44,6 +46,8 @@ export abstract class Layer extends SurfaceCanvas {
   public setBlendMode(val:string){
     this._blendMode=val;
   }
+
+  
 
  
 

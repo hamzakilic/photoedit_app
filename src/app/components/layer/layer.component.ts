@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Rect } from './../../lib/draw/rect';
+import { Surface } from './../../models/photoedit/surface';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { SurfaceComponent } from '../surface/surface.component';
 import { Layer } from '../../models/photoedit/layer';
 import { Callback }from '../../lib/callback';
@@ -13,6 +15,8 @@ export class LayerComponent extends SurfaceComponent  {
 
   @Input()
   surface: Layer
+  @ViewChild("renderCanvas")
+  canvas: ElementRef;
 
   constructor() {
     super()
@@ -22,11 +26,12 @@ export class LayerComponent extends SurfaceComponent  {
    ngOnInit(){
 
      this.surface.whenCreatedGraphicsAgain= new Callback(()=>(this.surface.render()));
+     this.surface.htmlElement=this.canvas;
 
    }
-   ngDoCheck(){
+  
 
-   }
+   
 
 
 

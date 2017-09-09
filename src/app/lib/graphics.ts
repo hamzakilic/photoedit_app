@@ -92,6 +92,11 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     this._context.fillStyle = brush;
     this._context.fillRect(rect.x, rect.y, rect.width, rect.height);
   }
+
+  public drawRect(rect: Rect, brush: string): void {
+    this._context.strokeStyle = brush;
+    this._context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+  }
   public clearRect(rect: Rect){
     this._context.clearRect(rect.x,rect.y,rect.width,rect.height);
   }
@@ -99,6 +104,8 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
   public drawLine(x1: number, y1: number, x2: number, y2: number, lineWidth: number = 1, brush?: string) {
     if (brush)
       this._context.fillStyle = brush;
+    if(brush)
+      this._context.strokeStyle=brush;
     this._context.lineWidth = lineWidth;
     this._context.beginPath();
     this._context.moveTo(x1, y1);
@@ -119,7 +126,7 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     this._context.fillStyle=color;
     if(isStroked)
       this._context.strokeStyle=strokedColor;
-    console.log(isStroked);
+    
    // this.context.font=style+fontSize+"px "+fontFamily;
    // this.context.textBaseline="top";
    // this.context.textAlign="left";
@@ -150,6 +157,10 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
   public fillStyle(brush:string){
     this._context.fillStyle=brush;
   }
+
+  public strokeStyle(brush:string){
+    this._context.strokeStyle=brush;
+  }
   public beginPath(){
     this._context.beginPath();
   }
@@ -165,6 +176,9 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
 
   public fill(){
     this._context.fill();
+  }
+  public stroke(){
+    this._context.stroke();
   }
   
 
@@ -193,7 +207,12 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
 
   public bezierCurveTo(cp1x:number, cp1y:number, cp2x:number, cp2y:number, x:number, y:number){
     this._context.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
+    
   }
+  public quadraticCurveTo(cpx:number, cpy:number, x:number, y:number) {
+    this._context.quadraticCurveTo(cpx, cpy, x, y);
+  }
+
 
   public ellipse(x:number, y:number, radiusX:number, radiusY:number, rotation:number, startAngle:number, endAngle:number){
     this._context.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);

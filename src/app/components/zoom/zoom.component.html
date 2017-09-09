@@ -10,7 +10,7 @@
       <div *ngIf="project.activeWorkspace != undefined">
       
 
-         <trackbar-component [value]="this.project.activeWorkspace.zoom*100" [min]=0 [max]=300 [step]=10 (valueChanged)="valueChanged($event)" ></trackbar-component>
+         <trackbar-component [value]="this.project.activeWorkspace.zoom*100" [min]=0 [max]=1000 [step]=10 (valueChanged)="valueChanged($event)" ></trackbar-component>
 
         
       </div>
