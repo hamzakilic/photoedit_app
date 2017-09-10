@@ -37,7 +37,9 @@ export class Workspace extends HEventEmitter {
   public nativeElement: any;
 
   public selectionRectangleLayer: Layer;
-
+  
+  public foregroundColor:string;
+  public backgroundColor:string;
 
   constructor(width: number, height: number, name?: string) {
     super();
@@ -71,6 +73,8 @@ export class Workspace extends HEventEmitter {
     this.backgroundLayer.zIndex = 0;
     this._workMode = new WorkModeDefault(this);
 
+    this.backgroundColor="#000";
+    this.foregroundColor="#FFF";
 
   }
   public get hasLayer(): boolean {
@@ -331,6 +335,9 @@ export class Workspace extends HEventEmitter {
         case Workspace.WorkModeLassoSelection:
         this._workMode = new WorkModeSelectionLasso(this);
         break;
+        case Workspace.WorkModeColorPicker:
+        this._workMode = new WorkModeColorPicker(this);
+        break;
       default:
         this._workMode = new WorkModeDefault(this);
     }
@@ -359,6 +366,8 @@ export class Workspace extends HEventEmitter {
   public static readonly WorkModeLassoSelection = 9;
   public static readonly WorkModePolygonalSelection = 10;
   public static readonly WorkModeMagneticSelection = 11;
+  public static readonly WorkModeColorPicker = 12;
+
 
 
 }
@@ -366,13 +375,13 @@ export class Workspace extends HEventEmitter {
 abstract class WorkModeBase {
   protected workspace: Workspace;
   protected canvasElement:any;
-  constructor(workspace: Workspace) {
+  constructor(workspace: Workspace,disposeSelectionRectangle:boolean=true) {
     this.workspace = workspace;
-    if(this.workspace.selectionRectangleLayer){
+    if(this.workspace.selectionRectangleLayer && disposeSelectionRectangle){
       this.workspace.selectionRectangleLayer.dispose();
-      this.canvasElement=this.workspace.selectionRectangleLayer.htmlElement;
-    }
+      this.canvasElement=this.workspace.selectionRectangleLayer.htmlElement;    
     this.workspace.selectionRectangleLayer = undefined;
+    }
     this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event); });
   }
 
@@ -560,6 +569,56 @@ class WorkModeCrop extends WorkModeSelectionRectangle {
         
       
       }
+
+
+      class WorkModeColorPicker extends WorkModeBase {
+        private _cssClassesBefore:string;
+        private _isMouseDown=false;
+        constructor(workspace: Workspace) {
+          super(workspace,false);
+          this._cssClassesBefore=this.workspace.cssClasses;
+          this.workspace.cssClasses = "default";
+      
+        }
+        public get typeOf(): number {
+          return Workspace.WorkModeColorPicker;
+        }
+      
+        public mouseMove(event: MouseEvent) {
+          if(this._isMouseDown)
+          this.findPointInLayers(event);
+        }
+      
+        public mouseDown(event: MouseEvent, layer: Layer) {
+          this._isMouseDown=true;
+          
+          this.findPointInLayers(event);
+          
+        }
+        public mouseUp(event: any) {
+          this._isMouseDown=false;
+          this.workspace.cssClasses=this._cssClassesBefore;
+          
+        }
+
+        private findPointInLayers(event:MouseEvent){
+           for(let i=this.workspace.layers.length-1;i>-1;--i){
+              let ly= this.workspace.layers[i];
+              let hitPoint=ly.hitMouseEvent(event);
+              if(hitPoint){
+                  let color=ly.getColor(hitPoint.X,hitPoint.Y);
+                  if(color.a!=0){
+                    this.workspace.foregroundColor="rgb("+color.r+","+color.g+","+color.b+")";
+                    return;
+                  }
+              }              
+           }
+        }
+      
+      
+      }
+
+
 
 
 class WorkModeResizeWorkspace extends WorkModeBase {

@@ -102,9 +102,45 @@ export class ToolsComponent implements OnInit {
 
   }
 
+  selectColorPicker() {
+    
+        if (this.project)
+          if (this.project.activeWorkspace) {
+            this.project.activeWorkspace.selectWorking(Workspace.WorkModeColorPicker);
+            this.removeActiveCss();
+            this.makeActiveCss("selectColorPicker");
+    
+          }
+    
+      }
+
 
   selectAddTextLayer() {
 
+  }
+  
+  public  get foregroundcolor():string{
+    return this.project.activeWorkspace.foregroundColor;
+  }
+
+  public set foregroundcolor(value:string){
+     this.project.activeWorkspace.foregroundColor=value;
+  }
+
+
+  
+  public  get backgroundcolor():string{
+    return this.project.activeWorkspace.backgroundColor;
+  }
+
+  public set backgroundcolor(value:string){
+     this.project.activeWorkspace.backgroundColor=value;
+  }
+
+  public swapColors(){
+    let fg=this.project.activeWorkspace.foregroundColor;
+    this.project.activeWorkspace.foregroundColor=this.project.activeWorkspace.backgroundColor;
+    this.project.activeWorkspace.backgroundColor=fg;
   }
 
 }

@@ -29,6 +29,10 @@ export class LayerComponent extends SurfaceComponent  {
      this.surface.htmlElement=this.canvas;
 
    }
+
+   public showSelected(){
+    return this.surface.isSelected && this.surface.showSelected;
+   }
   
 
    

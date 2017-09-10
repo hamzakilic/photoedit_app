@@ -1,3 +1,4 @@
+import { Color } from './draw/color';
 import { HImage } from './image';
 import { Rect } from '../lib/draw/rect'
 import { CanvasTextWrapper } from 'canvas-text-wrapper';
@@ -51,6 +52,12 @@ export class Graphics {
     let img = new HImage(this.width,this.height,arr);
     return img;
 
+
+  }
+
+  public getColor(x:number,y:number):Color{
+    let arr= this._context.getImageData(x,y,1,1).data;
+    return new Color(arr[0],arr[1],arr[2],arr[3]);
 
   }
 

@@ -74,6 +74,7 @@ import { CropPropertiesComponent } from './components/crop-properties/crop-prope
 
 
 
+
 @NgModule({
   declarations: [
 
@@ -108,7 +109,8 @@ import { CropPropertiesComponent } from './components/crop-properties/crop-prope
     FormColorAdjustmentComponent,
     TrackbarComponent,
     FormGrayscaleComponent,
-    CropPropertiesComponent
+    CropPropertiesComponent,
+    
 
 
 

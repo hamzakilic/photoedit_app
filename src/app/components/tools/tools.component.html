@@ -28,12 +28,37 @@
             tooltip="Ellipse selection" placement="right">
         <img src="assets/icons/selectellipse.png">
     </label>
-          <label id="selectLasso" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " (click)="selectLassoSelection()"
-            tooltip="Lasso selection" placement="right">
+          <label id="selectLasso" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " (click)="selectLassoSelection()" tooltip="Lasso selection"
+            placement="right">
       <img src="assets/icons/selectfree.png">
   </label>
 
 
+  <label id="selectColorPicker" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " (click)="selectColorPicker()" tooltip="Color picker"
+  placement="right">
+<img src="assets/icons/colorpicker.png">
+</label>
+
+
+  <div class="input-group input-group-sm">
+    
+   
+    <label [(colorPicker)]="foregroundcolor" class="mouseoverhand"  [style.background]="foregroundcolor"  tooltip="Foreground color"  placement="right"
+    style="height:1.5rem;width:50%;margin:4px"
+      [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" 
+       
+      [cpAlphaChannel]="'disabled'"   ></label>
+      <label class="mouseoverhand" tooltip="Swap colors" placement="right" (click)="swapColors()">
+        <img src="assets/icons/swap.png">
+      </label>
+
+      <label  [(colorPicker)]="backgroundcolor"  class="mouseoverhand" [style.background]="backgroundcolor"  tooltip="Background color"  placement="right"
+      style="height:1.5rem;width:50%;margin:4px"
+        [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" 
+       
+        [cpAlphaChannel]="'disabled'"   ></label>
+  </div>
+  
 
 
         </div>

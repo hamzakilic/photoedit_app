@@ -1,3 +1,4 @@
+import { Color } from './../../lib/draw/color';
 
 import { Callback } from '../../lib/callback';
 import { Graphics } from '../../lib/graphics';
@@ -269,6 +270,10 @@ export class SurfaceCanvas extends Surface {
   */
  public  getImage():HImage {
    return this.graphics.getImage();
+ }
+
+ public getColor(x:number,y:number):Color{
+   return this.graphics.getColor(x,y);
  }
 
 

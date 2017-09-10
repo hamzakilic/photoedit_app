@@ -1,10 +1,12 @@
+import { Point } from './../../lib/draw/point';
+import { Color } from './../../lib/draw/color';
 import { debuging} from '../../debuging'
 import { Callback } from '../../lib/callback';
 import { HImage } from '../../lib/image';
 import { Graphics } from '../../lib/graphics';
 import { SurfaceCanvas } from './surface'
 import { Rect } from '../../lib/draw/rect';
-import { Point } from '../../lib/draw/point';
+
 import { RotationHelper, RotationMove } from './lib/rotationHelper';
 
 export abstract class Layer extends SurfaceCanvas {
@@ -129,6 +131,22 @@ export abstract class Layer extends SurfaceCanvas {
   public abstract dispose();
 
   
+  public hitMouseEvent(event:MouseEvent):Point{
+    if (this.htmlElement) {
+      let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
+      
+      let point =new Point(((event.clientX - rc.left)/this.scale).extRound(), ((event.clientY - rc.top)/this.scale).extRound());
+         
+        if (point.X >= 0 && point.Y >= 0 && point.X <= this.width && point.Y <= this.height) {
+          return point;
+        }
+      
+    }
+    return undefined;
+  }
+  public getColor(x:number,y:number):Color{
+    return this.graphics.getColor(x,y);
+  }
 
 
    

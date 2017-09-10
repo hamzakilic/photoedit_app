@@ -75,7 +75,7 @@
   <input [(colorPicker)]="color" class="form-control" [style.background]="color" [value]="color" [cpPosition]="'top'" 
   [style.color]="calculateForeground()"
     [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
-     [cpUseRootViewContainer]="false"
+     
     [cpAlphaChannel]="'disabled'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="colorChanging($event)" />
 </div>
 
@@ -94,7 +94,7 @@
   <input [(colorPicker)]="strokedColor" class="form-control" [style.background]="strokedColor" [value]="strokedColor" [cpPosition]="'top'" 
   [style.color]="calculateForegroundStrokedColor()"
     [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
-     [cpUseRootViewContainer]="false"
+     
     [cpAlphaChannel]="'disabled'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="strokedColorChanging($event)" />
 </div>
 

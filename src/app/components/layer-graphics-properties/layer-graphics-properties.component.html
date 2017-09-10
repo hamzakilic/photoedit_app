@@ -14,7 +14,8 @@
   <input [(colorPicker)]="backgroundColor" class="form-control" [disabled]="disabled" [style.background]="backgroundColor" [value]="backgroundColor" [cpPosition]="'top'" 
   [style.color]="calculateForegroundColor()"
     [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
-     [cpUseRootViewContainer]="false"
+     
     [cpAlphaChannel]="'disabled'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="changeBackgroundColor($event)" />
 </div>
   <div>
+    
