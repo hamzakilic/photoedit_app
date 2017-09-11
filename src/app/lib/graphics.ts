@@ -122,6 +122,12 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     this._context.stroke();
   }
 
+  public drawLine2(x1: number, y1: number) {
+    
+    this._context.lineTo(x1, y1);
+    
+  }
+
   public drawString(text: string,color:string,isStroked:boolean,strokedColor:string,fontFamily: string, fontSize: number,isBold: boolean,isItalic:boolean,alignH: "left" | "center" | "right",alignV:"top" | "middle" | "bottom"){
     let style="";
     if(isBold)

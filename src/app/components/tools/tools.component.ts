@@ -24,123 +24,115 @@ export class ToolsComponent implements OnInit {
   ngOnInit() {
   }
 
-
-
-
-  removeActiveCss() {
-    var labels = document.querySelectorAll(".toolsInfo > section > div > div > div> label");
-    for (let i = 0; i < labels.length; ++i)
-      labels.item(i).classList.remove("active");
+  private selectWorking(mode: number) {
+    if (this.project)
+      if (this.project.activeWorkspace) 
+        this.project.activeWorkspace.selectWorking(mode);
+      
   }
-  makeActiveCss(id) {
-    var labels = document.querySelectorAll(".toolsInfo > section > div > div > div > label");
 
-    for (let i = 0; i < labels.length; ++i)
-      if (labels.item(i).id == id) {
+  private isWorkingMode(mode: number) {
+    if (this.project)
+      if (this.project.activeWorkspace)
+        return this.project.activeWorkspace.workMode.typeOf == mode;
+  }
 
-        labels.item(i).classList.add("active");
-      }
-
+  public get defaultCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModeDefault) };
   }
 
   selectDefault() {
-
-    if (this.project)
-      if (this.project.activeWorkspace) {
-        this.project.activeWorkspace.selectWorking(Workspace.WorkModeDefault);
-        this.removeActiveCss();
-        this.makeActiveCss("default");
-      }
-
+    this.selectWorking(Workspace.WorkModeDefault);
   }
 
+
+
+  public get cropCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModeCrop) };
+  }
   selectCrop() {
-    if (this.project)
-      if (this.project.activeWorkspace) {
-        this.project.activeWorkspace.selectWorking(Workspace.WorkModeCrop);
-        this.removeActiveCss();
-        this.makeActiveCss("selectCrop");
-
-      }
-
+    this.selectWorking(Workspace.WorkModeCrop);
   }
 
+
+  public get rectangleCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModeRectangleSelection) };
+  }
   selectRectangleSelection() {
-
-    if (this.project)
-      if (this.project.activeWorkspace) {
-        this.project.activeWorkspace.selectWorking(Workspace.WorkModeRectangleSelection);
-        this.removeActiveCss();
-        this.makeActiveCss("selectRectangle");
-
-      }
-
+    this.selectWorking(Workspace.WorkModeRectangleSelection);
   }
 
-
+  public get ellipseCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModeEllipseSelection) };
+  }
   selectEllipseSelection() {
-
-    if (this.project)
-      if (this.project.activeWorkspace) {
-        this.project.activeWorkspace.selectWorking(Workspace.WorkModeEllipseSelection);
-        this.removeActiveCss();
-        this.makeActiveCss("selectEllipse");
-
-      }
-
+    this.selectWorking(Workspace.WorkModeEllipseSelection);
   }
 
-  selectLassoSelection() {
-
-    if (this.project)
-      if (this.project.activeWorkspace) {
-        this.project.activeWorkspace.selectWorking(Workspace.WorkModeLassoSelection);
-        this.removeActiveCss();
-        this.makeActiveCss("selectLasso");
-
-      }
-
+  public get lassoCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModeLassoSelection) };
+  }
+  selectLassoSelection() {    
+        this.selectWorking(Workspace.WorkModeLassoSelection);
   }
 
+  public get colorpickerCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModeColorPicker) };
+  }
   selectColorPicker() {
-    
-        if (this.project)
-          if (this.project.activeWorkspace) {
-            this.project.activeWorkspace.selectWorking(Workspace.WorkModeColorPicker);
-            this.removeActiveCss();
-            this.makeActiveCss("selectColorPicker");
-    
-          }
-    
-      }
-
-
-  selectAddTextLayer() {
-
+    this.selectWorking(Workspace.WorkModeColorPicker);
   }
+
+  public get polygonCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModePolygonalSelection) };
+  }
+  selectPolygonSelection() {
+    this.selectWorking(Workspace.WorkModePolygonalSelection);
+  }
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+
+ 
+
   
-  public  get foregroundcolor():string{
+
+  
+
+
+
+
+  public get foregroundcolor(): string {
     return this.project.activeWorkspace.foregroundColor;
   }
 
-  public set foregroundcolor(value:string){
-     this.project.activeWorkspace.foregroundColor=value;
+  public set foregroundcolor(value: string) {
+    this.project.activeWorkspace.foregroundColor = value;
   }
 
 
-  
-  public  get backgroundcolor():string{
+
+  public get backgroundcolor(): string {
     return this.project.activeWorkspace.backgroundColor;
   }
 
-  public set backgroundcolor(value:string){
-     this.project.activeWorkspace.backgroundColor=value;
+  public set backgroundcolor(value: string) {
+    this.project.activeWorkspace.backgroundColor = value;
   }
 
-  public swapColors(){
-    let fg=this.project.activeWorkspace.foregroundColor;
-    this.project.activeWorkspace.foregroundColor=this.project.activeWorkspace.backgroundColor;
-    this.project.activeWorkspace.backgroundColor=fg;
+  public swapColors() {
+    let fg = this.project.activeWorkspace.foregroundColor;
+    this.project.activeWorkspace.foregroundColor = this.project.activeWorkspace.backgroundColor;
+    this.project.activeWorkspace.backgroundColor = fg;
   }
 
 }

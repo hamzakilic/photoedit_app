@@ -126,6 +126,10 @@ export abstract class Layer extends SurfaceCanvas {
     event.preventDefault();
   }
 
+  public doubleClick(event:any){
+    
+  }
+
   public abstract render(): void;
 
   public abstract dispose();

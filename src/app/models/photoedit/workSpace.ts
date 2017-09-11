@@ -14,6 +14,7 @@ import { CalcLayer } from "./lib/calcLayer";
 import { Calc } from '../../lib/calc';
 import { Point } from "../../lib/draw/point";
 import { LayerSelectLasso } from "./layerSelectLasso";
+import { LayerSelectPolygonal } from './layerSelectPolygonal';
 
 
 export class Workspace extends HEventEmitter {
@@ -335,13 +336,20 @@ export class Workspace extends HEventEmitter {
         case Workspace.WorkModeLassoSelection:
         this._workMode = new WorkModeSelectionLasso(this);
         break;
+        case Workspace.WorkModePolygonalSelection:
+        this._workMode = new WorkModeSelectionPolygonal(this);
+        break;
         case Workspace.WorkModeColorPicker:
-        this._workMode = new WorkModeColorPicker(this);
+        this._workMode = new WorkModeColorPicker(this,this.workMode);
         break;
       default:
         this._workMode = new WorkModeDefault(this);
     }
 
+  }
+
+  public setWorkingMode(working:WorkModeBase){
+    this._workMode=working;
   }
 
   public removeSelectionRectangleLayer() {
@@ -367,6 +375,7 @@ export class Workspace extends HEventEmitter {
   public static readonly WorkModePolygonalSelection = 10;
   public static readonly WorkModeMagneticSelection = 11;
   public static readonly WorkModeColorPicker = 12;
+  
 
 
 
@@ -443,8 +452,8 @@ class WorkModeHand extends WorkModeBase {
 
 class WorkModeSelectionRectangle extends WorkModeBase {
 
-  constructor(workspace: Workspace) {
-    super(workspace);
+  constructor(workspace: Workspace,disposeSelectionRectangle:boolean=true) {
+    super(workspace,disposeSelectionRectangle);
     this.workspace.cssClasses = "mouseCross";
     
 
@@ -571,12 +580,71 @@ class WorkModeCrop extends WorkModeSelectionRectangle {
       }
 
 
-      class WorkModeColorPicker extends WorkModeBase {
-        private _cssClassesBefore:string;
-        private _isMouseDown=false;
+
+      class WorkModeSelectionPolygonal extends WorkModeSelectionRectangle {
+        
         constructor(workspace: Workspace) {
+         
+          super(workspace);
+          this.workspace.cssClasses = "mouseCross";
+          
+          this.workspace.selectionRectangleLayer=this.createLayer(0,0,0,0);
+          
+          
+        }
+        public get typeOf(): number {
+          return Workspace.WorkModePolygonalSelection;
+        }
+
+        public mouseMove(event: MouseEvent) {
+          if (this.workspace.selectionRectangleLayer)
+            this.workspace.selectionRectangleLayer.mouseMove(event);
+      
+        }
+      
+        public mouseDown(event: MouseEvent, layer: Layer) {
+      
+          if (this.workspace.selectionRectangleLayer != undefined) {        
+           
+           
+           this.workspace.selectionRectangleLayer.mouseDown(event);
+          }
+          
+        }
+
+        public doubleClick(event: MouseEvent, layer: Layer) {
+          
+            
+              
+      }
+
+
+        public mouseUp(event: any) {
+          if (this.workspace.selectionRectangleLayer)
+            this.workspace.selectionRectangleLayer.mouseUp(event);
+        }
+       
+
+        
+        protected createLayer(width:number,height:number,left:number,top:number){
+          let layer= new LayerSelectPolygonal(this.workspace.backgroundLayer.width,this.workspace.backgroundLayer.height,this.workspace.backgroundLayer.marginLeft,this.workspace.backgroundLayer.marginTop);
+          layer.htmlElement=this.canvasElement;
+          return layer;
+        }
+      
+        
+      
+      }
+
+
+
+      class WorkModeColorPicker extends WorkModeBase {
+        private _previousWorkMode:WorkModeBase;
+        private _isMouseDown=false;
+        constructor(workspace: Workspace, previousMode:WorkModeBase) {
+          //dont dispose previous workmode          
           super(workspace,false);
-          this._cssClassesBefore=this.workspace.cssClasses;
+          this._previousWorkMode=previousMode;          
           this.workspace.cssClasses = "default";
       
         }
@@ -597,7 +665,7 @@ class WorkModeCrop extends WorkModeSelectionRectangle {
         }
         public mouseUp(event: any) {
           this._isMouseDown=false;
-          this.workspace.cssClasses=this._cssClassesBefore;
+          this.workspace.setWorkingMode(this._previousWorkMode);
           
         }
 

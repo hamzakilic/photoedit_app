@@ -9,6 +9,7 @@ export class MouseDirective {
   @Output() mouseMove = new EventEmitter();
   @Output() mouseLeave = new EventEmitter();
   @Output() mouseOver = new EventEmitter();
+  @Output() doubleClick = new EventEmitter();
 
   /**
    *
@@ -57,10 +58,12 @@ export class MouseDirective {
   }
 
   @HostListener('mouseover',['$event']) onmouseover(event: any) {
-
-
-      this.mouseOver.emit(event);
-
+      
+    this.mouseOver.emit(event);
+  }
+  @HostListener('dblclick',['$event']) ondblclick(event: any) {   
+    
+          this.doubleClick.emit(event);    
   }
 
 

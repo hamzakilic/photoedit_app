@@ -32,6 +32,9 @@ export class LayerSelectRectangle extends Layer {
 
   }
 
+
+
+
   public get classes():any{   
     return { clayerEmpty:true};
   }
@@ -90,7 +93,9 @@ export class LayerSelectRectangle extends Layer {
       this.graphics.save();
       let rect= new Rect(0,0,this.width,this.height);
       this.graphics.clearRect(rect);
-      this.graphics.fillRectRGBA(rect,10,10,50,100);
+      this.graphics.lineWidth(3);
+      this.graphics.fillRect(rect,this.fillStyle);
+      this.graphics.drawRect(rect,this.strokeStyle);
       /*this.graphics.fillRect(new Rect(0,0,10,10),"#FFFFFF");
       this.graphics.fillRect(new Rect(this.width-10,0,10,10),"#FFFFFF");
       this.graphics.fillRect(new Rect(this.width-10,this.height-10,10,10),"#FFFFFF");
@@ -101,6 +106,7 @@ export class LayerSelectRectangle extends Layer {
   }
   protected frameCounter=0;
   protected strokeStyle="#FFF";
+  public fillStyle="rgba(" + 10 + "," + 10 + "," + 50 + "," + (100 / 255) + ")";
   protected renderAnimation():void{
     
     if(this.graphics){
@@ -163,4 +169,19 @@ export class LayerSelectRectangle extends Layer {
         };
         return classes;
    }
+
+   protected calculatePoint(event:MouseEvent):Point{
+    if (this.htmlElement) {
+      let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
+      let point = { x: event.clientX - rc.left, y: event.clientY - rc.top };     
+
+        if (point.x >= 0 && point.y >= 0 && point.x <= this.width && point.y <= this.height) {
+          let curPoint=new Point(point.x, point.y);
+          
+          return curPoint;
+        }
+      
+    }
+    return undefined;
+  }
 }

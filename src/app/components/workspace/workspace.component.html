@@ -10,17 +10,15 @@ style="position: absolute;overflow: hidden;margin:50px"
 
 <layer-component *ngFor="let layer of workspace.layers" [surface]='layer'
  [style.visibility]="(layer.isHidden) ? 'hidden':'visible'"
- mouse  (mouseDown)="workspace.mouseDown($event,layer)" >
+ mouse  (mouseDown)="workspace.mouseDown($event,layer)"  >
 </layer-component>
 
 <layer-component *ngIf="workspace.selectionRectangleLayer" [surface]="workspace.selectionRectangleLayer"
-  style="z-index:500" >
+  style="z-index:500" mouse (doubleClick)="workspace.selectionRectangleLayer.doubleClick($event)" >
 </layer-component>
 <crop-properties-component [workspace]="workspace"></crop-properties-component>
 
-<workspace-resize [workspace]="workspace">
-  
-</workspace-resize>
+<workspace-resize [workspace]="workspace"></workspace-resize>
 
 
 

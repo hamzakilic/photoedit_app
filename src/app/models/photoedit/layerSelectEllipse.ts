@@ -29,11 +29,15 @@ export class LayerSelectEllipse extends LayerSelectRectangle {
     let centerY = this.height / 2;    
   
     this.graphics.beginPath();
+    this.graphics.lineWidth(2);
+    this.graphics.strokeStyle(this.strokeStyle);
+    this.graphics.fillStyle(this.fillStyle);
     this.graphics.ellipse(centerX,centerY,this.width/2,this.height/2,0,0,2*Math.PI);
-    this.graphics.fillStyle("rgba(" + 10 + "," + 10 + "," + 50 + "," + (100 / 255) + ")");
+    
     
         
     this.graphics.fill();
+    this.graphics.stroke();
         
     
     this.graphics.restore();
@@ -62,10 +66,12 @@ export class LayerSelectEllipse extends LayerSelectRectangle {
     let centerX = this.width / 2;
     let centerY = this.height / 2; 
     this.graphics.strokeStyle(this.strokeStyle);   
+    this.graphics.lineWidth(2);
     for(let x=0;x<totalParts;x+=1){     
       
         if((x+dividen)%2==0){
           this.graphics.beginPath();
+
           this.graphics.ellipse(centerX,centerY,this.width/2,this.height/2,0,x*splitSize*Math.PI/180,(x*splitSize+splitSize)*Math.PI/180);
           this.graphics.stroke();
         
