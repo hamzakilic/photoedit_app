@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+
+declare var $:any;
+import { Component, OnInit,Input,ViewChild } from '@angular/core';
 
 import { ProjectService } from '../../services/project.service';
 import { Proj } from '../../models/photoedit/proj';
@@ -12,9 +14,10 @@ import { Layer } from '../../models/photoedit/layer';
 })
 export class ToolsComponent implements OnInit {
 
+
   projectService: ProjectService;
   public project: Proj;
-
+  
   constructor(projectService: ProjectService) {
     this.projectService = projectService;
 
@@ -22,6 +25,14 @@ export class ToolsComponent implements OnInit {
   }
 
   ngOnInit() {
+      
+    
+    
+  }
+  ngAfterViewInit(){
+      
+      
+
   }
 
   private selectWorking(mode: number) {
@@ -88,6 +99,37 @@ export class ToolsComponent implements OnInit {
   }
   selectPolygonSelection() {
     this.selectWorking(Workspace.WorkModePolygonalSelection);
+  
+    this.isCollapsed=true;
+  }
+
+  public get pencilCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModePolygonalSelection) };
+  }
+
+  @ViewChild("pop")  
+  pop:any;
+  selectPencil() {   
+   
+    this.isCollapsed=false;
+   
+
+  }
+
+  public get isPencilActive():boolean{
+    if (this.project)
+      if (this.project.activeWorkspace) 
+      return this.project.activeWorkspace.workMode.typeOf === Workspace.WorkModePolygonalSelection;
+      return false;
+  }
+
+  _isCollapsed=true;
+  public get isCollapsed():boolean{
+    return this._isCollapsed;
+  }
+
+  public set isCollapsed(val:boolean){
+    this._isCollapsed = val;
   }
 
 

@@ -12,6 +12,9 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap';
+import { PopoverModule } from 'ngx-bootstrap';
+import { CollapseModule } from 'ngx-bootstrap';
+
 import { ColorPickerModule } from './modulesext/color-picker';
 import { AutoCompleteModule } from './modulesext/autocomplete';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
@@ -125,6 +128,8 @@ import { CropPropertiesComponent } from './components/crop-properties/crop-prope
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
+    PopoverModule.forRoot(),
+    CollapseModule.forRoot(),
     BrowserAnimationsModule,
     BusyModule,
     BrowserModule,
