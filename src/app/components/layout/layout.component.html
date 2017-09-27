@@ -3,12 +3,14 @@
     <menubar-component></menubar-component>
   </div>
 
-
-  <div id="projectfiles">
+  <div class="maincontent">
+      <div *ngIf="hasActiveWorkspace" class="toolbar">
+          <tools-component></tools-component>
+      </div>
+  <div class="projectfiles">
     <project-component></project-component>
-
-
-  </div>
+</div>
+</div>
   <!-- <div class="statusbar gray-light">
     <statusbar-component></statusbar-component>
   </div> -->
@@ -34,13 +36,13 @@
         <zoom-component></zoom-component>
     </div>
 
-      <div *ngIf="hasLayer" ngDraggable class="panelToolbox" [handle]="panelHeaderToolbox">
+ <!--      <div *ngIf="hasLayer" ngDraggable class="panelToolbox" [handle]="panelHeaderToolbox">
       <div #panelHeaderToolbox class="modal-header unselectableText">
        Toolbox
       </div>
       <tools-component></tools-component>
     
-    </div>
+    </div> -->
 
    
 

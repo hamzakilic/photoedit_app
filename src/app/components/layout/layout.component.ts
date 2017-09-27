@@ -26,6 +26,11 @@ export class LayoutComponent implements OnInit {
       return true;
     return false;
   }
+  public get hasActiveWorkspace():boolean{
+    if(this.project && this.project.activeWorkspace)
+    return true;
+  return false;
+  }
 
   public get hasSelectionLayer():boolean{
     let hasLayer = this.hasLayer 
