@@ -10,7 +10,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 @import "../node_modules/font-awesome/scss/font-awesome";
 @import "../node_modules/angular2-busy/build/style/busy.css";
 
-
+$whitesmoke:#F5F5F5;
 
 
 .glyphicon {
@@ -37,7 +37,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 
 .btn-primary {
-    color: white;
+    color: $whitesmoke;
     background-color: #535353;;
     border-color: #656565;
     font-size : medium;
@@ -45,7 +45,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 
 .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
-    color: #fff;
+    color: $whitesmoke;
     background-color: #025aa5;
     background-image: none;
     border-color: #535353;
@@ -56,7 +56,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
     margin-bottom:4px;
 }
 .btn-primary {
-    color: white;
+    color:$whitesmoke;
     background-color: #535353;;
     border-color: #656565;
     font-size : medium;
@@ -75,7 +75,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 .dropdown-item {
 
-  color: white;
+  color:$whitesmoke;
   font-size: 0.9rem !important;
   line-height: 0.8rem;
 
@@ -89,13 +89,13 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 .modal-body{
   background-color: #707070;
-  color: white;
+  color:$whitesmoke;
   font-size:medium;
 }
 
 .modal-header {
   background-color:#545454;
-  color:white;
+  color:$whitesmoke;
   padding-top:5px;
   padding-bottom:5px;
   font-size: small;
@@ -123,7 +123,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 
 .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
-   color: #efefef;
+   color: $whitesmoke;
     background-color: #504b4b;
     border-color: #ddd #ddd #fff;
      line-height: 0.5rem; 
@@ -197,6 +197,31 @@ a {
     -webkit-user-select: none;
     -o-user-select: none;
     user-select: none;
+}
+
+
+project-component tabset .tab-content{
+  position: relative;
+  height: 100%;
+  width:100%;
+  
+  left:0;
+  top:0;
+  
+
+}
+
+project-component tabset .tab-content .tab-pane{
+  position: relative;
+  height: 100%;
+  width:100%;
+  
+  left:0;
+  top:0;
+}
+
+.close{
+  cursor: pointer; cursor: hand;
 }
 
 

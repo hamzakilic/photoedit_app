@@ -1,22 +1,22 @@
 <div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="overflow-y: initial !important">
-    <div ngDraggable [handle]="modalHeader " class="modal-content" style="width:650px">
+    <div ngDraggable [handle]="modalHeader " class="modal-content" style="width:450px">
       <div #modalHeader class="modal-header unselectableText">
         <h6 class="modal-title pull-left">Sample images</h6>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
+        <button type="button" class="close pull-right " aria-label="Close" (click)="smModal.hide()">
               <span aria-hidden="true">&times;</span>
             </button>
       </div>
       <div class="modal-body" >
-        <div style="height:400px;overflow-y:auto;color:black">
+        <div style="height:450px;overflow-y:auto;color:black">
         <div class="container-fluid">
           <div class="row">
 
-            <div *ngFor="let file of images" class="card text-center mouseoverhand" style="display:inline-block;margin:5px">
+            <div *ngFor="let file of images" class="text-center mouseoverhand sampleimagecontainer">
 
-              <div class="card-block">
-                <img [src]="link(file)" width="160" height="120" alt="{{file}}" (click)="loadFile(file)">
-              </div>
+              
+                <img [src]="link(file)" class="sampleimage" width="160" height="120" alt="{{file}}" (click)="loadFile(file)">
+              
             </div>
           </div>
 
