@@ -31,9 +31,11 @@
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^1.7.1",
+    "popper.js": "^1.12.5",
     "rxjs": "^5.4.1",
+    "tether": "^1.4.0",
     "webfontloader": "^1.6.28",
-    "zone.js": "^0.8.5"
+    "zone.js": "^0.8.18"
   },
   "devDependencies": {
     "@angular/cli": "^1.2.6",

@@ -7,8 +7,8 @@
 
       <div *ngIf="project.activeWorkspace != undefined">
         <div *ngIf="project.activeWorkspace.hasLayer">
-
-          <label id="default" class="btn btn-primary buttonpadding mouseoverhand btn-sm active" [ngClass]="defaultCss" (click)="selectDefault()" tooltip="Hand tool"
+        
+       <label id="default" class="firsttoolboxbutton btn btn-primary buttonpadding mouseoverhand btn-sm active" [ngClass]="defaultCss" (click)="selectDefault()" tooltip="Hand tool"
             placement="right">
         <img src="assets/icons/mouse.png">
       </label>
@@ -30,12 +30,12 @@
     </label>
           <label id="selectLasso" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " [ngClass]="lassoCss" (click)="selectLassoSelection()" tooltip="Lasso selection"
             placement="right">
-      <img src="assets/icons/selectfree.png">
+      <img src="assets/icons/selectlasso.png">
   </label>
 
   <label id="selectPolygon" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " [ngClass]="polygonCss" (click)="selectPolygonSelection()" tooltip="Polygonal selection"
   placement="right">
-<img src="assets/icons/selectfree.png">
+<img src="assets/icons/selectpolygon.png">
 </label>
 
 
@@ -59,24 +59,24 @@
 
 
 
-  <div class="input-group input-group-sm">
+  
     
    
-    <label [(colorPicker)]="foregroundcolor" class="mouseoverhand"  [style.background]="foregroundcolor"  tooltip="Foreground color"  placement="right"
-    style="height:1.5rem;width:50%;margin:4px"
+    <label [(colorPicker)]="foregroundcolor" class="btn btn-primary  buttonpadding mouseoverhand groundcolor"  [style.background]="foregroundcolor"  tooltip="Foreground color"  placement="right"
+    
       [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" 
        
-      [cpAlphaChannel]="'disabled'"   ></label>
-      <label class="mouseoverhand" tooltip="Swap colors" placement="right" (click)="swapColors()">
+      [cpAlphaChannel]="'enabled'" >{{emptyString}}</label>
+      <label class="btn btn-primary  buttonpadding mouseoverhand btn-sm" style="background:transparent" tooltip="Swap colors" placement="right" (click)="swapColors()">
         <img src="assets/icons/swap.png">
       </label>
 
-      <label  [(colorPicker)]="backgroundcolor"  class="mouseoverhand" [style.background]="backgroundcolor"  tooltip="Background color"  placement="right"
-      style="height:1.5rem;width:50%;margin:4px"
+      <label  [(colorPicker)]="backgroundcolor"  class="btn btn-primary  buttonpadding mouseoverhand groundcolor" [style.background]="backgroundcolor"  tooltip="Background color"  placement="right"
+      
         [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" 
        
-        [cpAlphaChannel]="'disabled'"   ></label>
-  </div>
+        [cpAlphaChannel]="'enabled'"   >{{emptyString}}</label>
+  
   
 
 

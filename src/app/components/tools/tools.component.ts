@@ -116,6 +116,10 @@ export class ToolsComponent implements OnInit {
 
   }
 
+  public get emptyString():string{
+    return " ";
+  }
+
   public get isPencilActive():boolean{
     if (this.project)
       if (this.project.activeWorkspace) 
