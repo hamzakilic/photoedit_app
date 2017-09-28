@@ -14,6 +14,7 @@ import { ModalModule } from 'ngx-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap';
 import { PopoverModule } from 'ngx-bootstrap';
 import { CollapseModule } from 'ngx-bootstrap';
+import { AccordionModule } from 'ngx-bootstrap';
 
 import { ColorPickerModule } from './modulesext/color-picker';
 import { AutoCompleteModule } from './modulesext/autocomplete';
@@ -130,6 +131,7 @@ import { CropPropertiesComponent } from './components/crop-properties/crop-prope
     TooltipModule.forRoot(),
     PopoverModule.forRoot(),
     CollapseModule.forRoot(),
+    AccordionModule.forRoot(),
     BrowserAnimationsModule,
     BusyModule,
     BrowserModule,

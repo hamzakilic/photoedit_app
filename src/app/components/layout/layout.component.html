@@ -10,39 +10,53 @@
   <div class="projectfiles">
     <project-component></project-component>
 </div>
+<div *ngIf="hasActiveWorkspace" class="rightbar">
+  <div class="rightbartop">
+      <div *ngIf="hasLayer" ngDraggable class="panelLayersInfo" [handle]="panelHeaderInfo">
+          <div #panelHeaderInfo class="modal-header unselectableText">
+            Layers
+          </div>
+          <layersInfo-component></layersInfo-component>
+       </div>
+   
+  </div>
+  <div class="rightbarbottom">
+      <div *ngIf="hasLayer" ngDraggable class="panelLayerProperties" [handle]="panelHeaderProperties">
+          <div #panelHeaderProperties class="modal-header unselectableText">
+            Properties
+          </div>
+            <layer-properties-component>
+      
+            </layer-properties-component>
+        </div>
+    
+  </div>
+  
+</div>
+<div class="googleadvert">
+    
+  </div>
 </div>
   <!-- <div class="statusbar gray-light">
     <statusbar-component></statusbar-component>
   </div> -->
-  <div *ngIf="hasLayer" ngDraggable class="panelLayerProperties" [handle]="panelHeaderProperties">
+  <!-- <div *ngIf="hasLayer" ngDraggable class="panelLayerProperties" [handle]="panelHeaderProperties">
     <div #panelHeaderProperties class="modal-header unselectableText">
       Layer Properties
     </div>
       <layer-properties-component>
 
       </layer-properties-component>
-  </div>
+  </div> -->
 
-  <div *ngIf="hasLayer" ngDraggable class="panelLayersInfo" [handle]="panelHeaderInfo">
-      <div #panelHeaderInfo class="modal-header unselectableText">
-        Layers
-      </div>
-      <layersInfo-component></layersInfo-component>
-    </div>
+ 
 
 
-    <div *ngIf="hasLayer" class="panelZoom" >
-        
+    <div *ngIf="hasLayer" class="panelZoom" >        
         <zoom-component></zoom-component>
     </div>
 
- <!--      <div *ngIf="hasLayer" ngDraggable class="panelToolbox" [handle]="panelHeaderToolbox">
-      <div #panelHeaderToolbox class="modal-header unselectableText">
-       Toolbox
-      </div>
-      <tools-component></tools-component>
-    
-    </div> -->
+ 
 
    
 

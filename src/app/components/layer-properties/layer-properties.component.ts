@@ -116,4 +116,15 @@ export class LayerPropertiesComponent implements OnInit {
     modes.push({id:layer.blendMode,text:layer.blendMode});
     return modes;
   }
+
+  public accordionClass: string = 'accordionClass'
+
+  public get hasSelectedLayer():boolean{
+    if(this.project && this.project.activeWorkspace)
+     {
+       return this.project.activeWorkspace.layers.findIndex((item)=>item.isSelected===true)>-1;
+     }
+     return false;
+     
+  }
 }

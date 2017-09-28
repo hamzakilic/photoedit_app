@@ -223,5 +223,27 @@ project-component tabset .tab-content .tab-pane{
 .close{
   cursor: pointer; cursor: hand;
 }
+.accordionClass{
+  font-size: 0.8rem;
+  background-color: #bdb1b1;
+ 
+}
+.accordionClass .card-header{
+  border: solid 2px #504b4b;
+  background-color: #736e6e;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.accordionClass .card-block{
+  border: 0px;
+  background-color: #bdb1b1;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+
 
 

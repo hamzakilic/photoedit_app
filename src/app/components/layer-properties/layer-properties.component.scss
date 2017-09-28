@@ -1,16 +1,17 @@
+$whitesmoke:#F5F5F5;
 .layersProperties{
  /* margin-top: 10px; */
 
   background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
   background-image: -webkit-linear-gradient(top, #615c5c, #887f7f);
  
-  overflow-y: auto;
+  
 }
 
 .layersHeader{
 
     line-height: 1rem;
-    color: white;
+    color:$whitesmoke;
    
     padding-left: 4px;
 
@@ -43,7 +44,12 @@
 }
 
 .proName{
-  width:40px;
+  width: 25px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  margin-left:1px;
 }
 .layerTextProperties{
   display: inline-block;
@@ -56,4 +62,6 @@
     position: relative;
     width: 100%;
 }
+
+
 

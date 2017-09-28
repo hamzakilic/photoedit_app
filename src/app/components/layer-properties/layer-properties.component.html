@@ -1,88 +1,89 @@
-<div class="layersProperties">
- <!--  <header class="layersHeader">
-    <span>Layer Properties</span>
-  </header> -->
-  <section class="layersSection">
-
-    <div *ngIf="project != undefined">
-
-      <div *ngIf="project.activeWorkspace != undefined">
-
-
-        <ul class="list-group" *ngFor="let layer of project.activeWorkspace.layers">
-          <li class="list-group-item layersLi" *ngIf="layer.isSelected">
-
-
-            <div class="laName">{{layer.name}}</div>
-
-
-            <div class="input-group input-group-sm">
-              <span class="input-group-addon proName" tooltip="Width of layer" placement="right">W</span>
-
-              <input type="number" class="form-control" placeholder="Enter width of layer" aria-describedby="sizing-addon2" [value]="round(layer.width)"
-                min="10" (input)="changeWidth($event.target.value,layer)">
-            </div>
-            <div class="input-group input-group-sm">
-              <span class="input-group-addon proName" tooltip="height of layer" placement="right">H</span>
-              <input type="number" class="form-control" placeholder="Enter height of layer" aria-describedby="sizing-addon2" [value]="round(layer.height)"
-                min="10" (input)="changeHeight($event.target.value,layer)">
-            </div>
-            <div class="input-group input-group-sm">
-              <span class="input-group-addon proName" tooltip="left of layer" placement="right">L</span>
-              <input type="number" class="form-control" placeholder="Enter left of layer" aria-describedby="sizing-addon2" [value]="round(layer.rectRotated.x)"
-                (input)="changeLeft($event.target.value,layer)">
-            </div>
-            <div class="input-group input-group-sm">
-              <span class="input-group-addon proName" tooltip="top of layer" placement="right">T</span>
-              <input type="number" class="form-control" placeholder="Enter top of layer" aria-describedby="sizing-addon2" [value]="round(layer.rectRotated.y)"
-                (input)="changeTop($event.target.value,layer)">
-            </div>
-            <div class="input-group input-group-sm">
-              <span class="input-group-addon proName" tooltip="rotate of layer" placement="right">R</span>
-              <input type="number" class="form-control" placeholder="Enter rotate of layer" aria-describedby="sizing-addon2" [value]="layer.rotateAngleDeg"
-                min="-180" max="180" (input)="changeRotateAngle($event.target.value,layer)">
-            </div>
-            <div class="input-group input-group-sm">
-              <span class="input-group-addon proName" tooltip="Opacity of layer" placement="right">O</span>
-              <input type="number" class="form-control" placeholder="Enter opacity of layer" aria-describedby="sizing-addon2" [value]="round(layer.globalAlpha*100)"
-                min="0" max="100" (input)="changeGlobalAlpha($event.target.value,layer)">
-            </div>
-
-            <div class="input-group input-group-sm">
-
-              <span class="input-group-addon proName" tooltip="Blend mode" placement="right">B</span>
-
-              <autocomplete class="form-control  autoComplete" style="padding:0px" [allowClear]="false" [items]="blendModes"  (data)="blendmodeRefreshValue($event,layer)"
-                (selected)="changeLayerBlendMode($event,layer)"   [active]="getLayerBlendMode(layer)"
-                placeholder="No blend mode selected"></autocomplete>
-            </div>
-
-            <div class="input-group input-group-sm ">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" [(ngModel)]="layer.keepRatio">
-                <span class="custom-control-indicator"></span>
-                <span class="custom-control-description" style="padding-top:5px">Keep Ratio</span>
-              </label>
-
-            </div>
-
-            <!-- <div class="input-group ">
-            <label class="custom-control custom-checkbox">
-  <input type="checkbox" class="custom-control-input" [(ngModel)]="layer.scaleView">
-  <span class="custom-control-indicator"></span>
-  <span class="custom-control-description" style="padding-top:5px">Scale View</span>
-</label>
-                
-            </div>-->
-
-           
-            <layer-graphics-properties *ngIf="isGraphicsLayer(layer)" class="layerGraphicsProperties" [layer]=layer></layer-graphics-properties>
-             <layer-text-properties *ngIf="isTextLayer(layer)" class="layerTextProperties" [layer]=layer></layer-text-properties>
-          </li>
-
-        </ul>
-
-      </div>
+<accordion *ngIf="hasSelectedLayer">
+  <accordion-group  #basic [panelClass]="accordionClass">
+    <div accordion-heading>
+      Basic
+      <i class="pull-right float-xs-right fa"
+      [ngClass]="{'fa-chevron-down': basic?.isOpen, 'fa-chevron-right': !basic?.isOpen}"></i>
     </div>
-  </section>
-</div>
+    <div class="layersProperties"> 
+        <section class="layersSection">
+          
+      
+      
+              <ul class="list-group" *ngFor="let layer of project.activeWorkspace.layers">
+                <li class="list-group-item layersLi" *ngIf="layer.isSelected">
+      
+      
+                  <div class="laName">{{layer.name}}</div>
+      
+      
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-addon proName" tooltip="Width of layer" placement="right">W</span>
+      
+                    <input type="number" class="form-control" placeholder="Enter width of layer" aria-describedby="sizing-addon2" [value]="round(layer.width)"
+                      min="10" (input)="changeWidth($event.target.value,layer)">
+                      <span class="input-group-addon proName" tooltip="height of layer" placement="right">H</span>
+                      <input type="number" class="form-control" placeholder="Enter height of layer" aria-describedby="sizing-addon2" [value]="round(layer.height)"
+                        min="10" (input)="changeHeight($event.target.value,layer)">
+                  </div>
+                  
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-addon proName" tooltip="left of layer" placement="right">L</span>
+                    <input type="number" class="form-control" placeholder="Enter left of layer" aria-describedby="sizing-addon2" [value]="round(layer.rectRotated.x)"
+                      (input)="changeLeft($event.target.value,layer)">
+                      <span class="input-group-addon proName" tooltip="top of layer" placement="right">T</span>
+                      <input type="number" class="form-control" placeholder="Enter top of layer" aria-describedby="sizing-addon2" [value]="round(layer.rectRotated.y)"
+                        (input)="changeTop($event.target.value,layer)">
+                  </div>
+                  
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-addon proName" tooltip="rotate of layer" placement="right">R</span>
+                    <input type="number" class="form-control" placeholder="Enter rotate of layer" aria-describedby="sizing-addon2" [value]="layer.rotateAngleDeg"
+                      min="-180" max="180" (input)="changeRotateAngle($event.target.value,layer)">
+                      <span class="input-group-addon proName" tooltip="Opacity of layer" placement="right">O</span>
+                      <input type="number" class="form-control" placeholder="Enter opacity of layer" aria-describedby="sizing-addon2" [value]="round(layer.globalAlpha*100)"
+                        min="0" max="100" (input)="changeGlobalAlpha($event.target.value,layer)">
+                  </div>
+                 
+      
+                  <div class="input-group input-group-sm">
+      
+                    <span class="input-group-addon proName" tooltip="Blend mode" placement="right">B</span>
+      
+                    <autocomplete class="form-control  autoComplete" style="padding:0px" [allowClear]="false" [items]="blendModes"  (data)="blendmodeRefreshValue($event,layer)"
+                      (selected)="changeLayerBlendMode($event,layer)"   [active]="getLayerBlendMode(layer)"
+                      placeholder="No blend mode selected"></autocomplete>
+                  </div>
+      
+                  <div class="input-group input-group-sm ">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" [(ngModel)]="layer.keepRatio">
+                      Keep Ratio
+                    </label>
+                  
+      
+                  </div>
+                
+                  <layer-graphics-properties *ngIf="isGraphicsLayer(layer)" class="layerGraphicsProperties" [layer]=layer></layer-graphics-properties>
+                   <layer-text-properties *ngIf="isTextLayer(layer)" class="layerTextProperties" [layer]=layer></layer-text-properties>
+                </li>
+      
+              </ul>
+      
+           
+        </section>
+      </div>
+
+  </accordion-group>
+  <accordion-group #text [panelClass]="accordionClass">
+      <div accordion-heading>
+        Text
+        <i class="pull-right float-xs-right fa"
+        [ngClass]="{'fa-chevron-down': text?.isOpen, 'fa-chevron-right': !text?.isOpen}"></i>
+      </div>
+        Text Content
+  
+    </accordion-group>
+</accordion>
+
+
