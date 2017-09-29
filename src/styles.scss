@@ -33,7 +33,27 @@ $whitesmoke:#F5F5F5;
 }
 
 
+::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.7);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.7);
+	border-radius: 0px;
+	background-color: #F5F5F5;
+}
 
+::-webkit-scrollbar
+{
+	width: 15px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 0px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.7);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7);
+  background-color: #b0b5af;
+}
 
 
 .btn-primary {
@@ -225,23 +245,46 @@ project-component tabset .tab-content .tab-pane{
 }
 .accordionClass{
   font-size: 0.8rem;
-  background-color: #bdb1b1;
+  /* background-color: #bdb1b1; */
+  color: #F5F5F5;
+  font-weight: 400;
+  border: none;
+  /* background-image: none; */
+  /* border-image: none; */
+  background: -webkit-linear-gradient(top, white, #e6e5e5);
+  background-image: -webkit-linear-gradient(top, #615c5c, #887f7f);
  
 }
 .accordionClass .card-header{
-  border: solid 2px #504b4b;
-  background-color: #736e6e;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  background: -webkit-linear-gradient(top, white, #e6e5e5);
+  background-image: -webkit-linear-gradient(top, #615c5c, #887f7f);
+  margin-top: 2px;
+}
+
+.accordionClass .card-block{
+  border: 0px;
+  background: -webkit-linear-gradient(top, white, #e6e5e5);
+  background-image: -webkit-linear-gradient(top, #615c5c, #887f7f);
   padding-left: 10px;
   padding-bottom: 5px;
   padding-top: 5px;
 }
 
-.accordionClass .card-block{
-  border: 0px;
-  background-color: #bdb1b1;
-  padding-left: 10px;
-  padding-bottom: 5px;
-  padding-top: 5px;
+.accordionClass .panel-collapse .card-block{
+  padding:0px;
+}
+
+
+
+layer-properties-component{
+  overflow: auto;
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 

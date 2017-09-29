@@ -21,6 +21,7 @@ $whitesmoke:#F5F5F5;
 
    background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
   background-image: -webkit-linear-gradient(top, rgb(100, 100, 100), rgb(148, 127, 127));
+  
 
 }
 
@@ -50,6 +51,7 @@ $whitesmoke:#F5F5F5;
   margin-top: 1px;
   margin-bottom: 1px;
   margin-left:1px;
+  border:none;
 }
 .layerTextProperties{
   display: inline-block;
@@ -62,6 +64,7 @@ $whitesmoke:#F5F5F5;
     position: relative;
     width: 100%;
 }
+
 
 
 

@@ -12,7 +12,7 @@
 </div>
 <div *ngIf="hasActiveWorkspace" class="rightbar">
   <div class="rightbartop">
-      <div *ngIf="hasLayer" ngDraggable class="panelLayersInfo" [handle]="panelHeaderInfo">
+      <div *ngIf="hasLayer"  class="panelLayersInfo" >
           <div #panelHeaderInfo class="modal-header unselectableText">
             Layers
           </div>
@@ -21,7 +21,7 @@
    
   </div>
   <div class="rightbarbottom">
-      <div *ngIf="hasLayer" ngDraggable class="panelLayerProperties" [handle]="panelHeaderProperties">
+      <div *ngIf="hasLayer"  class="panelLayerProperties" >
           <div #panelHeaderProperties class="modal-header unselectableText">
             Properties
           </div>

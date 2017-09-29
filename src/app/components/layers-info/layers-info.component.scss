@@ -5,6 +5,7 @@ background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
   background-image: -webkit-linear-gradient(top, #615c5c, #887f7f);
 
  overflow-y: auto;
+ padding:3px;
 }
 
 .layersHeader{
@@ -20,6 +21,8 @@ background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
 
    background:-webkit-linear-gradient(top,hsl(0,0%,100%),hsl(0,0%,90%));
   background-image: -webkit-linear-gradient(top, rgb(100, 100, 100), rgb(230, 230, 230));
+  border-radius: 4px;
+  margin-bottom: 3px;
 
 }
 

@@ -103,12 +103,12 @@ project-component{
 }
 
 .rightbartop{
-  min-height: 60%;
-  max-height: 70%;
+  height: 60%;
+  
  
 }
 .rightbarbottom{
-  flex-grow: 1;
+  height: 40%;
   
 }
 
@@ -141,7 +141,8 @@ project-component{
 
 
 .panelLayerProperties{  
-  
+  position: relative;
+  height: 100%;
 }
 
 .panelLayersInfo{

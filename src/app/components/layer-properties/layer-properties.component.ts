@@ -21,7 +21,8 @@ export class LayerPropertiesComponent implements OnInit {
 
   projectService: ProjectService;
   public project: Proj;
-
+  public accordionClass: string = 'accordionClass';
+  
 
   constructor(projectService: ProjectService) {
     this.projectService = projectService;
@@ -80,6 +81,7 @@ export class LayerPropertiesComponent implements OnInit {
     return value.extRound();
   }
   isTextLayer(layer: Layer){
+    
     return layer instanceof LayerText;
   }
    isGraphicsLayer(layer: Layer){
@@ -117,7 +119,7 @@ export class LayerPropertiesComponent implements OnInit {
     return modes;
   }
 
-  public accordionClass: string = 'accordionClass'
+
 
   public get hasSelectedLayer():boolean{
     if(this.project && this.project.activeWorkspace)
@@ -125,6 +127,15 @@ export class LayerPropertiesComponent implements OnInit {
        return this.project.activeWorkspace.layers.findIndex((item)=>item.isSelected===true)>-1;
      }
      return false;
+     
+  }
+
+  public get selectedLayer():Layer{
+    if(this.project && this.project.activeWorkspace)
+     {
+       return this.project.activeWorkspace.layers.find((item)=>item.isSelected===true);
+     }
+     return undefined;
      
   }
 }
