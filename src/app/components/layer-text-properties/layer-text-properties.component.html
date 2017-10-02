@@ -19,9 +19,9 @@
 </div>
 
 
-<div class="input-group input-group-sm" style="margin-top:5px">
+<div class="input-group input-group-sm d-flex justify-content-center" style="margin-top:5px">
 
-  <label tooltip="Left alignment"  placement="top"  class="btn btn-primary btn-sm mouseoverhand"  [ngClass]="isTextAlignmentH('left')?'active':''"
+  <label tooltip="Left alignment"  placement="top"  class="btn btn-primary btn-sm mouseoverhand "  [ngClass]="isTextAlignmentH('left')?'active':''"
     (click)="changeTextAlignmentH('left')"  >
     <i class="fa fa-align-left" aria-hidden="true"></i>
 </label>
@@ -36,7 +36,7 @@
 </div>
 
 
-<div class="input-group input-group-sm" style="margin-top:5px">
+<div class="input-group input-group-sm d-flex justify-content-center" style="margin-top:5px">
 
   <label class="btn btn-primary btn-sm mouseoverhand" data-toggle="button" [ngClass]="isTextAlignmentV('top')?'active':''"
    aria-pressed="isTextAlignmentV('top')" (click)="changeTextAlignmentV('top')" >

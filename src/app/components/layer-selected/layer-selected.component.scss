@@ -1,9 +1,9 @@
 .divSelectedLayer{
   background: red; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(red, yellow); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(red, yellow); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(red, yellow); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(red, yellow); /* Standard syntax */
+  background: -webkit-linear-gradient(#01f7da, black); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#01f7da, black); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#01f7da, black); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#01f7da, black); /* Standard syntax */
   position: absolute;
   border-radius: 50%;
   z-index: 200;
@@ -12,10 +12,11 @@
 
 .divSelecRectangleLayer{
   background: black; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(black, yellow); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(black, yellow); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(black, yellow); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(black, yellow); /* Standard syntax */
+  
+    background: -webkit-linear-gradient(#01f7da, black); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#01f7da, black); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#01f7da, black); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#01f7da, black); /* Standard syntax */
     border-radius: 20%;
   position: absolute;
   z-index: 200;

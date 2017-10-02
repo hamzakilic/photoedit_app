@@ -96,6 +96,7 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
   }
 
   public fillRect(rect: Rect, brush: string): void {
+    
     this._context.fillStyle = brush;
     this._context.fillRect(rect.x, rect.y, rect.width, rect.height);
   }

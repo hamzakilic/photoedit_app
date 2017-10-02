@@ -33,6 +33,7 @@ export class LayerGraphicsPropertiesComponent implements OnInit {
   }
 
   get backgroundColor():string{
+    
     if(this.layer.backgroundColor)
       return this.layer.backgroundColor;
     return "#FFFFFF";
@@ -47,6 +48,7 @@ export class LayerGraphicsPropertiesComponent implements OnInit {
   }
 
   changeBackgroundColor(val:string){
+    
       this.color=val;
       this.layer.backgroundColor=this.color;
 

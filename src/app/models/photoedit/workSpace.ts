@@ -300,11 +300,13 @@ export class Workspace extends HEventEmitter {
   public zoomTo(val: number) {
     this.backgroundLayer.scaleTo(val);
     this._layers.forEach((item) => item.scaleTo(val));
+    this.backgroundLayer.render();
     
   }
   public zoomIn() {
     this.backgroundLayer.scalePlus();
     this._layers.forEach((item) => item.scalePlus());
+    this.backgroundLayer.render();
     
 
   }
@@ -312,6 +314,7 @@ export class Workspace extends HEventEmitter {
   public zoomOut() {
     this.backgroundLayer.scaleMinus();
     this._layers.forEach((item) => item.scaleMinus());
+    this.backgroundLayer.render();
     
   }
 

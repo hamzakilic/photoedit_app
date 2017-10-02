@@ -64,18 +64,18 @@
    
     <label [(colorPicker)]="foregroundcolor" class="btn btn-primary  buttonpadding mouseoverhand groundcolor btn-sm"  [style.background]="foregroundcolor"  tooltip="Foreground color"  placement="right"
     
-      [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" 
+      [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" 
        
-      [cpAlphaChannel]="'enabled'" >{{emptyString}}</label>
+      [cpAlphaChannel]="'hex8'" >{{emptyString}}</label>
       <label class="btn btn-primary  buttonpadding mouseoverhand btn-sm" style="background:transparent" tooltip="Swap colors" placement="right" (click)="swapColors()">
         <img src="assets/icons/swap.png">
       </label>
 
       <label  [(colorPicker)]="backgroundcolor"  class="btn btn-primary  buttonpadding mouseoverhand groundcolor btn-sm" [style.background]="backgroundcolor"  tooltip="Background color"  placement="right"
       
-        [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" 
+        [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" 
        
-        [cpAlphaChannel]="'enabled'"   >{{emptyString}}</label>
+        [cpAlphaChannel]="'hex8'"   >{{emptyString}}</label>
   
   
 

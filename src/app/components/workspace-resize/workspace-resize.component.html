@@ -1,12 +1,12 @@
 
 <div
 class="workspaceResize" 
-[style.width.px]="(isMouseEnter?2:1)*14*workspace.backgroundLayer.scale"
-[style.height.px]="(isMouseEnter?2:1)*14*workspace.backgroundLayer.scale"
-[style.margin-left.px]="workspace.backgroundLayer.width*workspace.backgroundLayer.scale-14*workspace.backgroundLayer.scale*(isMouseEnter?2:1)"
-[style.margin-top.px]="workspace.backgroundLayer.height*workspace.backgroundLayer.scale-14*workspace.backgroundLayer.scale*(isMouseEnter?2:1)"
+[style.width.px]="(isMouseEnter?2:1)*14"
+[style.height.px]="(isMouseEnter?2:1)*14"
+[style.margin-left.px]="workspace.backgroundLayer.width*workspace.backgroundLayer.scale+50"
+[style.margin-top.px]="workspace.backgroundLayer.height*workspace.backgroundLayer.scale+50"
 [ngClass]="selectedCss()"
 mouse (mouseDown)="mouseDown($event)" 
 (mouseOver)="mouseOver($event)" 
-(mouseLeave)="mouseLeave($event)"> 
+(mouseLeave)="mouseLeave($event)" tooltip="Resize canvas"  placement="top"> 
 </div>

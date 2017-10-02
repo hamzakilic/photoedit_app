@@ -40,7 +40,8 @@ export class LayerBackground extends Layer{
       this.graphics.drawLine(i,0,i,this.height,1,'#000000');
     for(let i=0;i<this.height;i+=10)
     this.graphics.drawLine(0,i,this.width,i,1,'#000000'); */
-    let scaler=10;
+    let scaler=Math.floor(10/this.scale);
+    
     this.graphics.setGlobalAlpha(0.7);
     let color="#ccc9c9";
     //this.graphics.drawRect(new Rect(0,0,this.width,this.height),color);

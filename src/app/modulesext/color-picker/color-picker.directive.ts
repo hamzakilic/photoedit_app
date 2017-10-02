@@ -218,7 +218,7 @@ export class DialogComponent implements OnInit {
     private show: boolean;
     private top: number;
     private left: number;
-    private position: string;
+    private position: string="absolute";
     private directiveInstance: any;
     private initialColor: string;
     private directiveElementRef: ElementRef;
@@ -306,6 +306,30 @@ export class DialogComponent implements OnInit {
         this.listenerResize = () => { this.onResize() };
         this.openDialog(this.initialColor, false);
     }
+    dialogHeight:number=0;
+    dialogWidth:number=0;
+    
+
+    ngDoCheck(){
+        
+        let dialogHeight = this.dialogElement.nativeElement.offsetHeight;
+        let dialogWidth=this.dialogElement.nativeElement.offsetWidth;
+        let changed=false;
+        if(this.dialogHeight!=dialogHeight && dialogHeight>0){
+        this.dialogHeight = dialogHeight;
+        changed=true;
+        }
+        if(this.dialogWidth != dialogWidth && dialogWidth>0){            
+        this.dialogWidth = dialogWidth;
+        changed =true;
+        }
+        if(changed){
+                
+            this.setDialogPosition();
+        }
+    
+    }
+
 
     setInitialColor(color: any) {
         this.initialColor = color;
@@ -362,7 +386,8 @@ export class DialogComponent implements OnInit {
     openColorPicker() {
         if (!this.show) {
             this.setDialogPosition();
-            this.show = true;
+            this.show = true;            
+            
             this.directiveInstance.toggle(true);
             document.addEventListener('mousedown', this.listenerMouseDown);
             window.addEventListener('resize', this.listenerResize);
@@ -372,6 +397,7 @@ export class DialogComponent implements OnInit {
     closeColorPicker() {
         if (this.show) {
             this.show = false;
+            this.position="absolute";
             this.directiveInstance.toggle(false);
             document.removeEventListener('mousedown', this.listenerMouseDown);
             window.removeEventListener('resize', this.listenerResize);
@@ -385,7 +411,8 @@ export class DialogComponent implements OnInit {
     }
 
     setDialogPosition() {
-        let dialogHeight = this.dialogElement.nativeElement.offsetHeight;
+               
+        
         let node = this.directiveElementRef.nativeElement, position = 'static';
         let parentNode: any = null;
         while (node !== null && node.tagName !== 'HTML') {
@@ -414,9 +441,9 @@ export class DialogComponent implements OnInit {
             this.top += boxDirective.height * this.cpPositionOffset / 100 - this.dialogArrowOffset;
             this.left -= this.cpWidth + this.dialogArrowSize - 2;
         } else if (this.cpPosition === 'top') {
-            this.top -= dialogHeight + this.dialogArrowSize;
+            this.top -= this.dialogHeight + this.dialogArrowSize;
             this.left += this.cpPositionOffset / 100 * boxDirective.width - this.dialogArrowOffset;
-            this.arrowTop = dialogHeight - 1;
+            this.arrowTop = this.dialogHeight - 1;
         } else if (this.cpPosition === 'bottom') {
             this.top += boxDirective.height + this.dialogArrowSize;
             this.left += this.cpPositionOffset / 100 * boxDirective.width - this.dialogArrowOffset;
@@ -424,6 +451,15 @@ export class DialogComponent implements OnInit {
             this.top += boxDirective.height * this.cpPositionOffset / 100 - this.dialogArrowOffset;
             this.left += boxDirective.width + this.dialogArrowSize;
         }
+        if(this.top+this.dialogHeight>window.innerHeight)
+            this.top=window.innerHeight-this.dialogHeight;
+        if(this.top<0)
+            this.top=0;
+            if(this.left<0)
+            this.left=0;
+            if(this.left+this.dialogWidth>window.innerWidth)
+            this.left =window.innerWidth-this.dialogWidth;
+        
     }
 
     setSaturation(val: { v: number, rg: number }) {
