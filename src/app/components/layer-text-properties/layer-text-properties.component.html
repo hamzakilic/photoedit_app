@@ -19,9 +19,9 @@
 </div>
 
 
-<div class="input-group input-group-sm d-flex justify-content-center" style="margin-top:5px">
+<div class="input-group input-group-sm d-flex justify-content-start" style="margin-top:5px">
 
-  <label tooltip="Left alignment"  placement="top"  class="btn btn-primary btn-sm mouseoverhand "  [ngClass]="isTextAlignmentH('left')?'active':''"
+  <label tooltip="Left alignment"  placement="right"  class="btn btn-primary btn-sm mouseoverhand "  [ngClass]="isTextAlignmentH('left')?'active':''"
     (click)="changeTextAlignmentH('left')"  >
     <i class="fa fa-align-left" aria-hidden="true"></i>
 </label>
@@ -33,10 +33,11 @@
     (click)="changeTextAlignmentH('right')" >
     <i class="fa fa-align-right" aria-hidden="true"></i>
 </label>
+
 </div>
 
 
-<div class="input-group input-group-sm d-flex justify-content-center" style="margin-top:5px">
+<div class="input-group input-group-sm d-flex justify-content-start" style="margin-top:5px">
 
   <label class="btn btn-primary btn-sm mouseoverhand" data-toggle="button" [ngClass]="isTextAlignmentV('top')?'active':''"
    aria-pressed="isTextAlignmentV('top')" (click)="changeTextAlignmentV('top')" >
@@ -54,47 +55,46 @@
 
 
 <div class="input-group input-group-sm ">
-  <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input"[value]="currentLayerIsBold()" (change)="changeIsBold($event)">
-                <span class="custom-control-indicator"></span>
-                <span class="custom-control-description" style="padding-top:5px">Bold</span>
-              </label>
-
+  <label class="form-check-label">
+  <input type="checkbox" class="form-check-input" [value]="currentLayerIsBold()" (change)="changeIsBold($event)">
+  Bold
+  </label>
 </div>
 
 <div class="input-group ">
-  <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input"[value]="currentLayerIsItalic()" (change)="changeIsItalic($event)">
-                <span class="custom-control-indicator"></span>
-                <span class="custom-control-description" style="padding-top:5px">Italic</span>
-              </label>
-
+  <label class="form-check-label">
+    <input type="checkbox" class="form-check-input" [value]="currentLayerIsItalic()" (change)="changeIsItalic($event)">                
+   Italic
+  </label>
 </div>
+
 <div class="input-group input-group-sm">
   <span class="input-group-addon proName" tooltip="Text color" placement="right">FC</span>
   <input [(colorPicker)]="color" class="form-control" [style.background]="color" [value]="color" [cpPosition]="'top'" 
   [style.color]="calculateForeground()"
-    [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
+    [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
      
-    [cpAlphaChannel]="'disabled'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="colorChanging($event)" />
+    [cpAlphaChannel]="'hex8'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="colorChanging($event)" />
 </div>
 
+<div  class="w-100">
+    <div style="border:solid 2px">
 <div class="input-group input-group-sm ">
-  <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input"[value]="isStroked" (change)="changeIsStroked($event)">
-                <span class="custom-control-indicator"></span>
-                <span class="custom-control-description" style="padding-top:5px">Stroked</span>
-              </label>
-
+  <label class="form-check-label">
+    <input type="checkbox" class="form-check-input" [value]="isStroked" (change)="changeIsStroked($event)">                
+    Stroked
+  </label>
 </div>
 
-<div class="input-group input-group-sm">
-  <span class="input-group-addon proName" tooltip="Stroke color" placement="right">SC</span>
- 
-  <input [(colorPicker)]="strokedColor" class="form-control" [style.background]="strokedColor" [value]="strokedColor" [cpPosition]="'top'" 
-  [style.color]="calculateForegroundStrokedColor()"
-    [cpOutputFormat]="'hex'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
-     
-    [cpAlphaChannel]="'disabled'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="strokedColorChanging($event)" />
+      <div *ngIf="isStroked" class="input-group input-group-sm">
+        <span class="input-group-addon proName" tooltip="Stroke color" placement="right">SC</span>
+      
+        <input  [(colorPicker)]="strokedColor" class="form-control" [style.background]="strokedColor" [value]="strokedColor" [cpPosition]="'top'" 
+        [style.color]="calculateForegroundStrokedColor()"
+          [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
+          
+          [cpAlphaChannel]="'hex8'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="strokedColorChanging($event)" />
+      </div>
+    </div>
 </div>
 

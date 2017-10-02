@@ -41,6 +41,8 @@ export class LayerBackground extends Layer{
     for(let i=0;i<this.height;i+=10)
     this.graphics.drawLine(0,i,this.width,i,1,'#000000'); */
     let scaler=Math.floor(10/this.scale);
+    if(this.height>100 || this.width >100)
+    scaler=10;
     
     this.graphics.setGlobalAlpha(0.7);
     let color="#ccc9c9";
