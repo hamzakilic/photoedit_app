@@ -1,5 +1,5 @@
 .clayer{
-
+  
   z-index: 1;
   position: absolute;
   left: 0;
@@ -7,10 +7,16 @@
 }
 
 .clayerSelected{
-  border-width: 2px;
+  
+ border-width: 1px;
   border-style: dotted;
   border-color: deeppink;
-  //border-color: midnightblue
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  
+
+
 
 }
 .clayerEmpty{

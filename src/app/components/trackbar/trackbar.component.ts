@@ -13,11 +13,25 @@ export class TrackbarComponent implements OnInit {
   @Input()
   max: number;
   @Input()
-  set value(val:number){
-    this._value=val;
-    this.calculatePosition();
-  };
-  get value():number{
+  set value(val: number) {
+    let temp=val;
+    if (typeof val ==="string") {
+      temp =parseInt(val).extRound();
+      
+    }
+    while(temp%this.step!=0){
+      temp++;
+    }
+    
+    
+    if (this._value != temp) {
+      this._value = temp;
+
+      this.valueChanged.emit(this.value);
+    }
+  }
+  get value(): number {
+
     return this._value;
   }
   @Input()
@@ -28,7 +42,7 @@ export class TrackbarComponent implements OnInit {
 
 
 
-  private _value:number;
+  private _value: number;
   public position: number;
 
   private isMouseDown: boolean;
@@ -46,18 +60,18 @@ export class TrackbarComponent implements OnInit {
 
 
   ngOnInit() {
-   this.calculatePosition();
+    // this.calculatePosition();
 
   }
   ngAfterContentChecked() {
 
   }
 
-  
 
 
 
-  mouseDownProgress(event: MouseEvent) {
+
+  /* mouseDownProgress(event: MouseEvent) {
 
 
 
@@ -65,10 +79,10 @@ export class TrackbarComponent implements OnInit {
     let x = event.pageX - boundingRect.left;
     let dif = this.max - this.min;
     let val = (x * dif / boundingRect.width) + this.min;
-    this.value = val;
+    this._value = val;
     this.checkValueForRange();
    this.calculatePosition();
-    this.valueChanged.emit(this.value);
+    this.valueChanged.emit(this._value);
 
 
   }
@@ -82,11 +96,11 @@ export class TrackbarComponent implements OnInit {
       let x = event.movementX;
       let boundingRect = (<HTMLDivElement>this.progress.nativeElement).getBoundingClientRect();
       let dif = this.max - this.min;
-      let val = this.value + (x * dif / boundingRect.width);
-      this.value = val;
+      let val = this._value + (x * dif / boundingRect.width);
+      this._value = val;
        this.checkValueForRange();
      this.calculatePosition();
-      this.valueChanged.emit(this.value);
+      this.valueChanged.emit(this._value);
     }
 
 
@@ -103,34 +117,34 @@ export class TrackbarComponent implements OnInit {
   }
 
   minus() {
-    let newValue = this.value - this.step;   
-    this.value = newValue;
+    let newValue = this._value - this.step;   
+    this._value = newValue;
     this.checkValueForRange();
     this.calculatePosition();
-    this.valueChanged.emit(this.value);
+    this.valueChanged.emit(this._value);
 
 
   }
   private checkValueForRange(){
-    if(this.value<this.min)
-      this.value=this.min;
-    if(this.value>this.max)
-      this.value=this.max;
+    if(this._value<this.min)
+      this._value=this.min;
+    if(this._value>this.max)
+      this._value=this.max;
   }
   private calculatePosition(){
     let dif = this.max - this.min;
-    this.position = (((this.value - this.min) / dif) * 100).extRound();
+    this.position = (((this._value - this.min) / dif) * 100).extRound();
   }
 
   plus() {
-    let newValue = this.value + this.step;
+    let newValue = this._value + this.step;
    
-    this.value = newValue;
+    this._value = newValue;
     this.checkValueForRange();
    this.calculatePosition();
-    this.valueChanged.emit(this.value);
+    this.valueChanged.emit(this._value);
 
 
-  }
-
+  } 
+ */
 }

@@ -26,20 +26,20 @@ export class CropPropertiesComponent implements OnInit {
   }
 
   public get marginLeft():number{
-    let layer= this.workspace.selectionRectangleLayer;
+    let layer= this.workspace.selectionLayer;
     return layer.marginLeft+layer.width;
     
   }
   public get marginTop():number{
-    let layer= this.workspace.selectionRectangleLayer;
+    let layer= this.workspace.selectionLayer;
     return layer.marginTop;
   }
 
   public get isVisible():boolean{
     
       if(this.workspace)
-        if(this.workspace.selectionRectangleLayer)
-          if(this.workspace.selectionRectangleLayer instanceof LayerCropRectangle)            
+        if(this.workspace.selectionLayer)
+          if(this.workspace.selectionLayer instanceof LayerCropRectangle)            
             return true;
          
     return false;
@@ -50,7 +50,7 @@ export class CropPropertiesComponent implements OnInit {
 
   }
   public cropCancel(){
-    this.workspace.removeSelectionRectangleLayer();
+    this.workspace.removeSelectionLayer();
   }
 
 }

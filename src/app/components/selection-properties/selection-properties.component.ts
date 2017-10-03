@@ -34,23 +34,23 @@ export class SelectionPropertiesComponent implements OnInit {
 
   changeWidth(value: number) {
     if (value > 10) {
-      this.project.activeWorkspace.selectionRectangleLayer.setWidthHeight(value, this.project.activeWorkspace.selectionRectangleLayer.height)
+      this.project.activeWorkspace.selectionLayer.setWidthHeight(value, this.project.activeWorkspace.selectionLayer.height)
     }
   }
 
   changeHeight(value: number) {
     if (value > 10) {
-      this.project.activeWorkspace.selectionRectangleLayer.setWidthHeight(this.project.activeWorkspace.selectionRectangleLayer.width, value)
+      this.project.activeWorkspace.selectionLayer.setWidthHeight(this.project.activeWorkspace.selectionLayer.width, value)
     }
   }
   changeTop(value: number) {
 
-    this.project.activeWorkspace.selectionRectangleLayer.marginTop = value;
+    this.project.activeWorkspace.selectionLayer.marginTop = value;
 
   }
   changeLeft(value: number) {
 
-    this.project.activeWorkspace.selectionRectangleLayer.marginLeft = value;
+    this.project.activeWorkspace.selectionLayer.marginLeft = value;
 
   }
   cropOk(){
@@ -59,7 +59,7 @@ export class SelectionPropertiesComponent implements OnInit {
 
   }
   cropCancel(){
-    this.project.activeWorkspace.removeSelectionRectangleLayer();
+    this.project.activeWorkspace.removeSelectionLayer();
   }
 
 

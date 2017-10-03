@@ -1,19 +1,19 @@
 <div class="zoomInfo" >
   <header class="zoomHeader unselectableText">
     <span >Zoom</span>
-    <span *ngIf="project != undefined && project.activeWorkspace != undefined">{{currentZoom()}}%</span>
+    <span *ngIf="project && project.activeWorkspace">{{currentZoom()}}%</span>
 
   </header>
   <section class="zoomSection">
-    <div *ngIf="project != undefined">
+    
 
-      <div *ngIf="project.activeWorkspace != undefined">
+      <div *ngIf="project && project.activeWorkspace">
       
 
-         <trackbar-component [value]="this.project.activeWorkspace.zoom*100" [min]=0 [max]=1000 [step]=10 (valueChanged)="valueChanged($event)" ></trackbar-component>
+         <trackbar-component [value]="100" [min]=10 [max]=1000 [step]=10 (valueChanged)="valueChanged($event)" ></trackbar-component>
 
         
-      </div>
+      
 
     </div>
 

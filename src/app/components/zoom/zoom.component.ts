@@ -44,6 +44,10 @@ export class ZoomComponent implements OnInit {
     }
     return 0;
   }
+   
+  
+
+   
 
 
   

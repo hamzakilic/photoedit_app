@@ -13,8 +13,8 @@ style="position: absolute;overflow: hidden;border:solid 50px #444444"
 </layer-component>
 
 
-<layer-component *ngIf="workspace.selectionRectangleLayer" [surface]="workspace.selectionRectangleLayer"
-  style="z-index:500" mouse (doubleClick)="workspace.selectionRectangleLayer.doubleClick($event)" >
+<layer-component *ngIf="workspace.selectionLayer" [surface]="workspace.selectionLayer"
+  style="z-index:500" mouse (doubleClick)="workspace.selectionLayer.doubleClick($event)" >
 </layer-component>
 <crop-properties-component [workspace]="workspace"></crop-properties-component>
 
