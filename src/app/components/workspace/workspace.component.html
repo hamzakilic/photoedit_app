@@ -9,9 +9,9 @@ style="position: absolute;overflow: hidden;border:solid 50px #444444"
 </layer-component>
 
 <layer-component *ngFor="let layer of workspace.layers" [surface]='layer'
- [style.visibility]="(layer.isHidden) ? 'hidden':'visible'"
- mouse  (mouseDown)="workspace.mouseDown($event,layer)"  >
+ [style.visibility]="(layer.isHidden) ? 'hidden':'visible'"> 
 </layer-component>
+
 
 <layer-component *ngIf="workspace.selectionRectangleLayer" [surface]="workspace.selectionRectangleLayer"
   style="z-index:500" mouse (doubleClick)="workspace.selectionRectangleLayer.doubleClick($event)" >

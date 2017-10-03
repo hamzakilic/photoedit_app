@@ -54,8 +54,8 @@ export abstract class Layer extends SurfaceCanvas {
  
 
   public mouseDown(event: MouseEvent) {
-    //debuging.log(this.name + " mousedown");
-    this.isSelected = true;
+    debuging.log(this.name + " mousedown");
+    //this.isSelected = true;
     this.isMouseDown = true;
     
   }
@@ -84,7 +84,9 @@ export abstract class Layer extends SurfaceCanvas {
     event.preventDefault();
   }
   public mouseMove(event: MouseEvent) {
-
+    
+    if(!this.isSelected)
+        return;
     
     if (this._mouseDownPoint.isLeft && this.isMouseDown) {
       let move = RotationHelper.calculateRotationMoveLeft(event,this);

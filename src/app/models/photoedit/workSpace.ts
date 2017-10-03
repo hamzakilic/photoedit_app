@@ -401,7 +401,7 @@ abstract class WorkModeBase {
 
     this.workspace.layers.forEach((item) => {
       if (item.isSelected)
-        item.mouseMove(event);
+           item.mouseMove(event);
     });
 
   }
@@ -409,10 +409,18 @@ abstract class WorkModeBase {
 
 
   public mouseDown(event: MouseEvent, layer: Layer) {
+   // if(layer)
+   // console.log("mouseDown:"+layer.name)
+   // this.workspace.makeLayersNotSelected(layer);
+    //if (layer && layer.isSelected)
+    //    layer.mouseDown(event);
 
-    this.workspace.makeLayersNotSelected(layer);
-    if (layer)
-      layer.mouseDown(event);
+
+    this.workspace.layers.forEach((item) => {
+      if (item.isSelected && item.hitMouseEvent(event))
+           item.mouseDown(event);
+    });
+
     //önemli, event stoplanmalı
     event.stopPropagation();
   }
