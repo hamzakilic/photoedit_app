@@ -168,11 +168,11 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     
   }
 
-  public fillStyle(brush:string){
+  public fillStyle(brush:string|CanvasGradient){
     this._context.fillStyle=brush;
   }
 
-  public strokeStyle(brush:string){
+  public strokeStyle(brush:string|CanvasGradient){
     this._context.strokeStyle=brush;
   }
   public beginPath(){
@@ -230,6 +230,10 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
 
   public ellipse(x:number, y:number, radiusX:number, radiusY:number, rotation:number, startAngle:number, endAngle:number){
     this._context.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
+  }
+
+  public createLinearGradient(x0:number,y0:number,x1:number,y1:number):CanvasGradient{
+    return this._context.createLinearGradient(x0,y0,x1,y1);
   }
 
   

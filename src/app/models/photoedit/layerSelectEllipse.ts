@@ -1,5 +1,5 @@
 import { Layer } from './layer';
-import { LayerSelectRectangle } from './layerSelectRectangle';
+import { LayerSelect } from './layerSelect';
 import { Graphics } from '../../lib/graphics';
 import { Callback } from '../../lib/callback';
 import { HImage } from '../../lib/image';
@@ -9,7 +9,9 @@ import { Point } from '../../lib/draw/point';
 import { RotationHelper, RotationMove } from './lib/rotationHelper';
 
 
-export class LayerSelectEllipse extends LayerSelectRectangle {
+
+
+export class LayerSelectEllipse extends LayerSelect {
 
 
 
@@ -19,12 +21,11 @@ export class LayerSelectEllipse extends LayerSelectRectangle {
   }
 
 
-
-
-  public render(): void {
-    this.graphics.save();
+  private clearRect(){
     let rect = new Rect(0, 0, this.width, this.height);
     this.graphics.clearRect(rect);
+  }
+  private drawEllipse(){
     let centerX = this.width / 2;
     let centerY = this.height / 2;    
   
@@ -32,13 +33,17 @@ export class LayerSelectEllipse extends LayerSelectRectangle {
     this.graphics.lineWidth(2);
     this.graphics.strokeStyle(this.strokeStyle);
     this.graphics.fillStyle(this.fillStyle);
-    this.graphics.ellipse(centerX,centerY,this.width/2,this.height/2,0,0,2*Math.PI);
-    
-    
+    this.graphics.ellipse(centerX,centerY,this.width/2,this.height/2,0,0,2*Math.PI);    
         
     this.graphics.fill();
     this.graphics.stroke();
-        
+    
+  }
+
+  public render(): void {
+    this.graphics.save();
+    this.clearRect();
+    this.drawEllipse();    
     
     this.graphics.restore();
   }

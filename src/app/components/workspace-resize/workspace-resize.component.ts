@@ -20,7 +20,7 @@ export class WorkspaceResizeComponent implements OnInit {
   mouseDown(event: MouseEvent) {
 
   
-    this.workspace.selectWorking(Workspace.WorkModeResizeWorkspace);
+    this.workspace.selectWorking(Workspace.WorkModeResizeWorkspace,"");
   }
   mouseOver(event: MouseEvent) {
     this.isMouseEnter = true;

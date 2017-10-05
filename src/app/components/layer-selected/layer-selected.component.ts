@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Layer } from '../../models/photoedit/layer';
-import { LayerSelectRectangle } from '../../models/photoedit/layerSelectRectangle';
+import { LayerSelect } from '../../models/photoedit/layerSelect';
 
 import { Callback } from '../../lib/callback';
 import { Point } from '../../lib/draw/point';
@@ -111,8 +111,8 @@ export class LayerSelectedComponent implements OnInit {
 
    public selectedCss(val:number) {
      let classes =  {
-            divSelectedLayer: !(this.surface instanceof LayerSelectRectangle) ,
-            divSelecRectangleLayer: (this.surface instanceof LayerSelectRectangle),            
+            divSelectedLayer: !(this.surface instanceof LayerSelect) ,
+            divSelecRectangleLayer: (this.surface instanceof LayerSelect),            
             cursornwse: false,
             cursornesw: false,            
             cursorew: false,

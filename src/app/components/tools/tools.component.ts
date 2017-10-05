@@ -1,10 +1,13 @@
 
+
 declare var $:any;
 import { Component, OnInit,Input,ViewChild } from '@angular/core';
 
+import { Workspace } from './../../models/photoedit/workSpace';
+import { LayerSelect } from './../../models/photoedit/layerSelect';
 import { ProjectService } from '../../services/project.service';
 import { Proj } from '../../models/photoedit/proj';
-import { Workspace } from '../../models/photoedit/workSpace';
+
 import { Layer } from '../../models/photoedit/layer';
 
 @Component({
@@ -35,17 +38,17 @@ export class ToolsComponent implements OnInit {
 
   }
 
-  private selectWorking(mode: number) {
+  private selectWorking(type: number,subType:string="") {
     if (this.project)
       if (this.project.activeWorkspace) 
-        this.project.activeWorkspace.selectWorking(mode);
+        this.project.activeWorkspace.selectWorking(type,subType);
       
   }
 
-  private isWorkingMode(mode: number) {
+  private isWorkingMode(type: number,subType:string="") {
     if (this.project)
       if (this.project.activeWorkspace)
-        return this.project.activeWorkspace.workMode.typeOf == mode;
+        return this.project.activeWorkspace.workMode.typeOf == type && this.project.activeWorkspace.workMode.subTypeOf == subType ;
   }
 
   public get defaultCss() {
@@ -67,24 +70,24 @@ export class ToolsComponent implements OnInit {
 
 
   public get rectangleCss() {
-    return { active: this.isWorkingMode(Workspace.WorkModeRectangleSelection) };
+    return { active: this.isWorkingMode(Workspace.WorkModeSelection,LayerSelect.SubTypeRect) };
   }
   selectRectangleSelection() {
-    this.selectWorking(Workspace.WorkModeRectangleSelection);
+    this.selectWorking(Workspace.WorkModeSelection,LayerSelect.SubTypeRect);
   }
 
   public get ellipseCss() {
-    return { active: this.isWorkingMode(Workspace.WorkModeEllipseSelection) };
+    return { active: this.isWorkingMode(Workspace.WorkModeSelection,LayerSelect.SubTypeEllipse) };
   }
   selectEllipseSelection() {
-    this.selectWorking(Workspace.WorkModeEllipseSelection);
+    this.selectWorking(Workspace.WorkModeSelection,LayerSelect.SubTypeEllipse);
   }
 
   public get lassoCss() {
-    return { active: this.isWorkingMode(Workspace.WorkModeLassoSelection) };
+    return { active: this.isWorkingMode(Workspace.WorkModeSelection,LayerSelect.SubTypeLasso) };
   }
   selectLassoSelection() {    
-        this.selectWorking(Workspace.WorkModeLassoSelection);
+        this.selectWorking(Workspace.WorkModeSelection,LayerSelect.SubTypeLasso);
   }
 
   public get colorpickerCss() {
@@ -95,16 +98,16 @@ export class ToolsComponent implements OnInit {
   }
 
   public get polygonCss() {
-    return { active: this.isWorkingMode(Workspace.WorkModePolygonalSelection) };
+    return { active: this.isWorkingMode(Workspace.WorkModeSelection,LayerSelect.SubTypePolygon) };
   }
   selectPolygonSelection() {
-    this.selectWorking(Workspace.WorkModePolygonalSelection);
+    this.selectWorking(Workspace.WorkModeSelection,LayerSelect.SubTypePolygon);
   
     this.isCollapsed=true;
   }
 
   public get pencilCss() {
-    return { active: this.isWorkingMode(Workspace.WorkModePolygonalSelection) };
+    return { active: false};
   }
 
   @ViewChild("pop")  
@@ -121,10 +124,7 @@ export class ToolsComponent implements OnInit {
   }
 
   public get isPencilActive():boolean{
-    if (this.project)
-      if (this.project.activeWorkspace) 
-      return this.project.activeWorkspace.workMode.typeOf === Workspace.WorkModePolygonalSelection;
-      return false;
+    return false;
   }
 
   _isCollapsed=true;

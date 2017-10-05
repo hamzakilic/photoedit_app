@@ -31,10 +31,10 @@ export class CmdCrop extends CommandBusy {
             if (this.projectService.currentProject)
                 if (this.projectService.currentProject.activeWorkspace) {
                     let workspace = this.projectService.currentProject.activeWorkspace;
-                    if (workspace && workspace.selectionLayer && workspace.layers.length > 0) {
+                    if (workspace && workspace.workLayer && workspace.layers.length > 0) {
                         
                         //zaten döndürme olmadığı için sorun yok
-                        let cropLayerRect =workspace.selectionLayer.rect;
+                        let cropLayerRect =workspace.workLayer.rect;
                         
 
                         let isLayer0Crop = false;
@@ -58,7 +58,7 @@ export class CmdCrop extends CommandBusy {
                         if(cropedImage){
                         let newLayer = new LayerImage(cropedImage,"cropedimage");
                             newLayer.scale = selectedLayer.scale;
-                            workspace.removeSelectionLayer();
+                            workspace.removeWorkLayer();
                            // workspace.addLayer(newLayer);
                            workspace.replaceLayer(selectedLayer,newLayer,cropLayerRect.x,cropLayerRect.y);
                            

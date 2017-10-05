@@ -67,6 +67,7 @@ import { FormColorAdjustmentComponent } from './components/form-color-adjustment
 import { FormGrayscaleComponent } from './components/form-grayscale/form-grayscale.component';
 import { TrackbarComponent } from './components/trackbar/trackbar.component';
 import { CropPropertiesComponent } from './components/crop-properties/crop-properties.component';
+import { ToolsOptionsComponent } from './components/tools-options/tools-options.component';
 
 
 
@@ -114,6 +115,7 @@ import { CropPropertiesComponent } from './components/crop-properties/crop-prope
     TrackbarComponent,
     FormGrayscaleComponent,
     CropPropertiesComponent,
+    ToolsOptionsComponent,
     
 
 

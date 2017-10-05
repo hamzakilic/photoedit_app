@@ -1,6 +1,6 @@
 import { Point } from './../../lib/draw/point';
 import { Layer } from './layer';
-import { LayerSelectRectangle } from './layerSelectRectangle';
+import { LayerSelect } from './layerSelect';
 import { Graphics } from '../../lib/graphics';
 import { Callback } from '../../lib/callback';
 import { HImage } from '../../lib/image';
@@ -10,7 +10,7 @@ import { Rect } from '../../lib/draw/rect';
 import { RotationHelper, RotationMove } from './lib/rotationHelper';
 
 
-export class LayerSelectLasso extends LayerSelectRectangle {
+export class LayerSelectLasso extends LayerSelect {
 
   protected points: Array<Point>;
 
@@ -30,7 +30,7 @@ export class LayerSelectLasso extends LayerSelectRectangle {
 
   public mouseMove(event: MouseEvent) {
     if (this.isMouseDown) {
-      let point = this.calculatePoint(event);
+      let point = this.hitMouseEvent(event);
       if (point) {
 
         this.calculateBetweenPoints(point).forEach(item => this.points.push(item));

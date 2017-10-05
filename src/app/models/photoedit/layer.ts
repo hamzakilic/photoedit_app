@@ -54,7 +54,7 @@ export abstract class Layer extends SurfaceCanvas {
  
 
   public mouseDown(event: MouseEvent) {
-    debuging.log(this.name + " mousedown");
+    
     //this.isSelected = true;
     this.isMouseDown = true;
     
@@ -150,6 +150,30 @@ export abstract class Layer extends SurfaceCanvas {
     }
     return undefined;
   }
+  public normalizeMouseEvent(event:MouseEvent,makeNormalize:boolean=true):Point{
+    if (this.htmlElement) {
+      let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
+      
+      let point =new Point(((event.clientX - rc.left)/this.scale).extRound(), ((event.clientY - rc.top)/this.scale).extRound());      
+      if(makeNormalize){
+        if(point.X<0)
+        point.X=0;
+        if(point.Y<0)
+        point.Y=0;
+        if(point.X>this.width)
+        point.X=this.width;
+        if(point.Y>this.height)
+        point.Y=this.height;
+      }
+      return point;
+        
+      
+    }
+    return undefined;
+  }
+
+ 
+
   public getColor(x:number,y:number):Color{
     return this.graphics.getColor(x,y);
   }

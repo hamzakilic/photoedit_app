@@ -1,7 +1,7 @@
 import { LayerSelectLasso } from './layerSelectLasso';
 import { Point } from './../../lib/draw/point';
 import { Layer } from './layer';
-import { LayerSelectRectangle } from './layerSelectRectangle';
+import { LayerSelect } from './layerSelect';
 import { Graphics } from '../../lib/graphics';
 import { Callback } from '../../lib/callback';
 import { HImage } from '../../lib/image';
@@ -11,7 +11,7 @@ import { Rect } from '../../lib/draw/rect';
 import { RotationHelper, RotationMove } from './lib/rotationHelper';
 
 
-export class LayerSelectPolygonal extends LayerSelectRectangle {
+export class LayerSelectPolygonal extends LayerSelect {
 
 
   private _isStarted: boolean = false;
@@ -30,7 +30,7 @@ export class LayerSelectPolygonal extends LayerSelectRectangle {
     if (!this._isStarted)
       this._points = [];
 
-    let point = this.calculatePoint(event);  
+    let point = this.normalizeMouseEvent(event);  
     
     this._points.push(point);
     if(!this._isStarted)//if not started path
@@ -41,7 +41,7 @@ export class LayerSelectPolygonal extends LayerSelectRectangle {
 
   public mouseMove(event: MouseEvent) {
     if(this._isStarted){
-      let temp=this.calculatePoint(event);
+      let temp=this.normalizeMouseEvent(event);
       if(temp)
       this._points[this._points.length-1]=temp;
       this.render();
