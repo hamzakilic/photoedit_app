@@ -55,10 +55,12 @@
     <div *ngIf="hasLayer" class="panelZoom" >        
         <zoom-component></zoom-component>
     </div>
-    <div *ngIf="hasLayer" ngDraggable class="panelLayersInfo" [handle]="panelHeaderInfo">
-        <div #panelHeaderInfo class="modal-header unselectableText">
-          <span>Tool Options</span>
+    <div *ngIf="hasLayer" ngDraggable class="panelToolOptions" [handle]="panelToolOptions">
+        
+        <div  class="modal-header unselectableText">
+          <span #panelToolOptions style="display:block;width:100%;height:100">Tool Options</span>
         </div>
+
         <tool-options-component></tool-options-component>
       </div>
  

@@ -236,5 +236,9 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     return this._context.createLinearGradient(x0,y0,x1,y1);
   }
 
+  public createPattern(image:any,repetion:any):CanvasPattern{
+    return this._context.createPattern(image,repetion);
+  }
+
   
 }

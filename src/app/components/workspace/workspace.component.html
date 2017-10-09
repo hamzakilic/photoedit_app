@@ -13,7 +13,7 @@ style="position: absolute;overflow: hidden;border:solid 50px #444444"
 </layer-component>
 
 
-<layer-component selection *ngIf="workspace.selectionLayer" [surface]="workspace.selectionLayer"
+<layer-component selection *ngIf="workspace.selectionLayer" [surface]="workspace.selectionLayer"  
   style="z-index:500" mouse (doubleClick)="workspace.selectionLayer.doubleClick($event)" >
 </layer-component>
 
