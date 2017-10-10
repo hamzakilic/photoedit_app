@@ -288,5 +288,25 @@ layer-properties-component{
 }
 
 
+.no-padding {  
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  
+}
+
+.padding2{
+  padding-left: 2px !important;
+  padding-right: 2px !important;
+}
+
+tools-options-brush-component *{
+  font-size: 0.75rem !important;
+}
+
+.toolsInfo label {
+  padding:4px;
+}
+
+
 
 

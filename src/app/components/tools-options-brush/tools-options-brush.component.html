@@ -1,3 +1,30 @@
-<p>
-  tools-options-brush works!
-</p>
+<div class="container-fluid no-gutters padding2">
+    <div class="row no-gutters ">
+        <div class="input-group input-group-sm">
+          <span class="input-group-addon w-50 font-size8" style="margin-top:1px;margin-bottom:1px" tooltip="Blend mode" placement="right">Blend</span>
+          <autocomplete class="form-control  autoComplete " style="padding:0px" [allowClear]="false" [items]="blendModes"  (data)="changeBrushBlendMode($event)"
+          (selected)="changeBrushBlendMode($event)"   [active]="getBrushBlendMode()"
+          placeholder="No blend mode selected"></autocomplete>
+    
+           
+        </div>
+      </div>
+  <div class="row no-gutters ">
+    <div class="input-group input-group-sm">
+      <span class="input-group-addon w-50 font-size8" style="margin-top:1px;margin-bottom:1px" tooltip="Brush size in pixel" placement="right">Size</span>
+      <input type="number" class="form-control" placeholder="Enter size of brush" aria-describedby="sizing-addon2" 
+       min="1" max="250" [value]="brushSize" (input)="changeBrushSize($event.target.value)">
+
+       
+    </div>
+  </div>
+  <div class="row no-gutters ">
+      <div class="input-group input-group-sm">      
+  
+         <span class="input-group-addon w-50 font-size8" style="margin-top:1px;margin-bottom:1px" tooltip="Brush opacity" placement="right">Opacity</span>
+         <input type="number" class="form-control" placeholder="Enter opacity of brush" aria-describedby="sizing-addon2" 
+          min="1" max="100" [value]="brushOpacity" (input)="changeBrushOpacity($event.target.value)">
+        
+      </div>
+    </div>
+</div>

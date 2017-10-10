@@ -255,5 +255,11 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     this._context.clip(fillrule);
   }
 
+  public setBlendMode(val:string){
+    this._context.globalCompositeOperation=val;
+  }
+
+ 
+
   
 }
