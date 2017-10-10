@@ -1,3 +1,4 @@
+import { Polygon } from './draw/polygon';
 import { Color } from './draw/color';
 import { HImage } from './image';
 import { Rect } from '../lib/draw/rect'
@@ -123,6 +124,16 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     this._context.stroke();
   }
 
+  public drawPolygon(polygon:Polygon,closePath:boolean=true){
+    this._context.beginPath();
+    this._context.moveTo(polygon.points[0].X,polygon.points[0].Y);
+    for(let i=1;i<polygon.points.length;++i){
+      this._context.lineTo(polygon.points[i].X,polygon.points[i].Y);
+    }
+    if(closePath)
+    this._context.closePath();
+  }
+
   public drawLine2(x1: number, y1: number) {
     
     this._context.lineTo(x1, y1);
@@ -238,6 +249,10 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
 
   public createPattern(image:any,repetion:any):CanvasPattern{
     return this._context.createPattern(image,repetion);
+  }
+
+  public clip(fillrule?:any):void{
+    this._context.clip(fillrule);
   }
 
   

@@ -1,3 +1,5 @@
+import { Rect2D } from './rect2D';
+import { Rect } from './rect';
 
 
 
@@ -79,6 +81,11 @@ export class Polygon{
         if(out.length>0)
         out[0].forEach((item)=>points.push(new Point(item.X,item.Y)));
         return new Polygon(points);
+    }
+
+    public get bounds():Rect{
+       var bound= ClipperLib.Clipper.GetBounds(this.getPaths());
+       return new Rect(bound.left,bound.top,bound.right-bound.left,bound.bottom-bound.top);
     }
 
 

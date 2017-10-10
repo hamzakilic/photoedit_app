@@ -103,18 +103,17 @@ export class ToolsComponent implements OnInit {
   selectPolygonSelection() {
     this.selectWorking(Workspace.WorkModeSelection,LayerSelect.SubTypePolygon);
   
-    this.isCollapsed=true;
+    //this.isCollapsed=true;
   }
 
-  public get pencilCss() {
-    return { active: false};
+  public get brushCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModeBrush)};
   }
 
-  @ViewChild("pop")  
-  pop:any;
-  selectPencil() {   
-   
-    this.isCollapsed=false;
+ 
+  selectBrush() {   
+    this.selectWorking(Workspace.WorkModeBrush);
+    //this.isCollapsed=false;
    
 
   }

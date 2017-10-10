@@ -47,8 +47,7 @@ export class TrackbarComponent implements OnInit {
 
   private isMouseDown: boolean;
 
-  @ViewChild('progressdiv')
-  progress: ElementRef;
+
 
   constructor() {
 
@@ -60,7 +59,7 @@ export class TrackbarComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.calculatePosition();
+    
 
   }
   ngAfterContentChecked() {
@@ -68,83 +67,4 @@ export class TrackbarComponent implements OnInit {
   }
 
 
-
-
-
-  /* mouseDownProgress(event: MouseEvent) {
-
-
-
-    let boundingRect = (<HTMLDivElement>this.progress.nativeElement).getBoundingClientRect();
-    let x = event.pageX - boundingRect.left;
-    let dif = this.max - this.min;
-    let val = (x * dif / boundingRect.width) + this.min;
-    this._value = val;
-    this.checkValueForRange();
-   this.calculatePosition();
-    this.valueChanged.emit(this._value);
-
-
-  }
-  mouseDown() {
-
-    this.isMouseDown = true;
-  }
-  mouseMove(event: MouseEvent) {
-
-    if (this.isMouseDown) {
-      let x = event.movementX;
-      let boundingRect = (<HTMLDivElement>this.progress.nativeElement).getBoundingClientRect();
-      let dif = this.max - this.min;
-      let val = this._value + (x * dif / boundingRect.width);
-      this._value = val;
-       this.checkValueForRange();
-     this.calculatePosition();
-      this.valueChanged.emit(this._value);
-    }
-
-
-  }
-
-
-  mouseUp() {
-    this.isMouseDown = false;
-  }
-
-  mouseLeave() {
-
-    this.isMouseDown = false;
-  }
-
-  minus() {
-    let newValue = this._value - this.step;   
-    this._value = newValue;
-    this.checkValueForRange();
-    this.calculatePosition();
-    this.valueChanged.emit(this._value);
-
-
-  }
-  private checkValueForRange(){
-    if(this._value<this.min)
-      this._value=this.min;
-    if(this._value>this.max)
-      this._value=this.max;
-  }
-  private calculatePosition(){
-    let dif = this.max - this.min;
-    this.position = (((this._value - this.min) / dif) * 100).extRound();
-  }
-
-  plus() {
-    let newValue = this._value + this.step;
-   
-    this._value = newValue;
-    this.checkValueForRange();
-   this.calculatePosition();
-    this.valueChanged.emit(this._value);
-
-
-  } 
- */
 }

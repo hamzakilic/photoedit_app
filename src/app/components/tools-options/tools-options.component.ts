@@ -1,3 +1,4 @@
+import { Workspace } from './../../models/photoedit/workSpace';
 import { Proj } from './../../models/photoedit/proj';
 import { AppService } from './../../services/app.service';
 import { ProjectService } from './../../services/project.service';
@@ -25,9 +26,16 @@ export class ToolsOptionsComponent implements OnInit {
   }
 
   get isSelectionTool():boolean{
-    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.selectionLayer)
+    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.selectionLayer && this.project.activeWorkspace.workMode.typeOf == Workspace.WorkModeSelection )
      return true;
     return false;
   }
+
+  get isBrushTool():boolean{
+    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == Workspace.WorkModeBrush )
+     return true;
+    return false;
+  }
+
 
 }

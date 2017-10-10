@@ -56,7 +56,7 @@ export class Helper {
   }
 
 
-  public static calculateBetweenPoints(points: Array<Point>): Array<Point> {
+  public static calculateBetweenPoints(points: Array<Point>,dif:number=5): Array<Point> {
     let pTemps = [];
     if (points.length >= 1) {
       for (let i = 0; i < points.length - 1; ++i) {
@@ -66,8 +66,8 @@ export class Helper {
         while (true) {
 
           let d = Math.sqrt((curPoint.X - prevPoint.X) * (curPoint.X - prevPoint.X) + (curPoint.Y - prevPoint.Y) * (curPoint.Y - prevPoint.Y));
-          if (d > 5) {
-            let t = 5 / d;
+          if (d > dif) {
+            let t = dif / d;
             let temp = new Point((1 - t) * prevPoint.X + t * curPoint.X, (1 - t) * prevPoint.Y + t * curPoint.Y);
             pTemps.push(temp);
             prevPoint = temp;
@@ -81,8 +81,8 @@ export class Helper {
       while (true) {
 
         let d = Math.sqrt((curPoint.X - prevPoint.X) * (curPoint.X - prevPoint.X) + (curPoint.Y - prevPoint.Y) * (curPoint.Y - prevPoint.Y));
-        if (d > 5) {
-          let t = 5 / d;
+        if (d > dif) {
+          let t = dif / d;
           let temp = new Point((1 - t) * prevPoint.X + t * curPoint.X, (1 - t) * prevPoint.Y + t * curPoint.Y);
           pTemps.push(temp);
           prevPoint = temp;

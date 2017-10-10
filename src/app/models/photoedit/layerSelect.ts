@@ -403,6 +403,9 @@ export class LayerSelect extends Layer {
     });
 
   }
+  public get polygons():Array<Polygon>{
+    return this._polygons;
+  }
 
   public set clipMode(type: string) {
     this._clipMode = type;

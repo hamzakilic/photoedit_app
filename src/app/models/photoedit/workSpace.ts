@@ -1,4 +1,4 @@
-import { LayerSelectEllipse } from './layerSelectEllipse';
+
 import { Layer } from './layer';
 import { LayerEmpty } from './layerEmpty';
 import { LayerBackground } from './layerBackground';
@@ -13,8 +13,16 @@ import { Utility } from '../../lib/utility';
 import { CalcLayer } from "./lib/calcLayer";
 import { Calc } from '../../lib/calc';
 import { Point } from "../../lib/draw/point";
-import { LayerSelectLasso } from "./layerSelectLasso";
-import { LayerSelectPolygonal } from './layerSelectPolygonal';
+import { WorkModeBase } from './workmodes/workModeBase';
+import { WorkModeDefault } from './workmodes/workModeDefault';
+import { WorkModeBrush } from './workmodes/workModeBrush';
+import { WorkModeColorPicker } from './workmodes/workModeColorPicker';
+import { WorkModeCrop } from './workmodes/workModeCrop';
+import { WorkModeHand} from './workmodes/workModeHand';
+import { WorkModeResizeWorkspace } from './workmodes/workModeResize';
+import { WorkModeSelection } from './workmodes/workModeSelection';
+
+
 
 
 export class Workspace extends HEventEmitter {
@@ -38,11 +46,11 @@ export class Workspace extends HEventEmitter {
   public nativeElement: any;
 
   public selectionLayer: Layer;
-  public workLayer:Layer;
-  
-  
-  public foregroundColor:string;
-  public backgroundColor:string;
+  public workLayer: Layer;
+
+
+  public foregroundColor: string;
+  public backgroundColor: string;
 
   constructor(width: number, height: number, name?: string) {
     super();
@@ -76,8 +84,8 @@ export class Workspace extends HEventEmitter {
     this.backgroundLayer.zIndex = 0;
     this._workMode = new WorkModeDefault(this);
 
-    this.backgroundColor="#000";
-    this.foregroundColor="#FFF";
+    this.backgroundColor = "#000";
+    this.foregroundColor = "#FFF";
 
   }
   public get hasLayer(): boolean {
@@ -138,18 +146,18 @@ export class Workspace extends HEventEmitter {
   }
 
 
-  public replaceLayer(source: Layer, destination: Layer,marginLeft?:number,marginTop?:number) {
-    let index=this._layers.findIndex(p=>p==source);
-    if(index>-1){
-    destination.setBlendMode(destination.blendMode);
-    destination.setGlobalAlpha(source.globalAlpha);
-    destination.isSelected = true;
-    destination.scale=this.scale;
-    destination.rotateAngleDeg = source.rotateAngleDeg;
-    destination.marginLeft =marginLeft?marginLeft:  source.marginLeft;
-    destination.marginTop = marginTop?marginTop:source.marginTop;
-    this._layers[index]=destination;
-    source.dispose();
+  public replaceLayer(source: Layer, destination: Layer, marginLeft?: number, marginTop?: number) {
+    let index = this._layers.findIndex(p => p == source);
+    if (index > -1) {
+      destination.setBlendMode(destination.blendMode);
+      destination.setGlobalAlpha(source.globalAlpha);
+      destination.isSelected = true;
+      destination.scale = this.scale;
+      destination.rotateAngleDeg = source.rotateAngleDeg;
+      destination.marginLeft = marginLeft ? marginLeft : source.marginLeft;
+      destination.marginTop = marginTop ? marginTop : source.marginTop;
+      this._layers[index] = destination;
+      source.dispose();
     }
   }
 
@@ -178,7 +186,7 @@ export class Workspace extends HEventEmitter {
     if (height <= 0)
       this._height = 100;
     else this._height = height;
-    let changeLayer0=this._layers.length>0 && this.backgroundLayer.width== this._layers[0].width && this.backgroundLayer.height==this._layers[0].height;
+    let changeLayer0 = this._layers.length > 0 && this.backgroundLayer.width == this._layers[0].width && this.backgroundLayer.height == this._layers[0].height;
 
     let keepRatio = this.backgroundLayer.keepRatio;
     this.backgroundLayer.keepRatio = false;
@@ -186,12 +194,12 @@ export class Workspace extends HEventEmitter {
     this.backgroundLayer.keepRatio = keepRatio;
 
     if (this._layers.length > 0 && changeLayer0) {
-      
+
       keepRatio = this._layers[0].keepRatio;
       this._layers[0].keepRatio = false;
       this._layers[0].setWidthHeight(this._width, this._height, new Callback(() => { this._layers[0].render() }));
       this._layers[0].keepRatio = keepRatio;
-    
+
     }
 
 
@@ -302,57 +310,60 @@ export class Workspace extends HEventEmitter {
   public zoomTo(val: number) {
     this.backgroundLayer.scaleTo(val);
     this._layers.forEach((item) => item.scaleTo(val));
-    if(this.selectionLayer)
-    this.selectionLayer.scaleTo(val);
-    if(this.workLayer)
-    this.workLayer.scaleTo(val);
+    if (this.selectionLayer)
+      this.selectionLayer.scaleTo(val);
+    if (this.workLayer)
+      this.workLayer.scaleTo(val);
     this.backgroundLayer.render();
-    
+
   }
   public zoomIn() {
     this.backgroundLayer.scalePlus();
     this._layers.forEach((item) => item.scalePlus());
-    if(this.selectionLayer)
-    this.selectionLayer.scalePlus();
-    if(this.workLayer)
-    this.workLayer.scalePlus();
+    if (this.selectionLayer)
+      this.selectionLayer.scalePlus();
+    if (this.workLayer)
+      this.workLayer.scalePlus();
     this.backgroundLayer.render();
-    
+
 
   }
 
   public zoomOut() {
     this.backgroundLayer.scaleMinus();
     this._layers.forEach((item) => item.scaleMinus());
-    if(this.selectionLayer)
-    this.selectionLayer.scalePlus();
-    if(this.workLayer)
-    this.workLayer.scalePlus();
+    if (this.selectionLayer)
+      this.selectionLayer.scalePlus();
+    if (this.workLayer)
+      this.workLayer.scalePlus();
     this.backgroundLayer.render();
 
-    
+
   }
 
-  public selectWorking(working: number,parameter:string) {
+  public selectWorking(working: number, parameter: string) {
     //console.log('selectWorking');
     switch (working) {
       case Workspace.WorkModeDefault:
         this._workMode = new WorkModeDefault(this);
-        break;     
+        break;
       case Workspace.WorkModeResizeWorkspace:
-        this._workMode = new WorkModeResizeWorkspace(this, this.workMode.typeOf,this.workMode.subTypeOf);
+        this._workMode = new WorkModeResizeWorkspace(this, this.workMode.typeOf, this.workMode.subTypeOf);
         break;
 
-        case Workspace.WorkModeCrop:
-        this._workMode = new WorkModeCrop(this);        
+      case Workspace.WorkModeCrop:
+        this._workMode = new WorkModeCrop(this);
         break;
-        case Workspace.WorkModeSelection:
-        if(!this.workMode || this._workMode.typeOf!=working)
-        this._workMode = new WorkModeSelectionRectangle(this,parameter);
-        else (this._workMode as WorkModeSelectionRectangle).changeType(parameter);
-        break;       
-        case Workspace.WorkModeColorPicker:
-        this._workMode = new WorkModeColorPicker(this,this.workMode);
+      case Workspace.WorkModeSelection:
+        if (!this.workMode || this._workMode.typeOf != working)
+          this._workMode = new WorkModeSelection(this, parameter);
+        else (this._workMode as WorkModeSelection).changeType(parameter);
+        break;
+      case Workspace.WorkModeColorPicker:
+        this._workMode = new WorkModeColorPicker(this, this.workMode);
+        break;
+        case Workspace.WorkModeBrush:
+        this._workMode = new WorkModeBrush(this);
         break;
       default:
         this._workMode = new WorkModeDefault(this);
@@ -360,15 +371,19 @@ export class Workspace extends HEventEmitter {
 
   }
 
-  public setWorkingMode(working:WorkModeBase){
-    this._workMode=working;
+  public setWorkingMode(working: WorkModeBase) {
+    this._workMode = working;
   }
 
   public removeSelectionLayer() {
+    if(this.selectionLayer)
+    this.selectionLayer.dispose();
     this.selectionLayer = undefined;
 
   }
   public removeWorkLayer() {
+    if(this.workLayer)
+    this.workLayer.dispose();
     this.workLayer = undefined;
 
   }
@@ -379,302 +394,18 @@ export class Workspace extends HEventEmitter {
 
   public static readonly EVENTRESIZED = "resized";
 
-  public static readonly WorkModeDefault = 1;  
+  public static readonly WorkModeDefault = 1;
   public static readonly WorkModeSelection = 3;
   public static readonly WorkModeResizeWorkspace = 4;
-  public static readonly WorkModeAddTextLayer = 5;    
+  public static readonly WorkModeAddTextLayer = 5;
   public static readonly WorkModeCrop = 7;
   public static readonly WorkModeColorPicker = 12;
-  
+  public static readonly WorkModeBrush = 13;
 
 
 
 }
 
-abstract class WorkModeBase {
-  protected workspace: Workspace;
-  protected canvasElement:any;
-  constructor(workspace: Workspace,disposeSelect:boolean=true,disposeWork:boolean=true) {
-    this.workspace = workspace;
-    if(this.workspace.selectionLayer && disposeSelect){
-      this.workspace.selectionLayer.dispose();
-      this.canvasElement=this.workspace.selectionLayer.htmlElement;    
-    this.workspace.selectionLayer = undefined;
-    }
-
-    if(this.workspace.workLayer && disposeWork){
-      this.workspace.workLayer.dispose();
-      this.canvasElement=this.workspace.workLayer.htmlElement;    
-    this.workspace.workLayer = undefined;
-    }
-
-    this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event); });
-  }
-
-  public mouseMove(event: MouseEvent) {
-
-    this.workspace.layers.forEach((item) => {
-      if (item.isSelected)
-           item.mouseMove(event);
-    });
-
-  }
-  public abstract get typeOf(): number;
-  public abstract get subTypeOf():string;
-
-
-  public mouseDown(event: MouseEvent, layer: Layer) {
-  
-    this.workspace.layers.forEach((item) => {
-      if (item.isSelected && item.hitMouseEvent(event))
-           item.mouseDown(event);
-    });
-
-    //önemli, event stoplanmalı
-    event.stopPropagation();
-  }
-  public mouseUp(event: any) {
-
-    this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event); });
-  }
-
-
-}
-
-
-class WorkModeDefault extends WorkModeBase {
-
-
-  constructor(workspace: Workspace) {
-    super(workspace);
-    this.workspace.cssClasses = "mouseDefault";
-    this.workspace.removeSelectionLayer();
-
-  }
-  public get typeOf(): number {
-    return Workspace.WorkModeDefault;
-  }
-  public get subTypeOf():string{
-    return "";
-  }
-
-}
-
-
-class WorkModeHand extends WorkModeBase {
-
-  constructor(workspace: Workspace) {
-    super(workspace);
-    this.workspace.cssClasses = "mouseDefault";
-
-  }
-  public get typeOf(): number {
-    return Workspace.WorkModeDefault;
-  }
-  public get subTypeOf():string{
-    return "";
-  }
-}
-
-class WorkModeSelectionRectangle extends WorkModeBase {
-  _shapeType:string;
-  constructor(workspace: Workspace,shapeType:string) {
-    super(workspace);
-    this.workspace.cssClasses = "mouseCross";
-    this._shapeType = shapeType;
-    let selectionLayer = this.createLayer(this.workspace.width, this.workspace.height, 0, 0);
-    selectionLayer.shapeType=this._shapeType;      
-    this.workspace.selectionLayer = selectionLayer;
-
-  }
-  public get typeOf(): number {
-    return Workspace.WorkModeSelection;
-  }
-  public get subTypeOf():string{
-    return this._shapeType;
-  }
-  public changeType(type:string){
-    (this.workspace.selectionLayer as LayerSelect).shapeType=type;
-    this._shapeType=type;
-  }
-
-  public mouseMove(event: MouseEvent) {
-    if (this.workspace.selectionLayer)
-      this.workspace.selectionLayer.mouseMove(event);
-
-  }
-
-  public mouseDown(event: MouseEvent, layer: Layer) {
-       
-    this.workspace.selectionLayer.mouseDown(event);
-    
-  }
-  public mouseUp(event: any) {
-    if (this.workspace.selectionLayer)
-      this.workspace.selectionLayer.mouseUp(event);
-  }
-
-  protected createLayer(width:number,height:number,left:number,top:number){
-    return new LayerSelect(width,height,left,top);
-  }
-
-}
-
-
-class WorkModeCrop extends WorkModeBase {
-  
-    constructor(workspace: Workspace) {
-      super(workspace);
-      this.workspace.cssClasses = "mouseCross";
-      
-  
-    }
-    public get typeOf(): number {
-      return Workspace.WorkModeCrop;
-    }
-    public get subTypeOf():string{
-      return "";
-    }
-  
-    public mouseMove(event: MouseEvent) {
-      if (this.workspace.workLayer)
-        this.workspace.workLayer.mouseMove(event);
-  
-    }
-  
-    public mouseDown(event: MouseEvent, layer: Layer) {
-     
-      
-      if (this.workspace.workLayer == undefined) {
-       
-        var rect = this.workspace.nativeElement.getBoundingClientRect();
-        let mouseX = (event.pageX - rect.left) + window.scrollX;
-        let mouseY = (event.pageY - rect.top) + window.scrollY;
-        //buradaki 50 ve 50 workspace margin left ve top değerleri;
-        let worklayer = this.createLayer(0, 0, mouseX - 50, mouseY - 50);
-        worklayer.mouseDownSelectedPoint(event, 6);
-        if(this.workspace.workLayer)
-          this.workspace.workLayer.dispose();
-        this.workspace.workLayer = worklayer;
-       // this.workspace.selectionLayer.mouseDown(event);
-      }
-      
-    }
-    public mouseUp(event: any) {
-      if (this.workspace.workLayer)
-        this.workspace.workLayer.mouseUp(event);
-    }
-    protected createLayer(width:number,height:number,left:number,top:number){
-      return new LayerCropRectangle(width,height,left,top);
-    }
-  
-    
-  
-  }
-
-  
-
-    
-
-
-
-    
-
-
-
-      class WorkModeColorPicker extends WorkModeBase {
-        private _previousWorkMode:WorkModeBase;
-        private _isMouseDown=false;
-        constructor(workspace: Workspace, previousMode:WorkModeBase) {
-          //dont dispose previous workmode          
-          super(workspace,false);
-          this._previousWorkMode=previousMode;          
-          this.workspace.cssClasses = "default";
-      
-        }
-        public get typeOf(): number {
-          return Workspace.WorkModeColorPicker;
-        }
-        public get subTypeOf():string{
-          return "";
-        }
-      
-        public mouseMove(event: MouseEvent) {
-          if(this._isMouseDown)
-          this.findPointInLayers(event);
-        }
-      
-        public mouseDown(event: MouseEvent, layer: Layer) {
-          this._isMouseDown=true;
-          
-          this.findPointInLayers(event);
-          
-        }
-        public mouseUp(event: any) {
-          this._isMouseDown=false;
-          this.workspace.setWorkingMode(this._previousWorkMode);
-          
-        }
-
-        private findPointInLayers(event:MouseEvent){
-           for(let i=this.workspace.layers.length-1;i>-1;--i){
-              let ly= this.workspace.layers[i];
-              let hitPoint=ly.hitMouseEvent(event);
-              if(hitPoint){
-                  let color=ly.getColor(hitPoint.X,hitPoint.Y);
-                  if(color.a!=0){
-                    this.workspace.foregroundColor="rgb("+color.r+","+color.g+","+color.b+")";
-                    return;
-                  }
-              }              
-           }
-        }
-      
-      
-      }
-
-
-
-
-class WorkModeResizeWorkspace extends WorkModeBase {
-  private previousWorkingType: number;
-  private previousWorkingSubType:string;
-  constructor(workspace: Workspace, previousWorkingType: number,previousWorkingSubType:string) {
-    super(workspace);
-    this.previousWorkingType = previousWorkingType;
-    this.previousWorkingSubType = previousWorkingSubType;
-    this.workspace.cssClasses = "mouseNWSE";
-
-  }
-  public get typeOf(): number {
-    return Workspace.WorkModeResizeWorkspace;
-  }
-
-  public get subTypeOf():string{
-    return "";
-  }
-
-
-  public mouseMove(event: MouseEvent) {
-
-    let w = this.workspace.width + event.movementX / this.workspace.scale;
-    let h = this.workspace.height + event.movementY / this.workspace.scale;
-    if (w > 20 && h > 20) {
-      this.workspace.resize(w, h, new Callback(() => { }));
-    }
-  }
-
-  public mouseDown(event: MouseEvent, layer: Layer) {
-
-
-  }
-  public mouseUp(event: any) {
-
-    this.workspace.selectWorking(this.previousWorkingType,this.previousWorkingSubType);
-  }
-
-
-}
 
 
 

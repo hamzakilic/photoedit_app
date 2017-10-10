@@ -69,6 +69,7 @@ import { TrackbarComponent } from './components/trackbar/trackbar.component';
 import { CropPropertiesComponent } from './components/crop-properties/crop-properties.component';
 import { ToolsOptionsComponent } from './components/tools-options/tools-options.component';
 import { ToolsOptionsClipComponent } from './components/tools-options-clip/tools-options-clip.component';
+import { ToolsOptionsBrushComponent } from './components/tools-options-brush/tools-options-brush.component';
 
 
 
@@ -118,6 +119,7 @@ import { ToolsOptionsClipComponent } from './components/tools-options-clip/tools
     CropPropertiesComponent,
     ToolsOptionsComponent,
     ToolsOptionsClipComponent,
+    ToolsOptionsBrushComponent,
     
 
 
