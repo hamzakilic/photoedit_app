@@ -1,4 +1,4 @@
-import { WorkModeBrush } from './../../models/photoedit/workmodes/workModeBrush';
+import { WorkModeBrush, EditTypeBrush } from './../../models/photoedit/workmodes/workModeBrush';
 import { AutoCompleteItem } from './../../entities/autocompleteItem';
 import { Workspace } from './../../models/photoedit/workSpace';
 import { Proj } from './../../models/photoedit/proj';
@@ -29,7 +29,7 @@ export class ToolsOptionsBrushComponent implements OnInit {
 
   public get brushSize():number{
     if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == Workspace.WorkModeBrush){
-      (<WorkModeBrush>this.project.activeWorkspace.workMode).brush.size;
+      (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).size;
     }
     return 5;
   }
@@ -41,14 +41,14 @@ export class ToolsOptionsBrushComponent implements OnInit {
     let val= Number.parseInt(value);
     if(val){
       if(this.isValid()){
-        (<WorkModeBrush>this.project.activeWorkspace.workMode).brush.size=val;
+        (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).size=val;
       }
     }
   }
 
   public get brushOpacity():number{
     if(this.isValid()){
-      (<WorkModeBrush>this.project.activeWorkspace.workMode).brush.opacity*100;
+      (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).opacity*100;
     }
     return 100;
   }
@@ -57,7 +57,24 @@ export class ToolsOptionsBrushComponent implements OnInit {
     let val= Number.parseInt(value);
     if(val){
       if(this.isValid()){
-        (<WorkModeBrush>this.project.activeWorkspace.workMode).brush.opacity=val/100;
+       (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).opacity=val/100;
+      }
+    }
+  }
+
+
+  public get brushHardness():number{
+    if(this.isValid()){
+      (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).hardness*100;
+    }
+    return 100;
+  }
+
+  public changeBrushHardness(value:string){
+    let val= Number.parseInt(value);
+    if(val){
+      if(this.isValid()){
+       (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).hardness=val/100;
       }
     }
   }
@@ -72,7 +89,7 @@ export class ToolsOptionsBrushComponent implements OnInit {
   public changeBrushBlendMode(event:AutoCompleteItem){
     
     if(this.isValid()){
-      (<WorkModeBrush>this.project.activeWorkspace.workMode).brush.blendMode=event.id;
+      (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).blendMode=event.id;
     }
   }
 
@@ -80,7 +97,7 @@ export class ToolsOptionsBrushComponent implements OnInit {
     
      let modes=[];
     if(this.isValid()){
-      let val=(<WorkModeBrush>this.project.activeWorkspace.workMode).brush.blendMode;
+      let val=(<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).blendMode;
       modes.push({id:val,text:val});
     }else{
       modes.push({id:"normal",text:"normal"});

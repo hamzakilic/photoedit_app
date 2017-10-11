@@ -118,22 +118,23 @@ export class ToolsComponent implements OnInit {
 
   }
 
+
   public get emptyString():string{
     return " ";
   }
 
-  public get isPencilActive():boolean{
-    return false;
+  public get eraseCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModeErase)};
   }
 
-  _isCollapsed=true;
-  public get isCollapsed():boolean{
-    return this._isCollapsed;
-  }
+ 
+  selectErase() {   
+    this.selectWorking(Workspace.WorkModeErase);
+    //this.isCollapsed=false;
+   
 
-  public set isCollapsed(val:boolean){
-    this._isCollapsed = val;
   }
+ 
 
 
 
@@ -161,6 +162,7 @@ export class ToolsComponent implements OnInit {
   }
 
   public set foregroundcolor(value: string) {
+    
     this.project.activeWorkspace.foregroundColor = value;
   }
 

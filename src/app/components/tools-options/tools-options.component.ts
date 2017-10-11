@@ -37,5 +37,11 @@ export class ToolsOptionsComponent implements OnInit {
     return false;
   }
 
+  get isEraseTool():boolean{
+    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == Workspace.WorkModeErase )
+     return true;
+    return false;
+  }
+
 
 }

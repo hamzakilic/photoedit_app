@@ -19,6 +19,16 @@
     </div>
   </div>
   <div class="row no-gutters ">
+    <div class="input-group input-group-sm">
+      <span class="input-group-addon w-50 font-size8" style="margin-top:1px;margin-bottom:1px" tooltip="Brush hardness" placement="right">Hardness</span>
+      <input type="number" class="form-control" placeholder="Enter hardness" aria-describedby="sizing-addon2" 
+       min="0" max="100" [value]="brushHardness" (input)="changeBrushHardness($event.target.value)">
+
+       
+    </div>
+  </div>
+
+  <div class="row no-gutters ">
       <div class="input-group input-group-sm">      
   
          <span class="input-group-addon w-50 font-size8" style="margin-top:1px;margin-bottom:1px" tooltip="Brush opacity" placement="right">Opacity</span>
