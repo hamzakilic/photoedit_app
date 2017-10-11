@@ -1,3 +1,4 @@
+import { Point } from './../../../lib/draw/point';
 import { LayerCropRectangle } from './../layerCropRectangle';
 import { Workspace } from './../workSpace';
 import { WorkModeBase } from "./workModeBase";
@@ -18,33 +19,35 @@ export class WorkModeCrop extends WorkModeBase {
         return "";
       }
     
-      public mouseMove(event: MouseEvent) {
-        if (this.workspace.workLayer)
-          this.workspace.workLayer.mouseMove(event);
+      public mouseMove(event: MouseEvent,scroll:Point) {
+       // if (this.workspace.workLayer)
+        //  this.workspace.workLayer.mouseMove(event,scroll);
     
       }
     
-      public mouseDown(event: MouseEvent, layer: Layer) {
+      public mouseDown(event: MouseEvent,scroll:Point) {
     
     
         if (this.workspace.workLayer == undefined) {
     
-          var rect = this.workspace.nativeElement.getBoundingClientRect();
-          let mouseX = (event.pageX - rect.left) + window.scrollX;
-          let mouseY = (event.pageY - rect.top) + window.scrollY;
+          var rect = this.workspace.htmlElement.nativeElement.getBoundingClientRect();
+          
+          let mouseX = (event.clientX+scroll.X)/this.workspace.scale;
+          let mouseY = (event.clientY+scroll.Y) /this.workspace.scale;
+          console.log(event.clientX,event.clientY,rect.left,rect.top, mouseX,mouseY);
           //buradaki 50 ve 50 workspace margin left ve top değerleri;
-          let worklayer = this.createLayer(0, 0, mouseX - 50, mouseY - 50);
+          let worklayer = this.createLayer(100, 100, mouseX-50, mouseY-50);
+          worklayer.scale=this.workspace.scale;
           worklayer.mouseDownSelectedPoint(event, 6);
-          if (this.workspace.workLayer)
-            this.workspace.workLayer.dispose();
+         
           this.workspace.workLayer = worklayer;
           // this.workspace.selectionLayer.mouseDown(event);
         }
     
       }
-      public mouseUp(event: any) {
+      public mouseUp(event: MouseEvent,scroll:Point) {
         if (this.workspace.workLayer)
-          this.workspace.workLayer.mouseUp(event);
+          this.workspace.workLayer.mouseUp(event,scroll);
       }
       protected createLayer(width: number, height: number, left: number, top: number) {
         return new LayerCropRectangle(width, height, left, top);

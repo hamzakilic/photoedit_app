@@ -421,42 +421,42 @@ export class LayerSelect extends Layer {
   public get classes(): any {
     return { clayerEmpty: true };
   }
-  public mouseDown(event: MouseEvent) {
+  public mouseDown(event: MouseEvent,scroll:Point) {
     this.stopAnimation();
-    super.mouseDown(event);
+    super.mouseDown(event,scroll);
     switch (this._shapeType) {
       case LayerSelect.SubTypeRect:
-        let point = this.normalizeMouseEvent(event);
+        let point = this.normalizeMouseEvent(event,scroll);
         if (point) {
           this._shape = new ShapeRect(point, this.graphics);
         }
         break;
       case LayerSelect.SubTypeEllipse:
-        point = this.normalizeMouseEvent(event);
+        point = this.normalizeMouseEvent(event,scroll);
         if (point) {
           this._shape = new ShapeEllipse(point, this.graphics);
         }
         break;
       case LayerSelect.SubTypeLasso:
-        point = this.normalizeMouseEvent(event);
+        point = this.normalizeMouseEvent(event,scroll);
         if (point) {
           this._shape = new ShapeLasso(point, this.graphics);
         }
         break;
       case LayerSelect.SubTypePolygon:
-        point = this.normalizeMouseEvent(event);
+        point = this.normalizeMouseEvent(event,scroll);
         if (point && !(this._shape instanceof ShapePolygon)) {
           this._shape = new ShapePolygon(point, this.graphics);
         }
-        else this._shape.mouseDown(this.normalizeMouseEvent(event));
+        else this._shape.mouseDown(this.normalizeMouseEvent(event,scroll));
         break;
 
     }
 
   }
-  public mouseMove(event: MouseEvent) {
+  public mouseMove(event: MouseEvent,scroll:Point) {
     if (this._shape) {
-      if (this._shape.mouseMove(this.normalizeMouseEvent(event)))//if something changed
+      if (this._shape.mouseMove(this.normalizeMouseEvent(event,scroll)))//if something changed
         this.render();//then render again
     }
 
@@ -466,11 +466,11 @@ export class LayerSelect extends Layer {
 
 
 
-  public mouseUp(event: any) {
+  public mouseUp(event: MouseEvent,scroll:Point) {
     
-    super.mouseUp(event);
+    super.mouseUp(event,scroll);
     if (this._shape)
-      if (this._shape.mouseUp(this.normalizeMouseEvent(event))) {
+      if (this._shape.mouseUp(this.normalizeMouseEvent(event,scroll))) {
         this.preparePolygon();
         this._shape = undefined;
         this.startAnimation();
@@ -482,7 +482,7 @@ export class LayerSelect extends Layer {
     this.stopAnimation();
     super.doubleClick(event);
     if (this._shape) {
-      if (this._shape.doubleClick(this.normalizeMouseEvent(event))) {
+      if (this._shape.doubleClick(this.normalizeMouseEvent(event,undefined))) {
         this.preparePolygon();
         this._shape = undefined;
         

@@ -53,7 +53,7 @@ export abstract class Layer extends SurfaceCanvas {
 
  
 
-  public mouseDown(event: MouseEvent) {
+  public mouseDown(event: MouseEvent,scroll:Point) {
     
     //this.isSelected = true;
     this.isMouseDown = true;
@@ -83,7 +83,7 @@ export abstract class Layer extends SurfaceCanvas {
     }
     event.preventDefault();
   }
-  public mouseMove(event: MouseEvent) {
+  public mouseMove(event: MouseEvent,scroll:Point) {
     
     if(!this.isSelected)
         return;
@@ -119,7 +119,7 @@ export abstract class Layer extends SurfaceCanvas {
 
   
 
-  public mouseUp(event: any) {
+  public mouseUp(event: any,scroll:Point) {
 
     //console.log(this.name + " mouseup");
     this._mouseDownPoint.allFalse();
@@ -137,12 +137,12 @@ export abstract class Layer extends SurfaceCanvas {
   public abstract dispose();
 
   
-  public hitMouseEvent(event:MouseEvent):Point{
+  public hitMouseEvent(event:MouseEvent,scroll:Point):Point{
     if (this.htmlElement) {
       let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
       
-      let point =new Point(((event.clientX - rc.left)/this.scale).extRound(), ((event.clientY - rc.top)/this.scale).extRound());
-         
+      let point =new Point(((event.clientX+scroll.X - (rc.left+scroll.X))/this.scale).extRound(), ((event.clientY+scroll.Y - (rc.top+scroll.Y))/this.scale).extRound());
+         console.log("layer hitmouseevent:",event.clientX,event.clientY,scroll.X,scroll.Y,rc.left,rc.top);
         if (point.X >= 0 && point.Y >= 0 && point.X <= this.width && point.Y <= this.height) {
           return point;
         }
@@ -150,11 +150,13 @@ export abstract class Layer extends SurfaceCanvas {
     }
     return undefined;
   }
-  public normalizeMouseEvent(event:MouseEvent,makeNormalize:boolean=true):Point{
+  public normalizeMouseEvent(event:MouseEvent,scroll:Point, makeNormalize:boolean=true):Point{
+   
     if (this.htmlElement) {
       let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
-      
-      let point =new Point(((event.clientX - rc.left)/this.scale).extRound(), ((event.clientY - rc.top)/this.scale).extRound());      
+   
+      let point =new Point(((event.clientX+scroll.X - (rc.left+scroll.X))/this.scale).extRound(), ((event.clientY+scroll.Y - (rc.top+scroll.Y))/this.scale).extRound());      
+      console.log("layer normalizeMouseEvent:",event.clientX,event.clientY,point.X,point.Y, scroll.X,scroll.Y,rc.left,rc.top);
       if(makeNormalize){
         if(point.X<0)
         point.X=0;

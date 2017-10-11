@@ -1,3 +1,4 @@
+import { Point } from './../../../lib/draw/point';
 import { LayerSelect } from './../layerSelect';
 import { Workspace } from './../workSpace';
 import { WorkModeBase } from "./workModeBase";
@@ -29,20 +30,20 @@ export class WorkModeSelection extends WorkModeBase {
       
     }
   
-    public mouseMove(event: MouseEvent) {
+    public mouseMove(event: MouseEvent,scroll:Point) {
       if (this.workspace.selectionLayer)
-        this.workspace.selectionLayer.mouseMove(event);
+        this.workspace.selectionLayer.mouseMove(event,scroll);
   
     }
   
-    public mouseDown(event: MouseEvent, layer: Layer) {
-      console.log("x");
-      this.workspace.selectionLayer.mouseDown(event);
+    public mouseDown(event: MouseEvent,scroll:Point) {
+      
+      this.workspace.selectionLayer.mouseDown(event,scroll);
   
     }
-    public mouseUp(event: any) {
+    public mouseUp(event: MouseEvent,scroll:Point) {
       if (this.workspace.selectionLayer)
-        this.workspace.selectionLayer.mouseUp(event);
+        this.workspace.selectionLayer.mouseUp(event,scroll);
     }
   
     protected createLayer(width: number, height: number, left: number, top: number) {

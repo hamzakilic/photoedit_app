@@ -1,9 +1,10 @@
+import { Point } from './../../../lib/draw/point';
 import { Workspace } from './../workSpace';
 import { Layer } from '../layer';
 export abstract class WorkModeBase {
     protected workspace: Workspace;
     protected canvasElement: any;
-    constructor(workspace: Workspace, disposeSelect: boolean = true, disposeWork: boolean = true) {
+    constructor(workspace: Workspace,disposeSelect: boolean = true, disposeWork: boolean = true) {
       this.workspace = workspace;
       if (this.workspace.selectionLayer && disposeSelect) {
         this.canvasElement = this.workspace.selectionLayer.htmlElement;
@@ -17,14 +18,14 @@ export abstract class WorkModeBase {
         
       }
   
-      this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event); });
+      //this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event,scroll); });
     }
   
-    public mouseMove(event: MouseEvent) {
+    public mouseMove(event: MouseEvent,scroll:Point) {
   
       this.workspace.layers.forEach((item) => {
         if (item.isSelected)
-          item.mouseMove(event);
+          item.mouseMove(event,scroll);
       });
   
     }
@@ -32,19 +33,19 @@ export abstract class WorkModeBase {
     public abstract get subTypeOf(): string;
   
   
-    public mouseDown(event: MouseEvent, layer: Layer) {
+    public mouseDown(event: MouseEvent,scroll:Point) {
   
       this.workspace.layers.forEach((item) => {
-        if (item.isSelected && item.hitMouseEvent(event))
-          item.mouseDown(event);
+        if (item.isSelected && item.hitMouseEvent(event,scroll))
+          item.mouseDown(event,scroll);
       });
   
       //önemli, event stoplanmalı
       event.stopPropagation();
     }
-    public mouseUp(event: any) {
+    public mouseUp(event: any,scroll:Point) {
   
-      this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event); });
+      this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event,scroll); });
     }
   
   

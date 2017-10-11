@@ -31,7 +31,7 @@ export class WorkModeResizeWorkspace extends WorkModeBase {
       }
     }
   
-    public mouseDown(event: MouseEvent, layer: Layer) {
+    public mouseDown(event: MouseEvent) {
   
   
     }

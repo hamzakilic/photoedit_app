@@ -1,3 +1,4 @@
+import { WorkModeErase } from './workmodes/workModeErase';
 
 import { Layer } from './layer';
 import { LayerEmpty } from './layerEmpty';
@@ -26,6 +27,7 @@ import { WorkModeSelection } from './workmodes/workModeSelection';
 
 
 export class Workspace extends HEventEmitter {
+  
   private _name: string
   private _layers: Layer[];
   private _width: number;
@@ -43,7 +45,7 @@ export class Workspace extends HEventEmitter {
 
   public uuid: string;
 
-  public nativeElement: any;
+  
 
   public selectionLayer: Layer;
   public workLayer: Layer;
@@ -51,7 +53,9 @@ export class Workspace extends HEventEmitter {
 
   public foregroundColor: string;
   public backgroundColor: string;
+  private _htmlElement:any=undefined;
 
+  
   constructor(width: number, height: number, name?: string) {
     super();
     this.uuid = Utility.uuid();
@@ -87,6 +91,12 @@ export class Workspace extends HEventEmitter {
     this.backgroundColor = "#000";
     this.foregroundColor = "#FFF";
 
+  }
+  public get htmlElement():any{
+    if(this._htmlElement==undefined){
+      this._htmlElement=document.querySelector("#"+this.uuid);
+    }
+    return this._htmlElement;
   }
   public get hasLayer(): boolean {
     return this._layers.length > 0;
@@ -257,25 +267,23 @@ export class Workspace extends HEventEmitter {
   public mouseWheelDownFunc() {
     console.log('wheeldown');
   }
+  
 
-  public mouseMove(event: MouseEvent) {
-    if (!this.nativeElement)
-      this.nativeElement = document.getElementById(this.uuid);
-    this._workMode.mouseMove(event);
-
+  public mouseMove(event: MouseEvent) {        
+    this._workMode.mouseMove(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
 
   }
 
 
-  public mouseDown(event: MouseEvent, layer: Layer) {
-    // console.log('workspace mouse down:' + event.clientX);
-    this._workMode.mouseDown(event, layer);
+  public mouseDown(event: MouseEvent) {
+    console.log(this.htmlElement.scrollLeft,this.htmlElement.scrollTop);
+    this._workMode.mouseDown(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
 
   }
   public mouseUp(event: any) {
 
-    //console.log('workspace mouse up:' + event.clientX);
-    this._workMode.mouseUp(event);
+    
+    this._workMode.mouseUp(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
 
   }
 
@@ -365,6 +373,9 @@ export class Workspace extends HEventEmitter {
         case Workspace.WorkModeBrush:
         this._workMode = new WorkModeBrush(this);
         break;
+        case Workspace.WorkModeErase:
+        this._workMode = new WorkModeErase(this);
+        break;
       default:
         this._workMode = new WorkModeDefault(this);
     }
@@ -401,6 +412,7 @@ export class Workspace extends HEventEmitter {
   public static readonly WorkModeCrop = 7;
   public static readonly WorkModeColorPicker = 12;
   public static readonly WorkModeBrush = 13;
+  public static readonly WorkModeErase = 14;
 
 
 

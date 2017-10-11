@@ -22,8 +22,7 @@ export class WorkspaceComponent {
   private keyboardService: KeyboardService;
 
   
-  @ViewChild("workspaceelement")
-  htmlElement:ElementRef;
+
 
   @Input()
   workspace:Workspace;
@@ -40,7 +39,7 @@ export class WorkspaceComponent {
 
   ngOnInit() {
     
-    this.workspace.htmlElement=this.htmlElement;
+    
 
   }
   ngOnDestroy(){

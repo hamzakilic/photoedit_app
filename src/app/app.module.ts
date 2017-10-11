@@ -70,6 +70,7 @@ import { CropPropertiesComponent } from './components/crop-properties/crop-prope
 import { ToolsOptionsComponent } from './components/tools-options/tools-options.component';
 import { ToolsOptionsClipComponent } from './components/tools-options-clip/tools-options-clip.component';
 import { ToolsOptionsBrushComponent } from './components/tools-options-brush/tools-options-brush.component';
+import { ToolsOptionsEraseComponent } from './components/tools-options-erase/tools-options-erase.component';
 
 
 
@@ -120,6 +121,7 @@ import { ToolsOptionsBrushComponent } from './components/tools-options-brush/too
     ToolsOptionsComponent,
     ToolsOptionsClipComponent,
     ToolsOptionsBrushComponent,
+    ToolsOptionsEraseComponent,
     
 
 

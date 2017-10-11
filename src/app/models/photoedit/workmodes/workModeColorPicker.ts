@@ -1,3 +1,4 @@
+import { Point } from './../../../lib/draw/point';
 import { Workspace } from './../workSpace';
 import { WorkModeBase } from "./workModeBase";
 import { Layer } from '../layer';
@@ -21,26 +22,26 @@ export class WorkModeColorPicker extends WorkModeBase {
       return "";
     }
   
-    public mouseMove(event: MouseEvent) {
+    public mouseMove(event: MouseEvent,scroll:Point) {
       if (this._isMouseDown)
-          this.findPointInLayers(event);
+          this.findPointInLayers(event,scroll);
         
     }
   
-    public mouseDown(event: MouseEvent, layer: Layer) {
+    public mouseDown(event: MouseEvent,scroll:Point) {
       this._isMouseDown = true;    
-       this.findPointInLayers(event);
+       this.findPointInLayers(event,scroll);
     }
-    public mouseUp(event: any) {
+    public mouseUp(event: any,scroll:Point) {
       this._isMouseDown = false;
       this.workspace.setWorkingMode(this._previousWorkMode);
   
     }
   
-    private findPointInLayers(event: MouseEvent) {
+    private findPointInLayers(event: MouseEvent,scroll:Point) {
       for (let i = this.workspace.layers.length - 1; i > -1; --i) {
         let ly = this.workspace.layers[i];
-        let hitPoint = ly.hitMouseEvent(event);
+        let hitPoint = ly.hitMouseEvent(event,scroll);
         if (hitPoint) {
           let color = ly.getColor(hitPoint.X, hitPoint.Y);
           if (color.a != 0) {
