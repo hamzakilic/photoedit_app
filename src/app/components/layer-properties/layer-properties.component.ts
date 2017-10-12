@@ -90,7 +90,7 @@ export class LayerPropertiesComponent implements OnInit {
   changeGlobalAlpha(value:any,layer: Layer){
     let val= parseInt(value);
     if(val){
-      layer.setGlobalAlpha(val/100);
+      layer.globalAlpha=(val/100);
       layer.render();
     }
   }
@@ -101,12 +101,12 @@ export class LayerPropertiesComponent implements OnInit {
     "soft-light","difference","exclusion","hue","saturation","color","luminosity"].sort((a,b)=>a.localeCompare(b));
   }
   public changeLayerBlendMode(event:AutoCompleteItem,layer:Layer){
-    layer.setBlendMode(event.id);
+    layer.blendMode=event.id;
   }
 
   public blendmodeRefreshValue(event:AutoCompleteItem,layer:Layer){
     
-    layer.setBlendMode(event.id);
+    layer.blendMode=(event.id);
   }
   
 

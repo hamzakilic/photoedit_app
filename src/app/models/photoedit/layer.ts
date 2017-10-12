@@ -45,7 +45,7 @@ export abstract class Layer extends SurfaceCanvas {
   public get blendMode():string{
     return this._blendMode;
   }
-  public setBlendMode(val:string){
+  public set blendMode(val:string){
     this._blendMode=val;
   }
 

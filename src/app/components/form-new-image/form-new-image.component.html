@@ -10,7 +10,7 @@
 
         </div>
         <div class="modal-body ">
-          <form novalidate [formGroup]="formNewImage" (ngSubmit)="doSubmit($event)">
+          <form novalidate [formGroup]="form" (ngSubmit)="doSubmit($event)">
             <div class="container-fluid">
 
               <div class="row">
@@ -20,7 +20,7 @@
                 <div class="col-9">
                   <input class="form-control" formControlName="width"  type="number"  [(ngModel)]="width" id="input-width">
 
-                  <div class="error" *ngIf="formNewImage.get('width').hasError('msg') ">
+                  <div class="error" *ngIf="form.get('width').hasError('msg') ">
                     {{validationMessages.error.msg}}
                   </div>
 
@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-9">
                   <input class="form-control" formControlName="height" type="number" [(ngModel)]="height" id="input-height">
-                   <div class="error" *ngIf="formNewImage.get('height').hasError('msg') ">
+                   <div class="error" *ngIf="form.get('height').hasError('msg') ">
                     {{validationMessages.error.msg}}
                   </div>
                 </div>
@@ -46,7 +46,7 @@
                 <div class="col-7">
                 </div>
                 <div class="col-5">
-                  <button type="submit" [disabled]="formNewImage.invalid" class="btn btn-primary btn-sm btn-block ">   Ok  </button>
+                  <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-sm btn-block ">   Ok  </button>
                 </div>
               </div>
 

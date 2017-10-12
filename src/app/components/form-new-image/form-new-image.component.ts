@@ -44,7 +44,7 @@ export class FormNewImageComponent implements OnInit {
   }
 
  
-  public get Form(): FormGroup{
+  public get form(): FormGroup{
     return this.formNewImage;
 
   }

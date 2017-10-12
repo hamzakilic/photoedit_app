@@ -40,7 +40,7 @@ export class Surface {
   public get globalAlpha():number{
     return this._globalAlpha;
   }
-  public setGlobalAlpha(val:number){
+  public set globalAlpha(val:number){
     this._globalAlpha=val;
     
   }
@@ -287,9 +287,14 @@ export class SurfaceCanvas extends Surface {
 
   }
 
-  public get transform(){
+  public get transform():string{
   
     return "rotate("+this.rotateAngleDeg+"deg)";
     
   }
+  public set transform(val:string){
+    
+      this.rotateAngleDeg= Number.parseInt(val);
+      
+    }
 }

@@ -160,8 +160,8 @@ export class Workspace extends HEventEmitter {
   public replaceLayer(source: Layer, destination: Layer, marginLeft?: number, marginTop?: number) {
     let index = this._layers.findIndex(p => p == source);
     if (index > -1) {
-      destination.setBlendMode(destination.blendMode);
-      destination.setGlobalAlpha(source.globalAlpha);
+      destination.blendMode=destination.blendMode;
+      destination.globalAlpha=(source.globalAlpha);
       destination.isSelected = true;
       destination.scale = this.scale;
       destination.rotateAngleDeg = source.rotateAngleDeg;
