@@ -96,16 +96,18 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     this._context.fillRect(rect.x, rect.y, rect.width, rect.height);
   }
 
-  public fillRect(rect: Rect, brush: string): void {
-    
+  public fillRect(rect: Rect, brush?: string|any): void {    
+    if(brush)
     this._context.fillStyle = brush;
     this._context.fillRect(rect.x, rect.y, rect.width, rect.height);
+
   }
 
   public drawRect(rect: Rect, brush: string): void {
     this._context.strokeStyle = brush;
     this._context.strokeRect(rect.x, rect.y, rect.width, rect.height);
   }
+
   public clearRect(rect: Rect){
     this._context.clearRect(rect.x,rect.y,rect.width,rect.height);
   }

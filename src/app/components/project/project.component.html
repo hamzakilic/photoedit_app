@@ -5,7 +5,9 @@
    <workspace-component  id='{{workspace.uuid}}'   [workspace]="workspace" [ngClass]="workspace.cssClasses"  class="wsc"
    mouse (mouseMove)="workspace.mouseMove($event)"  
 (mouseDown)="workspace.mouseDown($event)" 
-(mouseUp)="workspace.mouseUp($event)">
+(mouseUp)="workspace.mouseUp($event)"
+(doubleClick)="workspace.doubleClick($event)"
+>
    </workspace-component>
 
 

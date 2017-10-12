@@ -129,6 +129,7 @@ export class Workspace extends HEventEmitter {
 
   public addLayer(ly: Layer) {
     if (ly) {
+      ly.scale=this.scale;
       ly.marginLeft = this.margin;
       ly.marginRight = this.margin;
       ly.marginTop = this.margin;
@@ -269,14 +270,15 @@ export class Workspace extends HEventEmitter {
   }
   
 
-  public mouseMove(event: MouseEvent) {        
+  public mouseMove(event: MouseEvent) { 
+    
     this._workMode.mouseMove(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
 
   }
 
 
   public mouseDown(event: MouseEvent) {
-    console.log(this.htmlElement.scrollLeft,this.htmlElement.scrollTop);
+    
     this._workMode.mouseDown(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
 
   }
@@ -285,6 +287,12 @@ export class Workspace extends HEventEmitter {
     
     this._workMode.mouseUp(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
 
+  }
+
+  public doubleClick(event: any) {   
+        
+        this._workMode.doubleClick(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
+    
   }
 
   public makeLayersNotSelected(layer: Layer) {

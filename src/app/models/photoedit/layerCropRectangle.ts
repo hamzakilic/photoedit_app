@@ -46,10 +46,15 @@ export class LayerCropRectangle extends Layer {
   public mouseMove(event: MouseEvent,scroll:Point) {
     
    if(this.isFinishedContructing){
+     
     super.mouseMove(event,scroll);
    }else
-   if (this.isSelected && this.isMouseDown ) {          
-       this.calculateBy(event.movementX,event.movementY,0,0,0,0,new Callback(()=>this.render()));        
+   if (this.isSelected && this.isMouseDown ) {       
+       //burası eksi değer için configure edilecek       
+       this.calculateBy(event.movementX/this.scale,event.movementY/this.scale,0,0,0,0,new Callback(()=>{
+           
+         this.render()
+        }));        
      }
    
      

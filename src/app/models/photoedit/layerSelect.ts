@@ -478,11 +478,11 @@ export class LayerSelect extends Layer {
 
   }
 
-  public doubleClick(event: any) {
+  public doubleClick(event: any,scroll:Point) {
     this.stopAnimation();
-    super.doubleClick(event);
+    super.doubleClick(event,scroll);
     if (this._shape) {
-      if (this._shape.doubleClick(this.normalizeMouseEvent(event,undefined))) {
+      if (this._shape.doubleClick(this.normalizeMouseEvent(event,scroll))) {
         this.preparePolygon();
         this._shape = undefined;
         

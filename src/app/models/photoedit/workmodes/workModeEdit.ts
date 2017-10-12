@@ -22,6 +22,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
         //dont dispose previous workmode          
         super(workspace, false, true);
         this.workspace.workLayer = new LayerEmpty("brush layer", this.workspace.width, this.workspace.height);
+        this.workspace.workLayer.scale=this.workspace.scale;
         this.workspace.cssClasses = "default";
         this._editType = this.createEditType();
     

@@ -1,3 +1,4 @@
+import { Callback } from './../lib/callback';
 import { Command } from './command';
 import { CommandBusy } from './commandBusy';
 import { Message } from '../entities/message';
@@ -49,7 +50,7 @@ export class CmdCrop extends CommandBusy {
                         
                         if(selectedLayer.scale!=1.0){
                             
-                        cropLayerRect = Calc.scaleRect(cropLayerRect,1/selectedLayer.scale);
+                        //cropLayerRect = Calc.scaleRect(cropLayerRect,1/selectedLayer.scale);
                            // cropLayerRect.x-=selectedLayerRect.x;
                            // cropLayerRect.y-=selectedLayerRect.y;
 
@@ -60,7 +61,16 @@ export class CmdCrop extends CommandBusy {
                             newLayer.scale = selectedLayer.scale;
                             workspace.removeWorkLayer();
                            // workspace.addLayer(newLayer);
+                           
+                           if(workspace.layers.length>1)
                            workspace.replaceLayer(selectedLayer,newLayer,cropLayerRect.x,cropLayerRect.y);
+                           else {
+                           
+                            workspace.replaceLayer(selectedLayer,newLayer,0,0);
+                               workspace.resize(newLayer.width,newLayer.height,new Callback(()=>{
+                                
+                               }))
+                           }
                            
                         }
 

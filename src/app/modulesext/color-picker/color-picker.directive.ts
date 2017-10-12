@@ -570,6 +570,6 @@ export class DialogComponent implements OnInit {
 
 @NgModule({
     imports: [BrowserModule],
-    declarations: [DialogComponent, TextDirective, SliderDirective]
+    declarations: [DialogComponent, TextDirective, SliderDirective],    
 })
 class DynamicCpModule { };

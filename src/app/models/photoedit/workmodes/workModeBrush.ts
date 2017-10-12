@@ -1,3 +1,6 @@
+import { BUSY_CONFIG_DEFAULTS } from 'angular2-busy';
+import { element } from 'protractor';
+import { Rect } from './../../../lib/draw/rect';
 import { ToolsOptionsBrushComponent } from './../../../components/tools-options-brush/tools-options-brush.component';
 import { LayerEmpty } from './../layerEmpty';
 import { Helper } from './../lib/helper';
@@ -104,9 +107,13 @@ export class EditTypeBrush extends EditType{
     layer.graphics.setBlendMode(this._blendMode);
     layer.graphics.setGlobalAlpha(this._opacity);
     points.forEach(element => {
-      this.calculateHardness(brush,layer.graphics,element.X,element.Y,this._size);
+      this.calculateHardness(brush,layer.graphics,element.X,element.Y,this._size/2);
       layer.graphics.beginPath();
-      layer.graphics.ellipse(element.X, element.Y, this._size, this._size, 0, 0, 2 * Math.PI);
+      if(this.hardness!=1)      
+      layer.graphics.ellipse(element.X, element.Y, this._size/2, this._size/2, 0, 0, 2 * Math.PI);
+      else{
+        layer.graphics.fillRect(new Rect(element.X-this.size/2,element.Y-this.size/2,this.size,this.size));
+      }
       layer.graphics.closePath();
       layer.graphics.fill();
     });

@@ -110,6 +110,7 @@ export abstract class Layer extends SurfaceCanvas {
         
         this.marginLeft += event.movementX/this.scale;
         this.marginTop += event.movementY/this.scale;
+       // console.log(this.marginLeft,this.marginTop,this.width,this.height);
         
 
       }
@@ -128,7 +129,7 @@ export abstract class Layer extends SurfaceCanvas {
     event.preventDefault();
   }
 
-  public doubleClick(event:any){
+  public doubleClick(event:any,scroll:Point){
     
   }
 
@@ -142,7 +143,7 @@ export abstract class Layer extends SurfaceCanvas {
       let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
       
       let point =new Point(((event.clientX+scroll.X - (rc.left+scroll.X))/this.scale).extRound(), ((event.clientY+scroll.Y - (rc.top+scroll.Y))/this.scale).extRound());
-         console.log("layer hitmouseevent:",event.clientX,event.clientY,scroll.X,scroll.Y,rc.left,rc.top);
+         //console.log("layer hitmouseevent:",event.clientX,event.clientY,scroll.X,scroll.Y,rc.left,rc.top);
         if (point.X >= 0 && point.Y >= 0 && point.X <= this.width && point.Y <= this.height) {
           return point;
         }
@@ -156,7 +157,7 @@ export abstract class Layer extends SurfaceCanvas {
       let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
    
       let point =new Point(((event.clientX+scroll.X - (rc.left+scroll.X))/this.scale).extRound(), ((event.clientY+scroll.Y - (rc.top+scroll.Y))/this.scale).extRound());      
-      console.log("layer normalizeMouseEvent:",event.clientX,event.clientY,point.X,point.Y, scroll.X,scroll.Y,rc.left,rc.top);
+     // console.log("layer normalizeMouseEvent:",this.scale, event.clientX,event.clientY,point.X,point.Y, scroll.X,scroll.Y,rc.left,rc.top);
       if(makeNormalize){
         if(point.X<0)
         point.X=0;

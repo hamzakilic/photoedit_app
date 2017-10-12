@@ -20,8 +20,8 @@ export class WorkModeCrop extends WorkModeBase {
       }
     
       public mouseMove(event: MouseEvent,scroll:Point) {
-       // if (this.workspace.workLayer)
-        //  this.workspace.workLayer.mouseMove(event,scroll);
+        if (this.workspace.workLayer)
+          this.workspace.workLayer.mouseMove(event,scroll);
     
       }
     
@@ -30,13 +30,16 @@ export class WorkModeCrop extends WorkModeBase {
     
         if (this.workspace.workLayer == undefined) {
     
-          var rect = this.workspace.htmlElement.nativeElement.getBoundingClientRect();
-          
-          let mouseX = (event.clientX+scroll.X)/this.workspace.scale;
-          let mouseY = (event.clientY+scroll.Y) /this.workspace.scale;
-          console.log(event.clientX,event.clientY,rect.left,rect.top, mouseX,mouseY);
+          var rect = this.workspace.htmlElement.getBoundingClientRect();
           //buradaki 50 ve 50 workspace margin left ve top değerleri;
-          let worklayer = this.createLayer(100, 100, mouseX-50, mouseY-50);
+          let mouseX = (event.clientX+scroll.X-(rect.left+scroll.X)-50)/this.workspace.scale;
+          let mouseY = (event.clientY+scroll.Y-(rect.top+scroll.X)-50) /this.workspace.scale;
+          
+          if(mouseX<0)
+          mouseX=0;
+          if(mouseY<0)
+          mouseY=0;          
+          let worklayer = this.createLayer(0, 0, mouseX, mouseY);
           worklayer.scale=this.workspace.scale;
           worklayer.mouseDownSelectedPoint(event, 6);
          

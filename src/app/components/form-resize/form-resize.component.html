@@ -10,7 +10,7 @@
 
         </div>
         <div class="modal-body ">
-          <form novalidate [formGroup]="formResize" (ngSubmit)="doSubmit($event)">
+          <form novalidate [formGroup]="Form" (ngSubmit)="doSubmit($event)">
             <div class="container-fluid">
 
               <div class="row">                
@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-9">
                   <input class="form-control" formControlName="width" type="number" [value]="round(width)" (input)="changeWidth($event.target.value)" id="input-width">
-                  <div class="error" *ngIf="formResize.get('width').hasError('msg') ">
+                  <div class="error" *ngIf="Form.get('width').hasError('msg') ">
                     {{validationMessages.error.msg}}
                   </div>
                 </div>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-9">
                   <input class="form-control" formControlName="height" type="number" [value]="round(height)" (input)="changeHeight($event.target.value)" id="input-height">
-                  <div class="error" *ngIf="formResize.get('height').hasError('msg') ">
+                  <div class="error" *ngIf="Form.get('height').hasError('msg') ">
                     {{validationMessages.error.msg}}
                   </div>
                 </div>
@@ -53,7 +53,7 @@
                 <div class="col-7">
                 </div>
                 <div class="col-5">
-                  <button type="submit" [disabled]="formResize.invalid" class="btn btn-primary btn-sm btn-block ">Ok</button>
+                  <button type="submit" [disabled]="Form.invalid" class="btn btn-primary btn-sm btn-block ">Ok</button>
                 </div>
               </div>
 

@@ -13,6 +13,7 @@ export class WorkModeSelection extends WorkModeBase {
       this._shapeType = shapeType;
       if(!this.workspace.selectionLayer){
       let selectionLayer = this.createLayer(this.workspace.width, this.workspace.height, 0, 0);      
+      selectionLayer.scale=this.workspace.scale;
       this.workspace.selectionLayer = selectionLayer;
       }
       (<LayerSelect>this.workspace.selectionLayer).shapeType = this._shapeType;
@@ -44,6 +45,11 @@ export class WorkModeSelection extends WorkModeBase {
     public mouseUp(event: MouseEvent,scroll:Point) {
       if (this.workspace.selectionLayer)
         this.workspace.selectionLayer.mouseUp(event,scroll);
+    }
+
+    public doubleClick(event: MouseEvent,scroll:Point) {
+      if (this.workspace.selectionLayer)
+        this.workspace.selectionLayer.doubleClick(event,scroll);
     }
   
     protected createLayer(width: number, height: number, left: number, top: number) {

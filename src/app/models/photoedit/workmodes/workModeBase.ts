@@ -47,6 +47,17 @@ export abstract class WorkModeBase {
   
       this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event,scroll); });
     }
+
+    public doubleClick(event: MouseEvent,scroll:Point) {
+      
+          this.workspace.layers.forEach((item) => {
+            if (item.isSelected && item.hitMouseEvent(event,scroll))
+              item.doubleClick(event,scroll);
+          });
+      
+          //önemli, event stoplanmalı
+          event.stopPropagation();
+        }
   
   
   }

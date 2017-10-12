@@ -39,6 +39,7 @@ export class FormGoogleFontloadComponent implements OnInit {
   private _callbackWhenGoogleLanguagesGetted:Callback;
   public  sampleText:string;
   public searchFontName:string;
+  public viewPortItems:any;
   constructor(fontService: FontService,appService:AppService,userService:UserService) {
 
     //todo burası dil desteğine sahip olacak

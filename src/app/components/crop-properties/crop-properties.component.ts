@@ -27,12 +27,12 @@ export class CropPropertiesComponent implements OnInit {
 
   public get marginLeft():number{
     let layer= this.workspace.workLayer;
-    return layer.marginLeft+layer.width;
+    return (layer.marginLeft+layer.width)*this.workspace.scale;
     
   }
   public get marginTop():number{
     let layer= this.workspace.workLayer;
-    return layer.marginTop;
+    return (layer.marginTop)*this.workspace.scale;
   }
 
   public get isVisible():boolean{
