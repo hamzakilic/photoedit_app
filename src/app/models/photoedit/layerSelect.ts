@@ -98,11 +98,7 @@ class ShapeRect extends Shape {
     let eymax = Math.max(this._startPoint.Y, this._endPoint.Y);
 
     let rect = new Rect(sxmin, symin, exmax - sxmin, eymax - symin);
-    let points = [new Point(rect.x, rect.y),
-    new Point(rect.x, rect.y + rect.height),
-    new Point(rect.x + rect.width, rect.y + rect.height),
-    new Point(rect.x + rect.width, rect.y)];
-    return new Polygon(points);
+    return Helper.rectToPolygon(rect);
   }
 }
 
@@ -676,6 +672,8 @@ export class LayerSelect extends Layer {
   }
  
    */
+
+
 
 
 }

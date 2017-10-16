@@ -1,3 +1,5 @@
+import { LayerImage } from './../layerImage';
+import { HImage } from './../../../lib/image';
 import { Graphics } from './../../../lib/graphics';
 import { LayerSelect } from './../layerSelect';
 import { Polygon } from './../../../lib/draw/polygon';
@@ -10,7 +12,7 @@ import { Layer } from '../layer';
 export abstract class EditType{
     public abstract render(layer:Layer, point: Point, brush: any);
     public abstract mouseUp(event: MouseEvent,scroll:Point);
-
+    
 
 }
 
@@ -37,6 +39,10 @@ export abstract class WorkModeEdit extends WorkModeBase {
       protected lastMovePoint1: Point;
     
       public mouseMove(event: MouseEvent,scroll:Point) {
+       this.process(event,scroll);
+      }
+
+      protected process(event: MouseEvent,scroll:Point){
         if (this._isMouseDown) {
           if (this.selectedLayer && this.selectedRegions.length > 0) {
             this.selectedLayer.graphics.save();
@@ -66,7 +72,9 @@ export abstract class WorkModeEdit extends WorkModeBase {
     
       selectedLayer: Layer;
       selectedRegions: Array<Polygon>;
+      
       public mouseDown(event: MouseEvent,scroll:Point) {
+
         this._isMouseDown = true;
         //find selectedlayer
         this.selectedLayer = this.findSelectedLayer(event);
@@ -85,11 +93,14 @@ export abstract class WorkModeEdit extends WorkModeBase {
           }
     
         }
-    
+        
+        this.process(event,scroll);
+        
     
       }
       public mouseUp(event: any,scroll:Point) {
         this._isMouseDown = false;
+        
         this._editType.mouseUp(event,scroll);
     
       }
@@ -116,7 +127,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
           let ly = this.workspace.layers[i];
           let hitPoint = ly.hitMouseEvent(event,scroll);
           if (hitPoint) {
-            let color = ly.getColor(hitPoint.X, hitPoint.Y);
+            let color = ly.getPixel(hitPoint.X, hitPoint.Y);
             if (color.a != 0) {
               this.workspace.foregroundColor = "rgb(" + color.r + "," + color.g + "," + color.b + ")";
               return;

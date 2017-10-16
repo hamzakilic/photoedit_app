@@ -131,4 +131,6 @@ export class LayerText extends LayerGraphics{
   public dispose(){
 
   }
+
+ 
 }

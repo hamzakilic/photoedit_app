@@ -1,44 +1,84 @@
+
 import { Layer } from './layer';
 import { Graphics } from '../../lib/graphics';
 
-import { HImage  } from '../../lib/image';
-import  { Rect } from '../../lib/draw/rect'
+import { HImage } from '../../lib/image';
+import { Rect } from '../../lib/draw/rect'
 
-export class LayerBackground extends Layer{
+export class LayerBackground extends Layer {
 
-
+  private pattern: any;
 
   constructor(name?: string) {
     super(name);
     this.canRotate = false;
 
+
+
   }
+  private lastScaleValue = 0;
+  private createPattern(graphics: Graphics): boolean {
+    let a = [255, 255, 255, 255]
+    let b = [180, 180, 180, 255];
 
- 
-  public render(): void{
+    let array = [];
 
-
-    this.graphics.fillRect(new Rect(0,0,this.width,this.height),'#FFFFFF')
+    if (this.lastScaleValue == this.scale)
+      return false;
+    this.lastScaleValue = this.scale;
+    let count=Math.round((this.scale<5?(5-this.scale):0)+1);
     
-   
-    let scaler=Math.floor(10/this.scale);
-    if(this.height>100 || this.width >100)
-    scaler=10;
-    
-    this.graphics.setGlobalAlpha(0.7);
-    let color="#ccc9c9";
-    
-    for(let y=0;y<=Math.ceil(this.height/scaler);y+=1){
-      for(let x=0;x<=Math.ceil(this.width/scaler);x+=1){
-          let currentCell=x+y;
-        if((currentCell)%2==0)
-        this.graphics.fillRect(new Rect(x*scaler,y*scaler,scaler,scaler),color);
-    
-      }
+    for(let xt=0;xt<count;++xt){
+    for(let x=0;x<count;++x){
+      a.forEach(item => array.push(item));      
+    }
+    for(let x=0;x<count;++x){
+      b.forEach(item => array.push(item));      
     }
   }
+  for(let xt=0;xt<count;++xt){
+    for(let x=0;x<count;++x){
+      b.forEach(item => array.push(item));      
+    }
+    for(let x=0;x<count;++x){
+      a.forEach(item => array.push(item));      
+    }
+  }
+ 
 
-  public dispose(){
+
+
+
+    let data = new Uint8ClampedArray(array);
+
+    let imageData = new ImageData(data, Math.sqrt(array.length/4), Math.sqrt(array.length/4));
+
+    createImageBitmap(imageData).then((bitmap) => {
+
+      this.pattern = graphics.createPattern(bitmap, "");
+      this.render();
+
+
+    }).catch((ex) => {
+
+      //TODO: exception durumu handle edilmeli
+    });
+    return true;
+  }
+
+
+  public render(): void {
+    
+      if (this.createPattern(this.graphics))
+        return;
+    
+
+    this.graphics.fillRect(new Rect(0, 0, this.width, this.height), this.pattern)
+
+  }
+
+
+  public dispose() {
 
   }
 }

@@ -5,7 +5,7 @@ import { HImage } from '../../lib/image';
 
 export class LayerGraphics extends Layer {
 
- protected _backgroundColor:string;
+  protected _backgroundColor: string;
 
   constructor(name?: string, width?: number, height?: number) {
     super(name);
@@ -19,18 +19,20 @@ export class LayerGraphics extends Layer {
 
 
   }
-public get backgroundColor():string{
+  public get backgroundColor(): string {
     return this._backgroundColor;
-}
+  }
 
-public set backgroundColor(val:string){
-    this._backgroundColor=val;
+  public set backgroundColor(val: string) {
+    this._backgroundColor = val;
     this.render();
-}
+  }
   public render(): void {
-    
+
   }
   public dispose() {
 
   }
+
+  
 }

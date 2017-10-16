@@ -49,6 +49,7 @@ export class EditTypeBrush extends EditType{
     this._opacity = 1;
     this._hardness=1;
     this._blendMode = "normal";
+    this._currentDrawedPolygon=new Polygon([]);//empty polygon
   }
 
   public get size(): number {
@@ -78,6 +79,7 @@ export class EditTypeBrush extends EditType{
   }
   private calculateHardness(brush:any,graphics:Graphics,x:number,y:number,size:number){
     if(this._hardness==1){
+      
       graphics.fillStyle(brush);
     }else{
       let gradient= graphics.createRadialGradient(x,y,0,x,y,size);
@@ -88,31 +90,66 @@ export class EditTypeBrush extends EditType{
       }
       
       gradient.addColorStop(0,color.toRgb());
-      color.a=this._hardness*255;
+      color.a=this.opacity*255;
       gradient.addColorStop(this.hardness,color.toRgba())
       color.a=0;
       gradient.addColorStop(1,color.toRgba());
       graphics.fillStyle(gradient);
     }
   }
+  private _currentDrawedPolygon:Polygon
   render(layer:Layer, point: Point, brush: any) {
+
+    
+   
     let points = [];
     if (this.lastMovePoint) {
-      points = Helper.calculateBetweenPoints([this.lastMovePoint, point],this._size);
+      let d = Math.sqrt((this.lastMovePoint.X - point.X) * (this.lastMovePoint.X - point.X) + (this.lastMovePoint.Y - point.Y) * (this.lastMovePoint.Y - point.Y));
+      if(this.hardness !=1 && d<this.size/4){        
+      return;
+      } 
+      points = Helper.calculateBetweenPoints([this.lastMovePoint, point],this._size/4);
+      
     } else {
       points.push(point);
     }
     this.lastMovePoint = point;
    
-    layer.graphics.setBlendMode(this._blendMode);
+    layer.graphics.setBlendMode('source-over');
     layer.graphics.setGlobalAlpha(this._opacity);
     points.forEach(element => {
+     
       this.calculateHardness(brush,layer.graphics,element.X,element.Y,this._size/2);
+      
       layer.graphics.beginPath();
-      if(this.hardness!=1)      
-      layer.graphics.ellipse(element.X, element.Y, this._size/2, this._size/2, 0, 0, 2 * Math.PI);
+      if(this.hardness!=1){
+        
+        layer.graphics.ellipse(element.X, element.Y, this._size/2, this._size/2, 0, 0, 2 * Math.PI);
+       // let currentPolygon =Helper.circleToPolygon(element,this._size/2);
+        //let intersectPolygon= this._currentDrawedPolygon.intersect(currentPolygon);
+        //let resultPolygon= currentPolygon.exclude(intersectPolygon);
+        
+       // if(resultPolygon.points.length>1)
+       // layer.graphics.drawPolygon(resultPolygon,false);
+        
+       // this._currentDrawedPolygon=this._currentDrawedPolygon.union(currentPolygon);
+        // layer.graphics.drawPolygon(this._currentDrawedPolygon,true);
+      }
       else{
-        layer.graphics.fillRect(new Rect(element.X-this.size/2,element.Y-this.size/2,this.size,this.size));
+        let rect=new Rect((element.X-this._size/2).extRound(),(element.Y-this._size/2).extRound(),this.size,this.size)
+       
+      layer.graphics.fillRect(rect,brush);
+      //let rect=new Rect(element.X-this.size/2,element.Y-this.size/2,this.size,this.size)
+
+      //let currentPolygon =Helper.rectToPolygon(rect);
+      
+      //let intersectPolygon= this._currentDrawedPolygon.intersect(currentPolygon);
+      //let resultPolygon= currentPolygon.exclude(intersectPolygon);
+      //layer.graphics.ellipse(element.X, element.Y, this._size/2, this._size/2, 0, 0, 2 * Math.PI);
+      //if(resultPolygon.points.length>1)
+      //layer.graphics.drawPolygon(resultPolygon,false);
+      //this._currentDrawedPolygon=this._currentDrawedPolygon.union(currentPolygon);
+      //layer.graphics.drawPolygon(this._currentDrawedPolygon,true);
       }
       layer.graphics.closePath();
       layer.graphics.fill();
@@ -123,6 +160,7 @@ export class EditTypeBrush extends EditType{
   }
   mouseUp(event: MouseEvent) {
     this.lastMovePoint = undefined;
+    this._currentDrawedPolygon=new Polygon([]);
   }
 }
 

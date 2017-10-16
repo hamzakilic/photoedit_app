@@ -56,10 +56,18 @@ export class Graphics {
 
   }
 
-  public getColor(x:number,y:number):Color{
+  public getPixel(x:number,y:number):Color{
     let arr= this._context.getImageData(x,y,1,1).data;
     return new Color(arr[0],arr[1],arr[2],arr[3]);
 
+  }
+  public setPixel(x,y,color:Color){
+    let arr= this._context.createImageData(1,1);
+    arr.data[0]=color.r;
+    arr.data[1]=color.g;
+    arr.data[2]=color.b;
+    arr.data[3]=color.a;
+    this._context.putImageData(arr,x,y);
   }
 
   
@@ -264,6 +272,9 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
 
   public createRadialGradient(x0:number,y0:number,r0:number,x1:number,y1:number,r1:number):CanvasGradient{
     return this._context.createRadialGradient(x0,y0,r0,x1,y1,r1);
+  }
+  public isPointInPath(x:number,y:number):boolean{
+      return this._context.isPointInPath(x,y);
   }
 
   

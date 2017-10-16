@@ -38,11 +38,22 @@ export class ZoomComponent implements OnInit {
       this.project.activeWorkspace.zoomTo(value/100);   
     
   }
-  currentZoom():number{
+  currentZoom():string{
     if(this.project && this.project.activeWorkspace){
-      return (this.project.activeWorkspace.zoom*100).extRound();
+      let val= (this.project.activeWorkspace.zoom*100).extRound()+"%";
+      
+      return val;
     }
-    return 0;
+    return "0";
+  }
+  biggerThan() {
+    if(this.project && this.project.activeWorkspace){
+      let val= (this.project.activeWorkspace.zoom*100).extRound();
+      
+      return val>=500;
+    }
+    return false;
+
   }
    
   

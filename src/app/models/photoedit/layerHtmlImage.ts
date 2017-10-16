@@ -11,18 +11,18 @@ export class LayerHtmlImage extends Layer {
 
   constructor(img: HTMLImageElement, name?: string) {
     super(name);
-    this.sourceMask=new Rect(0,0,img.width,img.height);
+    this.sourceMask = new Rect(0, 0, img.width, img.height);
     this.width = img.width;
     this.height = img.height;
     this.canRotate = true;
     this.img = img;
-    
+
 
 
   }
   public render(): void {
-    
-    
+
+
     this.graphics.save();
     this.graphics.clearRect(new Rect(0, 0, this.width, this.height));
     this.graphics.setGlobalAlpha(this.globalAlpha);
@@ -52,17 +52,16 @@ export class LayerHtmlImage extends Layer {
      
     }
     else*/
-    if(!this.scaleView){
+    if (!this.scaleView) {
 
-      this.graphics.drawHtmlImageRect(this.img,this.sourceMask,new Rect(0,0,this.sourceMask.width>this.width?this.width:this.sourceMask.width,this.sourceMask.height>this.height?this.height:this.sourceMask.height));
+      this.graphics.drawHtmlImageRect(this.img, this.sourceMask, new Rect(0, 0, this.sourceMask.width > this.width ? this.width : this.sourceMask.width, this.sourceMask.height > this.height ? this.height : this.sourceMask.height));
     }
-    else this.graphics.drawHtmlImageRect(this.img,this.sourceMask,new Rect(0,0,this.width,this.height));
-    
+    else this.graphics.drawHtmlImageRect(this.img, this.sourceMask, new Rect(0, 0, this.width, this.height));
+
     this.graphics.restore();
   }
 
-
-
+  
 
   public dispose() {
 

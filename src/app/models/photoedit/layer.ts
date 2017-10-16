@@ -137,12 +137,16 @@ export abstract class Layer extends SurfaceCanvas {
 
   public abstract dispose();
 
+
+    
+  
+
   
   public hitMouseEvent(event:MouseEvent,scroll:Point):Point{
     if (this.htmlElement) {
       let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
       
-      let point =new Point(((event.clientX+scroll.X - (rc.left+scroll.X))/this.scale).extRound(), ((event.clientY+scroll.Y - (rc.top+scroll.Y))/this.scale).extRound());
+      let point =new Point(((event.clientX+scroll.X - (rc.left+scroll.X))/this.scale).extFloor(), ((event.clientY+scroll.Y - (rc.top+scroll.Y))/this.scale).extFloor());
          //console.log("layer hitmouseevent:",event.clientX,event.clientY,scroll.X,scroll.Y,rc.left,rc.top);
         if (point.X >= 0 && point.Y >= 0 && point.X <= this.width && point.Y <= this.height) {
           return point;
@@ -156,7 +160,7 @@ export abstract class Layer extends SurfaceCanvas {
     if (this.htmlElement) {
       let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
    
-      let point =new Point(((event.clientX+scroll.X - (rc.left+scroll.X))/this.scale).extRound(), ((event.clientY+scroll.Y - (rc.top+scroll.Y))/this.scale).extRound());      
+      let point =new Point(((event.clientX+scroll.X - (rc.left+scroll.X))/this.scale).extFloor(), ((event.clientY+scroll.Y - (rc.top+scroll.Y))/this.scale).extFloor());      
      // console.log("layer normalizeMouseEvent:",this.scale, event.clientX,event.clientY,point.X,point.Y, scroll.X,scroll.Y,rc.left,rc.top);
       if(makeNormalize){
         if(point.X<0)
@@ -177,9 +181,7 @@ export abstract class Layer extends SurfaceCanvas {
 
  
 
-  public getColor(x:number,y:number):Color{
-    return this.graphics.getColor(x,y);
-  }
+  
 
 
    

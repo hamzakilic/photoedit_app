@@ -36,5 +36,5 @@ export class LayerImage extends Layer{
   public dispose(){
 
   }
- 
+
 }

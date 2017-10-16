@@ -84,7 +84,9 @@ export class Polygon{
     }
 
     public get bounds():Rect{
-       var bound= ClipperLib.Clipper.GetBounds(this.getPaths());
+        let paths=this.getPaths();
+       
+       var bound= ClipperLib.Clipper.GetBounds([paths]);
        return new Rect(bound.left,bound.top,bound.right-bound.left,bound.bottom-bound.top);
     }
 

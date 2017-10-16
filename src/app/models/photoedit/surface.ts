@@ -50,7 +50,7 @@ export class Surface {
 export class SurfaceCanvas extends Surface {
   public graphics: Graphics;
   public resizedAgain = false;
-  readonly maxScale=10;
+  readonly maxScale=20;
   readonly minScale=0.3;
   public scalePlus(): void {
     this.scale += 1;
@@ -272,9 +272,13 @@ export class SurfaceCanvas extends Surface {
    return this.graphics.getImage();
  }
 
- public getColor(x:number,y:number):Color{
-   return this.graphics.getColor(x,y);
+ public getPixel(x:number,y:number):Color{
+   return this.graphics.getPixel(x,y);
  }
+
+ public setPixel(x:number,y:number,color:Color){
+   this.graphics.setPixel(x,y,color);
+}
 
 
 
