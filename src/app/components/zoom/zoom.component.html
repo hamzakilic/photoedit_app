@@ -11,7 +11,7 @@
       <div *ngIf="project && project.activeWorkspace">
       
          
-         <trackbar-component [value]="100" [min]=10 [max]=2000 [step]=10 (valueChanged)="valueChanged($event)" ></trackbar-component>
+         <trackbar-component #tracker [value]="100" [min]=10 [max]=2000 [step]=10 (valueChanged)="valueChanged($event)" ></trackbar-component>
 
         
       

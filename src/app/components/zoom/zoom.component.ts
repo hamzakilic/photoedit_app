@@ -1,3 +1,4 @@
+import { TrackbarComponent } from './../trackbar/trackbar.component';
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Workspace } from '../../models/photoedit/workSpace';
 import { Proj } from '../../models/photoedit/proj';
@@ -13,7 +14,7 @@ export class ZoomComponent implements OnInit {
   projectService: ProjectService;
   public project: Proj;
   
-  
+  @ViewChild('tracker') tracker: TrackbarComponent;
   
  
 
@@ -26,10 +27,25 @@ export class ZoomComponent implements OnInit {
 
 
   ngOnInit() {
+  
+   
+  }
 
-
+  ngDoCheck(){
+    
+    if(this.tracker && this.tracker.value != this.value){
+      this.tracker.changeValue(this.value);
+    }
   }
   
+  public get value():number{
+    if(this.project && this.project.activeWorkspace){
+      let val= (this.project.activeWorkspace.zoom*100).extRound();
+      
+      return val;
+    }
+    return 100;
+  }
 
   valueChanged(value:number) {
     

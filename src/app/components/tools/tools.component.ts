@@ -1,3 +1,4 @@
+import { WorkModeHand } from './../../models/photoedit/workmodes/workModeHand';
 
 
 declare var $:any;
@@ -130,6 +131,18 @@ export class ToolsComponent implements OnInit {
  
   selectErase() {   
     this.selectWorking(Workspace.WorkModeErase);
+    //this.isCollapsed=false;
+   
+
+  }
+
+  public get handCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModeHand)};
+  }
+
+ 
+  selectHand() {   
+    this.selectWorking(Workspace.WorkModeHand);
     //this.isCollapsed=false;
    
 

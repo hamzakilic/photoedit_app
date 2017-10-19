@@ -1,3 +1,5 @@
+import { Imaging } from './../../../lib/imagealgorithm/imaging';
+import { HImage } from './../../../lib/image';
 import { BUSY_CONFIG_DEFAULTS } from 'angular2-busy';
 import { element } from 'protractor';
 import { Rect } from './../../../lib/draw/rect';
@@ -36,50 +38,54 @@ export class WorkModeBrush extends WorkModeEdit {
 }
 
 
+interface CropedImage{
+     rect:Rect;
+     image:HImage;
+}
+
+
 export class EditTypeBrush extends EditType{
   private lastMovePoint: Point;
-  private _size: number;
-  private _opacity: number;
-  private _blendMode: string;
-  private _hardness:number;
+  private static _size: number=5;
+  private static _opacity: number=1;
+  private static _blendMode: string="normal";
+  private static _hardness:number=1;
   constructor() {
     super();
     this.lastMovePoint = undefined;
-    this._size = 5;
-    this._opacity = 1;
-    this._hardness=1;
-    this._blendMode = "normal";
-    this._currentDrawedPolygon=new Polygon([]);//empty polygon
+    
   }
 
   public get size(): number {
-    return this._size;
+    
+    return EditTypeBrush._size;
   }
   public set size(val: number) {
-    this._size = val;
+    
+    EditTypeBrush._size = val;
   }
   public get opacity(): number {
-    return this._opacity;
+    return EditTypeBrush._opacity;
   }
   public set opacity(val: number) {
-    this._opacity = val;
+    EditTypeBrush._opacity = val;
   }
 
   public get blendMode(): string {
-    return this._blendMode;
+    return EditTypeBrush._blendMode;
   }
   public set blendMode(val: string) {
-    this._blendMode = val;
+    EditTypeBrush._blendMode = val;
   }
   public get hardness():number{
-    return this._hardness;
+    return EditTypeBrush._hardness;
   }
   public set hardness(val:number){
-    this._hardness = val;
+    EditTypeBrush._hardness = val;
   }
+  
   private calculateHardness(brush:any,graphics:Graphics,x:number,y:number,size:number){
-    if(this._hardness==1){
-      
+    if(this.hardness==1){      
       graphics.fillStyle(brush);
     }else{
       let gradient= graphics.createRadialGradient(x,y,0,x,y,size);
@@ -97,70 +103,85 @@ export class EditTypeBrush extends EditType{
       graphics.fillStyle(gradient);
     }
   }
-  private _currentDrawedPolygon:Polygon
+
   render(layer:Layer, point: Point, brush: any) {
-
-    
-   
-    let points = [];
-    if (this.lastMovePoint) {
-      let d = Math.sqrt((this.lastMovePoint.X - point.X) * (this.lastMovePoint.X - point.X) + (this.lastMovePoint.Y - point.Y) * (this.lastMovePoint.Y - point.Y));
-      if(this.hardness !=1 && d<this.size/4){        
-      return;
-      } 
-      points = Helper.calculateBetweenPoints([this.lastMovePoint, point],this._size/4);
+    if(!point)
+        return;
+     //   console.log("*******");
+    //console.log("move:"+point.X+":"+point.Y);
+    let points:Array<Point>=[];
+    if(this.lastMovePoint==undefined){
+      points.push(Helper.intPoint(point));
       
-    } else {
-      points.push(point);
+
+    }else{
+    //  console.log("lastmove:");
+    //  console.log(this.lastMovePoint);
+      let tempSize=this.size/2;
+      if(this.hardness!=1)
+      tempSize=this.size/3;
+      let innerPoints= Helper.calculatePointsBetween(this.lastMovePoint,point,tempSize);
+      innerPoints.forEach(item=>{
+        if(this.lastMovePoint.X<=point.X)
+        item.X = item.X.extCeil();
+        else item.X=item.X.extFloor();
+
+        if(this.lastMovePoint.Y<=point.Y)
+        item.Y = item.Y.extCeil();
+        else item.Y=item.Y.extFloor();
+        
+
+        points.push(item);
+      });
+
     }
-    this.lastMovePoint = point;
-   
-    layer.graphics.setBlendMode('source-over');
-    layer.graphics.setGlobalAlpha(this._opacity);
-    points.forEach(element => {
-     
-      this.calculateHardness(brush,layer.graphics,element.X,element.Y,this._size/2);
-      
-      layer.graphics.beginPath();
-      if(this.hardness!=1){
-        
-        layer.graphics.ellipse(element.X, element.Y, this._size/2, this._size/2, 0, 0, 2 * Math.PI);
-       // let currentPolygon =Helper.circleToPolygon(element,this._size/2);
-        //let intersectPolygon= this._currentDrawedPolygon.intersect(currentPolygon);
-        //let resultPolygon= currentPolygon.exclude(intersectPolygon);
-        
-       // if(resultPolygon.points.length>1)
-       // layer.graphics.drawPolygon(resultPolygon,false);
-        
-       // this._currentDrawedPolygon=this._currentDrawedPolygon.union(currentPolygon);
-        // layer.graphics.drawPolygon(this._currentDrawedPolygon,true);
-      }
-      else{
-        let rect=new Rect((element.X-this._size/2).extRound(),(element.Y-this._size/2).extRound(),this.size,this.size)
-       
-      layer.graphics.fillRect(rect,brush);
-      //let rect=new Rect(element.X-this.size/2,element.Y-this.size/2,this.size,this.size)
+    
+    
+    Helper.distinctPoints(points);
+    if(this.lastMovePoint && points.length>=1 && points[0].X==this.lastMovePoint.X && points[0].Y==this.lastMovePoint.Y)
+       points.splice(0,1);
+    if(points.length==0)
+        return;
+    
+    //console.log(points);
 
-      //let currentPolygon =Helper.rectToPolygon(rect);
+    this.lastMovePoint=point;
+    layer.graphics.setBlendMode(this.blendMode);
+    
+    
+    points.forEach(element => {
+       
+      this.calculateHardness(brush,layer.graphics,element.X,element.Y,this.size/2);
       
-      //let intersectPolygon= this._currentDrawedPolygon.intersect(currentPolygon);
-      //let resultPolygon= currentPolygon.exclude(intersectPolygon);
-      //layer.graphics.ellipse(element.X, element.Y, this._size/2, this._size/2, 0, 0, 2 * Math.PI);
-      //if(resultPolygon.points.length>1)
-      //layer.graphics.drawPolygon(resultPolygon,false);
-      //this._currentDrawedPolygon=this._currentDrawedPolygon.union(currentPolygon);
-      //layer.graphics.drawPolygon(this._currentDrawedPolygon,true);
+      
+      if(this.hardness!=1){
+        layer.graphics.beginPath();
+        layer.graphics.ellipse(element.X, element.Y, this.size/2, this.size/2, 0, 0, 2 * Math.PI);
+        layer.graphics.closePath();
+        layer.graphics.fill();
+       }
+      else{        
+        let rect=new Rect((element.X-this.size/2).extRound(),(element.Y-this.size/2).extRound(),this.size,this.size)
+       
+         layer.graphics.fillRect(rect);
+      
       }
-      layer.graphics.closePath();
-      layer.graphics.fill();
+     
     });
 
 
 
   }
-  mouseUp(event: MouseEvent) {
+  mouseUp(event: MouseEvent,scroll:Point,layer:Layer) {
     this.lastMovePoint = undefined;
-    this._currentDrawedPolygon=new Polygon([]);
+  
+    
+  }
+
+  
+  mouseDown(event:MouseEvent,scroll:Point,layer:Layer){
+     //boş olmalı
+  
   }
 }
 

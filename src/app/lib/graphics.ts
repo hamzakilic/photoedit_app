@@ -32,12 +32,19 @@ export class Graphics {
   public setGlobalAlpha(value: number){
     this._context.globalAlpha=value;
   }
-  public putImage(img: HImage) {
-    
+  public putImage(img: HImage,rect:Rect=undefined) {
+    if(rect){
+      let imageData = this._context.getImageData(rect.x,rect.y,rect.width,rect.height);
+      var data = imageData.data;
+      data.set(img.Pixels);
+      this._context.putImageData(imageData, rect.x, rect.y);  
+
+    }else{
     let imageData = this._context.getImageData(0, 0, this.width, this.height);
     var data = imageData.data;
     data.set(img.Pixels);
     this._context.putImageData(imageData, 0, 0);
+    }
   }
 
    
@@ -46,16 +53,24 @@ export class Graphics {
    * allways creates a deep copy HImage
    * @returns HImage
    */
-  public getImage():HImage{
-    
+  public getImage(rect:Rect=undefined):HImage{
+    if(rect){
+      let imageData = this._context.getImageData(rect.x, rect.y, rect.width, rect.height);    
+      let arr = new Uint8ClampedArray(imageData.data);
+      let img = new HImage(rect.width,rect.height,arr);
+      return img;
+
+    } else{ 
     let imageData = this._context.getImageData(0, 0, this.width, this.height);    
     let arr = new Uint8ClampedArray(imageData.data);
     let img = new HImage(this.width,this.height,arr);
     return img;
+    }
 
 
   }
 
+  
   public getPixel(x:number,y:number):Color{
     let arr= this._context.getImageData(x,y,1,1).data;
     return new Color(arr[0],arr[1],arr[2],arr[3]);
@@ -108,12 +123,17 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
     if(brush)
     this._context.fillStyle = brush;
     this._context.fillRect(rect.x, rect.y, rect.width, rect.height);
+    
 
   }
 
   public drawRect(rect: Rect, brush: string): void {
     this._context.strokeStyle = brush;
     this._context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+  }
+  public rect(rect: Rect): void {
+    
+    this._context.rect(rect.x, rect.y, rect.width, rect.height);
   }
 
   public clearRect(rect: Rect){

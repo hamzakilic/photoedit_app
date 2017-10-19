@@ -277,9 +277,11 @@ export class Workspace extends HEventEmitter {
   }
 
 
+
   public mouseDown(event: MouseEvent) {
     if(event.srcElement.localName!="workspace-component")
     this._workMode.mouseDown(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
+    
 
   }
   public mouseUp(event: any) {
@@ -293,6 +295,10 @@ export class Workspace extends HEventEmitter {
         
         this._workMode.doubleClick(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
     
+  }
+  public scrollBy(x:number,y:number){
+    if(this.htmlElement)
+       this.htmlElement.scrollBy(x,y);
   }
 
   public makeLayersNotSelected(layer: Layer) {
@@ -384,6 +390,9 @@ export class Workspace extends HEventEmitter {
         case Workspace.WorkModeErase:
         this._workMode = new WorkModeErase(this);
         break;
+        case Workspace.WorkModeHand:
+        this._workMode = new WorkModeHand(this);
+        break;
       default:
         this._workMode = new WorkModeDefault(this);
     }
@@ -421,6 +430,7 @@ export class Workspace extends HEventEmitter {
   public static readonly WorkModeColorPicker = 12;
   public static readonly WorkModeBrush = 13;
   public static readonly WorkModeErase = 14;
+  public static readonly WorkModeHand=15;
 
 
 

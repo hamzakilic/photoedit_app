@@ -14,6 +14,7 @@ export class TrackbarComponent implements OnInit {
   max: number;
   @Input()
   set value(val: number) {
+    
     let temp=val;
     if (typeof val ==="string") {
       temp =parseInt(val).extRound();
@@ -54,17 +55,19 @@ export class TrackbarComponent implements OnInit {
     this.position = 0;
     this.isMouseDown = false;
     this.valueChanged = new EventEmitter<number>(true);
-
+    
   }
 
 
   ngOnInit() {
-    
+  
 
   }
   ngAfterContentChecked() {
-
+      
   }
-
+   public changeValue(val:number){
+     this._value=val;
+   }
 
 }

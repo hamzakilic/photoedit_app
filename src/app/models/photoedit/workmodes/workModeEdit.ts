@@ -11,7 +11,8 @@ import { Layer } from '../layer';
 
 export abstract class EditType{
     public abstract render(layer:Layer, point: Point, brush: any);
-    public abstract mouseUp(event: MouseEvent,scroll:Point);
+    public abstract mouseUp(event: MouseEvent,scroll:Point,layer:Layer);
+    public abstract mouseDown(event: MouseEvent,scroll:Point,layer:Layer);
     
 
 }
@@ -36,7 +37,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
       public abstract get typeOf(): number ;
 
       public abstract get subTypeOf(): string;
-      protected lastMovePoint1: Point;
+      
     
       public mouseMove(event: MouseEvent,scroll:Point) {
        this.process(event,scroll);
@@ -92,16 +93,17 @@ export abstract class WorkModeEdit extends WorkModeBase {
             this.selectedRegions.push(new Polygon(points));
           }
     
-        }
         
+        this._editType.mouseDown(event,scroll,this.selectedLayer);
         this.process(event,scroll);
+        }
         
     
       }
       public mouseUp(event: any,scroll:Point) {
         this._isMouseDown = false;
-        
-        this._editType.mouseUp(event,scroll);
+        if(this.selectedLayer)        
+        this._editType.mouseUp(event,scroll,this.selectedLayer);
     
       }
     
