@@ -1,3 +1,4 @@
+import { WorkModeBucket } from './../../models/photoedit/workmodes/workModeBucket';
 import { Workspace } from './../../models/photoedit/workSpace';
 import { Proj } from './../../models/photoedit/proj';
 import { AppService } from './../../services/app.service';
@@ -39,6 +40,12 @@ export class ToolsOptionsComponent implements OnInit {
 
   get isEraseTool():boolean{
     if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == Workspace.WorkModeErase )
+     return true;
+    return false;
+  }
+
+  get isBucketTool():boolean{
+    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == Workspace.WorkModeBucket )
      return true;
     return false;
   }

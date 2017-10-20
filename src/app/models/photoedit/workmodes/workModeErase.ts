@@ -41,7 +41,7 @@ export class WorkModeErase extends WorkModeEdit {
             if (normalizedEvent) {
               if (this.hitRegionsMouseEvent(normalizedEvent, this.selectedRegions)) {
 
-                this._editType.render(this.selectedLayer, normalizedEvent, this.workspace.foregroundColor);
+                this._editType.render(this.selectedLayer, normalizedEvent, this.workspace.foregroundColor,this.workspace.backgroundColor);
 
               }
             }
@@ -59,41 +59,39 @@ export class WorkModeErase extends WorkModeEdit {
 
 export class EditTypeErase extends EditType {
   private lastMovePoint: Point;
-  private _size: number;
-  private _opacity: number;
+  private static _size: number=5;
+  private static _opacity: number=1;
 
-  private _hardness: number;
+  private static _hardness: number=1;
   constructor() {
     super();
     this.lastMovePoint = undefined;
-    this._size = 5;
-    this._opacity = 1;
-    this._hardness = 1;
+    
 
   }
 
   public get size(): number {
-    return this._size;
+    return EditTypeErase._size;
   }
   public set size(val: number) {
-    this._size = val;
+    EditTypeErase._size = val;
   }
   public get opacity(): number {
-    return this._opacity;
+    return EditTypeErase._opacity;
   }
   public set opacity(val: number) {
-    this._opacity = val;
+    EditTypeErase._opacity = val;
   }
 
 
   public get hardness(): number {
-    return this._hardness;
+    return EditTypeErase._hardness;
   }
   public set hardness(val: number) {
-    this._hardness = val;
+    EditTypeErase._hardness = val;
   }
   private calculateHardness(brush: any, graphics: Graphics, x: number, y: number, size: number) {
-    if (this._hardness == 1) {
+    if (EditTypeErase._hardness == 1) {
       graphics.fillStyle(brush);
     } else {
       let gradient = graphics.createRadialGradient(x, y, 0, x, y, size);
@@ -112,51 +110,9 @@ export class EditTypeErase extends EditType {
       graphics.fillStyle(gradient);
     }
   }
-  render2(layer: Layer, point: Point, brush: any) {
+ 
 
-    
-    let points = [];
-    if (this.lastMovePoint) {
-       let d = Helper.pointDif(this.lastMovePoint,point);
-       if(d<2)return;
-       
-      points = Helper.calculateBetweenPoints([this.lastMovePoint, point],this.opacity==1?this._size/4:this._size,false);
-    } else {
-      points.push(point);
-    }
-    this.lastMovePoint = points[points.length-1];
-
-   
-    
-    points.forEach(element => {
-      console.log(element);
-        if(this.opacity==1){
-          layer.graphics.setBlendMode("destination-out");
-        this.calculateHardness("rgba(255,255,255,"+this._opacity*255+")", layer.graphics, element.X, element.Y, this._size / 2);
-        layer.graphics.beginPath();
-        layer.graphics.ellipse(element.X, element.Y, this._size / 2, this._size / 2, 0, 0, 2 * Math.PI);
-        layer.graphics.closePath();
-        layer.graphics.fill();
-        }else{
-          
-          
-          let rect = new Rect(element.X-this.size/2, element.Y-this.size/2,this.size,this.size);
-          
-          let image= layer.graphics.getImage(rect);
-          for(let i=0;i<image.Pixels.byteLength;i+=4){
-            image.Pixels[i+3]=image.Pixels[i+3]*this.opacity;
-          }
-          layer.graphics.putImage(image,rect);
-        }
-      
-      
-    });
-
-
-
-  }
-
-  render(layer:Layer, point: Point, brush: any) {
+  render(layer:Layer, point: Point, brushFG:any,brushBG:any) {
     if(!point)
         return;
        
@@ -205,9 +161,9 @@ export class EditTypeErase extends EditType {
        
       if(this.opacity==1){
         layer.graphics.setBlendMode("destination-out");
-      this.calculateHardness("rgba(255,255,255,"+this._opacity*255+")", layer.graphics, element.X, element.Y, this._size / 2);
+      this.calculateHardness("rgba(255,255,255,"+this.opacity*255+")", layer.graphics, element.X, element.Y, this.size / 2);
       layer.graphics.beginPath();
-      layer.graphics.ellipse(element.X, element.Y, this._size / 2, this._size / 2, 0, 0, 2 * Math.PI);
+      layer.graphics.ellipse(element.X, element.Y, this.size / 2, this.size / 2, 0, 0, 2 * Math.PI);
       layer.graphics.closePath();
       layer.graphics.fill();
       }/* else{

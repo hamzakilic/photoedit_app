@@ -67,7 +67,7 @@ export class LayerPropertiesComponent implements OnInit {
 }
 
   changeLeft(value: any, layer: Layer) {
-
+    console.log(value);
     let val = parseInt(value);
     if(val){
     let point=CalcLayer.calculateLeft(val,layer);

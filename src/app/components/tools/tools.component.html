@@ -57,18 +57,19 @@ placement="right">
 <img src="assets/icons/erase.png">
 </label>
 
+
+<label  id="selectBucket" class="d-inline-block btn btn-primary  buttonpadding mouseoverhand btn-sm " [ngClass]="bucketCss" (click)="selectBucket()"  tooltip="Bucket fill"
+placement="right">
+<img src="assets/icons/bucket.png">
+</label>
+
 <label  id="selectHand" class="d-inline-block btn btn-primary  buttonpadding mouseoverhand btn-sm " [ngClass]="handCss" (click)="selectHand()"  tooltip="Scroll"
 placement="right">
 <img src="assets/icons/hand.png">
 </label>
 
 
-
-
-
-
   
-    
    
     <label [(colorPicker)]="foregroundcolor" class="btn btn-primary  buttonpadding mouseoverhand groundcolor btn-sm"  [style.background]="foregroundcolor"  tooltip="Foreground color"  placement="right"
     

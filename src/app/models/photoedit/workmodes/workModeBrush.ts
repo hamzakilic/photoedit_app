@@ -104,7 +104,7 @@ export class EditTypeBrush extends EditType{
     }
   }
 
-  render(layer:Layer, point: Point, brush: any) {
+  render(layer:Layer, point: Point, brushFG:any,brushBG:any) {
     if(!point)
         return;
      //   console.log("*******");
@@ -151,7 +151,7 @@ export class EditTypeBrush extends EditType{
     
     points.forEach(element => {
        
-      this.calculateHardness(brush,layer.graphics,element.X,element.Y,this.size/2);
+      this.calculateHardness(brushFG,layer.graphics,element.X,element.Y,this.size/2);
       
       
       if(this.hardness!=1){

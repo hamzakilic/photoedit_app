@@ -10,7 +10,7 @@ import { WorkModeBase } from "./workModeBase";
 import { Layer } from '../layer';
 
 export abstract class EditType{
-    public abstract render(layer:Layer, point: Point, brush: any);
+    public abstract render(layer:Layer, point: Point, brushFG: any,brushBG:any);
     public abstract mouseUp(event: MouseEvent,scroll:Point,layer:Layer);
     public abstract mouseDown(event: MouseEvent,scroll:Point,layer:Layer);
     
@@ -55,7 +55,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
                 if (normalizedEvent) {
                   if (this.hitRegionsMouseEvent(normalizedEvent, this.selectedRegions)) {
     
-                    this._editType.render(this.selectedLayer, normalizedEvent, this.workspace.foregroundColor);
+                    this._editType.render(this.selectedLayer, normalizedEvent, this.workspace.foregroundColor,this.workspace.backgroundColor);
     
                   }
                 }

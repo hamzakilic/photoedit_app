@@ -131,9 +131,7 @@ export class ToolsComponent implements OnInit {
  
   selectErase() {   
     this.selectWorking(Workspace.WorkModeErase);
-    //this.isCollapsed=false;
    
-
   }
 
   public get handCss() {
@@ -143,11 +141,17 @@ export class ToolsComponent implements OnInit {
  
   selectHand() {   
     this.selectWorking(Workspace.WorkModeHand);
-    //this.isCollapsed=false;
    
-
   }
+
+  public get bucketCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModeBucket)};
+  }
+
  
+  selectBucket() {   
+    this.selectWorking(Workspace.WorkModeBucket);
+  } 
 
 
 

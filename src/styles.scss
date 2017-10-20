@@ -128,7 +128,7 @@ $whitesmoke:#F5F5F5;
   
 .lineheightsmall {
 
-    line-height:1rem;
+    line-height:1rem ;
     
 }
 .lineheightmedium{
@@ -187,8 +187,7 @@ a {
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
-    width:100%;
-    display:block;
+   
 }
 
 .ng-draggable {
@@ -300,6 +299,14 @@ layer-properties-component{
 }
 
 tools-options-brush-component *{
+  font-size: 0.75rem !important;
+}
+
+tools-options-erase-component *{
+  font-size: 0.75rem !important;
+}
+
+tools-options-bucketfill-component *{
   font-size: 0.75rem !important;
 }
 

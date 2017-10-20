@@ -22,6 +22,7 @@ import { WorkModeCrop } from './workmodes/workModeCrop';
 import { WorkModeHand} from './workmodes/workModeHand';
 import { WorkModeResizeWorkspace } from './workmodes/workModeResize';
 import { WorkModeSelection } from './workmodes/workModeSelection';
+import { WorkModeBucket } from './workmodes/workModeBucket';
 
 
 
@@ -60,7 +61,7 @@ export class Workspace extends HEventEmitter {
     super();
     this.uuid = Utility.uuid();
     if (name)
-      this._name = name;
+      this._name = name.substring(0,10);
     else this._name = "image";
     this._layers = [];
 
@@ -393,6 +394,9 @@ export class Workspace extends HEventEmitter {
         case Workspace.WorkModeHand:
         this._workMode = new WorkModeHand(this);
         break;
+        case Workspace.WorkModeBucket:
+        this._workMode = new WorkModeBucket(this);
+        break;
       default:
         this._workMode = new WorkModeDefault(this);
     }
@@ -431,7 +435,7 @@ export class Workspace extends HEventEmitter {
   public static readonly WorkModeBrush = 13;
   public static readonly WorkModeErase = 14;
   public static readonly WorkModeHand=15;
-
+  public static readonly WorkModeBucket=16;
 
 
 }

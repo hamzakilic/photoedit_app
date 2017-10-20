@@ -25,7 +25,7 @@ export abstract class Layer extends SurfaceCanvas {
     this.sourceMask = undefined;
     this._blendMode="normal";
     if (name)
-      this._name = name;
+      this._name = name.substring(0,10);
     else this._name = 'layer';
     this.isHidden = false;
     this._mouseDownPoint = new MouseDownPoint();

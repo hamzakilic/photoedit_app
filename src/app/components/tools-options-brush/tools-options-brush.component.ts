@@ -28,9 +28,9 @@ export class ToolsOptionsBrushComponent implements OnInit {
   }
 
   public get brushSize():number{
-    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == Workspace.WorkModeBrush){
-      (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).size;
-    }
+    if(this.isValid())
+      return (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).size;
+    
     return 5;
   }
   private isValid():boolean{
@@ -48,7 +48,7 @@ export class ToolsOptionsBrushComponent implements OnInit {
 
   public get brushOpacity():number{
     if(this.isValid()){
-      (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).opacity*100;
+      return (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).opacity*100;
     }
     return 100;
   }
@@ -65,7 +65,7 @@ export class ToolsOptionsBrushComponent implements OnInit {
 
   public get brushHardness():number{
     if(this.isValid()){
-      (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).hardness*100;
+      return (<EditTypeBrush>(<WorkModeBrush>this.project.activeWorkspace.workMode).editType).hardness*100;
     }
     return 100;
   }

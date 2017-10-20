@@ -27,9 +27,9 @@ export class ToolsOptionsEraseComponent implements OnInit {
   }
 
   public get eraseSize():number{
-    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == Workspace.WorkModeErase){
-      (<EditTypeErase>(<WorkModeErase>this.project.activeWorkspace.workMode).editType).size;
-    }
+    if(this.isValid())
+      return (<EditTypeErase>(<WorkModeErase>this.project.activeWorkspace.workMode).editType).size;
+    
     return 5;
   }
   private isValid():boolean{
@@ -47,7 +47,7 @@ export class ToolsOptionsEraseComponent implements OnInit {
 
   public get eraseOpacity():number{
     if(this.isValid()){
-      (<EditTypeErase>(<WorkModeErase>this.project.activeWorkspace.workMode).editType).opacity*100;
+      return (<EditTypeErase>(<WorkModeErase>this.project.activeWorkspace.workMode).editType).opacity*100;
     }
     return 100;
   }
@@ -64,7 +64,7 @@ export class ToolsOptionsEraseComponent implements OnInit {
 
   public get eraseHardness():number{
     if(this.isValid()){
-      (<EditTypeErase>(<WorkModeErase>this.project.activeWorkspace.workMode).editType).hardness*100;
+      return (<EditTypeErase>(<WorkModeErase>this.project.activeWorkspace.workMode).editType).hardness*100;
     }
     return 100;
   }

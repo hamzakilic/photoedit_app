@@ -15,6 +15,7 @@ import { TooltipModule } from 'ngx-bootstrap';
 import { PopoverModule } from 'ngx-bootstrap';
 import { CollapseModule } from 'ngx-bootstrap';
 import { AccordionModule } from 'ngx-bootstrap';
+import { ButtonsModule } from 'ngx-bootstrap';
 
 import { ColorPickerModule } from './modulesext/color-picker';
 import { AutoCompleteModule } from './modulesext/autocomplete';
@@ -71,6 +72,7 @@ import { ToolsOptionsComponent } from './components/tools-options/tools-options.
 import { ToolsOptionsClipComponent } from './components/tools-options-clip/tools-options-clip.component';
 import { ToolsOptionsBrushComponent } from './components/tools-options-brush/tools-options-brush.component';
 import { ToolsOptionsEraseComponent } from './components/tools-options-erase/tools-options-erase.component';
+import { ToolsOptionsBucketfillComponent } from './components/tools-options-bucketfill/tools-options-bucketfill.component';
 
 
 
@@ -122,15 +124,8 @@ import { ToolsOptionsEraseComponent } from './components/tools-options-erase/too
     ToolsOptionsClipComponent,
     ToolsOptionsBrushComponent,
     ToolsOptionsEraseComponent,
+    ToolsOptionsBucketfillComponent,
     
-
-
-
-
-
-
-
-
   ],
   imports: [
     BsDropdownModule.forRoot(),
@@ -140,6 +135,7 @@ import { ToolsOptionsEraseComponent } from './components/tools-options-erase/too
     PopoverModule.forRoot(),
     CollapseModule.forRoot(),
     AccordionModule.forRoot(),
+    ButtonsModule.forRoot(),
     BrowserAnimationsModule,
     BusyModule,
     BrowserModule,

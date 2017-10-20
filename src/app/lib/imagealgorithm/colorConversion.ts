@@ -140,4 +140,47 @@ public static  rgbToHsl(r, g, b):Array<number> {
   
     return [ r * 255, g * 255, b * 255 ];
   }
+
+  public static rgbToXYZ(r,g,b){
+    let _R = ( r / 255 )
+    let _G = ( g / 255 )
+    let _B = ( b / 255 )
+    
+    if ( _R > 0.04045 ) _R = ( ( _R + 0.055 ) / 1.055 ) ^ 2.4
+    else                   _R = _R / 12.92
+    if ( _G > 0.04045 ) _G = ( ( _G + 0.055 ) / 1.055 ) ^ 2.4
+    else                   _G = _G / 12.92
+    if ( _B > 0.04045 ) _B = ( ( _B + 0.055 ) / 1.055 ) ^ 2.4
+    else                   _B = _B / 12.92
+    
+    _R = _R * 100
+    _G = _G * 100
+    _B = _B * 100
+    
+    let X = _R * 0.4124 + _G * 0.3576 + _B * 0.1805
+    let Y = _R * 0.2126 + _G * 0.7152 + _B * 0.0722
+    let Z = _R * 0.0193 + _G * 0.1192 + _B * 0.9505
+    return [X,Y,Z];
+  }
+
+  public static XYZToCIE_Lab(X,Y,Z){
+    const ReferenceX=95.047;
+    const ReferenceY=100.000;
+    const ReferenceZ=	108.883;
+    let _X = X / ReferenceX
+    let _Y = Y / ReferenceY
+    let _Z = Z / ReferenceZ
+    
+    if ( _X > 0.008856 ) _X = _X ^ ( 1/3 )
+    else                    _X = ( 7.787 * _X ) + ( 16 / 116 )
+    if ( _Y > 0.008856 ) _Y = _Y ^ ( 1/3 )
+    else                    _Y = ( 7.787 * _Y ) + ( 16 / 116 )
+    if ( _Z > 0.008856 ) _Z = _Z ^ ( 1/3 )
+    else                    _Z = ( 7.787 * _Z ) + ( 16 / 116 )
+    
+    let CIEL = ( 116 * _Y ) - 16
+    let CIEa = 500 * ( _X - _Y )
+    let CIEb = 200 * ( _Y - _Z )
+    return [CIEL,CIEa,CIEb];
+  }
 }
