@@ -17,7 +17,7 @@ export class ImageAlgorithmRgbToLab implements IImageAlgorithmImmutable {
     }
     process(img: HImage): HImage {
         let arr = new Uint8ClampedArray(img.width * img.height * 3);
-        arr.set(img.Pixels);
+       
         let temp=new HImage(img.width, img.height, arr);
         let start;
         let tempindex=0;

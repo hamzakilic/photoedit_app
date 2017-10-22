@@ -1,3 +1,4 @@
+import { ImageProcessCrop } from './../lib/imageprocess/imageProcessCrop';
 import { Callback } from './../lib/callback';
 import { Command } from './command';
 import { CommandBusy } from './commandBusy';
@@ -55,7 +56,7 @@ export class CmdCrop extends CommandBusy {
                            // cropLayerRect.y-=selectedLayerRect.y;
 
                         }
-                        let cropedImage=Imaging.crop2(selectedLayer.getImage(),selectedLayerRect, cropLayerRect,selectedLayer.rotateAngleDeg);
+                        let cropedImage=ImageProcessCrop.process(selectedLayer.getImage(),selectedLayerRect, cropLayerRect,selectedLayer.rotateAngleDeg);
                         if(cropedImage){
                         let newLayer = new LayerImage(cropedImage,"cropedimage");
                             newLayer.scale = selectedLayer.scale;

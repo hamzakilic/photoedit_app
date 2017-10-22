@@ -1,3 +1,4 @@
+
 import { Rect2D } from './rect2D';
 import { Rect } from './rect';
 
@@ -88,6 +89,20 @@ export class Polygon{
        
        var bound= ClipperLib.Clipper.GetBounds([paths]);
        return new Rect(bound.left,bound.top,bound.right-bound.left,bound.bottom-bound.top);
+    }
+
+    public isPointInPath(point:Point):boolean{
+        var out = new ClipperLib.Paths();
+        var source = new ClipperLib.Clipper();
+        source.AddPath(this.getPaths(), ClipperLib.PolyType.ptSubject, true);
+        let poly=new Polygon([point,new Point(point.X,point.Y+1),new Point(point.X+1,point.Y+1),new Point(point.X+1,point.Y)]);
+        let paths=poly.getPaths();
+        source.AddPath(poly.getPaths(),ClipperLib.PolyType.ptClip,true);
+        source.Execute(ClipperLib.ClipType.ctIntersection,out);
+        
+        if(out.length>0)
+        return true;
+        return false;
     }
 
 

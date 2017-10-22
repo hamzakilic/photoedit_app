@@ -1,18 +1,12 @@
-/* import { HImage } from '../image';
-import { Rect } from '../draw/rect';
-import { Calc } from '../calc';
-import { Color } from '../draw/color';
-import { Point } from '../draw/point';
-import { ImageAlgorithmCrop } from './imageAlgorithmCrop';
-import { ImageAlgorithmRotate } from './imageAlgorithmRotate';
+import { Color } from './../draw/color';
+import { ImageAlgorithmRotate } from './../imagealgorithm/imageAlgorithmRotate';
+import { ImageAlgorithmCrop } from './../imagealgorithm/imageAlgorithmCrop';
+import { Calc } from './../calc';
+import { Rect } from './../draw/rect';
+import { HImage } from './../image';
+export class ImageProcessCrop{
 
-export class Imaging {
-
-       
-
-
-
-    public static crop2(img: HImage, rectSource: Rect, rectDestination: Rect, angleDegrees: number): HImage {
+    public static process(img: HImage, rectSource: Rect, rectDestination: Rect, angleDegrees: number): HImage {
         if (angleDegrees == 0) {
             
             let rectIntersect = Calc.intersectRect(rectSource, rectDestination);
@@ -46,4 +40,4 @@ export class Imaging {
 
     }
 
-} */
+}

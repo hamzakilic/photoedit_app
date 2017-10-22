@@ -11,4 +11,5 @@ export class Point {
         this.Y=y;
 
     }
+    
 }

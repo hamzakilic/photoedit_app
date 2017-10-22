@@ -13,6 +13,7 @@ export abstract class EditType{
     public abstract render(layer:Layer, point: Point, brushFG: any,brushBG:any);
     public abstract mouseUp(event: MouseEvent,scroll:Point,layer:Layer);
     public abstract mouseDown(event: MouseEvent,scroll:Point,layer:Layer);
+    public selectedRegions: Array<Polygon>=undefined;
     
 
 }
@@ -94,7 +95,10 @@ export abstract class WorkModeEdit extends WorkModeBase {
           }
     
         
+          //set selected regions to edittype
+        this._editType.selectedRegions=this.selectedRegions;
         this._editType.mouseDown(event,scroll,this.selectedLayer);
+        
         this.process(event,scroll);
         }
         

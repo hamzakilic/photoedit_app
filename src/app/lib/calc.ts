@@ -139,4 +139,8 @@ export class Calc {
 
 
     }
+
+    public static translatePoint(point:Point,x:number,y:number):Point{
+        return new Point(point.X+x,point.Y+y);
+    }
 }
