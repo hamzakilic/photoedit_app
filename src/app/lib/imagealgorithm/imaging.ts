@@ -1,6 +1,6 @@
 /* import { HImage } from '../image';
 import { Rect } from '../draw/rect';
-import { Calc } from '../calc';
+import { Calc } from '../hMath';
 import { Color } from '../draw/color';
 import { Point } from '../draw/point';
 import { ImageAlgorithmCrop } from './imageAlgorithmCrop';

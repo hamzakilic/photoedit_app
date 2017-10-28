@@ -6,8 +6,8 @@
 <div  class="divSelectedLayer "  left
 [style.width.px]='surface.selectPointwh * (whichMouseOver==1 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==1 ? 2:1)'
-[style.margin-top.px]='left.Y'
-[style.margin-left.px]='left.X'
+[style.margin-top.px]='left.y'
+[style.margin-left.px]='left.x'
 [ngClass]="selectedCss(1)"
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,1)"  (mouseOver)="mouseOver($event,1)" (mouseLeave)="mouseLeave($event,1)">
 </div>
@@ -23,8 +23,8 @@ mouse (mouseDown)="surface.mouseDownSelectedPoint($event,2)" (mouseOver)="mouseO
 <div  class="divSelectedLayer "   top
 [style.width.px]='surface.selectPointwh * (whichMouseOver==3 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==3 ? 2:1)'
-[style.margin-top.px]="top.Y"
-[style.margin-left.px]="top.X"
+[style.margin-top.px]="top.y"
+[style.margin-left.px]="top.x"
 [ngClass]="selectedCss(3)"
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,3)" (mouseOver)="mouseOver($event,3)" (mouseLeave)="mouseLeave($event,3)">
 </div>
@@ -40,8 +40,8 @@ mouse (mouseDown)="surface.mouseDownSelectedPoint($event,4)" (mouseOver)="mouseO
 <div  class="divSelectedLayer "  right
 [style.width.px]='surface.selectPointwh * (whichMouseOver==5 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==5 ? 2:1)'
-[style.margin-top.px]="right.Y"
-[style.margin-left.px]="right.X"
+[style.margin-top.px]="right.y"
+[style.margin-left.px]="right.x"
 [ngClass]="selectedCss(5)"
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,5)" (mouseOver)="mouseOver($event,5)" (mouseLeave)="mouseLeave($event,5)">
 </div>
@@ -58,8 +58,8 @@ mouse (mouseDown)="surface.mouseDownSelectedPoint($event,6)" (mouseOver)="mouseO
 <div  class="divSelectedLayer "  bottom
 [style.width.px]='surface.selectPointwh * (whichMouseOver==7 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==7 ? 2:1)'
-[style.margin-top.px]="bottom.Y"
-[style.margin-left.px]="bottom.X"
+[style.margin-top.px]="bottom.y"
+[style.margin-left.px]="bottom.x"
 [ngClass]="selectedCss(7)"
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,7)" (mouseOver)="mouseOver($event,7)" (mouseLeave)="mouseLeave($event,7)">
 </div>

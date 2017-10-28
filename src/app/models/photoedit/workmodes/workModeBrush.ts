@@ -1,4 +1,4 @@
-import { Imaging } from './../../../lib/imagealgorithm/imaging';
+
 import { HImage } from './../../../lib/image';
 import { BUSY_CONFIG_DEFAULTS } from 'angular2-busy';
 import { element } from 'protractor';
@@ -15,6 +15,7 @@ import { WorkModeBase } from "./workModeBase";
 import { Layer } from '../layer';
 import { Color } from '../../../lib/draw/color';
 import { WorkModeEdit, EditType } from './workModeEdit';
+import { HMath } from '../../../lib/hMath';
 
 export class WorkModeBrush extends WorkModeEdit {
 
@@ -111,7 +112,7 @@ export class EditTypeBrush extends EditType{
     //console.log("move:"+point.X+":"+point.Y);
     let points:Array<Point>=[];
     if(this.lastMovePoint==undefined){
-      points.push(Helper.intPoint(point));
+      points.push(HMath.intPoint(point));
       
 
     }else{
@@ -120,15 +121,15 @@ export class EditTypeBrush extends EditType{
       let tempSize=this.size/2;
       if(this.hardness!=1)
       tempSize=this.size/3;
-      let innerPoints= Helper.calculatePointsBetween(this.lastMovePoint,point,tempSize);
+      let innerPoints= HMath.calculatePointsBetween(this.lastMovePoint,point,tempSize);
       innerPoints.forEach(item=>{
-        if(this.lastMovePoint.X<=point.X)
-        item.X = item.X.extCeil();
-        else item.X=item.X.extFloor();
+        if(this.lastMovePoint.x<=point.x)
+        item.x = item.x.extCeil();
+        else item.x=item.x.extFloor();
 
-        if(this.lastMovePoint.Y<=point.Y)
-        item.Y = item.Y.extCeil();
-        else item.Y=item.Y.extFloor();
+        if(this.lastMovePoint.y<=point.y)
+        item.y = item.y.extCeil();
+        else item.y=item.y.extFloor();
         
 
         points.push(item);
@@ -138,7 +139,7 @@ export class EditTypeBrush extends EditType{
     
     
     Helper.distinctPoints(points);
-    if(this.lastMovePoint && points.length>=1 && points[0].X==this.lastMovePoint.X && points[0].Y==this.lastMovePoint.Y)
+    if(this.lastMovePoint && points.length>=1 && points[0].x==this.lastMovePoint.x && points[0].y==this.lastMovePoint.y)
        points.splice(0,1);
     if(points.length==0)
         return;
@@ -151,17 +152,17 @@ export class EditTypeBrush extends EditType{
     
     points.forEach(element => {
        
-      this.calculateHardness(brushFG,layer.graphics,element.X,element.Y,this.size/2);
+      this.calculateHardness(brushFG,layer.graphics,element.x,element.y,this.size/2);
       
       
       if(this.hardness!=1){
         layer.graphics.beginPath();
-        layer.graphics.ellipse(element.X, element.Y, this.size/2, this.size/2, 0, 0, 2 * Math.PI);
+        layer.graphics.ellipse(element.x, element.y, this.size/2, this.size/2, 0, 0, 2 * Math.PI);
         layer.graphics.closePath();
         layer.graphics.fill();
        }
       else{        
-        let rect=new Rect((element.X-this.size/2).extRound(),(element.Y-this.size/2).extRound(),this.size,this.size)
+        let rect=new Rect((element.x-this.size/2).extRound(),(element.y-this.size/2).extRound(),this.size,this.size)
        
          layer.graphics.fillRect(rect);
       

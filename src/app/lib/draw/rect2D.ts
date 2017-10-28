@@ -16,11 +16,11 @@ export class Rect2D {
   }
 
   public  get width():number {
-        return  Math.abs(this.leftTop.X-this.rightTop.X);
+        return  Math.abs(this.leftTop.x-this.rightTop.x);
 
   }
   public  get height(): number{
-        return Math.abs(this.leftTop.Y-this.leftBottom.Y);
+        return Math.abs(this.leftTop.y-this.leftBottom.y);
   }
 
 

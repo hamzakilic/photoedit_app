@@ -133,7 +133,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
           let ly = this.workspace.layers[i];
           let hitPoint = ly.hitMouseEvent(event,scroll);
           if (hitPoint) {
-            let color = ly.getPixel(hitPoint.X, hitPoint.Y);
+            let color = ly.getPixel(hitPoint.x, hitPoint.y);
             if (color.a != 0) {
               this.workspace.foregroundColor = "rgb(" + color.r + "," + color.g + "," + color.b + ")";
               return;

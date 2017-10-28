@@ -12,9 +12,9 @@ import { LayerEmpty } from '../models/photoedit/layerEmpty';
 import { LayerImage } from '../models/photoedit/layerImage';
 
 import { Effect } from '../entities/effect';
-import { Calc } from '../lib/calc';
+import { HMath } from '../lib/hMath';
 import { Rect } from '../lib/draw/rect';
-import { Imaging } from '../lib/imagealgorithm/imaging';
+
 import { ImageAlgorithmColorRemap } from '../lib/imagealgorithm/imageAlgorithmColorRemap';
 
 

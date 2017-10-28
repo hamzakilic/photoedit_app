@@ -156,9 +156,9 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
 
   public drawPolygon(polygon:Polygon,closePath:boolean=true){
     this._context.beginPath();
-    this._context.moveTo(polygon.points[0].X,polygon.points[0].Y);
+    this._context.moveTo(polygon.points[0].x,polygon.points[0].y);
     for(let i=1;i<polygon.points.length;++i){
-      this._context.lineTo(polygon.points[i].X,polygon.points[i].Y);
+      this._context.lineTo(polygon.points[i].x,polygon.points[i].y);
     }
     if(closePath)
     this._context.closePath();

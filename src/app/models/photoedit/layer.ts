@@ -146,9 +146,9 @@ export abstract class Layer extends SurfaceCanvas {
     if (this.htmlElement) {
       let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
       
-      let point =new Point(((event.clientX+scroll.X - (rc.left+scroll.X))/this.scale).extFloor(), ((event.clientY+scroll.Y - (rc.top+scroll.Y))/this.scale).extFloor());
+      let point =new Point(((event.clientX+scroll.x - (rc.left+scroll.x))/this.scale).extFloor(), ((event.clientY+scroll.y - (rc.top+scroll.y))/this.scale).extFloor());
          //console.log("layer hitmouseevent:",event.clientX,event.clientY,scroll.X,scroll.Y,rc.left,rc.top);
-        if (point.X >= 0 && point.Y >= 0 && point.X <= this.width && point.Y <= this.height) {
+        if (point.x >= 0 && point.y >= 0 && point.x <= this.width && point.y <= this.height) {
           return point;
         }
       
@@ -160,17 +160,17 @@ export abstract class Layer extends SurfaceCanvas {
     if (this.htmlElement) {
       let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
    
-      let point =new Point(((event.clientX+scroll.X - (rc.left+scroll.X))/this.scale).extFloor(), ((event.clientY+scroll.Y - (rc.top+scroll.Y))/this.scale).extFloor());      
+      let point =new Point(((event.clientX+scroll.x - (rc.left+scroll.x))/this.scale).extFloor(), ((event.clientY+scroll.y - (rc.top+scroll.y))/this.scale).extFloor());      
      // console.log("layer normalizeMouseEvent:",this.scale, event.clientX,event.clientY,point.X,point.Y, scroll.X,scroll.Y,rc.left,rc.top);
       if(makeNormalize){
-        if(point.X<0)
-        point.X=0;
-        if(point.Y<0)
-        point.Y=0;
-        if(point.X>this.width)
-        point.X=this.width;
-        if(point.Y>this.height)
-        point.Y=this.height;
+        if(point.x<0)
+        point.x=0;
+        if(point.y<0)
+        point.y=0;
+        if(point.x>this.width)
+        point.x=this.width;
+        if(point.y>this.height)
+        point.y=this.height;
       }
       return point;
         

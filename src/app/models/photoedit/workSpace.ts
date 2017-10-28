@@ -12,7 +12,7 @@ import { HEventEmitter } from '../../lib/eventEmitter'
 import { HImage } from '../../lib/image';
 import { Utility } from '../../lib/utility';
 import { CalcLayer } from "./lib/calcLayer";
-import { Calc } from '../../lib/calc';
+import { HMath } from '../../lib/hMath';
 import { Point } from "../../lib/draw/point";
 import { WorkModeBase } from './workmodes/workModeBase';
 import { WorkModeDefault } from './workmodes/workModeDefault';
@@ -235,12 +235,12 @@ export class Workspace extends HEventEmitter {
     let rectRotated = layer.rectRotated;
 
 
-    let point1 = CalcLayer.calculateLeft(this.width - leftTop.Y - rectRotated.width, layer);
-    layer.setLeft(point1.X);
-    layer.setTop(point1.Y);
-    point1 = CalcLayer.calculateTop(leftTop.X, layer);
-    layer.setLeft(point1.X);
-    layer.setTop(point1.Y);
+    let point1 = CalcLayer.calculateLeft(this.width - leftTop.y - rectRotated.width, layer);
+    layer.setLeft(point1.x);
+    layer.setTop(point1.y);
+    point1 = CalcLayer.calculateTop(leftTop.x, layer);
+    layer.setLeft(point1.x);
+    layer.setTop(point1.y);
     //layer.setLeft(this.width-layer.marginTop);
     //layer.setTop(layer.marginTop);
     layer.keepRatio = keepRatio;

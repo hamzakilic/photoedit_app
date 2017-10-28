@@ -25,7 +25,7 @@ export class Polygon{
     public getPaths():Array<any>{
         
         var path =[];
-        this._points.forEach((item)=>path.push({"X":item.X,"Y":item.Y}));
+        this._points.forEach((item)=>path.push({"X":item.x,"Y":item.y}));
         return path;
     }
 
@@ -95,7 +95,7 @@ export class Polygon{
         var out = new ClipperLib.Paths();
         var source = new ClipperLib.Clipper();
         source.AddPath(this.getPaths(), ClipperLib.PolyType.ptSubject, true);
-        let poly=new Polygon([point,new Point(point.X,point.Y+1),new Point(point.X+1,point.Y+1),new Point(point.X+1,point.Y)]);
+        let poly=new Polygon([point,new Point(point.x,point.y+1),new Point(point.x+1,point.y+1),new Point(point.x+1,point.y)]);
         let paths=poly.getPaths();
         source.AddPath(poly.getPaths(),ClipperLib.PolyType.ptClip,true);
         source.Execute(ClipperLib.ClipType.ctIntersection,out);

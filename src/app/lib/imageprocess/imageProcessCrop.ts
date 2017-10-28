@@ -1,7 +1,7 @@
 import { Color } from './../draw/color';
 import { ImageAlgorithmRotate } from './../imagealgorithm/imageAlgorithmRotate';
 import { ImageAlgorithmCrop } from './../imagealgorithm/imageAlgorithmCrop';
-import { Calc } from './../calc';
+import { HMath } from './../hMath';
 import { Rect } from './../draw/rect';
 import { HImage } from './../image';
 export class ImageProcessCrop{
@@ -9,7 +9,7 @@ export class ImageProcessCrop{
     public static process(img: HImage, rectSource: Rect, rectDestination: Rect, angleDegrees: number): HImage {
         if (angleDegrees == 0) {
             
-            let rectIntersect = Calc.intersectRect(rectSource, rectDestination);
+            let rectIntersect = HMath.intersectRect(rectSource, rectDestination);
             if (!rectIntersect)
                 return undefined;
             rectIntersect.x -= rectSource.x;
@@ -20,8 +20,8 @@ export class ImageProcessCrop{
             rectIntersect.height = rectIntersect.height.extRound();
             return  img.processImmutable(new ImageAlgorithmCrop(rectIntersect));
         } else {
-            let rotatedSourceRect = Calc.rotateRect(rectSource, angleDegrees);
-            let rectIntersect = Calc.intersectRect(rotatedSourceRect, rectDestination);
+            let rotatedSourceRect = HMath.rotateRect(rectSource, angleDegrees);
+            let rectIntersect = HMath.intersectRect(rotatedSourceRect, rectDestination);
             if (!rectIntersect)
                 return undefined;
             rectIntersect.x -= rotatedSourceRect.x;

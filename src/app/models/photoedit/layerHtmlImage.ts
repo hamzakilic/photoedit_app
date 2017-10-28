@@ -3,7 +3,7 @@ import { Graphics } from '../../lib/graphics';
 
 import { HImage } from '../../lib/image';
 import { Rect } from '../../lib/draw/rect';
-import { Calc } from '../../lib/calc';
+import { HMath } from '../../lib/hMath';
 
 export class LayerHtmlImage extends Layer {
 

@@ -1,4 +1,4 @@
-import { Calc } from './../../../lib/calc';
+import { HMath } from './../../../lib/hMath';
 import { ImageAlgorithmRgbToLab } from './../../../lib/imagealgorithm/imageAlgorithmRgbToLab';
 import { ImageAlgorithmCrop } from './../../../lib/imagealgorithm/imageAlgorithmCrop';
 import { Polygon } from './../../../lib/draw/polygon';
@@ -88,7 +88,7 @@ export class EditTypeBucket extends EditType {
      
 
        let fullImage= layer.getImage();
-       let color= layer.getPixel(point.X,point.Y);
+       let color= layer.getPixel(point.x,point.y);
        this.selectedRegions.forEach(region=>{
         
             if(region.isPointInPath(point)){
@@ -99,7 +99,7 @@ export class EditTypeBucket extends EditType {
                let cropedImage= crop.process(fullImage);
                let rgbToLab=new ImageAlgorithmRgbToLab();
                let labImage =rgbToLab.process(cropedImage);
-               let translated = Calc.translatePoint(point,rect.x,rect.y);
+               let translated = HMath.translatePoint(point,rect.x,rect.y);
                console.log("translated point:"+point,translated);
                let colorRegions= ImageProcessSimilarColors.process(labImage,color,translated);
                   

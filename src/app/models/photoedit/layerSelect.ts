@@ -1,5 +1,5 @@
 
-import { Calc } from './../../lib/calc';
+import { HMath } from './../../lib/hMath';
 
 import { Rect } from './../../lib/draw/rect';
 import { Graphics } from './../../lib/graphics';
@@ -59,10 +59,10 @@ class ShapeRect extends Shape {
   render(graphics: Graphics) {
 
     graphics.lineWidth(2);
-    let sxmin = Math.min(this._startPoint.X, this._endPoint.X);
-    let symin = Math.min(this._startPoint.Y, this._endPoint.Y);
-    let exmax = Math.max(this._startPoint.X, this._endPoint.X);
-    let eymax = Math.max(this._startPoint.Y, this._endPoint.Y);
+    let sxmin = Math.min(this._startPoint.x, this._endPoint.x);
+    let symin = Math.min(this._startPoint.y, this._endPoint.y);
+    let exmax = Math.max(this._startPoint.x, this._endPoint.x);
+    let eymax = Math.max(this._startPoint.y, this._endPoint.y);
 
     let rect = new Rect(sxmin, symin, exmax - sxmin, eymax - symin);
     graphics.fillRect(rect, this.fillStyle);
@@ -92,13 +92,13 @@ class ShapeRect extends Shape {
     return false;
   }
   toPolygon(): Polygon {
-    let sxmin = Math.min(this._startPoint.X, this._endPoint.X);
-    let symin = Math.min(this._startPoint.Y, this._endPoint.Y);
-    let exmax = Math.max(this._startPoint.X, this._endPoint.X);
-    let eymax = Math.max(this._startPoint.Y, this._endPoint.Y);
+    let sxmin = Math.min(this._startPoint.x, this._endPoint.x);
+    let symin = Math.min(this._startPoint.y, this._endPoint.y);
+    let exmax = Math.max(this._startPoint.x, this._endPoint.x);
+    let eymax = Math.max(this._startPoint.y, this._endPoint.y);
 
     let rect = new Rect(sxmin, symin, exmax - sxmin, eymax - symin);
-    return Helper.rectToPolygon(rect);
+    return HMath.rectToPolygon(rect);
   }
 }
 
@@ -116,10 +116,10 @@ class ShapeEllipse extends Shape {
   }
   render(graphics: Graphics) {
 
-    let sxmin = Math.min(this._startPoint.X, this._endPoint.X);
-    let symin = Math.min(this._startPoint.Y, this._endPoint.Y);
-    let exmax = Math.max(this._startPoint.X, this._endPoint.X);
-    let eymax = Math.max(this._startPoint.Y, this._endPoint.Y);
+    let sxmin = Math.min(this._startPoint.x, this._endPoint.x);
+    let symin = Math.min(this._startPoint.y, this._endPoint.y);
+    let exmax = Math.max(this._startPoint.x, this._endPoint.x);
+    let eymax = Math.max(this._startPoint.y, this._endPoint.y);
     let width = exmax - sxmin;
     let height = eymax - symin;
 
@@ -157,10 +157,10 @@ class ShapeEllipse extends Shape {
     return false;
   }
   toPolygon(): Polygon {
-    let sxmin = Math.min(this._startPoint.X, this._endPoint.X);
-    let symin = Math.min(this._startPoint.Y, this._endPoint.Y);
-    let exmax = Math.max(this._startPoint.X, this._endPoint.X);
-    let eymax = Math.max(this._startPoint.Y, this._endPoint.Y);
+    let sxmin = Math.min(this._startPoint.x, this._endPoint.x);
+    let symin = Math.min(this._startPoint.y, this._endPoint.y);
+    let exmax = Math.max(this._startPoint.x, this._endPoint.x);
+    let eymax = Math.max(this._startPoint.y, this._endPoint.y);
     let width = exmax - sxmin;
     let height = eymax - symin;
 
@@ -199,16 +199,16 @@ class ShapeLasso extends Shape {
       graphics.strokeStyle(this.strokeStyle);
       graphics.fillStyle(this.fillStyle);
       graphics.lineWidth(2);
-      graphics.moveTo(this.points[0].X, this.points[0].Y);
+      graphics.moveTo(this.points[0].x, this.points[0].y);
       let i = 1;
       for (i = 1; i < this.points.length - 2; ++i) {
 
-        var xc = (this.points[i].X + this.points[i + 1].X) / 2;
-        var yc = (this.points[i].Y + this.points[i + 1].Y) / 2;
-        graphics.quadraticCurveTo(this.points[i].X, this.points[i].Y, xc, yc);
+        var xc = (this.points[i].x + this.points[i + 1].x) / 2;
+        var yc = (this.points[i].y + this.points[i + 1].y) / 2;
+        graphics.quadraticCurveTo(this.points[i].x, this.points[i].y, xc, yc);
       }
 
-      graphics.quadraticCurveTo(this.points[i + 1].X, this.points[i + 1].Y, this.points[0].X, this.points[0].Y);//close curve
+      graphics.quadraticCurveTo(this.points[i + 1].x, this.points[i + 1].y, this.points[0].x, this.points[0].y);//close curve
       graphics.closePath();
       graphics.stroke();
       graphics.fill();
@@ -244,7 +244,7 @@ class ShapeLasso extends Shape {
 
   toPolygon(): Polygon {
     let points = [];
-    this.points.forEach(item => points.push(new Point(item.X, item.Y)));
+    this.points.forEach(item => points.push(new Point(item.x, item.y)));
     return new Polygon(points);
   }
 
@@ -255,10 +255,10 @@ class ShapeLasso extends Shape {
       let prevPoint = this.points[this.points.length - 1];
       while (true) {
 
-        let d = Math.sqrt((curPoint.X - prevPoint.X) * (curPoint.X - prevPoint.X) + (curPoint.Y - prevPoint.Y) * (curPoint.Y - prevPoint.Y));
+        let d = Math.sqrt((curPoint.x - prevPoint.x) * (curPoint.x - prevPoint.x) + (curPoint.y - prevPoint.y) * (curPoint.y - prevPoint.y));
         if (d > 5) {
           let t = 5 / d;
-          let temp = new Point((1 - t) * prevPoint.X + t * curPoint.X, (1 - t) * prevPoint.Y + t * curPoint.Y);
+          let temp = new Point((1 - t) * prevPoint.x + t * curPoint.x, (1 - t) * prevPoint.y + t * curPoint.y);
           pTemps.push(temp);
           prevPoint = temp;
         } else break;
@@ -293,10 +293,10 @@ class ShapePolygon extends ShapeLasso {
       graphics.fillStyle(this.fillStyle);
       graphics.lineWidth(2);
       graphics.beginPath();
-      graphics.moveTo(this.points[0].X, this.points[0].Y);
+      graphics.moveTo(this.points[0].x, this.points[0].y);
       let i = 1;
       for (i = 1; i < this.points.length; ++i) {
-        graphics.drawLine2(this.points[i].X.extCeil(), this.points[i].Y.extCeil());
+        graphics.drawLine2(this.points[i].x.extCeil(), this.points[i].y.extCeil());
 
       }
       graphics.closePath();
@@ -349,7 +349,7 @@ class ShapePolygon extends ShapeLasso {
 
   toPolygon(): Polygon {
     let points = [];
-    this.points.forEach(item => points.push(new Point(item.X, item.Y)));
+    this.points.forEach(item => points.push(new Point(item.x, item.y)));
     return new Polygon(points);
   }
 
@@ -548,14 +548,14 @@ export class LayerSelect extends Layer {
       this.graphics.strokeStyle(this.strokeStyle);
       if (!animate) {
         this.graphics.beginPath();
-        this.graphics.moveTo(points[0].X, points[0].Y);
+        this.graphics.moveTo(points[0].x, points[0].y);
         for (let i = 1; i < points.length; ++i) {
-          this.graphics.drawLine2(points[i].X, points[i].Y);
+          this.graphics.drawLine2(points[i].x, points[i].y);
         }
         this.graphics.closePath();
         this.graphics.stroke();
       }else{
-        points= Helper.calculateBetweenPoints(points)
+        points= HMath.calculateBetweenPoints(points)
         let totalParts = points.length;
         
   
@@ -565,7 +565,7 @@ export class LayerSelect extends Layer {
         for (x = 1; x < totalParts - 1; x += 1) {
           if ((x + dividen) % 2 == 0) { 
                     
-          this.graphics.drawLine(points[x].X,points[x].Y,points[x+1].X,points[x+1].Y,2,this.strokeStyle);
+          this.graphics.drawLine(points[x].x,points[x].y,points[x+1].x,points[x+1].y,2,this.strokeStyle);
         }
       }
       

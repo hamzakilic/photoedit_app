@@ -4,7 +4,7 @@ import { LayerSelect } from '../../models/photoedit/layerSelect';
 
 import { Callback } from '../../lib/callback';
 import { Point } from '../../lib/draw/point';
-import { Calc } from '../../lib/calc';
+import { HMath } from '../../lib/hMath';
 import { RotationHelper } from '../../models/photoedit/lib/rotationHelper';
 @Component({
   selector: 'layer-selected',
@@ -41,68 +41,68 @@ export class LayerSelectedComponent implements OnInit {
     let y = (this.surface.height  / 2) + (this.surface.marginTop);
     let x = this.surface.marginLeft;
     let wmouse=(this.whichMouseOver == 1 ? 2 : 1);
-    let point = Calc.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height / 2));
+    let point = HMath.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height / 2));
 
-    return new Point(point.X * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.Y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
+    return new Point(point.x * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
   }
     public get leftTop(): Point {
     let y = (this.surface.marginTop );
     let x = this.surface.marginLeft ;
     let wmouse=(this.whichMouseOver == 2 ? 2 : 1);
-    let point = Calc.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height  / 2));
+    let point = HMath.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height  / 2));
 
-    return new Point(point.X*this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.Y*this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
+    return new Point(point.x*this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.y*this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
   }
    public get top(): Point {
     let y = (this.surface.marginTop);
     let x = this.surface.marginLeft +(this.surface.width)/2;
     let wmouse=(this.whichMouseOver == 3 ? 2 : 1);
-    let point = Calc.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height  / 2));
+    let point = HMath.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height  / 2));
 
-    return new Point(point.X * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.Y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
+    return new Point(point.x * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
   }
    public get rightTop(): Point {
     let y = (this.surface.marginTop );
     let x = this.surface.marginLeft +(this.surface.width);
     let wmouse=(this.whichMouseOver == 4 ? 2 : 1);
-    let point = Calc.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height / 2));
+    let point = HMath.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height / 2));
 
-    return new Point(point.X * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.Y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
+    return new Point(point.x * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
   }
 
   public get right(): Point {
     let y = (this.surface.marginTop)+(this.surface.height)/2;
     let x = this.surface.marginLeft +(this.surface.width);
     let wmouse=(this.whichMouseOver == 5 ? 2 : 1);
-    let point = Calc.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height  / 2));
+    let point = HMath.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height  / 2));
 
-    return new Point(point.X * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.Y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
+    return new Point(point.x * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
   }
     public get rightBottom(): Point {
     let y = (this.surface.marginTop )+(this.surface.height);
     let x = this.surface.marginLeft +(this.surface.width);
     let wmouse=(this.whichMouseOver == 6 ? 2 : 1);
-    let point = Calc.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height  / 2));
+    let point = HMath.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height  / 2));
 
-    return new Point(point.X * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.Y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2));
+    return new Point(point.x * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2));
   }
 
    public get bottom(): Point {
     let y = (this.surface.marginTop )+(this.surface.height);
     let x = this.surface.marginLeft +(this.surface.width)/2;
     let wmouse=(this.whichMouseOver == 7 ? 2 : 1);
-    let point = Calc.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height  / 2));
+    let point = HMath.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width  / 2, this.surface.marginTop + this.surface.height  / 2));
 
-    return new Point(point.X * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.Y *  this.surface.scale  - (this.surface.selectPointwh * wmouse/ 2))
+    return new Point(point.x * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.y *  this.surface.scale  - (this.surface.selectPointwh * wmouse/ 2))
   }
 
    public get leftBottom(): Point {
     let y = (this.surface.marginTop)+(this.surface.height);
     let x = this.surface.marginLeft;
     let wmouse=(this.whichMouseOver == 8 ? 2 : 1);
-    let point = Calc.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width / 2, this.surface.marginTop + this.surface.height  / 2));
+    let point = HMath.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width / 2, this.surface.marginTop + this.surface.height  / 2));
 
-    return new Point(point.X * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.Y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
+    return new Point(point.x * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
   }
 
   cssclass(val: number){

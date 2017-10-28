@@ -5,7 +5,7 @@ import { Graphics } from '../../lib/graphics';
 import { Rect } from '../../lib/draw/rect';
 import { Rect2D } from '../../lib/draw/rect2D';
 import { Point } from '../../lib/draw/point'
-import { Calc } from '../../lib/calc';
+import { HMath } from '../../lib/hMath';
 import { HImage } from '../../lib/image';
 
 export class Surface {
@@ -239,7 +239,7 @@ export class SurfaceCanvas extends Surface {
   */
  public get rectRotated():Rect{
    let rect = new Rect(this.marginLeft,this.marginTop,this.width,this.height);   
-   let rotatedRect= Calc.rotateRect(rect,this.rotateAngleDeg);
+   let rotatedRect= HMath.rotateRect(rect,this.rotateAngleDeg);
   
    return rotatedRect;
    
@@ -251,7 +251,7 @@ export class SurfaceCanvas extends Surface {
   */
  public get rectRotated2D():Rect2D{
    let rect = new Rect2D(new Point(this.marginLeft,this.marginTop),new Point(this.marginLeft,this.marginTop+this.height),new Point(this.marginLeft+this.width,this.marginTop),new Point(this.marginLeft+this.width,this.marginTop+this.height));
-   let rotatedRect= Calc.rotateRect2D(rect,this.rotateAngleDeg);
+   let rotatedRect= HMath.rotateRect2D(rect,this.rotateAngleDeg);
    return rotatedRect;
  }
 

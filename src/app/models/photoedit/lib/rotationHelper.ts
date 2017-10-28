@@ -1,5 +1,5 @@
 import { Point } from "../../../lib/draw/point";
-import { Calc } from "../../../lib/calc";
+import { HMath } from "../../../lib/hMath";
 import { SurfaceCanvas } from '../surface';
 
 /**
@@ -98,7 +98,7 @@ export class RotationHelper {
         let centerPoint = new Point(surface.marginLeft + surface.width / 2, surface.marginTop + surface.height / 2);
         //find a base point
         //we will make this point a reference
-        let rotatedRectBottom = Calc.rotatePoint(new Point(surface.marginLeft + surface.width, surface.marginTop + surface.height), surface.rotateAngleDeg, centerPoint);
+        let rotatedRectBottom = HMath.rotatePoint(new Point(surface.marginLeft + surface.width, surface.marginTop + surface.height), surface.rotateAngleDeg, centerPoint);
 
 
 
@@ -123,19 +123,19 @@ export class RotationHelper {
 
 
         //rotate mouse move point
-        let rotatedmovePoint = Calc.rotatePoint(m, surface.rotateAngleDeg, new Point(0, 0));
+        let rotatedmovePoint = HMath.rotatePoint(m, surface.rotateAngleDeg, new Point(0, 0));
 
         let nAngle = angle;
 
 
         //calculate new center point
-        let nCenterPoint = new Point(centerPoint.X + rotatedmovePoint.X / 2, centerPoint.Y + rotatedmovePoint.Y / 2);
+        let nCenterPoint = new Point(centerPoint.x + rotatedmovePoint.x / 2, centerPoint.y + rotatedmovePoint.y / 2);
 
         //reverse rotate reference point
         //and do calculations
-        let cal = Calc.rotatePoint(rotatedRectBottom, -nAngle, nCenterPoint);
-        let newWidth = (cal.X - nCenterPoint.X) * 2;
-        let newHeight = (cal.Y - nCenterPoint.Y) * 2;
+        let cal = HMath.rotatePoint(rotatedRectBottom, -nAngle, nCenterPoint);
+        let newWidth = (cal.x - nCenterPoint.x) * 2;
+        let newHeight = (cal.y - nCenterPoint.y) * 2;
         //if there is keepratio
         //calculate height difference
         if (surface.keepRatio) {
@@ -143,18 +143,18 @@ export class RotationHelper {
             let scale = surface.width / surface.height;
             let difheight = difwidth / scale;
             let po = new Point(0, difheight);
-            let rotatedP = Calc.rotatePoint(po, surface.rotateAngleDeg, new Point(0, 0));
+            let rotatedP = HMath.rotatePoint(po, surface.rotateAngleDeg, new Point(0, 0));
             //change center point again
-            nCenterPoint.X -= rotatedP.X / 2;
-            nCenterPoint.Y -= rotatedP.Y / 2;
+            nCenterPoint.x -= rotatedP.x / 2;
+            nCenterPoint.y -= rotatedP.y / 2;
 
         }
 
         //reverse again center point         
-        cal = Calc.rotatePoint(rotatedRectBottom, -nAngle, nCenterPoint);
+        cal = HMath.rotatePoint(rotatedRectBottom, -nAngle, nCenterPoint);
         //and calculate widht and height again
-        newWidth = (cal.X - nCenterPoint.X) * 2;
-        newHeight = (cal.Y - nCenterPoint.Y) * 2;
+        newWidth = (cal.x - nCenterPoint.x) * 2;
+        newHeight = (cal.y - nCenterPoint.y) * 2;
 
         //if width or height is so small then return immediatlye
         if (newWidth < 10 || newHeight < 10)
@@ -169,8 +169,8 @@ export class RotationHelper {
 
 
         //calculate left and top points
-        let newLeft = cal.X - newWidth;
-        let newtop = cal.Y - newHeight;
+        let newLeft = cal.x - newWidth;
+        let newtop = cal.y - newHeight;
 
         return {
             width: newWidth - surface.width,
@@ -201,7 +201,7 @@ export class RotationHelper {
         //center point of surface
         let centerPoint = new Point(surface.marginLeft + surface.width / 2, surface.marginTop + surface.height / 2);
         //find a base  reference point
-        let rotatedRectLeftTop = Calc.rotatePoint(new Point(surface.marginLeft, surface.marginTop), surface.rotateAngleDeg, centerPoint);
+        let rotatedRectLeftTop = HMath.rotatePoint(new Point(surface.marginLeft, surface.marginTop), surface.rotateAngleDeg, centerPoint);
 
 
         //mouse mouve as point
@@ -225,36 +225,36 @@ export class RotationHelper {
 
 
         //rotate mouse move point
-        let rotatedmovePoint = Calc.rotatePoint(m, surface.rotateAngleDeg, new Point(0, 0));
+        let rotatedmovePoint = HMath.rotatePoint(m, surface.rotateAngleDeg, new Point(0, 0));
 
         let nAngle = angle;
 
 
         //with mouse recalculate center point again
-        let nCenterPoint = new Point(centerPoint.X + rotatedmovePoint.X / 2, centerPoint.Y + rotatedmovePoint.Y / 2);
+        let nCenterPoint = new Point(centerPoint.x + rotatedmovePoint.x / 2, centerPoint.y + rotatedmovePoint.y / 2);
 
         //reverse rotate reference point around center
-        let cal = Calc.rotatePoint(rotatedRectLeftTop, -nAngle, nCenterPoint);
+        let cal = HMath.rotatePoint(rotatedRectLeftTop, -nAngle, nCenterPoint);
         //calculate new width and height
-        let newWidth = (nCenterPoint.X - cal.X) * 2;
-        let newHeight = (nCenterPoint.Y - cal.Y) * 2;
+        let newWidth = (nCenterPoint.x - cal.x) * 2;
+        let newHeight = (nCenterPoint.y - cal.y) * 2;
         //if there is ratio, calculate height difference
         if (surface.keepRatio) {
             let difwidth = newWidth - surface.width;
             let scale = surface.width / surface.height;
             let difheight = difwidth / scale;
             let po = new Point(0, difheight);
-            let rotatedP = Calc.rotatePoint(po, surface.rotateAngleDeg, new Point(0, 0));
+            let rotatedP = HMath.rotatePoint(po, surface.rotateAngleDeg, new Point(0, 0));
             //changing  height also changes center recalculate again
-            nCenterPoint.X += rotatedP.X / 2;
-            nCenterPoint.Y += rotatedP.Y / 2;
+            nCenterPoint.x += rotatedP.x / 2;
+            nCenterPoint.y += rotatedP.y / 2;
 
         }
 
         //reverse rotate  reference point againg around  centerpoint
-        cal = Calc.rotatePoint(rotatedRectLeftTop, -nAngle, nCenterPoint);
-        newWidth = (nCenterPoint.X - cal.X) * 2;
-        newHeight = (nCenterPoint.Y - cal.Y) * 2;
+        cal = HMath.rotatePoint(rotatedRectLeftTop, -nAngle, nCenterPoint);
+        newWidth = (nCenterPoint.x - cal.x) * 2;
+        newHeight = (nCenterPoint.y - cal.y) * 2;
 
         //if width or height is so small then return immediatlye
         if (newWidth < 10 || newHeight < 10)
@@ -268,8 +268,8 @@ export class RotationHelper {
             }
 
 
-        let newLeft = cal.X;
-        let newtop = cal.Y;
+        let newLeft = cal.x;
+        let newtop = cal.y;
 
         return {
             width: newWidth - surface.width,
@@ -301,7 +301,7 @@ export class RotationHelper {
         //center point of surface
         let centerPoint = new Point(surface.marginLeft + surface.width / 2, surface.marginTop + surface.height / 2);
         //find a base reference point
-        let rotatedRectLeftBottom = Calc.rotatePoint(new Point(surface.marginLeft, surface.marginTop + surface.height), surface.rotateAngleDeg, centerPoint);
+        let rotatedRectLeftBottom = HMath.rotatePoint(new Point(surface.marginLeft, surface.marginTop + surface.height), surface.rotateAngleDeg, centerPoint);
 
 
         //mouse movement as point
@@ -325,19 +325,19 @@ export class RotationHelper {
 
 
         //rotate mouse movement
-        let rotatedmovePoint = Calc.rotatePoint(m, surface.rotateAngleDeg, new Point(0, 0));
+        let rotatedmovePoint = HMath.rotatePoint(m, surface.rotateAngleDeg, new Point(0, 0));
 
         let nAngle = angle;
 
 
         //recalculate center point again 
-        let nCenterPoint = new Point(centerPoint.X + rotatedmovePoint.X / 2, centerPoint.Y + rotatedmovePoint.Y / 2);
+        let nCenterPoint = new Point(centerPoint.x + rotatedmovePoint.x / 2, centerPoint.y + rotatedmovePoint.y / 2);
 
         //reverse rotate reference point around centerpoint
-        let cal = Calc.rotatePoint(rotatedRectLeftBottom, -nAngle, nCenterPoint);
+        let cal = HMath.rotatePoint(rotatedRectLeftBottom, -nAngle, nCenterPoint);
         //recalculate new width and height
-        let newWidth = (nCenterPoint.X - cal.X) * 2;
-        let newHeight = (cal.Y - nCenterPoint.Y) * 2;
+        let newWidth = (nCenterPoint.x - cal.x) * 2;
+        let newHeight = (cal.y - nCenterPoint.y) * 2;
 
         //if there is keepratio then calculate difference of width according to height
         if (surface.keepRatio) {
@@ -346,17 +346,17 @@ export class RotationHelper {
             let difheight = newHeight - surface.height;
             let difwidth = difheight * scale;
             let po = new Point(difwidth, 0);
-            let rotatedP = Calc.rotatePoint(po, surface.rotateAngleDeg, new Point(0, 0));
+            let rotatedP = HMath.rotatePoint(po, surface.rotateAngleDeg, new Point(0, 0));
             //recalculate center point againg
-            nCenterPoint.X += rotatedP.X / 2;
-            nCenterPoint.Y += rotatedP.Y / 2;
+            nCenterPoint.x += rotatedP.x / 2;
+            nCenterPoint.y += rotatedP.y / 2;
 
         }
 
         //again reverse rotate reference point 
-        cal = Calc.rotatePoint(rotatedRectLeftBottom, -nAngle, nCenterPoint);
-        newWidth = (nCenterPoint.X - cal.X) * 2;
-        newHeight = (cal.Y - nCenterPoint.Y) * 2;
+        cal = HMath.rotatePoint(rotatedRectLeftBottom, -nAngle, nCenterPoint);
+        newWidth = (nCenterPoint.x - cal.x) * 2;
+        newHeight = (cal.y - nCenterPoint.y) * 2;
 
         //if width or height is so small then return immediatlye
         if (newWidth < 10 || newHeight < 10)
@@ -370,8 +370,8 @@ export class RotationHelper {
             }
 
 
-        let newLeft = cal.X;
-        let newtop = cal.Y - newHeight;
+        let newLeft = cal.x;
+        let newtop = cal.y - newHeight;
 
         return {
             width: newWidth - surface.width,
@@ -401,7 +401,7 @@ export class RotationHelper {
         //center of surface
         let centerPoint = new Point(surface.marginLeft + surface.width / 2, surface.marginTop + surface.height / 2);
         //find a base reference point for calculation
-        let rotatedRectRightTop = Calc.rotatePoint(new Point(surface.marginLeft + surface.width, surface.marginTop), surface.rotateAngleDeg, centerPoint);
+        let rotatedRectRightTop = HMath.rotatePoint(new Point(surface.marginLeft + surface.width, surface.marginTop), surface.rotateAngleDeg, centerPoint);
 
 
         //mouse movement as a point
@@ -425,19 +425,19 @@ export class RotationHelper {
 
 
         //rotate mouse movement 
-        let rotatedmovePoint = Calc.rotatePoint(m, surface.rotateAngleDeg, new Point(0, 0));
+        let rotatedmovePoint = HMath.rotatePoint(m, surface.rotateAngleDeg, new Point(0, 0));
 
         let nAngle = angle;
 
 
         //calculate center point again
-        let nCenterPoint = new Point(centerPoint.X + rotatedmovePoint.X / 2, centerPoint.Y + rotatedmovePoint.Y / 2);
+        let nCenterPoint = new Point(centerPoint.x + rotatedmovePoint.x / 2, centerPoint.y + rotatedmovePoint.y / 2);
 
         //reverse rotate reference point again 
-        let cal = Calc.rotatePoint(rotatedRectRightTop, -nAngle, nCenterPoint);
+        let cal = HMath.rotatePoint(rotatedRectRightTop, -nAngle, nCenterPoint);
 
-        let newWidth = (cal.X - nCenterPoint.X) * 2;
-        let newHeight = (nCenterPoint.Y - cal.Y) * 2;
+        let newWidth = (cal.x - nCenterPoint.x) * 2;
+        let newHeight = (nCenterPoint.y - cal.y) * 2;
 
         if (surface.keepRatio) {
             //calculate difference width again
@@ -445,16 +445,16 @@ export class RotationHelper {
             let difheight = newHeight - surface.height;
             let difwidth = difheight * scale;
             let po = new Point(difwidth, 0);
-            let rotatedP = Calc.rotatePoint(po, surface.rotateAngleDeg, new Point(0, 0));
+            let rotatedP = HMath.rotatePoint(po, surface.rotateAngleDeg, new Point(0, 0));
             //recalculate center point 
-            nCenterPoint.X -= rotatedP.X / 2;
-            nCenterPoint.Y -= rotatedP.Y / 2;
+            nCenterPoint.x -= rotatedP.x / 2;
+            nCenterPoint.y -= rotatedP.y / 2;
 
         }
         //reverse rotate reference point 
-        cal = Calc.rotatePoint(rotatedRectRightTop, -nAngle, nCenterPoint);
-        newWidth = (cal.X - nCenterPoint.X) * 2;
-        newHeight = (nCenterPoint.Y - cal.Y) * 2;
+        cal = HMath.rotatePoint(rotatedRectRightTop, -nAngle, nCenterPoint);
+        newWidth = (cal.x - nCenterPoint.x) * 2;
+        newHeight = (nCenterPoint.y - cal.y) * 2;
 
 
         //if width or height is so small then return immediatlye
@@ -469,8 +469,8 @@ export class RotationHelper {
             }
 
 
-        let newLeft = cal.X - newWidth;
-        let newtop = cal.Y;
+        let newLeft = cal.x - newWidth;
+        let newtop = cal.y;
 
         return {
             width: newWidth - surface.width,

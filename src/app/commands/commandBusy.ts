@@ -8,9 +8,9 @@ import { AppService } from '../services/app.service';
 import { Workspace } from '../models/photoedit/workSpace';
 import { LayerEmpty } from '../models/photoedit/layerEmpty';
 import { LayerImage } from '../models/photoedit/layerImage';
-import { Calc } from '../lib/calc';
+import { HMath } from '../lib/hMath';
 import { Rect } from '../lib/draw/rect';
-import { Imaging } from '../lib/imagealgorithm/imaging';
+
 
 
 

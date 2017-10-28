@@ -8,7 +8,7 @@ import { LayerText } from "../../models/photoedit/layerText";
 import { LayerGraphics } from "../../models/photoedit/layerGraphics";
 import { Callback } from '../../lib/callback';
 import { Point } from '../../lib/draw/point';
-import { Calc } from '../../lib/calc';
+import { HMath } from '../../lib/hMath';
 import {CalcLayer} from "../../models/photoedit/lib/calcLayer";
 import { AutoCompleteItem } from "../../entities/autocompleteItem";
 
@@ -61,8 +61,8 @@ export class LayerPropertiesComponent implements OnInit {
     let val = parseInt(value);
     if(val){
     let point=CalcLayer.calculateTop(val,layer);
-    layer.setLeft(point.X,new Callback(() => layer.render()));
-    layer.setTop(point.Y,new Callback(() => layer.render()));
+    layer.setLeft(point.x,new Callback(() => layer.render()));
+    layer.setTop(point.y,new Callback(() => layer.render()));
     }
 }
 
@@ -71,8 +71,8 @@ export class LayerPropertiesComponent implements OnInit {
     let val = parseInt(value);
     if(val){
     let point=CalcLayer.calculateLeft(val,layer);
-    layer.setLeft(point.X,new Callback(() => layer.render()));
-    layer.setTop(point.Y,new Callback(() => layer.render()));
+    layer.setLeft(point.x,new Callback(() => layer.render()));
+    layer.setTop(point.y,new Callback(() => layer.render()));
     }
   }
 

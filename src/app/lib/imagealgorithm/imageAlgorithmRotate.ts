@@ -4,7 +4,7 @@ import { HImage } from '../image';
 import { Color } from '../draw/color';
 import { Rect } from '../draw/rect';
 import { Point } from '../draw/point';
-import { Calc } from '../calc';
+import { HMath } from '../hMath';
 import { ImageAlgorithmFill } from './imageAlgorithmFill';
 
 
@@ -129,7 +129,7 @@ export class ImageAlgorithmRotate implements IImageAlgorithmImmutable {
     //bilinear interpolation rotation algorithm
     private rotateOther(img: HImage): HImage {
         let rectSource = new Rect(0, 0, img.width, img.height);
-        let rotatedSourceRect = Calc.rotateRect(rectSource, this.angleDegrees);
+        let rotatedSourceRect = HMath.rotateRect(rectSource, this.angleDegrees);
 
         let rotatedImage = new HImage(rotatedSourceRect.width.extCeil(), rotatedSourceRect.height.extCeil());
         if (this.padColor)
@@ -148,11 +148,11 @@ export class ImageAlgorithmRotate implements IImageAlgorithmImmutable {
 
         for (let y = 0; y < rotatedImage.height; ++y) {
             for (let x = 0; x < rotatedImage.width; ++x) {
-                let rotatedPoint = Calc.rotatePoint(new Point(x, y), -this.angleDegrees, centerPoint);
-                rotatedPoint.X += rotatedSourceRect.x;
-                rotatedPoint.Y += rotatedSourceRect.y;
-                ox = rotatedPoint.X;
-                oy = rotatedPoint.Y;
+                let rotatedPoint = HMath.rotatePoint(new Point(x, y), -this.angleDegrees, centerPoint);
+                rotatedPoint.x += rotatedSourceRect.x;
+                rotatedPoint.y += rotatedSourceRect.y;
+                ox = rotatedPoint.x;
+                oy = rotatedPoint.y;
                 ox1 = ox.extFloor();
                 oy1 = oy.extFloor();
 
