@@ -95,6 +95,7 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
        this._context.drawImage(bitmap, sourceRect.x,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height);
        
     }).catch((ex)=>{
+      //debugger;
       //TODO: exception durumu handle edilmeli
     });
   }

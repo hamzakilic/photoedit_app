@@ -142,15 +142,15 @@ public static  rgbToHsl(r, g, b):Array<number> {
   }
 
   public static rgbToXYZ(r,g,b){
-    let _R = ( r / 255 )
+   let _R = ( r / 255 )
     let _G = ( g / 255 )
     let _B = ( b / 255 )
     
-    if ( _R > 0.04045 ) _R = ( ( _R + 0.055 ) / 1.055 ) ^ 2.4
+    if ( _R > 0.04045 ) _R = ( ( _R + 0.055 ) / 1.055 ) ** 2.4
     else                   _R = _R / 12.92
-    if ( _G > 0.04045 ) _G = ( ( _G + 0.055 ) / 1.055 ) ^ 2.4
+    if ( _G > 0.04045 ) _G = ( ( _G + 0.055 ) / 1.055 ) ** 2.4
     else                   _G = _G / 12.92
-    if ( _B > 0.04045 ) _B = ( ( _B + 0.055 ) / 1.055 ) ^ 2.4
+    if ( _B > 0.04045 ) _B = ( ( _B + 0.055 ) / 1.055 ) ** 2.4
     else                   _B = _B / 12.92
     
     _R = _R * 100
@@ -159,11 +159,26 @@ public static  rgbToHsl(r, g, b):Array<number> {
     
     let X = _R * 0.4124 + _G * 0.3576 + _B * 0.1805
     let Y = _R * 0.2126 + _G * 0.7152 + _B * 0.0722
-    let Z = _R * 0.0193 + _G * 0.1192 + _B * 0.9505
+    let Z = _R * 0.0193 + _G * 0.1192 + _B * 0.9505 
+   /*  let m00=0.412453;
+    let m01=0.357580;
+    let m02=0.180423;
+    let m10=0.212671;
+    let m11= 0.715160;
+    let m12=0.072169;
+    let m20=0.019334;
+    let m21=0.119193;
+    let m22=0.950227;
+    let X=m00*_r+m01*g+m02*b;
+    let Y=m10*r+m11*g+m12*b;
+    let Z=m20*r+m21*g+m22*b; */
+
     return [X,Y,Z];
   }
 
-  public static XYZToCIE_Lab(X,Y,Z){
+  
+
+  public static XYZToLab(X,Y,Z){
     const ReferenceX=95.047;
     const ReferenceY=100.000;
     const ReferenceZ=	108.883;
@@ -171,16 +186,38 @@ public static  rgbToHsl(r, g, b):Array<number> {
     let _Y = Y / ReferenceY
     let _Z = Z / ReferenceZ
     
-    if ( _X > 0.008856 ) _X = _X ^ ( 1/3 )
+    if ( _X > 0.008856 ) _X = _X ** ( 1/3 )
     else                    _X = ( 7.787 * _X ) + ( 16 / 116 )
-    if ( _Y > 0.008856 ) _Y = _Y ^ ( 1/3 )
+    if ( _Y > 0.008856 ) _Y = _Y ** ( 1/3 )
     else                    _Y = ( 7.787 * _Y ) + ( 16 / 116 )
-    if ( _Z > 0.008856 ) _Z = _Z ^ ( 1/3 )
+    if ( _Z > 0.008856 ) _Z = _Z ** ( 1/3 )
     else                    _Z = ( 7.787 * _Z ) + ( 16 / 116 )
     
     let CIEL = ( 116 * _Y ) - 16
     let CIEa = 500 * ( _X - _Y )
     let CIEb = 200 * ( _Y - _Z )
+    
     return [CIEL,CIEa,CIEb];
+  }
+
+  public static LabToLCH(L,a,b){
+
+    let _H = Math.atan2( b, a );  //Quadrant by signs
+    
+    if ( _H > 0 ) _H = ( _H / Math.PI ) * 180;
+    else             _H = 360 - ( Math.abs( _H ) / Math.PI ) * 180;
+    
+    
+    let C = Math.sqrt( a**2 + b**2 );
+    let H = _H;
+    return [L,C,H];
+
+    /*let C=Math.sqrt(a*a+b*b);
+    let H=0;
+    let temp=Math.atan2(b,a);
+    if(temp>=0)
+    H=temp;
+    else H=temp+360;
+    return [L,C,H];*/
   }
 }

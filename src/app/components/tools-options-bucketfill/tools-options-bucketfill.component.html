@@ -23,6 +23,16 @@
         <label class="btn btn-primary btn-sm w-50 lineheightsmall " style="margin-top:3px;margin-left:0px;margin-right:0px;margin-bottom:3px;line-height:1rem" [(ngModel)]="selectType" btnRadio="selection" tooltip="Fill selection" placement="right">S</label>
         <label class="btn btn-primary btn-sm w-50 lineheightsmall " style="margin-top:3px;margin-left:0px;margin-right:0px;margin-bottom:3px;line-height:1rem" [(ngModel)]="selectType" btnRadio="color" tooltip="Fill similar color" placement="right">C</label>
         
+        
+      </div>
+    </div>
+    <div *ngIf="selectType=='color'" class="row no-gutters ">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon w-50 font-size8" style="margin-top:1px;margin-bottom:1px" tooltip="Threshold" placement="right">Threshold</span>
+        <input type="number" class="form-control" placeholder="Enter threshold" aria-describedby="sizing-addon2" 
+         min="2" max="10" step="0.2" [value]="threshold" (input)="threshold=($event.target.value)">
+  
+         
       </div>
     </div>
     

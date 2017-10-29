@@ -97,7 +97,7 @@ export class EditTypeErase extends EditType {
     } else {
       let gradient = graphics.createRadialGradient(x, y, 0, x, y, size);
       
-      let color = Color.from(brush);
+      let color = Color.fromStringRGBA(brush);
       if (!color) {
         graphics.fillStyle(brush);
         return;

@@ -86,4 +86,20 @@ export class ToolsOptionsBucketfillComponent implements OnInit {
 
   }
 
+  public get threshold():string{
+    if(this.isValid())
+      return (<EditTypeBucket>(<WorkModeBucket>this.project.activeWorkspace.workMode).editType).threshold.toString();
+      return "2";
+
+  }
+  public set threshold(val:string){
+    let valInt=Number.parseInt(val);
+    if(this.isValid() && valInt != Number.NaN)
+      (<EditTypeBucket>(<WorkModeBucket>this.project.activeWorkspace.workMode).editType).threshold=valInt;
+      
+
+  }
+
+
+
 }
