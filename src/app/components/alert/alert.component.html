@@ -1,0 +1,5 @@
+<div class="photoeditalert">
+    <div *ngFor="let alert of alerts">
+        <alert class="customalert" [type]="alert.type" [dismissible]="false" [dismissOnTimeout]="alert.timeout" (onClosed)="alert.onClosed($event)" >{{ alert.msg }}</alert>
+     </div>
+</div>

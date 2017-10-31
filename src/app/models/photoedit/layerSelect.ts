@@ -41,11 +41,8 @@ abstract class Shape {
 
   }
 
-
-
-
-
 }
+
 class ShapeRect extends Shape {
   private _startPoint: Point;
   private _endPoint: Point;
@@ -362,6 +359,7 @@ export class LayerSelect extends Layer {
   static readonly SubTypeEllipse = "ellipse";
   static readonly SubTypePolygon = "polygon";
   static readonly SubTypeLasso = "lasso";
+  static readonly SubTypeMagicWand="magicwand";
 
 
   static readonly ClipSelf = "self";

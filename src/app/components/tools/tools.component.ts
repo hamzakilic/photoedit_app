@@ -1,3 +1,6 @@
+import { AlertItem } from './../../entities/alertItem';
+import { AppService } from './../../services/app.service';
+import { CmdShowAlert } from './../../commands/cmdShowAlert';
 import { WorkModeHand } from './../../models/photoedit/workmodes/workModeHand';
 
 
@@ -20,10 +23,13 @@ export class ToolsComponent implements OnInit {
 
 
   projectService: ProjectService;
+  appService:AppService;
   public project: Proj;
+
   
-  constructor(projectService: ProjectService) {
+  constructor(projectService: ProjectService,appService:AppService) {
     this.projectService = projectService;
+    this.appService=appService;
 
     this.project = this.projectService.currentProject;
   }
@@ -103,9 +109,19 @@ export class ToolsComponent implements OnInit {
   }
   selectPolygonSelection() {
     this.selectWorking(Workspace.WorkModeSelection,LayerSelect.SubTypePolygon);
-  
+    let alert=new CmdShowAlert(new AlertItem('info','for finish double click',2000),this.appService);
+    alert.executeAsync();
     //this.isCollapsed=true;
   }
+
+  public get magicwandCss() {
+    return { active: this.isWorkingMode(Workspace.WorkModeSelection,LayerSelect.SubTypeMagicWand) };
+  }
+
+ 
+  selectMagicWandSelection() {   
+    this.selectWorking(Workspace.WorkModeSelection,LayerSelect.SubTypeMagicWand);
+  } 
 
   public get brushCss() {
     return { active: this.isWorkingMode(Workspace.WorkModeBrush)};
@@ -152,6 +168,8 @@ export class ToolsComponent implements OnInit {
   selectBucket() {   
     this.selectWorking(Workspace.WorkModeBucket);
   } 
+
+  
 
 
 

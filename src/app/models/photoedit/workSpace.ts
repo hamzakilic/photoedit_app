@@ -436,6 +436,7 @@ export class Workspace extends HEventEmitter {
   public static readonly WorkModeErase = 14;
   public static readonly WorkModeHand=15;
   public static readonly WorkModeBucket=16;
+  public static readonly WorkModeMagicWand=17;
 
 
 }
