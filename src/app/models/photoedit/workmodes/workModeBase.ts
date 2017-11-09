@@ -8,7 +8,7 @@ export abstract class WorkModeBase {
       this.workspace = workspace;
       if (this.workspace.selectionLayer && disposeSelect) {
         this.canvasElement = this.workspace.selectionLayer.htmlElement;
-        this.workspace.removeSelectionLayer();//.selectionLayer.dispose();    
+        this.workspace.removeSelectionLayer();
         
       }
   

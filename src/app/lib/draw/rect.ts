@@ -28,4 +28,8 @@ export class Rect {
   public get rightBottom():Point{
     return new Point(this.x+this.width,this.y+this.height);
   }
+
+  public toString(){
+    return `{x:${this.x},y:${this.y},w:${this.width},h:${this.height}}`;
+  }
 }

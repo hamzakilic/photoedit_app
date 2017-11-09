@@ -29,6 +29,7 @@ export class Color{
           a=Math.round(Number.parseFloat(splitted[3])*255);
         return new Color(r,g,b,a);
         }
+        return undefined;
     }
     public static fromString(val:string):Color{
         if(!val)
@@ -40,7 +41,7 @@ export class Color{
             return r + r + g + g + b + b;
         });
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(val);
-        result? new Color(
+        return result? new Color(
             parseInt(result[1], 16),
             parseInt(result[2], 16),
             parseInt(result[3], 16)

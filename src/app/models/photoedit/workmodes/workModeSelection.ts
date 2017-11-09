@@ -51,9 +51,16 @@ export class WorkModeSelection extends WorkModeBase {
       if (this.workspace.selectionLayer)
         this.workspace.selectionLayer.doubleClick(event,scroll);
     }
-  
+    private findSeledtedWorkspaceLayer():Layer{
+      
+      let selectedLayer= this.workspace.layers.find((value)=>value.isSelected);
+      if(selectedLayer)return selectedLayer;
+      if(this.workspace.layers.length>0)
+      return this.workspace.layers[0]
+      return undefined;
+    }
     protected createLayer(width: number, height: number, left: number, top: number) {
-      return new LayerSelect(width, height, left, top);
+      return new LayerSelect(width, height, left, top,this.findSeledtedWorkspaceLayer());
     }
   
   }

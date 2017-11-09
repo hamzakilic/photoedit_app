@@ -378,6 +378,7 @@ export class Workspace extends HEventEmitter {
         this._workMode = new WorkModeCrop(this);
         break;
       case Workspace.WorkModeSelection:
+      
         if (!this.workMode || this._workMode.typeOf != working)
           this._workMode = new WorkModeSelection(this, parameter);
         else (this._workMode as WorkModeSelection).changeType(parameter);

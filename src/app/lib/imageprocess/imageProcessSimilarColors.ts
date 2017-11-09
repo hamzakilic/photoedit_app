@@ -10,7 +10,7 @@ import { Layer } from '../../models/photoedit/layer';
 export class ImageProcessSimilarColors {
 
     ///layer parametresini debug yapmak için kullanıyorum
-    public static process(layer:Layer,img: HImage, color: Color, point: Point,threshold:number): Array<Polygon> {
+    public static process(layer:Layer,img: HImage, color: Color, point: Point,threshold:number,continous:number=5): Array<Polygon> {
         
 
         let xyz = ColorConversion.rgbToXYZ(color.r, color.g, color.b);
@@ -52,14 +52,14 @@ export class ImageProcessSimilarColors {
                 points.push(new Point(x, y));
               //  layer.graphics.setPixel(x,y,new Color(255,255,255,255));
 
-                visitPoints.push(new Point(x - 1, y - 1));
+                //visitPoints.push(new Point(x - 1, y - 1));
                 visitPoints.push(new Point(x - 1, y));
-                visitPoints.push(new Point(x - 1, y + 1));
+                //visitPoints.push(new Point(x - 1, y + 1));
                 visitPoints.push(new Point(x, y - 1));
                 visitPoints.push(new Point(x, y + 1));
-                visitPoints.push(new Point(x + 1, y - 1));
+                //visitPoints.push(new Point(x + 1, y - 1));
                 visitPoints.push(new Point(x + 1, y));
-                visitPoints.push(new Point(x + 1, y + 1));
+                //visitPoints.push(new Point(x + 1, y + 1));
 
             }else{
                // layer.graphics.setPixel(x,y,new Color(255,0,0,255));

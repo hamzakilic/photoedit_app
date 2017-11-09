@@ -1,4 +1,6 @@
 
+import { ImageProcessSimilarColors } from './../../lib/imageprocess/imageProcessSimilarColors';
+
 import { HMath } from './../../lib/hMath';
 
 import { Rect } from './../../lib/draw/rect';
@@ -29,17 +31,18 @@ abstract class Shape {
   abstract mouseUp(point: Point);
   abstract toPolygon(): Polygon;
   abstract doubleClick(point: Point);
-
-  /**
-   *
-   */
-  constructor(graphics: Graphics) {
-    Helper.createStrokeStyle(graphics, (bitmap) => {
+  
+  protected _selectedLayer:Layer;
+  
+  constructor(graphics: Graphics,selectedLayer:Layer) {
+    this._selectedLayer = selectedLayer;
+      Helper.createStrokeStyle(graphics, (bitmap) => {
       let gradient = graphics.createPattern(bitmap, "");
       this.strokeStyle = gradient;
-    });
+    });  
 
   }
+
 
 }
 
@@ -47,25 +50,34 @@ class ShapeRect extends Shape {
   private _startPoint: Point;
   private _endPoint: Point;
   private _isConstructing = true;
-  constructor(point: Point, graphics: Graphics) {
-    super(graphics);
+  constructor(point: Point, graphics: Graphics,selectedLayer:Layer) {
+    super(graphics,selectedLayer);
     this._startPoint = point;
     this._endPoint = point;
 
   }
   render(graphics: Graphics) {
-
-    graphics.lineWidth(2);
+    console.log(this._selectedLayer.scale);
+    let linewidth=this._selectedLayer.scale<1?1:1;
+    graphics.lineWidth(linewidth);
     let sxmin = Math.min(this._startPoint.x, this._endPoint.x);
     let symin = Math.min(this._startPoint.y, this._endPoint.y);
     let exmax = Math.max(this._startPoint.x, this._endPoint.x);
     let eymax = Math.max(this._startPoint.y, this._endPoint.y);
 
-    let rect = new Rect(sxmin, symin, exmax - sxmin, eymax - symin);
+    let translate=linewidth%2==1?0.5:0;
+    let rect = new Rect(sxmin+translate, symin+translate, exmax - sxmin, eymax - symin);
+    console.log(sxmin,symin,exmax-sxmin,eymax-symin, rect.toString())
     graphics.fillRect(rect, this.fillStyle);
-    graphics.drawRect(rect, this.strokeStyle);
-    // graphics.lineWidth(1);
-    // graphics.drawRect(new Rect(rect.x+1,rect.y+1,rect.width-2,rect.height-2), "#000");
+   
+
+    //graphics.strokeStyle(this.strokeStyle);
+    
+    graphics.drawRect(rect,this.strokeStyle);
+    
+  
+    //graphics.stroke();
+    
   }
 
   mouseMove(point: Point): boolean {
@@ -104,8 +116,8 @@ class ShapeEllipse extends Shape {
 
   private _startPoint: Point;
   private _endPoint: Point;
-  constructor(point: Point, graphics: Graphics) {
-    super(graphics);
+  constructor(point: Point, graphics: Graphics,selectedLayer:Layer) {
+    super(graphics,selectedLayer);
 
     this._startPoint = point;
     this._endPoint = point;
@@ -124,7 +136,8 @@ class ShapeEllipse extends Shape {
     let centerY = height / 2 + symin;
 
     graphics.beginPath();
-    graphics.lineWidth(2);
+    let linewidth=this._selectedLayer.scale<1?1:1
+    graphics.lineWidth(linewidth);
     graphics.strokeStyle(this.strokeStyle);
     graphics.fillStyle(this.fillStyle);
     graphics.ellipse(centerX, centerY, width / 2, height / 2, 0, 0, 2 * Math.PI);
@@ -182,8 +195,8 @@ class ShapeLasso extends Shape {
   protected _isConstructing = true;
   protected points: Array<Point>;
 
-  constructor(point: Point, graphics: Graphics) {
-    super(graphics);
+  constructor(point: Point, graphics: Graphics,selectedLayer:Layer) {
+    super(graphics,selectedLayer);
     this.points = [];
     if (point)
       this.points.push(point);
@@ -195,7 +208,8 @@ class ShapeLasso extends Shape {
       graphics.beginPath();
       graphics.strokeStyle(this.strokeStyle);
       graphics.fillStyle(this.fillStyle);
-      graphics.lineWidth(2);
+      let linewidth=this._selectedLayer.scale<1?1:1
+      graphics.lineWidth(linewidth);
       graphics.moveTo(this.points[0].x, this.points[0].y);
       let i = 1;
       for (i = 1; i < this.points.length - 2; ++i) {
@@ -270,8 +284,8 @@ class ShapePolygon extends ShapeLasso {
   /**
    *
    */
-  constructor(point: Point, graphics: Graphics) {
-    super(point, graphics);
+  constructor(point: Point, graphics: Graphics,selectedLayer:Layer) {
+    super(point, graphics,selectedLayer);
     //algorithma için bir tane fazladan ekledik
     //this.point[this.point.length-1]=point
     //mousemove için çalışsın diye
@@ -288,7 +302,8 @@ class ShapePolygon extends ShapeLasso {
       strokeStyle.addColorStop(1,'rgb(255,255,255)'); */
       graphics.strokeStyle(this.strokeStyle);
       graphics.fillStyle(this.fillStyle);
-      graphics.lineWidth(2);
+      let linewidth=this._selectedLayer.scale<1?1:1
+      graphics.lineWidth(linewidth);
       graphics.beginPath();
       graphics.moveTo(this.points[0].x, this.points[0].y);
       let i = 1;
@@ -352,6 +367,61 @@ class ShapePolygon extends ShapeLasso {
 
 }
 
+class ShapeMagicWand extends Shape{
+
+  polygon:Polygon;
+  
+  constructor(point: Point, graphics: Graphics,selectedLayer:Layer) {
+    super(graphics,selectedLayer);
+    
+    this.polygon=new Polygon();
+    
+
+  }
+
+  render(graphics: Graphics) {
+    if (this.polygon) {
+      graphics.drawPolygon(this.polygon,true);      
+    }
+  }
+
+
+  mouseMove(point: Point): boolean {
+   
+    return false;
+  }
+
+  mouseDown(point: Point): boolean {
+      let color= this._selectedLayer.getPixel(point.x,point.y);
+      
+      let similarRegions=ImageProcessSimilarColors.process(this._selectedLayer,this._selectedLayer.getImage(),color,point,4);
+      if(similarRegions.length>0){
+        
+        this.polygon=similarRegions[0].hull();
+      }else
+      this.polygon=new Polygon();
+      
+      return true;
+  }
+
+  mouseUp(point: Point): boolean {
+    
+    return true;
+  }
+  doubleClick(point: Point) {
+    
+    return false;
+  }
+
+  toPolygon(): Polygon {
+   
+    //return this.polygon.simplify();
+    return this.polygon;
+
+  }
+
+}
+
 
 export class LayerSelect extends Layer {
 
@@ -375,10 +445,11 @@ export class LayerSelect extends Layer {
   private _shapeType: string;
   private _shape: Shape;
   private _clipMode: string;
+  private _selectedWorkspaceLayer:Layer;
 
-  constructor(width: number, height: number, left: number, top: number) {
+  constructor(width: number, height: number, left: number, top: number,selectedWorkspaceLayer:Layer) {
     super("select layer");
-
+    this._blendMode="hard-light";
     this.keepRatio = false;
     this.scaleView = false;
 
@@ -392,9 +463,11 @@ export class LayerSelect extends Layer {
     this.isFinishedContructing = false;
     this._polygons = [];
     this._clipMode = LayerSelect.ClipSelf;
-    Helper.createStrokeStyle(this.graphics, (bitmap) => {
+    this._selectedWorkspaceLayer=selectedWorkspaceLayer;
+     Helper.createStrokeStyle(this.graphics, (bitmap) => {
       this.strokeStyle = this.graphics.createPattern(bitmap, "repeat");
-    });
+    }); 
+    
 
   }
   public get polygons():Array<Polygon>{
@@ -422,27 +495,35 @@ export class LayerSelect extends Layer {
       case LayerSelect.SubTypeRect:
         let point = this.normalizeMouseEvent(event,scroll);
         if (point) {
-          this._shape = new ShapeRect(point, this.graphics);
+          this._shape = new ShapeRect(point, this.graphics,this._selectedWorkspaceLayer);
         }
         break;
       case LayerSelect.SubTypeEllipse:
         point = this.normalizeMouseEvent(event,scroll);
         if (point) {
-          this._shape = new ShapeEllipse(point, this.graphics);
+          this._shape = new ShapeEllipse(point, this.graphics,this._selectedWorkspaceLayer);
         }
         break;
       case LayerSelect.SubTypeLasso:
         point = this.normalizeMouseEvent(event,scroll);
         if (point) {
-          this._shape = new ShapeLasso(point, this.graphics);
+          this._shape = new ShapeLasso(point, this.graphics,this._selectedWorkspaceLayer);
         }
         break;
       case LayerSelect.SubTypePolygon:
         point = this.normalizeMouseEvent(event,scroll);
         if (point && !(this._shape instanceof ShapePolygon)) {
-          this._shape = new ShapePolygon(point, this.graphics);
+          this._shape = new ShapePolygon(point, this.graphics,this._selectedWorkspaceLayer);
         }
         else this._shape.mouseDown(this.normalizeMouseEvent(event,scroll));
+        break;
+        case LayerSelect.SubTypeMagicWand:
+        point = this.normalizeMouseEvent(event,scroll);
+        if (point && !(this._shape instanceof ShapeMagicWand)) {
+          this._shape = new ShapeMagicWand(point, this.graphics,this._selectedWorkspaceLayer);
+        }
+        this._shape.mouseDown(this.normalizeMouseEvent(event,scroll));
+        
         break;
 
     }
@@ -539,16 +620,20 @@ export class LayerSelect extends Layer {
   public fillStyle = "rgba(" + 10 + "," + 10 + "," + 50 + "," + (100 / 255) + ")";
 
   renderPolygon(polygon: Polygon, animate: boolean) {
+    
 
     let points = polygon.points;
     if (points.length > 0) {
-      this.graphics.lineWidth(2);
+      let linewidth=this._selectedWorkspaceLayer.scale<1 ? 1: 1;
+      this.graphics.lineWidth(linewidth);
+      
       this.graphics.strokeStyle(this.strokeStyle);
       if (!animate) {
         this.graphics.beginPath();
-        this.graphics.moveTo(points[0].x, points[0].y);
+        let translate=linewidth%2==1?0.5:0;
+        this.graphics.moveTo(points[0].x+translate, points[0].y+translate);
         for (let i = 1; i < points.length; ++i) {
-          this.graphics.drawLine2(points[i].x, points[i].y);
+          this.graphics.drawLine2(points[i].x+translate, points[i].y+translate);
         }
         this.graphics.closePath();
         this.graphics.stroke();
@@ -563,7 +648,7 @@ export class LayerSelect extends Layer {
         for (x = 1; x < totalParts - 1; x += 1) {
           if ((x + dividen) % 2 == 0) { 
                     
-          this.graphics.drawLine(points[x].x,points[x].y,points[x+1].x,points[x+1].y,2,this.strokeStyle);
+          this.graphics.drawLine(points[x].x,points[x].y,points[x+1].x,points[x+1].y,1,this.strokeStyle);
         }
       }
       
@@ -577,18 +662,23 @@ export class LayerSelect extends Layer {
   }
 
   public render(animate: boolean = false): void {
-
-    this.graphics.save();
+    
+    //console.log('rendering layer select');
+  
     let rect = new Rect(0, 0, this.width, this.height);
+   
     this.graphics.clearRect(rect);
+    
+    this.graphics.beginPath();
+   
     this._polygons.forEach((item) => this.renderPolygon(item, animate));
     if (this._shape)
       this._shape.render(this.graphics);
-    this.graphics.restore();
-    if(animate){
+    
+      if(animate){
       this.frameCounter++;
       this.scheduleAnimation();
-    }
+    }  
 
 
   }
@@ -599,7 +689,7 @@ export class LayerSelect extends Layer {
     setTimeout(() => {
       if (this.animation)
         this.animation = window.requestAnimationFrame(() => this.render(true));
-    }, 1000 / 3);
+    }, 1000 / 3); 
   }
 
 
@@ -610,68 +700,19 @@ export class LayerSelect extends Layer {
 
 
   protected startAnimation() {
-    if (!this.animation){
+      /*  if (!this.animation){
       this.frameCounter=0;
       this.animation = window.requestAnimationFrame(() => this.render(true));
-    }
+    }    */
+    this.render();
+    
+    
   }
   protected stopAnimation() {
     if (this.animation)
       window.cancelAnimationFrame(this.animation);
     this.animation = undefined;
   }
-
-
-
-
-
-
-  /*
-  protected renderAnimation():void{
-    
-    if(this.graphics){
-      
-    this.graphics.save();
-    let rect= new Rect(0,0,this.width,this.height);
-    this.graphics.clearRect(rect);
-    
-    this.graphics.beginPath();
-    let splitSize=5;
-    let totalParts= Math.ceil(this.width/splitSize)*2+Math.ceil(this.height/splitSize)*2;
-    let lh=4;//linewidth
-    
-    this.frameCounter++;
-    let dividen=this.frameCounter%totalParts;
-    for(let x=0;x<totalParts;x+=1){     
-      
-        if((x+dividen)%2==0){
-        if(x*splitSize<this.width)          
-           this.graphics.drawLine(x*splitSize,0,x*splitSize+splitSize,0,lh,this.strokeStyle);
-        else
-        if(x*splitSize<this.width+this.height)
-          this.graphics.drawLine(this.width,x*splitSize-this.width,this.width,x*splitSize+splitSize-this.width,lh,this.strokeStyle);
-        else
-        if(x*splitSize<this.width+this.height+this.width)
-          this.graphics.drawLine(this.width+this.height+this.width-x*splitSize,this.height,this.width+this.height+this.width-x*splitSize+splitSize,this.height,lh,this.strokeStyle);
-        else
-          this.graphics.drawLine(0,this.width+this.height+this.width+this.height-x*splitSize,0,this.width+this.height+this.width+this.height-x*splitSize+splitSize,lh,this.strokeStyle);
-        
-        
-      }
-      
-      
-    }
-    this.graphics.restore();
-  }
- 
-  
-   this.scheduleAnimation();
- 
-  }
- 
-   */
-
-
 
 
 }
