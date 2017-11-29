@@ -26,7 +26,7 @@ export class EffectService {
             this._loaded=true;
             this._effects=data;
             this._running=false;
-            console.log("loaded effects json");
+           /*  console.log("loaded effects json"); */
 
         });
     }

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BusyModule } from 'angular2-busy';
@@ -75,6 +76,8 @@ import { ToolsOptionsBrushComponent } from './components/tools-options-brush/too
 import { ToolsOptionsEraseComponent } from './components/tools-options-erase/tools-options-erase.component';
 import { ToolsOptionsBucketfillComponent } from './components/tools-options-bucketfill/tools-options-bucketfill.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { FormAboutComponent } from './components/form-about/form-about.component';
+import { FormShortcutsComponent } from './components/form-shortcuts/form-shortcuts.component';
 
 
 
@@ -128,6 +131,8 @@ import { AlertComponent } from './components/alert/alert.component';
     ToolsOptionsEraseComponent,
     ToolsOptionsBucketfillComponent,
     AlertComponent,
+    FormAboutComponent,
+    FormShortcutsComponent,
     
   ],
   imports: [
@@ -146,6 +151,7 @@ import { AlertComponent } from './components/alert/alert.component';
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
+    RouterModule.forRoot([]),
     AutoCompleteModule,
     ColorPickerModule,
     VirtualScrollModule,

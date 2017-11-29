@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 
 
-import { menuItemOpenFile } from './menuItemOpenFile';
+import { MenuItemOpenFile } from './menuItemOpenFile';
 import { Callback } from '../../../lib/callback';
 
 
@@ -41,7 +41,7 @@ class MockFileReader{
 
 describe('menuItemOpenFile', () => {
 
-  let item = new menuItemOpenFile('test', 'image/*',
+  let item = new MenuItemOpenFile('test', 'image/*',
   new Callback((data)=>onSuccess(data)),
   new Callback((err)=>onError(err)));
   let errorOccured = false;

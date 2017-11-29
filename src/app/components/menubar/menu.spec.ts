@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { menu, menuItem } from './menu';
+import { menu, MenuItem } from './menu';
 import {Callback } from '../../lib/callback';
 
 describe('menu', () => {
@@ -36,7 +36,7 @@ describe('menuItem', () => {
    });
 
     it('should create a menuItem', () => {
-      let m = new menuItem('amenuItem',callfunc);
+      let m = new MenuItem('amenuItem',callfunc);
       expect(m).toBeTruthy();
       expect(m.disabled).toBe(false);
       expect(m.clickFunc).toBeTruthy();
@@ -44,7 +44,7 @@ describe('menuItem', () => {
   });
 
   it('should call func ', () => {
-      let m = new menuItem('amenuItem',callfunc);
+      let m = new MenuItem('amenuItem',callfunc);
       m.onClick(undefined);
       expect(counter).toBe(1);
 

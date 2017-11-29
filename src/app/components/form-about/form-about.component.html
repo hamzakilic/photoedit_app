@@ -1,0 +1,42 @@
+
+  <div bsModal #smModal="bs-modal" class="modal " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="height:230px;color:black">
+      <div class="modal-content">
+        <div class="modal-header ">
+          <h6 class="modal-title pull-left">About</h6>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
+          <span aria-hidden="true">&times;</span>
+          </button>
+
+        </div>
+        
+        <div class="modal-body " >
+         
+            <div class="container-fluid">
+              
+            
+              <div class="row" *ngFor="let item of items">
+                <div class="col-4">
+                  <label class="col-form-label">{{item.name}}<span>:</span></label>
+                </div>
+                <div class="col-8">
+                  
+                  <label *ngIf="!item.src" class="col-form-label">{{item.detail}}</label>
+                  <label *ngIf="item.src" class="col-form-label" ><a href="{{item.src}}" target='_blank'>{{item.detail}}</a></label>
+                                  
+                  
+                </div>
+
+              </div>
+            
+
+           
+
+            </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+

@@ -1,17 +1,18 @@
 
 
-import { menu } from '../menu';
-import { menuItem } from '../menu';
+import { Menu } from '../menu';
+import { MenuItem } from '../menu';
 import { Utility } from '../../../lib/utility';
 import { ReadFileOrUrl } from '../../../lib/readFileOrUrl';
 import { Message } from '../../../entities/message';
 import { MessageBus } from '../../../lib/messageBus';
 
 import { Callback  } from '../../../lib/callback';
+import { ShortCut } from '../../../services/keyboard.service';
 
 
 //a base class for open file actions
-export class menuItemOpenFile extends menuItem {
+export class MenuItemOpenFile extends MenuItem {
   public isOpenFile: boolean;
   public idOfInput: string;
   public acceptFileTypes: string;
@@ -19,8 +20,9 @@ export class menuItemOpenFile extends menuItem {
   public onSuccessFunc: Callback;
   public onErrorFunc: Callback;
 
-  constructor(name: string, acceptFileTypes: string, onSuccess?: Callback, onError?: Callback, onProgress?: Callback) {
-    super(name, undefined);
+  constructor(name: string, acceptFileTypes: string, onSuccess?: Callback, onError?: Callback, onProgress?: Callback,shortCut?:ShortCut) {
+    
+    super(name, undefined,shortCut);
     this.isOpenFile = true;
     this.idOfInput = Utility.uuid();
     this.acceptFileTypes = acceptFileTypes;
@@ -46,7 +48,7 @@ export class menuItemOpenFile extends menuItem {
 
 
 onClick(parameters ?: any): void {
-
+  
   let fileElem = (<HTMLInputElement>document.getElementById(this.idOfInput));
 
   if(fileElem) {

@@ -1,14 +1,18 @@
+import { CmdShowFormShortcuts } from './../../commands/cmdShowFormShortcuts';
+import { CmdShowError } from './../../commands/cmdShowError';
+import { CmdShowFormAbout } from './../../commands/cmdShowFormAbout';
+import { ShortCut } from './../../services/keyboard.service';
 
 import { Component, OnInit } from '@angular/core';
-import { menu } from './menu';
-import { menuItem } from './menu';
+import { Menu } from './menu';
+import { MenuItem } from './menu';
 import { Utility } from '../../lib/utility';
 import { ReadFileOrUrl } from '../../lib/readFileOrUrl';
 import { Message } from '../../entities/message';
 import { MessageBus } from '../../lib/messageBus';
-import { menuItemOpenFile } from '../menubar/menuItems/menuItemOpenFile';
-import { menuItemOpenImage } from '../menubar/menuItems/menuItemOpenImage';
-import { menuItemNewImage } from '../menubar/menuItems/menuItemNewImage';
+import { MenuItemOpenFile } from '../menubar/menuItems/menuItemOpenFile';
+import { MenuItemOpenImage } from '../menubar/menuItems/menuItemOpenImage';
+import { MenuItemNewImage } from '../menubar/menuItems/menuItemNewImage';
 
 import { ProjectService } from '../../services/project.service';
 import { AppService } from '../../services/app.service';
@@ -37,6 +41,7 @@ import { CmdCreateInstagramFilter } from '../../commands/cmdCreateInstagramFilte
 
 import { ImageAlgorithmFlip } from '../../lib/imagealgorithm/imageAlgorithmFlip';
 import { ImageAlgorithmGrayscale } from '../../lib/imagealgorithm/imageAlgorithmGrayscale';
+import { KeyboardService } from '../../services/keyboard.service';
 
 
 @Component({
@@ -45,27 +50,26 @@ import { ImageAlgorithmGrayscale } from '../../lib/imagealgorithm/imageAlgorithm
   styleUrls: ['./menubar.component.scss']
 })
 export class MenubarComponent implements OnInit {
-  public menus: menu[];
+  public menus: Menu[];
   private _projectService: ProjectService;
   private _appService: AppService;
   private _effectService:EffectService;
-  constructor(projectService: ProjectService, appservice: AppService,effectService:EffectService) {
+  constructor(projectService: ProjectService, appservice: AppService,effectService:EffectService,keyboardService:KeyboardService) {
     this._projectService = projectService;
     this._appService = appservice;
     this._effectService=effectService;
     this.menus = [];
 
-    let menuFile = new menu("File");
-    
-    menuFile.childs.push(new menuItemNewImage(projectService));
-    menuFile.childs.push(new menuItemOpenImage(projectService));
-    menuFile.childs.push(new menuItem("Sample Images", new Callback(() => { this.showFormSampleImages(true) })));
-    let divider = new menuItem('divider', undefined);
+    let menuFile = new Menu("File");    
+    menuFile.childs.push(new MenuItemNewImage(projectService,new ShortCut(true,true,false,'N',menuFile.name)));
+    menuFile.childs.push(new MenuItemOpenImage(projectService,new ShortCut(true,false,false,'O',menuFile.name)));
+    menuFile.childs.push(new MenuItem("Sample Images", new Callback(() => { this.showFormSampleImages(true) }),new ShortCut(true,false,false,'I',menuFile.name)));
+    let divider = new MenuItem('divider', undefined);
     divider.isDivider = true;
     menuFile.childs.push(divider);   
     this.menus.push(menuFile);
 
-    let divider2 = new menuItem('divider', undefined);
+    let divider2 = new MenuItem('divider', undefined);
     divider2.isDivider = true;
 
    
@@ -73,11 +77,11 @@ export class MenubarComponent implements OnInit {
 
 
     
-    let menuEdit = new menu("Edit");
-    menuEdit.childs.push(new menuItem("Cut", new Callback(this.notImplementedYet)));
-    menuEdit.childs.push(new menuItem("Copy", new Callback(this.notImplementedYet)));
-    menuEdit.childs.push(new menuItem("Paste", new Callback(this.notImplementedYet)));
-    menuEdit.childs.push(new menuItem("Delete", new Callback(this.notImplementedYet)));
+    let menuEdit = new Menu("Edit");
+    menuEdit.childs.push(new MenuItem("Cut", new Callback(this.notImplementedYet),new ShortCut(true,false,false,'X',menuEdit.name)));
+    menuEdit.childs.push(new MenuItem("Copy", new Callback(this.notImplementedYet),new ShortCut(true,false,false,'C',menuEdit.name)));
+    menuEdit.childs.push(new MenuItem("Paste", new Callback(this.notImplementedYet),new ShortCut(true,false,false,'V',menuEdit.name)));
+    menuEdit.childs.push(new MenuItem("Delete", new Callback(this.notImplementedYet),new ShortCut(false,false,false,'D',menuEdit.name)));
     this.menus.push(menuEdit);
 
 
@@ -85,54 +89,63 @@ export class MenubarComponent implements OnInit {
 
     
 
-    let workspace = new menu("Image");
-    workspace.childs.push(new menuItem("Resize", new Callback(() => (this.resize()))));
-    workspace.childs.push(new menuItem("Rotate 90", new Callback(() => { this.rotate() })));
-    let wDivider=new menuItem("divider",undefined);
+    let menuImage = new Menu("Image");
+    menuImage.childs.push(new MenuItem("Resize", new Callback(() => (this.resize())),new ShortCut(true,true,false,'R',menuImage.name)));
+    menuImage.childs.push(new MenuItem("Rotate 90", new Callback(() => { this.rotate() }),new ShortCut(true,false,false,'R',menuImage.name)));
+    let wDivider=new MenuItem("divider",undefined);
     wDivider.isDivider=true;
-    workspace.childs.push(wDivider);
-    workspace.childs.push(new menuItem("Flip Horizontal", new Callback(() => { this.flipImage(true) })));
-    workspace.childs.push(new menuItem("Flip Vertical", new Callback(() => { this.flipImage(false) })));
+    menuImage.childs.push(wDivider);
+    menuImage.childs.push(new MenuItem("Flip Horizontal", new Callback(() => { this.flipImage(true) })));
+    menuImage.childs.push(new MenuItem("Flip Vertical", new Callback(() => { this.flipImage(false) })));
 
-    this.menus.push(workspace);
+    this.menus.push(menuImage);
 
-    let menuLayers = new menu("Layer");
-    menuLayers.childs.push(new menuItem("New", new Callback(() => { this.newLayer() })));
-    menuLayers.childs.push(new menuItem("New from selection", new Callback(this.notImplementedYet)));
-    menuLayers.childs.push(new menuItemOpenImage(projectService, "New from a file", false));
-    menuLayers.childs.push(new menuItem("New text layer", new Callback(()=>this.newTextLayer())));
-    menuLayers.childs.push(new menuItem("New from sample images", new Callback(()=>this.showFormSampleImages(false))));
-    let wDivider2=new menuItem("divider",undefined);
+    let menuLayers = new Menu("Layer");
+    menuLayers.childs.push(new MenuItem("New", new Callback(() => { this.newLayer() }),new ShortCut(false,false,true,'N',menuLayers.name)));
+    menuLayers.childs.push(new MenuItem("New from selection", new Callback(this.notImplementedYet)));
+    menuLayers.childs.push(new MenuItemOpenImage(projectService,new ShortCut(false,false,true,'F',menuLayers.name),  "New from a file", false));
+    menuLayers.childs.push(new MenuItem("New text layer", new Callback(()=>this.newTextLayer()),new ShortCut(false,false,true,'T',menuLayers.name)));
+    menuLayers.childs.push(new MenuItem("New from samples", new Callback(()=>this.showFormSampleImages(false)),new ShortCut(false,false,true,'I',menuLayers.name)));
+    let wDivider2=new MenuItem("divider",undefined);
     wDivider2.isDivider=true;
     menuLayers.childs.push(wDivider2);
-    menuLayers.childs.push(new menuItem("Flip Horizontal", new Callback(() => { this.flipImage(true) })));
-    menuLayers.childs.push(new menuItem("Flip Vertical", new Callback(() => { this.flipImage(false) })));
+    menuLayers.childs.push(new MenuItem("Flip Horizontal", new Callback(() => { this.flipImage(true) }),new ShortCut(false,false,true,'H',menuLayers.name)));
+    menuLayers.childs.push(new MenuItem("Flip Vertical", new Callback(() => { this.flipImage(false) }),new ShortCut(false,false,true,'V',menuLayers.name)));
     this.menus.push(menuLayers);
 
-    let filters = new menu("Filters");
-    filters.childs.push(new menuItem("Color remap", new Callback(this.showFormColorRemap)));
-    filters.childs.push(new menuItem("Color adjustment", new Callback(this.showFormColorAdjustment)));
-    filters.childs.push(new menuItem("Grayscale", new Callback(this.showFormGrayscale)));
-    this.menus.push(filters);
+    let menuFilters = new Menu("Filters");
+    menuFilters.childs.push(new MenuItem("Color remap", new Callback(this.showFormColorRemap)));
+    menuFilters.childs.push(new MenuItem("Color adjustment", new Callback(this.showFormColorAdjustment)));
+    menuFilters.childs.push(new MenuItem("Grayscale", new Callback(this.showFormGrayscale)));
+    this.menus.push(menuFilters);
     
-    let font = new menu("Font");
-    font.childs.push(new menuItem("Load Google Fonts", new Callback(this.showFormFontLoad)));
+    let font = new Menu("Font");
+    font.childs.push(new MenuItem("Load Google Fonts", new Callback(this.showFormFontLoad)));
     this.menus.push(font);
 
  /*    let window = new menu("Window");
     window.childs.push(new menuItem("Show Layer Properties", new Callback(this.showFormLayerProperties)));
     this.menus.push(window); */
 
-    let menuHelp = new menu("Help");
-    menuHelp.childs.push(new menuItem("About", new Callback(this.showAbout)));
+    let menuHelp = new Menu("Help");
+    menuHelp.childs.push(new MenuItem("About", new Callback(this.showAbout)));
+    menuHelp.childs.push(new MenuItem("Shortcuts", new Callback(this.showShortcuts)));
     this.menus.push(menuHelp);
 
 
-    let menuTest = new menu("Test");
-    menuTest.childs.push(new menuItem("Create Instagram", new Callback(() => { this.createInstagramFilter(); })));
-    this.menus.push(menuTest);
+    let menuTest = new Menu("Test");
+    menuTest.childs.push(new MenuItem("Create Instagram", new Callback(() => { this.createInstagramFilter(); })));
+   // this.menus.push(menuTest);
 
+    this.menus.forEach((item)=>{
+      item.childs.forEach((subitem)=>{
+        if(subitem.shortCut){
+          
+          keyboardService.add(subitem.shortCut);
+        }
 
+      })
+    })
 
   }
 
@@ -148,7 +161,9 @@ export class MenubarComponent implements OnInit {
   }
 
   notImplementedYet() {
-    MessageBus.publish(Message.ShowError, { msg: 'not implemented yet' });
+    let cmd=new CmdShowError('not implemented yet');
+    cmd.executeAsync();
+    
   }
   showFormFontLoad(){
      let cmd=new CmdShowFormFontLoad();
@@ -185,7 +200,16 @@ export class MenubarComponent implements OnInit {
 }
 
   showAbout() {
-    MessageBus.publish(Message.ShowAbout, undefined);
+    
+    let cmd=new CmdShowFormAbout();
+    cmd.executeAsync();
+    
+  }
+  showShortcuts() {
+    
+    let cmd=new CmdShowFormShortcuts();
+    cmd.executeAsync();
+    
   }
   zoomIn() {
     let cmd = new CmdZoom(CmdZoom.In, this._projectService);
@@ -240,7 +264,7 @@ export class MenubarComponent implements OnInit {
 
 
   isMenuItem(item: any): boolean {
-    return item instanceof menuItem;
+    return item instanceof MenuItem;
 
   }
 

@@ -6,13 +6,17 @@
           <button id="single-button" type="button" class="btn btn-primary btn-sm groupbuttonpadding " dropdownToggle [disabled]="disabled">
           {{menu.name}} <span class="caret"></span>
            </button>
-          <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="single-button">
+          <ul *dropdownMenu class="dropdown-menu mydropdown-menu" role="menu" aria-labelledby="single-button">
             <div *ngFor="let childmenu of menu.childs">
               <ng-container *ngIf="isMenuItem(childmenu)">
                 <li *ngIf="!childmenu.isDivider" role="menuitem">
                   <input *ngIf="childmenu.isOpenFile" type="file" id={{childmenu.idOfInput}} accept={{childmenu.acceptFileTypes}} style="display:none"
                     (change)="childmenu.handleFiles()">
-                  <a class="dropdown-item childmenu" (click)="menu.close($event); childmenu.onClick();" href="#">{{childmenu.name}}</a>
+                  <a class="dropdown-item childmenu" (click)="menu.close($event); childmenu.onClick();" href="#">
+                    {{childmenu.name}}
+                      <span class="pull-right opac50">{{childmenu.shortCutName}}</span>
+                  </a>
+                  
   
                 </li>
                 <li *ngIf="childmenu.isDivider" class="divider dropdown-divider"></li>

@@ -1,5 +1,5 @@
-import { menu } from '../menu';
-import { menuItem } from '../menu';
+import { Menu } from '../menu';
+import { MenuItem } from '../menu';
 import { Utility } from '../../../lib/utility';
 import { ReadFileOrUrl } from '../../../lib/readFileOrUrl';
 import { Message } from '../../../entities/message';
@@ -9,22 +9,27 @@ import { CmdShowError } from '../../../commands/cmdShowError';
 
 import { Callback } from '../../../lib/callback';
 
-import { menuItemOpenFile } from './menuItemOpenFile'
+import { MenuItemOpenFile } from './menuItemOpenFile'
 import { FileData } from '../../../entities/fileData';
 import { ProjectService } from '../../../services/project.service';
+import { ShortCut } from '../../../services/keyboard.service';
 
-export class menuItemOpenImage extends menuItemOpenFile {
+export class MenuItemOpenImage extends MenuItemOpenFile {
 
   private projectService: ProjectService;
   private createWorkspace: boolean;
 
-  constructor(projectService: ProjectService, title = "Open Image", createWorkspace = true) {
+  constructor(projectService: ProjectService,shortCut:ShortCut, title = "Open File", createWorkspace = true) {
+
+    
 
     super(title, "image/*",
       new Callback((data) => { this.onSuccess(data) }),
       new Callback((err) => this.onError(err)),
-      new Callback((data) => this.onProgress(data))
-    );
+      new Callback((data) => this.onProgress(data)),
+    shortCut);
+    
+    
     this.projectService = projectService;
     this.createWorkspace = createWorkspace;
 
