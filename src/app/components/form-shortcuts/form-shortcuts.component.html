@@ -1,6 +1,6 @@
 
   <div bsModal #smModal="bs-modal" class="modal " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm" style="height:430px;width:450px;color:black">
+      <div class="modal-dialog modal-sm" style="height:430px;width:450px;">
         <div class="modal-content">
           <div class="modal-header ">
             <h6 class="modal-title pull-left">Shortcuts</h6>
@@ -10,18 +10,18 @@
   
           </div>
           
-          <div class="modal-body " style="color:black" >
+          <div class="modal-body" style="max-height:500px;overflow:auto" >
            
              
               
                   <div class="container-fluid" *ngFor="let grObject of shortCutsList" >
                      <h6>{{grObject.name}}</h6>
-                    <div class="row" *ngFor="let shortcut of grObject.shortCuts">
-                      <div class="col-6">
-                        <p>{{shortcut.name}}</p>
+                    <div class="row " style="font-size: small;padding-left:20px" *ngFor="let shortcut of grObject.shortCuts">
+                      <div class="col-6" >
+                        <span>{{shortcut.desc}}</span>
                       </div>
                       <div class="col-6">
-                          <p>{{createShortString(shortcut)}}</p>
+                          <span>{{createShortString(shortcut)}}</span>
                         </div>
                     </div>
                   </div>

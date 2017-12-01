@@ -63,7 +63,7 @@ export class MenubarComponent implements OnInit {
     let menuFile = new Menu("File");    
     menuFile.childs.push(new MenuItemNewImage(projectService,new ShortCut(true,true,false,'N',menuFile.name)));
     menuFile.childs.push(new MenuItemOpenImage(projectService,new ShortCut(true,false,false,'O',menuFile.name)));
-    menuFile.childs.push(new MenuItem("Sample Images", new Callback(() => { this.showFormSampleImages(true) }),new ShortCut(true,false,false,'I',menuFile.name)));
+    menuFile.childs.push(new MenuItem("Sample Images", new Callback(() => { this.showFormSampleImages(true) }),new ShortCut(true,true,false,'O',menuFile.name)));
     let divider = new MenuItem('divider', undefined);
     divider.isDivider = true;
     menuFile.childs.push(divider);   
@@ -129,7 +129,7 @@ export class MenubarComponent implements OnInit {
 
     let menuHelp = new Menu("Help");
     menuHelp.childs.push(new MenuItem("About", new Callback(this.showAbout)));
-    menuHelp.childs.push(new MenuItem("Shortcuts", new Callback(this.showShortcuts)));
+    menuHelp.childs.push(new MenuItem("Keyboard", new Callback(this.showShortcuts),new ShortCut(true,true,false,'K',menuHelp.name)));
     this.menus.push(menuHelp);
 
 
