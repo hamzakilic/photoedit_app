@@ -75,7 +75,7 @@ export class SurfaceComponent  implements OnInit,OnChanges,DoCheck {
 
             //burada graphics nesnesi oluşturulur
 
-        this.grphics = new Graphics(this.canvas,this.surface.width,this.surface.height,this.surface.scale);
+        this.grphics = new Graphics(this.canvas.nativeElement,this.surface.width,this.surface.height,this.surface.scale);
         this.surface.resizedAgain = true;
         //çok önemli
         //burada surface nesnesinin graphics nesnesine atama yapılıyor

@@ -1,3 +1,4 @@
+import { Callback } from './callback';
 import { Polygon } from './draw/polygon';
 import { Color } from './draw/color';
 import { HImage } from './image';
@@ -16,13 +17,13 @@ export class Graphics {
   /**
    * creates a graphics context from canvas element
    */
-  constructor(element: any, width: number, height: number, scale: number) {
+  constructor(element: HTMLCanvasElement, width: number, height: number, scale: number) {
 
-    this._context = element.nativeElement.getContext("2d");
+    this._context = element.getContext("2d");
     this.width = width;
     this.height = height;
     this.scale = scale;
-    this._canvas = element.nativeElement;
+    this._canvas = element;
    
 
   }
@@ -61,6 +62,7 @@ export class Graphics {
       return img;
 
     } else{ 
+      
     let imageData = this._context.getImageData(0, 0, this.width, this.height);    
     let arr = new Uint8ClampedArray(imageData.data);
     let img = new HImage(this.width,this.height,arr);
@@ -86,14 +88,15 @@ export class Graphics {
   }
 
   
-public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect) {
+public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect,callback?:Callback) {
    
     let imageData =new ImageData(img.Pixels,img.width,img.height);
     
     createImageBitmap(imageData).then((bitmap)=>{
       
        this._context.drawImage(bitmap, sourceRect.x,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height);
-       
+       if(callback)
+        callback.call(undefined);
     }).catch((ex)=>{
       //debugger;
       //TODO: exception durumu handle edilmeli

@@ -11,16 +11,26 @@ import { LayerEmpty } from '../models/photoedit/layerEmpty';
 
 import { HImage } from '../lib/image';
 import { LayerSelect } from '../models/photoedit/layerSelect';
+import { Graphics } from '../lib/graphics';
+import { Rect } from '../lib/draw/rect';
+import { AppService } from '../services/app.service';
+import { ClipboardService, ClipboardData } from '../services/clipboard.service';
+import { AlertItem } from '../entities/alertItem';
+import { Callback } from '../lib/callback';
 
 
 
 export class CmdCut extends Command {
   zoomType: number;
   projectService: ProjectService;
-  constructor(projectService: ProjectService) {
+  appService:AppService;
+  clipboardService:ClipboardService;
+  constructor(projectService: ProjectService,appService:AppService,clipboardService:ClipboardService) {
     super();
 
     this.projectService = projectService;
+    this.appService=appService;
+    this.clipboardService=clipboardService;
   }
   protected execute(): void {
     if (this.projectService.currentProject) {
@@ -39,22 +49,45 @@ export class CmdCut extends Command {
 
            let polygons = selectionLayer.polygons;
            polygons.forEach((poly)=>{
-             debugger;
+               
                let rect= poly.bounds;
                let translatedPoly=poly.translate(-rect.x,-rect.y);
                let crop=new ImageAlgorithmCrop(rect);
                let cropedImage =crop.process(selectedLayer.getImage());
-               let newLayer=new LayerImage(cropedImage,'cut');
-               workspace.addLayer(newLayer);
+              
+               let canvas=document.createElement('canvas');
+               canvas.width=cropedImage.width;
+               canvas.height=cropedImage.height;
+               let graphics=new Graphics(canvas,canvas.width,canvas.height,1);
+               graphics.save();
+               graphics.drawPolygon(translatedPoly,false);
+               graphics.clip();
+               graphics.drawImageRect(cropedImage,new Rect(0,0,canvas.width,canvas.height),new Rect(0,0,canvas.width,canvas.height),new Callback(()=>{
+              
+                //this is inside of 
+                graphics.restore();
+                let maskedImage= graphics.getImage();
+                graphics.dispose();
+                
+                canvas=null;
+                selectedLayer.graphics.save();                                
+                selectedLayer.graphics.drawPolygon(poly,false);
+                selectedLayer.graphics.clip();
+                selectedLayer.graphics.setBlendMode('destination-out');
+                selectedLayer.graphics.fillRect(rect,"FFFFFF");
+                selectedLayer.graphics.restore();
+                  
+               
+                
+                this.clipboardService.add(new ClipboardData(ClipboardData.Types.Image,maskedImage));
+                this.appService.showAlert(new AlertItem('info','Cutted',2000));
+                //let newLayer=new LayerImage(maskedImage,'cut');
+                //workspace.addLayer(newLayer);
+
+               }));
+               
                
            });
-
-           
-
-
-
-
-     
 
       }
     }

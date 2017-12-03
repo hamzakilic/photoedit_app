@@ -182,7 +182,7 @@ export class MenubarComponent implements OnInit {
     
   }
   cut() {
-    let cmd=new CmdCut(this._projectService);
+    let cmd=new CmdCut(this._projectService,this._appService,this._clipboardService);
     cmd.executeAsync();
     
   }

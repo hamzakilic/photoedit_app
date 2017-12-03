@@ -135,8 +135,9 @@ export class Workspace extends HEventEmitter {
       ly.marginRight = this.margin;
       ly.marginTop = this.margin;
       ly.marginBottom = this.margin;
-
+      
       this._layers.push(ly);
+      this.makeLayerSelected(ly);
     }
   }
 

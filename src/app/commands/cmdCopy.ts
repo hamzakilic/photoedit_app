@@ -14,6 +14,10 @@ import { LayerEmpty } from '../models/photoedit/layerEmpty';
 import { HImage } from '../lib/image';
 import { LayerSelect } from '../models/photoedit/layerSelect';
 import { AlertItem } from '../entities/alertItem';
+import { Point } from '../lib/draw/point';
+import { Graphics } from '../lib/graphics';
+import { Rect } from '../lib/draw/rect';
+import { Callback } from '../lib/callback';
 
 
 
@@ -46,24 +50,35 @@ export class CmdCopy extends Command {
 
            let polygons = selectionLayer.polygons;
            polygons.forEach((poly)=>{
-             
+               
                let rect= poly.bounds;
                let translatedPoly=poly.translate(-rect.x,-rect.y);
                let crop=new ImageAlgorithmCrop(rect);
                let cropedImage =crop.process(selectedLayer.getImage());
-               this.clipboardService.add(new ClipboardData(ClipboardData.Types.Image,cropedImage));
-               this.appService.showAlert(new AlertItem('info','Copied'));
-               //let newLayer=new LayerImage(cropedImage,'cut');
-               //workspace.addLayer(newLayer);
+              
+               let canvas=document.createElement('canvas');
+               canvas.width=cropedImage.width;
+               canvas.height=cropedImage.height;
+               let graphics=new Graphics(canvas,canvas.width,canvas.height,1);
+               graphics.save();
+               graphics.drawPolygon(translatedPoly,false);
+               graphics.clip();
+               graphics.drawImageRect(cropedImage,new Rect(0,0,canvas.width,canvas.height),new Rect(0,0,canvas.width,canvas.height),new Callback(()=>{
+              
+                //this is inside of 
+                graphics.restore();
+                let maskedImage= graphics.getImage();
+                graphics.dispose();
+                this.clipboardService.add(new ClipboardData(ClipboardData.Types.Image,maskedImage));
+                this.appService.showAlert(new AlertItem('info','Copied',2000));
+                canvas=null;
+                //let newLayer=new LayerImage(maskedImage,'copy');
+                //workspace.addLayer(newLayer);
+
+               }));
+               
                
            });
-
-           
-
-
-
-
-     
 
       }
     }
