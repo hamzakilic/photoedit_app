@@ -1,18 +1,18 @@
 <!-- <div class="container-fluid ">
     <div class="row align-items-start">
       <div class="col align-self-center"> -->
-  
-        <div id="menubuttons" *ngFor="let menu of menus" class="btn-group" dropdown [isOpen]="menu.isOpen">
-          <button id="single-button" type="button" class="btn btn-primary btn-sm groupbuttonpadding " dropdownToggle [disabled]="disabled">
+       <span *ngFor="let menu of menus">
+        <div id="menubuttons"  class="btn-group" dropdown [isOpen]="menu.isOpen" [isDisabled]="menu.disabled" >
+          <button id="single-button" type="button" class="btn btn-primary btn-sm groupbuttonpadding " dropdownToggle >
           {{menu.name}} <span class="caret"></span>
            </button>
-          <ul *dropdownMenu class="dropdown-menu mydropdown-menu" role="menu" aria-labelledby="single-button">
+          <ul *dropdownMenu class="dropdown-menu mydropdown-menu "  role="menu" aria-labelledby="single-button">
             <div *ngFor="let childmenu of menu.childs">
               <ng-container *ngIf="isMenuItem(childmenu)">
                 <li *ngIf="!childmenu.isDivider" role="menuitem">
                   <input *ngIf="childmenu.isOpenFile" type="file" id={{childmenu.idOfInput}} accept={{childmenu.acceptFileTypes}} style="display:none"
                     (change)="childmenu.handleFiles()">
-                  <a class="dropdown-item childmenu" (click)="menu.close($event); childmenu.onClick();" href="#">
+                  <a class="dropdown-item childmenu " (click)="menu.close($event); childmenu.onClick();" href="#">
                     {{childmenu.name}}
                       <span class="pull-right opac50">{{childmenu.shortCutName}}</span>
                   </a>
@@ -49,6 +49,7 @@
   
   
         </div>
+      </span>
   
   
   

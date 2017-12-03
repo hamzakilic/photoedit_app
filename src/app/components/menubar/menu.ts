@@ -5,16 +5,17 @@ import {Callback } from '../../lib/callback';
 
 
 export class Menu{
-  public name:string;
-  
+  public name:string;  
   public childs: any[];
-  public disabled: boolean;
+  
   public isOpen: false;
+  public isDisabledCallback:Callback;
   constructor(name: string){
     this.name = name;
     this.childs = [];
-    this.disabled = false;
+  
     this.isOpen = false;
+    this.isDisabledCallback=undefined;
     
   }
   public close($event: MouseEvent){
@@ -22,19 +23,27 @@ export class Menu{
     $event.stopPropagation();
     this.isOpen = false;
   }
+  
+  public get disabled():boolean{
+      if(!this.isDisabledCallback)
+      return false;
+      return this.isDisabledCallback.call(undefined);
+  }
+
+  
 
 }
 
 
 export class MenuItem{
   public name:string;
-  public disabled: boolean;
+  public isDisabledCallback:Callback;
   public clickFunc: Callback;
   public isDivider: boolean;
   public shortCut:ShortCut
   constructor(name: string,clickfunc:Callback,shortCut?:ShortCut ){
     this.name = name;
-    this.disabled = false;
+    this.isDisabledCallback=undefined;
     this.clickFunc = clickfunc;
     this.isDivider = false;
     
@@ -47,6 +56,14 @@ export class MenuItem{
     
     
   }
+
+
+  public get disabled():boolean{
+    if(!this.isDisabledCallback)
+    return false;
+    return this.isDisabledCallback.call(undefined);
+}
+
   public get shortCutName():string{
     if(this.shortCut){
         let str=[];

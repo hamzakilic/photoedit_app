@@ -22,7 +22,7 @@ export class FormAboutComponent implements OnInit {
     this._items.push({name:'version',detail:'1.0.0'});
     this._items.push({name:'producer',detail:'Hamza Kılıç',src:'http://www.hamzakilic.com'});
     this._items.push({name:'licence',detail:'MIT Licence',src:'https://opensource.org/licenses/MIT'});
-    this._items.push({name:'source',detail:'source code',src:'https://github.com/hamzakilic/wjimg'});
+   // this._items.push({name:'source',detail:'source code',src:'https://github.com/hamzakilic/wjimg'});
   }
 
   ngOnInit() {

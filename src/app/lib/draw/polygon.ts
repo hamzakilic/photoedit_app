@@ -1,3 +1,4 @@
+import { BUSY_CONFIG_DEFAULTS } from 'angular2-busy';
 
 
 
@@ -132,6 +133,14 @@ export class Polygon{
         
         pol.forEach((p)=>{ points.push(new Point(p.X,p.Y))});
         return new Polygon(points);
+    }
+    public translate(x:number,y:number):Polygon{
+        let paths=this.getPaths();
+        let points=[];
+        paths.forEach((pol)=>points.push(new Point(pol.X+x,pol.Y+y)));
+        return new Polygon(points);
+
+        
     }
 
     public hull():Polygon{

@@ -147,7 +147,7 @@ export class FormColorAdjustmentComponent implements OnInit {
     this._brightness = val;
   }
   brightnessChanged(value: number) {
-    this.brightness = value;
+    this._brightness = value;
     this.filterValues();
 
   }
@@ -159,7 +159,7 @@ export class FormColorAdjustmentComponent implements OnInit {
     this._contrast = val;
   }
   contrastChanged(value: number) {
-    this.contrast = value;
+    this._contrast = value;
     this.filterValues();
 
   }

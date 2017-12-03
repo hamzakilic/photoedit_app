@@ -78,6 +78,7 @@ import { ToolsOptionsBucketfillComponent } from './components/tools-options-buck
 import { AlertComponent } from './components/alert/alert.component';
 import { FormAboutComponent } from './components/form-about/form-about.component';
 import { FormShortcutsComponent } from './components/form-shortcuts/form-shortcuts.component';
+import { ClipboardService } from './services/clipboard.service';
 
 
 
@@ -158,7 +159,7 @@ import { FormShortcutsComponent } from './components/form-shortcuts/form-shortcu
     AngularDraggableModule
 
   ],
-  providers: [ProjectService, KeyboardService, AppService, FontService, UserService, EffectService],
+  providers: [ProjectService, KeyboardService, AppService, FontService, UserService, EffectService,ClipboardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

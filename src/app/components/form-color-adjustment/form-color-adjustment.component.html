@@ -25,7 +25,7 @@
 
                     </header>
                     <section class="trackbar-section">
-                      <trackbar-component [value]="brightness" [min]=-255 [max]=255 [step]=1 (valueChanged)="brightnessChanged($event)"></trackbar-component>
+                      <trackbar-component  [value]="brightness" [min]=-255 [max]=255 [step]=1 (valueChanged)="brightnessChanged($event)"></trackbar-component>
                     </section>
                   </div>
 
@@ -66,7 +66,7 @@
     
                         </header>
                         <section class="trackbar-section">
-                          <trackbar-component [value]="saturation" [min]=-100 [max]=100 [step]=1 (valueChanged)="lightChanged($event)"></trackbar-component>
+                          <trackbar-component [value]="light" [min]=-100 [max]=100 [step]=1 (valueChanged)="lightChanged($event)"></trackbar-component>
                         </section>
                       </div>
                     </li>
@@ -84,7 +84,7 @@
             </div>
             <div class="col-md-3">
               <label class="btn btn-primary btn-sm pull-right" role="button" (click)="close()">
-                  OK
+                  Apply
                 </label>
             </div>
           </div>

@@ -164,7 +164,7 @@ export class FormGrayscaleComponent implements OnInit {
   }
 
   close() {
-    debugger;
+    
     if (this._lastSelectedGrayscale) {
       let algo = new ImageAlgorithmGrayscale(this._lastSelectedGrayscale);
       let cmd = new CmdExecuteImageAlgorithms([algo], this._projectService, this._appService);
