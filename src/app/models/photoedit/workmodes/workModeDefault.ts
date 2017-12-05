@@ -8,7 +8,7 @@ export class WorkModeDefault extends WorkModeBase {
         super(workspace);
         this.workspace.cssClasses = "mouseDefault";
         this.workspace.removeSelectionLayer();
-    
+        this.workspace.layers.forEach((item)=>item.canResizeOrRotate=true);
       }
       public get typeOf(): number {
         return Workspace.WorkModeDefault;

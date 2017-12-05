@@ -105,6 +105,15 @@ export class LayerSelectedComponent implements OnInit {
     return new Point(point.x * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
   }
 
+  public get rotate(): Point {
+    let y = (this.surface.marginTop+this.surface.height/2);
+    let x = this.surface.marginLeft+this.surface.width/2;
+    let wmouse=(this.whichMouseOver == 9 ? 2 : 1);
+    let point = HMath.rotatePoint(new Point(x, y), this.surface.rotateAngleDeg, new Point(this.surface.marginLeft + this.surface.width / 2, this.surface.marginTop + this.surface.height  / 2));
+
+    return new Point(point.x * this.surface.scale - (this.surface.selectPointwh * wmouse / 2), point.y * this.surface.scale - (this.surface.selectPointwh * wmouse / 2))
+  }
+
   cssclass(val: number){
     return "cursorns";
   }
@@ -133,6 +142,7 @@ export class LayerSelectedComponent implements OnInit {
            case 3: //top side
            case 7: //bottom side
           RotationHelper.calculateCursorTopBottom(instance,this.surface.rotateAngleDeg);break;           
+          
           
           default:break;
         }

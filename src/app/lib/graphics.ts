@@ -159,6 +159,7 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect,callback?:Callb
   }
 
   public drawPolygon(polygon:Polygon,closePath:boolean=true){
+    if(polygon.points.length>0){
     this._context.beginPath();
     this._context.moveTo(polygon.points[0].x,polygon.points[0].y);
     for(let i=1;i<polygon.points.length;++i){
@@ -166,6 +167,7 @@ public drawImageRect(img: HImage, sourceRect: Rect,destRect:Rect,callback?:Callb
     }
     if(closePath)
     this._context.closePath();
+  }
   }
 
   public drawLine2(x1: number, y1: number) {

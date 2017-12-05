@@ -114,6 +114,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
       
     
       private findSelectedLayer(event: MouseEvent): Layer {
+        
         let selectedLayer = this.workspace.layers.find((layer) => layer.isSelected);
         if (selectedLayer) return selectedLayer;
         if (this.workspace.layers.length > 0)

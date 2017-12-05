@@ -76,14 +76,14 @@ mouse (mouseDown)="surface.mouseDownSelectedPoint($event,8)" (mouseOver)="mouseO
 </div>-->
 
 
-<!--<div  *ngIf="surface.canRotate" class="divSelectedLayer divRotate"  rotate
+<div  *ngIf="surface.canRotate" class="divSelectedLayer divRotate "  rotate
 [style.width.px]='surface.selectPointwh * (whichMouseOver==9 ? 2:1)'
 [style.height.px]='surface.selectPointwh * (whichMouseOver==9 ? 2:1)'
-[style.margin-left.px]="(surface.width*surface.scale/2)+(surface.marginLeft*surface.scale)-(surface.selectPointwh* (whichMouseOver==9 ? 2:1)/2)"
-[style.margin-top.px]="(surface.marginTop*surface.scale)-30-(surface.selectPointwh * (whichMouseOver==9 ? 2:1))"
+[style.margin-left.px]="rotate.x"
+[style.margin-top.px]="rotate.y"
 mouse (mouseDown)="surface.mouseDownSelectedPoint($event,9)" (mouseOver)="mouseOver($event,9)" (mouseLeave)="mouseLeave($event,9)">
 
-</div>-->
+</div>
 
 
 

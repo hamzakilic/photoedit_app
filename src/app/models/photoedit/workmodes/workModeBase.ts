@@ -17,7 +17,7 @@ export abstract class WorkModeBase {
         this.workspace.removeWorkLayer();      
         
       }
-  
+      this.workspace.layers.forEach((item)=>item.canResizeOrRotate=false);
       //this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event,scroll); });
     }
   

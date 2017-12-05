@@ -1,3 +1,4 @@
+import { CmdNewLayerFromSelection } from './../../commands/cmdNewLayerFromSelection';
 import { CmdPaste } from './../../commands/cmdPaste';
 import { CmdCopy } from './../../commands/cmdCopy';
 import { CmdShowFormShortcuts } from './../../commands/cmdShowFormShortcuts';
@@ -46,6 +47,7 @@ import { ImageAlgorithmGrayscale } from '../../lib/imagealgorithm/imageAlgorithm
 import { KeyboardService } from '../../services/keyboard.service';
 import { CmdCut } from '../../commands/cmdCut';
 import { ClipboardService } from '../../services/clipboard.service';
+import { CmdClear } from '../../commands/cmdClear';
 
 
 @Component({
@@ -88,7 +90,10 @@ export class MenubarComponent implements OnInit {
     menuEdit.childs.push(new MenuItem("Cut", new Callback(()=>this.cut()),new ShortCut(true,false,false,'X',menuEdit.name)));
     menuEdit.childs.push(new MenuItem("Copy", new Callback(()=>this.copy()),new ShortCut(true,false,false,'C',menuEdit.name)));
     menuEdit.childs.push(new MenuItem("Paste", new Callback(()=>this.paste()),new ShortCut(true,false,false,'V',menuEdit.name)));
-    menuEdit.childs.push(new MenuItem("Delete", new Callback(this.notImplementedYet),new ShortCut(false,false,false,'D',menuEdit.name)));
+    let dividerEdit = new MenuItem('divider', undefined);
+    dividerEdit.isDivider = true;
+    menuEdit.childs.push(dividerEdit);   
+    menuEdit.childs.push(new MenuItem("Clear", new Callback(()=>this.clear()),new ShortCut(false,false,false,'Delete',menuEdit.name)));
     this.menus.push(menuEdit);
 
 
@@ -111,7 +116,7 @@ export class MenubarComponent implements OnInit {
     let menuLayers = new Menu("Layer");
     menuLayers.isDisabledCallback=new Callback(()=>this.hasActiveWorkspace())
     menuLayers.childs.push(new MenuItem("New", new Callback(() => { this.newLayer() }),new ShortCut(false,false,true,'N',menuLayers.name)));
-    menuLayers.childs.push(new MenuItem("New from selection", new Callback(this.notImplementedYet)));
+    menuLayers.childs.push(new MenuItem("New from selection", new Callback(()=>this.newLayerFromSelection())));
     menuLayers.childs.push(new MenuItemOpenImage(projectService,new ShortCut(false,false,true,'F',menuLayers.name),  "New from a file", false));
     menuLayers.childs.push(new MenuItem("New text layer", new Callback(()=>this.newTextLayer()),new ShortCut(false,false,true,'T',menuLayers.name)));
     menuLayers.childs.push(new MenuItem("New from samples", new Callback(()=>this.showFormSampleImages(false)),new ShortCut(false,false,true,'I',menuLayers.name)));
@@ -181,6 +186,19 @@ export class MenubarComponent implements OnInit {
     cmd.executeAsync();
     
   }
+
+  newLayerFromSelection() {
+    let cmd=new CmdNewLayerFromSelection(this._projectService,this._appService);
+    cmd.executeAsync();
+    
+  }
+
+  clear() {
+    let cmd=new CmdClear(this._projectService,this._appService,this._clipboardService);
+    cmd.executeAsync();
+    
+  }
+
   cut() {
     let cmd=new CmdCut(this._projectService,this._appService,this._clipboardService);
     cmd.executeAsync();
@@ -192,7 +210,7 @@ export class MenubarComponent implements OnInit {
     
   }
   paste() {
-    let cmd=new CmdPaste(this._projectService);
+    let cmd=new CmdPaste(this._projectService,this._clipboardService);
     cmd.executeAsync();
     
   }

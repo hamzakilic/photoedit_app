@@ -17,18 +17,19 @@ import { AppService } from '../services/app.service';
 import { ClipboardService, ClipboardData } from '../services/clipboard.service';
 import { AlertItem } from '../entities/alertItem';
 import { Callback } from '../lib/callback';
-import { CommandBusy } from './commandBusy';
 
 
 
-export class CmdCut extends CommandBusy {
+export class CmdClear extends Command {
   zoomType: number;
-  
+  projectService: ProjectService;
+  appService:AppService;
   clipboardService:ClipboardService;
   constructor(projectService: ProjectService,appService:AppService,clipboardService:ClipboardService) {
-    super(projectService,appService);
+    super();
 
-    
+    this.projectService = projectService;
+    this.appService=appService;
     this.clipboardService=clipboardService;
   }
   protected execute(): void {
@@ -78,8 +79,8 @@ export class CmdCut extends CommandBusy {
                   
                
                 
-                this.clipboardService.add(new ClipboardData(ClipboardData.Types.Image,maskedImage));
-                this.appService.showAlert(new AlertItem('info','Cutted',2000));
+                //this.clipboardService.add(new ClipboardData(ClipboardData.Types.Image,maskedImage));
+                //this.appService.showAlert(new AlertItem('info','Cutted',2000));
                 //let newLayer=new LayerImage(maskedImage,'cut');
                 //workspace.addLayer(newLayer);
 

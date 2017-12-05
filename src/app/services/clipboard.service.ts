@@ -35,7 +35,7 @@ export class ClipboardService {
       this._data.unshift(data);
   }
 
-  private hasAny(type?:number):boolean{
+  public hasAny(type?:number):boolean{
     if(type)//if any type bigger than zero
     return this._data.findIndex((item)=>item.type==type)>=0; //then find index and control index
     //else look at array length
@@ -48,6 +48,14 @@ export class ClipboardService {
        let index=this._data.findIndex((item)=>item.type==type);
        return this._data[index];
 
+  }
+
+  public remove(data):void{
+    let index= this._data.findIndex((item)=>item ===data)
+    if(index>=0){
+      debugger;
+     this._data.splice(index,1);
+    }
   }
 
    

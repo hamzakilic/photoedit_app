@@ -18,19 +18,18 @@ import { Point } from '../lib/draw/point';
 import { Graphics } from '../lib/graphics';
 import { Rect } from '../lib/draw/rect';
 import { Callback } from '../lib/callback';
+import { CommandBusy } from './commandBusy';
 
 
 
-export class CmdCopy extends Command {
-  zoomType: number;
-  projectService: ProjectService;
-  appService:AppService;
+export class CmdCopy extends CommandBusy {
+  
+  
   clipboardService:ClipboardService;
   constructor(projectService: ProjectService,appService:AppService,clipboardService:ClipboardService) {
-    super();
+    super(projectService,appService);
 
-    this.projectService = projectService;
-    this.appService=appService;
+    
     this.clipboardService=clipboardService;
   }
   protected execute(): void {

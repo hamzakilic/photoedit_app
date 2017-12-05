@@ -82,7 +82,7 @@ cursor: ns-resize;
 
 
 .divRotate{
-  cursor:ew-resize;
+ 
 
   background: blueviolet; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(blueviolet, yellow); /* For Safari 5.1 to 6.0 */
@@ -91,6 +91,8 @@ cursor: ns-resize;
     background: linear-gradient(blueviolet, yellow); /* Standard syntax */
   position: absolute;
   z-index: 200;
-  cursor: default;
+  cursor:ew-resize;
+ 
 }
+
 

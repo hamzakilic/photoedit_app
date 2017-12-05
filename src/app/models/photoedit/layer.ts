@@ -14,10 +14,12 @@ export abstract class Layer extends SurfaceCanvas {
   public isHidden: boolean;
   public isSelected: boolean;
   public showSelected:boolean;
+  public canResizeOrRotate:boolean;
   public canRotate: boolean;
   protected _mouseDownPoint: MouseDownPoint;
   public isMouseDown: boolean;
   public _blendMode:string;
+  
   
   public htmlElement:any;
   constructor(name?: string) {
@@ -25,17 +27,23 @@ export abstract class Layer extends SurfaceCanvas {
     this.sourceMask = undefined;
     this._blendMode="normal";
     if (name)
-      this._name = name.substring(0,10);
+      this._name = name.replace(/[\(\)]/g,'_').substring(0,10);
     else this._name = 'layer';
     this.isHidden = false;
     this._mouseDownPoint = new MouseDownPoint();
     this.showSelected=true;
+    this.canResizeOrRotate=true;
+    this.cssNotSelectedClass={ clayerEmpty:true};
+    this.cssSelectedClass={ clayerSelected:true };
   }
+
+  private cssSelectedClass:any;//durmadan değişiklik oluyor diye değişken yapıldı
+  private cssNotSelectedClass:any;//buda aynısı durmadan classes() içinde değişiklik olduğu için
 
   public get classes():any{
     if(this.isSelected)
-      return { clayerSelected:true };
-    return { clayerEmpty:true};
+      return this.cssSelectedClass;
+    return this.cssNotSelectedClass;
   }
   
   public get name(): string {
@@ -105,6 +113,17 @@ export abstract class Layer extends SurfaceCanvas {
      let move = RotationHelper.calculateRotationMoveBottom(event,this);
       this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, new Callback(() => this.render()));
     } else
+    if (this._mouseDownPoint.isRotate && this.isMouseDown) {
+      let currentangle=this.rotateAngleDeg;       
+      let move=event.movementX;
+      
+       currentangle+=move/2;
+       if(currentangle>180)
+           currentangle=180;
+       if(currentangle<-180)
+           currentangle=-180;
+           this.rotateAngleDeg=currentangle;
+     } else
     if (this.isSelected && this.isMouseDown) {
           
         

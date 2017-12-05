@@ -61,7 +61,7 @@ export class Workspace extends HEventEmitter {
     super();
     this.uuid = Utility.uuid();
     if (name)
-      this._name = name.substring(0,10);
+      this._name = name.replace(/[\(\)]/g,'_').substring(0,10);
     else this._name = "image";
     this._layers = [];
 
