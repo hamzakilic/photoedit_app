@@ -235,6 +235,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
   public registerOnTouched(fn:() => {}):void {this.onTouched = fn;}
 
   protected matchClick(e:any):void {
+    
     if (this._disabled === true) {
       return;
     }
@@ -318,7 +319,18 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
     this.selectMatch(this.activeOption);
   }
 
+  public selectMatch1(){
+    alert('a');
+  }
+  public selectMatch2(){
+    alert('b');
+  }
+  public selectMatch3(){
+    alert('c');
+  }
+
   private selectMatch(value:SelectItem, e:Event = void 0):void {
+    
     if (e) {
       e.stopPropagation();
       e.preventDefault();
@@ -363,7 +375,10 @@ export class Behavior {
       });
   }
 
+  
+
   public ensureHighlightVisible(optionsMap:Map<string, number> = void 0):void {
+    
     let container = this.actor.element.nativeElement.querySelector('.ui-select-choices-content');
     if (!container) {
       return;
@@ -597,6 +612,11 @@ export class SelectItem {
     r.text = this.text;
     r.parent = this.parent;
     return r;
+  }
+
+  getFamily(o:SelectItem){
+    debugger;
+    return "Arial";
   }
 }
 

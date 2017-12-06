@@ -18,7 +18,7 @@
                   <label for="input-width" class="col-form-label">Width</label>
                 </div>
                 <div class="col-9">
-                  <input class="form-control" formControlName="width"  type="number"  [(ngModel)]="width" id="input-width">
+                  <input  class="form-control" formControlName="width"  type="number"  [(ngModel)]="width" id="input-width">
 
                   <div class="error" *ngIf="form.get('width').hasError('msg') ">
                     {{validationMessages.error.msg}}

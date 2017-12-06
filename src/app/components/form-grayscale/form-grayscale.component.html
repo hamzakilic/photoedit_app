@@ -17,7 +17,7 @@
               <div class="col-md-4 effectscolumn" style="height: 480px;overflow-y: auto">
                 <ul class="list-group">
                     <li  *ngFor="let item of grayscaleVersions" class="list-group-item list-group-item-action mouseover " style="padding:0px;margin-bottom:5px">
-                        <a href="#" class="btn btn-primary btn-sm" style="width:100%" role="button" (click)="applyGrayscale(item.id)">
+                        <a href="#" class="btn btn-primary btn-sm" style="width:100%" role="button" (click)="applyGrayscale($event,item.id)">
                            {{item.name}}
                         </a>
       
@@ -32,7 +32,7 @@
               <div class="col-md-9">
               </div>
               <div class="col-md-3">
-                <label class="btn btn-primary btn-sm pull-right" role="button" (click)="close()">
+                <label class="btn btn-primary btn-sm pull-right" role="button" (click)="close($event)">
                     Apply
                   </label>
               </div>

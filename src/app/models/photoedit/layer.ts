@@ -8,6 +8,7 @@ import { SurfaceCanvas } from './surface'
 import { Rect } from '../../lib/draw/rect';
 
 import { RotationHelper, RotationMove } from './lib/rotationHelper';
+import { Utility } from '../../lib/utility';
 
 export abstract class Layer extends SurfaceCanvas {
   private _name: string;
@@ -19,7 +20,7 @@ export abstract class Layer extends SurfaceCanvas {
   protected _mouseDownPoint: MouseDownPoint;
   public isMouseDown: boolean;
   public _blendMode:string;
-  
+  private _uuid:string;
   
   public htmlElement:any;
   constructor(name?: string) {
@@ -35,11 +36,15 @@ export abstract class Layer extends SurfaceCanvas {
     this.canResizeOrRotate=true;
     this.cssNotSelectedClass={ clayerEmpty:true};
     this.cssSelectedClass={ clayerSelected:true };
+    this._uuid=Utility.uuid();
   }
 
   private cssSelectedClass:any;//durmadan değişiklik oluyor diye değişken yapıldı
   private cssNotSelectedClass:any;//buda aynısı durmadan classes() içinde değişiklik olduğu için
 
+  public get uuid():string{
+    return this._uuid;
+  }
   public get classes():any{
     if(this.isSelected)
       return this.cssSelectedClass;
@@ -48,6 +53,9 @@ export abstract class Layer extends SurfaceCanvas {
   
   public get name(): string {
     return this._name;
+  }
+  public set name(val:string) {
+    this._name=val;
   }
  
   public get blendMode():string{

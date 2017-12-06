@@ -35,7 +35,9 @@ export class LayerPropertiesComponent implements OnInit {
 
   changeRotateAngle(value: any, layer: Layer) {
 
-    if (parseInt(value) <= 180 && parseInt(value) >= -180) {
+    let val=parseInt(value);
+    if (!isNaN(val) &&
+       val <= 180 && val >= -180) {
       layer.rotateByDegrees(parseInt(value));
 
     }
@@ -43,36 +45,36 @@ export class LayerPropertiesComponent implements OnInit {
   }
   changeWidth(value: any, layer: Layer) {
 
-
-    if (parseInt(value) > 10) {
+    let val=parseInt(value);
+    if (!isNaN(val) && val > 10) {
 
       layer.setWidthHeight(parseInt(value), layer.height, new Callback(() => layer.render()))
     }
   }
 
   changeHeight(value: any, layer: Layer) {
-
-    if (parseInt(value) > 10) {
+    let val=parseInt(value);
+    if (!isNaN(val) && val > 10) {
       layer.setWidthHeight(layer.width, parseInt(value), new Callback(() => layer.render()))
     }
   }
   changeTop(value: any, layer: Layer) {
 
     let val = parseInt(value);
-    if(val){
+    if(!isNaN(val)){
     let point=CalcLayer.calculateTop(val,layer);
-    layer.setLeft(point.x,new Callback(() => layer.render()));
-    layer.setTop(point.y,new Callback(() => layer.render()));
+    layer.setLeft(point.x.extFloor(),new Callback(() => layer.render()));
+    layer.setTop(point.y.extFloor(),new Callback(() => layer.render()));
     }
 }
 
   changeLeft(value: any, layer: Layer) {
-    console.log(value);
+    
     let val = parseInt(value);
-    if(val){
+    if(!isNaN(val)){
     let point=CalcLayer.calculateLeft(val,layer);
-    layer.setLeft(point.x,new Callback(() => layer.render()));
-    layer.setTop(point.y,new Callback(() => layer.render()));
+    layer.setLeft(point.x.extFloor(),new Callback(() => layer.render()));
+    layer.setTop(point.y.extFloor(),new Callback(() => layer.render()));
     }
   }
 
@@ -89,7 +91,7 @@ export class LayerPropertiesComponent implements OnInit {
   }
   changeGlobalAlpha(value:any,layer: Layer){
     let val= parseInt(value);
-    if(val){
+    if(!isNaN(val)){
       layer.globalAlpha=(val/100);
       layer.render();
     }

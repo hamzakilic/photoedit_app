@@ -321,7 +321,7 @@ export class Workspace extends HEventEmitter {
     this.makeLayersNotSelected(layer);
     if (layer && !layer.isHidden) {
       layer.isSelected = true;
-
+      layer.canResizeOrRotate=this.workMode instanceof WorkModeDefault;
 
     }
 

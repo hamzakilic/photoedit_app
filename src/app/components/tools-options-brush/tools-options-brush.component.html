@@ -12,7 +12,7 @@
   <div class="row no-gutters ">
     <div class="input-group input-group-sm">
       <span class="input-group-addon w-50 font-size8" style="margin-top:1px;margin-bottom:1px" tooltip="Brush size in pixel" placement="right">Size</span>
-      <input type="number" class="form-control" placeholder="Enter size of brush" aria-describedby="sizing-addon2" 
+      <input  novalidate  type="number" class="form-control" placeholder="Enter size of brush" aria-describedby="sizing-addon2" 
        min="1" max="250" [value]="brushSize" (input)="changeBrushSize($event.target.value)">
 
        
@@ -21,7 +21,7 @@
   <div class="row no-gutters ">
     <div class="input-group input-group-sm">
       <span class="input-group-addon w-50 font-size8" style="margin-top:1px;margin-bottom:1px" tooltip="Brush hardness" placement="right">Hardness</span>
-      <input type="number" class="form-control" placeholder="Enter hardness" aria-describedby="sizing-addon2" 
+      <input  novalidate  type="number" class="form-control" placeholder="Enter hardness" aria-describedby="sizing-addon2" 
        min="0" max="100" [value]="brushHardness" (input)="changeBrushHardness($event.target.value)">
 
        
@@ -32,7 +32,7 @@
       <div class="input-group input-group-sm">      
   
          <span class="input-group-addon w-50 font-size8" style="margin-top:1px;margin-bottom:1px" tooltip="Brush opacity" placement="right">Opacity</span>
-         <input type="number" class="form-control" placeholder="Enter opacity of brush" aria-describedby="sizing-addon2" 
+         <input novalidate  type="number" class="form-control" placeholder="Enter opacity of brush" aria-describedby="sizing-addon2" 
           min="1" max="100" [value]="brushOpacity" (input)="changeBrushOpacity($event.target.value)">
         
       </div>

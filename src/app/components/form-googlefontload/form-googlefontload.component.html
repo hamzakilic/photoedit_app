@@ -33,8 +33,8 @@
                         <div class="card-block" style="padding:0.25rem">
                           <h6 class="card-title">{{item}}</h6>
                           <p class="card-text " [style.font-family]="item" style="font-size: large">{{sampleText}}</p>
-                          <a href="#" *ngIf="!userHasFont(item)" class="btn btn-primary btn-sm" (click)="addToMyFonts(item)">Add to my fonts</a>
-                          <a href="#" *ngIf="userHasFont(item)" class="btn btn-primary btn-sm" (click)="removeFromMyFonts(item)">Remove from my fonts</a>
+                          <a href="#" *ngIf="!userHasFont(item)" class="btn btn-primary btn-sm" style="font-size: 0.8rem" (click)="addToMyFonts($event,item)">Add to my fonts</a>
+                          <a href="#" *ngIf="userHasFont(item)" class="btn btn-primary btn-sm" style="font-size: 0.8rem" (click)="removeFromMyFonts($event,item)">Remove from my fonts</a>
                         </div>
                       </div>
 

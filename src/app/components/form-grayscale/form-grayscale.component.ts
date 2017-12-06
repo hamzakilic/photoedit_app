@@ -146,9 +146,9 @@ export class FormGrayscaleComponent implements OnInit {
 
   private _lastSelectedGrayscale: number;
 
-  applyGrayscale(versionId: number) {
+  applyGrayscale(event:Event,versionId: number) {
 
-    
+    event.preventDefault();
     if (!this._initialized) {
       this.effectLayer.setOrgImage(this.effectLayer.getImage());
       this._initialized = true;
@@ -160,17 +160,19 @@ export class FormGrayscaleComponent implements OnInit {
     let effect = new ImageAlgorithmGrayscale(versionId);
     let img = effect.process(originalImage);
     this.effectLayer.setImg(img);
+    
 
   }
 
-  close() {
-    
+  close(event:Event) {
+    event.preventDefault();
     if (this._lastSelectedGrayscale) {
       let algo = new ImageAlgorithmGrayscale(this._lastSelectedGrayscale);
       let cmd = new CmdExecuteImageAlgorithms([algo], this._projectService, this._appService);
       cmd.executeAsync();
     }
     this.smModal.hide();
+    
   }
 
 

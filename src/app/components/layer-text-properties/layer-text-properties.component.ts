@@ -43,11 +43,15 @@ export class LayerTextPropertiesComponent implements OnInit {
    public get fontList():Array<AutoCompleteItem>{
      let items=[];
     this._fontService.genericFonts.forEach((val,index,arr)=>{
-      items.push({id:val,text: "<span style='font-family:"+val+"'>"+val+"</span>"});
+      
+      items.push({id:val,fontFamily:val, text: val});
     });
     this._userService.extraFonts.forEach((val,index,arr)=>{
-      items.push({id:val.familyName,text: "<span style='font-family:"+val.familyName+"'>"+val.familyName+"</span>"});
+      
+      items.push({id:val.familyName,fontFamily:val.familyName, text: val.familyName});
+      
     });
+    this._fontService.loadGoogleFonts(this._userService.extraFonts.map((item)=>item.familyName));
      return items;
    }
  

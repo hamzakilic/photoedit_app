@@ -53,7 +53,7 @@ export class ClipboardService {
   public remove(data):void{
     let index= this._data.findIndex((item)=>item ===data)
     if(index>=0){
-      debugger;
+      
      this._data.splice(index,1);
     }
   }

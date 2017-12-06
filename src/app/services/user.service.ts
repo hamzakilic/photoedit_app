@@ -1,3 +1,4 @@
+import { FontService } from './font.service';
 import { Injectable } from '@angular/core';
 import { Font } from '../entities/font';
 import { User} from '../entities/user';
@@ -15,7 +16,20 @@ export class UserService {
   constructor() {
     
     this.login("","");
-
+    let items= localStorage.getItem("fonts");
+    if(items){
+      try{
+        
+       let arr= JSON.parse(items);
+       arr.forEach((i)=>{
+       this._user.extraFonts.push(i);
+       }       
+      );
+      
+      }catch(exp){
+        console.log(exp);
+      }
+    }
    }
 
    public login(useremail:string,userpass:string):boolean{
@@ -25,6 +39,11 @@ export class UserService {
    }
   public get currentUser():User{
     return this._user;
+  }
+  private saveToLocal(){
+    if(this._user){
+      localStorage.setItem('fonts',JSON.stringify(this._user.extraFonts));
+    }
   }  
 
   public addFont(familyName:string,source:string){
@@ -38,6 +57,7 @@ export class UserService {
     );
     if(index==-1)
       this._user.extraFonts.push(font);
+      this.saveToLocal();
   }
   public get extraFonts():Array<Font>{
     return this._user.extraFonts;
@@ -54,6 +74,7 @@ export class UserService {
     );
     if(index>-1)
       this._user.extraFonts.splice(index,1);
+      this.saveToLocal();
   }
 
   public  hasFont(familyName:string,source:string):boolean{

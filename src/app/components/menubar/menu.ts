@@ -20,7 +20,7 @@ export class Menu{
   }
   public close($event: MouseEvent){
     $event.preventDefault();
-    $event.stopPropagation();
+    
     this.isOpen = false;
   }
   

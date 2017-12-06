@@ -32,7 +32,7 @@ export class CmdCreateInstagramFilter extends CommandBusy {
                 if (this.projectService.currentProject.activeWorkspace) {
                     let workspace = this.projectService.currentProject.activeWorkspace;
                     if (workspace && workspace.layers.length > 0) {
-                        debugger;
+                        
                         
 
                        let selectedLayer=workspace.layers.find(p=>p.isSelected);

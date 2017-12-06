@@ -20,6 +20,11 @@ export class AppComponent implements AfterViewInit {
   constructor(keyboardService: KeyboardService,appService: AppService) {
     this.isBrowserOk = CheckBrowserCapabilities.isOk();
     this._appservice=appService;
+    /* window.addEventListener('beforeunload',(e)=>{
+      let msg="Ayrılmak İstediğinize eminmisiniz";
+      e.returnValue=msg;
+      return msg;
+    }) */
    
   }
 

@@ -27,11 +27,11 @@ class genericFonts {
   public get fonts():Array<string> {
     let fonts = [];
     //serif
-    let serif = ["Georgia", "Palatino Linotype", "Book Antiqua", "Palatino", "Times New Roman", "Times"];
+    let serif = ["Georgia", "Times New Roman", "Times"];
 
-    let sanserif = ["Arial", "Helvetica", "Arial Black", "Gadget", "Comic Sans MS", "cursive", "Impact", "Charcoal", "Lucida Sans Unicode", "Lucida Grande", "Tahoma", "Geneva", "Trebuchet MS", "Helvetica", "Verdana"];
-    let monospace = [, "Courier New", "Courier", "Lucida Console", "Monaco"];
-    let others = ["Garamond", "Bookman"]
+    let sanserif = ["Arial", "Helvetica", "Arial Black",  "Comic Sans MS",  "Impact", "Tahoma", "Trebuchet MS", "Verdana"];
+    let monospace = ["Courier"];
+    let others = []
     utility.addIfNotExits(serif, fonts);
     utility.addIfNotExits(sanserif, fonts);
     utility.addIfNotExits(monospace, fonts);
@@ -120,7 +120,7 @@ class googleFonts {
             notLoaded.push(value.fontData.family);
         }
     });
-  console.log("notloaded:"+notLoaded.length);
+  //console.log("notloaded:"+notLoaded.length);
     
     if(notLoaded.length>0){
       this._isLoadingFonts = true;

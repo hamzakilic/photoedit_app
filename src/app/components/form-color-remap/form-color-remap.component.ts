@@ -134,7 +134,8 @@ export class FormColorRemapComponent implements OnInit {
  }
  private _lastSelectedEffect:string;
 
- applyEffect(effectName:string){
+ applyEffect(event:Event, effectName:string){
+  event.preventDefault();
    if(!this._initialized){
      this.effectLayer.setOrgImage(this.effectLayer.getImage());
      this._initialized=true;
@@ -147,14 +148,17 @@ export class FormColorRemapComponent implements OnInit {
    let img = effect.process(originalImage);
     this.effectLayer.setImg(img);
   }
+ 
  }
 
- close(){
+ close(event:Event){
+  event.preventDefault();
    if(this._lastSelectedEffect){
      let cmd=new CmdColorRemap(this._lastSelectedEffect,this._projectService,this._appService,this._effectService);
      cmd.executeAsync();
    }
    this.smModal.hide();
+  
  }
 
 

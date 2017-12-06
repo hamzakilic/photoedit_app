@@ -20,28 +20,28 @@
                   <div class="input-group input-group-sm">
                     <span class="input-group-addon proName" tooltip="Width of layer" placement="right">W</span>
       
-                    <input type="number" class="form-control" placeholder="Enter width of layer" aria-describedby="sizing-addon2" [value]="round(selectedLayer.width)"
+                    <input novalidate type="number" class="form-control" placeholder="Enter width of layer" aria-describedby="sizing-addon2" [value]="round(selectedLayer.width)"
                       min="10" (input)="changeWidth($event.target.value,selectedLayer)">
                       <span class="input-group-addon proName" tooltip="height of layer" placement="right">H</span>
-                      <input type="number" class="form-control" placeholder="Enter height of layer" aria-describedby="sizing-addon2" [value]="round(selectedLayer.height)"
+                      <input novalidate type="number" class="form-control" placeholder="Enter height of layer" aria-describedby="sizing-addon2" [value]="round(selectedLayer.height)"
                         min="10" (input)="changeHeight($event.target.value,selectedLayer)">
                   </div>
                   
                   <div class="input-group input-group-sm">
                     <span class="input-group-addon proName" tooltip="left of layer" placement="right">L</span>
-                    <input type="number" class="form-control" placeholder="Enter left of layer" aria-describedby="sizing-addon2" [value]="round(selectedLayer.rectRotated.x)"
+                    <input novalidate type="number" class="form-control" placeholder="Enter left of layer" aria-describedby="sizing-addon2" [value]="round(selectedLayer.rectRotated.x)"
                       (input)="changeLeft($event.target.value,selectedLayer)">
                       <span class="input-group-addon proName" tooltip="top of layer" placement="right">T</span>
-                      <input type="number" class="form-control" placeholder="Enter top of selectedLayer" aria-describedby="sizing-addon2" [value]="round(selectedLayer.rectRotated.y)"
+                      <input novalidate type="number" class="form-control" placeholder="Enter top of selectedLayer" aria-describedby="sizing-addon2" [value]="round(selectedLayer.rectRotated.y)"
                         (input)="changeTop($event.target.value,selectedLayer)">
                   </div>
                   
                   <div class="input-group input-group-sm">
                     <span class="input-group-addon proName" tooltip="rotate of layer" placement="right">R</span>
-                    <input type="number" class="form-control" placeholder="Enter rotate of layer" aria-describedby="sizing-addon2" [value]="selectedLayer.rotateAngleDeg"
+                    <input novalidate type="number" class="form-control" placeholder="Enter rotate of layer" aria-describedby="sizing-addon2" [value]="selectedLayer.rotateAngleDeg"
                       min="-180" max="180" (input)="changeRotateAngle($event.target.value,selectedLayer)">
                       <span class="input-group-addon proName" tooltip="Opacity of layer" placement="right">O</span>
-                      <input type="number" class="form-control" placeholder="Enter opacity of layer" aria-describedby="sizing-addon2" [value]="round(selectedLayer.globalAlpha*100)"
+                      <input novalidate type="number" class="form-control" placeholder="Enter opacity of layer" aria-describedby="sizing-addon2" [value]="round(selectedLayer.globalAlpha*100)"
                         min="0" max="100" (input)="changeGlobalAlpha($event.target.value,selectedLayer)">
                   </div>
                  

@@ -12,13 +12,17 @@ import { Layer } from '../../models/photoedit/layer';
 })
 export class LayersInfoComponent implements OnInit {
 
-   projectService: ProjectService;
+  projectService: ProjectService;
+  private composite:Map<string,boolean>;
+  
   public project: Proj;
+  
 
   constructor(projectService: ProjectService) {
     this.projectService = projectService;
-
     this.project= this.projectService.currentProject;
+    this.composite=new Map<string,boolean>();
+
    }
 
   ngOnInit() {
@@ -33,5 +37,63 @@ export class LayersInfoComponent implements OnInit {
    layer.isHidden = !layer.isHidden;
    // this.projectService.currentProject.activeWorkspace.render();
   }
+
+  public get layers(){
+    //make composite
+    
+    if(this.project && this.project.activeWorkspace){
+      return this.project.activeWorkspace.layers;
+    }
+    return [];
+  }
+
+  public makeLayerSelected(layer:Layer){
+    if(this.project && this.project.activeWorkspace){
+      this.project.activeWorkspace.makeLayerSelected(layer);
+    }
+  }
+
+  public isEditMode(layer:Layer){
+      if(layer){
+        if(this.composite.has(layer.uuid))
+        return this.composite.get(layer.uuid)
+        else this.composite.set(layer.uuid,false);
+      }
+  }
+  public mouseDblClick(layer:Layer){
+    if(layer){      
+      this.composite.set(layer.uuid,true)
+      
+    }
+  }
+  keyDown(event:KeyboardEvent, layer:Layer){
+    
+    if(event.keyCode==13){
+      event.preventDefault();
+      event.stopPropagation();
+      if(layer){
+        this.composite.set(layer.uuid,false);
+      }
+    }
+    
+  }
+
+  changeLayerName(event:any, layer:Layer){
+    
+   if(layer)
+   layer.name=event.currentTarget.value;
+  }
+
+  lostfocus(layer:Layer){  
+    console.log('lost focus'+new Date())  
+    if(layer){
+      this.composite.set(layer.uuid,false);
+    }
+  }
+
+  layerName(layer:Layer){   
+    return layer.name;
+  }
+
 
 }

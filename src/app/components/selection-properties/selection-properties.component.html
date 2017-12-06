@@ -21,22 +21,22 @@
               <div class="input-group input-group-sm">
                 <span class="input-group-addon proName" id="sizing-addon2" tooltip="Width of croping" placement="right">W</span>
 
-                <input type="number" class="form-control" placeholder="Enter width of crop" aria-describedby="sizing-addon2" [ngModel]="project.activeWorkspace.selectionLayer.width"
+                <input novalidate type="number" class="form-control" placeholder="Enter width of crop" aria-describedby="sizing-addon2" [ngModel]="project.activeWorkspace.selectionLayer.width"
                   min="10" (ngModelChange)="changeWidth($event)">
               </div>
               <div class="input-group input-group-sm">
                 <span class="input-group-addon proName" id="sizing-addon2" tooltip="height of croping" placement="right">H</span>
-                <input type="number" class="form-control" placeholder="Enter height of layer" aria-describedby="sizing-addon2" [ngModel]="project.activeWorkspace.selectionLayer.height"
+                <input novalidate type="number" class="form-control" placeholder="Enter height of layer" aria-describedby="sizing-addon2" [ngModel]="project.activeWorkspace.selectionLayer.height"
                   min="10" (ngModelChange)="changeHeight($event)">
               </div>
               <div class="input-group input-group-sm">
                 <span class="input-group-addon proName" id="sizing-addon2" tooltip="left of croping" placement="right">L</span>
-                <input type="number" class="form-control" placeholder="Enter left of layer" aria-describedby="sizing-addon2" [ngModel]="project.activeWorkspace.selectionLayer.marginLeft"
+                <input novalidate type="number" class="form-control" placeholder="Enter left of layer" aria-describedby="sizing-addon2" [ngModel]="project.activeWorkspace.selectionLayer.marginLeft"
                   (ngModelChange)="changeLeft($event)">
               </div>
               <div class="input-group input-group-sm">
                 <span class="input-group-addon proName" id="sizing-addon2" tooltip="top of croping" placement="right">T</span>
-                <input type="number" class="form-control" placeholder="Enter top of layer" aria-describedby="sizing-addon2" [ngModel]="project.activeWorkspace.selectionLayer.marginTop"
+                <input novalidate type="number" class="form-control" placeholder="Enter top of layer" aria-describedby="sizing-addon2" [ngModel]="project.activeWorkspace.selectionLayer.marginTop"
                   (ngModelChange)="changeTop($event)">
               </div>
             </li>

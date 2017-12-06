@@ -14,7 +14,7 @@
 
 <div class="input-group input-group-sm">
   <span class="input-group-addon proName" tooltip="Fontsize" placement="right">FS</span>
-  <input type="number" class="form-control"  placeholder="Enter font size" aria-describedby="sizing-addon2" [value]="currentLayerFontSize()"
+  <input novalidate type="number" class="form-control"  placeholder="Enter font size" aria-describedby="sizing-addon2" [value]="currentLayerFontSize()"
     min="0" max="100" (input)="changeFontSize($event.target.value)">
 </div>
 

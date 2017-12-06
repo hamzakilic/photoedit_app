@@ -229,11 +229,12 @@ export class FormGoogleFontloadComponent implements OnInit {
   public userHasFont(fontName:string):boolean{
     return this._userService.hasFont(fontName,"google");
   }
-  public addToMyFonts(fontName:string){
+  public addToMyFonts(event:Event,fontName:string){
+    event.preventDefault();
     this._userService.addFont(fontName,"google");
   }
-  public removeFromMyFonts(fontName:string){
-   
+  public removeFromMyFonts(event:Event,fontName:string){
+    event.preventDefault();
     this._userService.removeFont(fontName,"google");
   }
 

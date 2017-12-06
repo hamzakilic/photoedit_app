@@ -3,11 +3,10 @@
     <span>Layers</span>
   </header> -->
   <section class="layersSection">
-    <div *ngIf="project != undefined">
-      <div *ngIf="project.activeWorkspace != undefined">
-        <ng-container *ngFor="let layer of project.activeWorkspace.layers">
+    
+        <ng-container *ngFor="let layer of layers">
             <div class="container layersLi lineheightmedium unselectableText" style="padding-left:2px;padding-right:2px" [ngClass]="(layer.isSelected)?'layersLiSelected':''">
-              <div class="row no-gutters text-center" (click)="project.activeWorkspace.makeLayerSelected(layer);">
+              <div class="row no-gutters text-center" (click)="makeLayerSelected(layer);" mouse (doubleClick)="mouseDblClick(layer)" >
                 
                   
                   <i class="fa fa-eye mouseoverhand myGutter lineheightmedium" [class.disabled-icon]="layer.isHidden"  (click)="disableOrEnable(layer)"></i> 
@@ -19,7 +18,9 @@
                 <i class="fa fa-minus-circle mouseoverhand myGutter lineheightmedium"  (click)="removeLayer(layer)"></i> 
                 
                 
-                <span class="mouseoverhand hideOverflowText fontsmall myGutter "> {{layer.name}}</span>
+                <span *ngIf="!isEditMode(layer)" class="mouseoverhand hideOverflowText fontsmall myGutter "> {{layerName(layer)}}</span>
+                <input *ngIf="isEditMode(layer)" class="form-control lineheightmedium" keyboard (keyboardDown)='keyDown($event,layer)' autofocus (blur)='lostfocus(layer)' type="text" [value]="layer.name" (input)='changeLayerName($event,layer)'/>
+                
                 
 
 
@@ -32,7 +33,6 @@
 
 
         </ng-container>
-      </div>
-    </div>
+     
   </section>
 </div>
