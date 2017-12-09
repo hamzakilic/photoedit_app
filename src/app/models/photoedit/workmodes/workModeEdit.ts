@@ -66,6 +66,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
             });
     
             this.selectedLayer.graphics.restore();
+            
           }
         }
       }
@@ -127,8 +128,10 @@ export abstract class WorkModeEdit extends WorkModeBase {
       }
       public mouseUp(event: any,scroll:Point) {
         this._isMouseDown = false;
-        if(this.selectedLayer)        
+        if(this.selectedLayer){        
         this._editType.mouseUp(event,scroll,this.selectedLayer);
+        this.workspace.replaceLayer(this.selectedLayer,new LayerImage(this.selectedLayer.getImage(),this.selectedLayer.name));
+        }
     
       }
     

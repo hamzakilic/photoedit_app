@@ -87,8 +87,9 @@ export class EditTypeBucket extends EditType {
   
 //tek bir defa render çalışacak, mousedown olduğunda sadece
   render(layer:Layer, point: Point, brushFG: any,brushBG:any) {
-    layer.graphics.save();
-    layer.graphics.setBlendMode(this.blendMode);
+   // layer.graphics.save();
+    //layer.graphics.setGlobalAlpha(layer.globalAlpha);
+    //layer.graphics.setBlendMode(this.blendMode);
     if(this.selectType=="selection"){
       this.selectedRegions.forEach(region=>{
         
@@ -99,6 +100,7 @@ export class EditTypeBucket extends EditType {
       layer.graphics.fillRect(new Rect(0,0,layer.width,layer.height));
       
       });
+
     }
     if(this.selectType=="color"){
      
@@ -137,7 +139,7 @@ export class EditTypeBucket extends EditType {
                  imageData.fill(0);
                  this.fillType=="fg"?brushFG:brushBG
                 let img=new HImage(w,h,imageData,4);
-                console.log(item.points.length+" Adet pointfill");
+                //console.log(item.points.length+" Adet pointfill");
                   item.points.forEach((p)=>{
                     let start=(p.y-bound.y)*img.width*4+(p.x-bound.x)*4;
                     img.Pixels[start]=selectedColor.r;
@@ -148,11 +150,7 @@ export class EditTypeBucket extends EditType {
                   layer.graphics.drawImageRect(img,new Rect(0,0,img.width,img.height),new Rect(bound.x+rect.x,bound.y+rect.y,img.width,img.height));
                 
 
-                 /*if(item.points.length>1){//en az 2 nokta lazım
-                layer.graphics.fillStyle(this.fillType=="fg"?brushFG:brushBG);
-                  layer.graphics.drawPolygon(item,true);
-                  layer.graphics.fill();
-                 }*/
+                 
                });
                
                   
@@ -160,7 +158,8 @@ export class EditTypeBucket extends EditType {
          
        });
     }
-    layer.graphics.restore();
+   // layer.graphics.restore();
+    
 
   }
 

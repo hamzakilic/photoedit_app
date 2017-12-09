@@ -1,3 +1,4 @@
+import { Callback } from './../../lib/callback';
 import { Layer } from './layer';
 import { Graphics } from '../../lib/graphics';
 
@@ -23,14 +24,15 @@ export class LayerImage extends Layer{
     
     
     this.graphics.save();
+   // this.graphics.setGlobalAlpha(this.globalAlpha);
     this.graphics.clearRect(new Rect(0,0,this.width,this.height));
-   this.globalAlpha=(this.globalAlpha);
+   
     if(!this.scaleView){
 
-      this.graphics.drawImageRect(this.img,this.sourceMask,new Rect(0,0,this.sourceMask.width>this.width?this.width:this.sourceMask.width,this.sourceMask.height>this.height?this.height:this.sourceMask.height));
+      this.graphics.drawImageRect(this.img,this.sourceMask,new Rect(0,0,this.sourceMask.width>this.width?this.width:this.sourceMask.width,this.sourceMask.height>this.height?this.height:this.sourceMask.height),new Callback(()=>this.graphics.restore()));
     }
-    else this.graphics.drawImageRect(this.img,this.sourceMask,new Rect(0,0,this.width,this.height));
-    this.graphics.restore();
+    else this.graphics.drawImageRect(this.img,this.sourceMask,new Rect(0,0,this.width,this.height),new Callback(()=>this.graphics.restore()));
+   // this.graphics.restore();
     //this.graphics.fillRect(new Rect(0,0,this.width,this.height),"#FFFFFF")
   }
   public dispose(){

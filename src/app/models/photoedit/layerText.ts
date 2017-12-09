@@ -25,7 +25,7 @@ export class LayerText extends LayerGraphics{
   public render(): void{
    
       this.graphics.save();
-       this.graphics.setGlobalAlpha(this.globalAlpha);
+       //this.graphics.setGlobalAlpha(this.globalAlpha);
       this.graphics.clearRect(new Rect(0,0,this.width,this.height));
       if(this._backgroundColor)
         this.graphics.fillRect(new Rect(0,0,this.width,this.height),this._backgroundColor);
