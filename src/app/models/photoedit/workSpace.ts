@@ -281,7 +281,8 @@ export class Workspace extends HEventEmitter {
 
 
   public mouseDown(event: MouseEvent) {
-    if(event.srcElement.localName!="workspace-component")
+    
+    if(event.srcElement.tagName!="workspace-component".toUpperCase())
     this._workMode.mouseDown(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
     
 

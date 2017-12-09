@@ -57,7 +57,7 @@ export class HMath {
         let minx = Math.min(rect.leftTop.x, rect.leftBottom.x, rect.rightTop.x, rect.rightBottom.x);
         let maxx = Math.max(rect.leftTop.x, rect.leftBottom.x, rect.rightTop.x, rect.rightBottom.x);
         let miny = Math.min(rect.leftTop.y, rect.leftBottom.y, rect.rightTop.y, rect.rightBottom.y);
-        let maxy = Math.min(rect.leftTop.y, rect.leftBottom.y, rect.rightTop.y, rect.rightBottom.y);
+        let maxy = Math.max(rect.leftTop.y, rect.leftBottom.y, rect.rightTop.y, rect.rightBottom.y);
         let width = Math.abs(maxx - minx);
         let height = Math.abs(maxy - miny);
         let center = new Point(minx + width / 2, miny + height / 2);
@@ -69,6 +69,8 @@ export class HMath {
 
         return new Rect2D(pointLeftTop, pointLeftBottom, pointRightTop, pointRightBottom);
     }
+
+    
 
     /**
      * cos value of a degrees
@@ -261,10 +263,20 @@ export class HMath {
       }
     
       public static rectToPolygon(rect: Rect): Polygon {
-        let points = [new Point(rect.x, rect.y),
-        new Point(rect.x, rect.y + rect.height),
-        new Point(rect.x + rect.width, rect.y + rect.height),
-        new Point(rect.x + rect.width, rect.y)];
+        let points=[];
+        points.push(new Point(rect.x,rect.y));
+        points.push(new Point(rect.x,rect.y+rect.height));
+        points.push(new Point(rect.x+rect.width,rect.y+rect.height));
+        points.push(new Point(rect.x+rect.width,rect.y));
+        return new Polygon(points);
+      }
+
+      public static rect2DToPolygon(rect:Rect2D):Polygon{
+        let points=[];
+        points.push(rect.leftTop);
+        points.push(rect.leftBottom);
+        points.push(rect.rightBottom);
+        points.push(rect.rightTop);
         return new Polygon(points);
       }
 }

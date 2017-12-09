@@ -1,3 +1,8 @@
+
+
+
+
+
 import { Point } from './../../lib/draw/point';
 import { Color } from './../../lib/draw/color';
 import { debuging} from '../../debuging'
@@ -9,6 +14,7 @@ import { Rect } from '../../lib/draw/rect';
 
 import { RotationHelper, RotationMove } from './lib/rotationHelper';
 import { Utility } from '../../lib/utility';
+import { HMath } from '../../lib/hMath';
 
 export abstract class Layer extends SurfaceCanvas {
   private _name: string;
@@ -170,25 +176,51 @@ export abstract class Layer extends SurfaceCanvas {
 
   
   public hitMouseEvent(event:MouseEvent,scroll:Point):Point{
+    console.log('pagex',event.pageX,event.pageY);
+    console.log('clientx',event.clientX,event.clientY);
+    console.log('margin',this.marginLeft,this.marginTop);
+    console.log('scroll',scroll.x,scroll.y);
     if (this.htmlElement) {
       let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
-      
-      let point =new Point(((event.clientX+scroll.x - (rc.left+scroll.x))/this.scale).extFloor(), ((event.clientY+scroll.y - (rc.top+scroll.y))/this.scale).extFloor());
-         //console.log("layer hitmouseevent:",event.clientX,event.clientY,scroll.X,scroll.Y,rc.left,rc.top);
+      console.log('rc:',rc.left,rc.top);
+      let rcrect=new Rect(rc.left,rc.top,rc.width,rc.height);
+      let evpoint=new Point(event.clientX,event.clientY);
+      let rcscaledRect=new Rect(rc.left/this.scale,rc.top/this.scale,rc.width/this.scale,rc.height/this.scale);
+     
+      let point =new Point((evpoint.x - rcrect.x)/this.scale, (evpoint.y - rcrect.y)/this.scale);
+      if(this.rotateAngleDeg!=0){    
+        let temp=new Point(point.x,point.y);        
+        let rotated=HMath.rotatePoint(temp,-this.rotateAngleDeg,new Point(rcscaledRect.width/2,rcscaledRect.height/2));
+       // let rotatedRect=HMath.rotateRect(rcscaledRect,-this.rotateAngleDeg);
+        point=new Point(rotated.x-(rcscaledRect.width-this.width)/2,rotated.y-(rcscaledRect.height-this.height)/2);
+      }
+        
+      point=new Point(point.x.extFloor(),point.y.extFloor())
         if (point.x >= 0 && point.y >= 0 && point.x <= this.width && point.y <= this.height) {
+          console.log('hit:',point.x,point.y);
           return point;
         }
       
-    }
+      
+  }
     return undefined;
   }
   public normalizeMouseEvent(event:MouseEvent,scroll:Point, makeNormalize:boolean=true):Point{
    
     if (this.htmlElement) {
       let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
-   
-      let point =new Point(((event.clientX+scroll.x - (rc.left+scroll.x))/this.scale).extFloor(), ((event.clientY+scroll.y - (rc.top+scroll.y))/this.scale).extFloor());      
-     // console.log("layer normalizeMouseEvent:",this.scale, event.clientX,event.clientY,point.X,point.Y, scroll.X,scroll.Y,rc.left,rc.top);
+      let rcrect=new Rect(rc.left,rc.top,rc.width,rc.height);
+      let evpoint=new Point(event.clientX,event.clientY);
+      let rcscaledRect=new Rect(rc.left/this.scale,rc.top/this.scale,rc.width/this.scale,rc.height/this.scale);
+      
+      let point =new Point((evpoint.x - rcrect.x)/this.scale, (evpoint.y - rcrect.y)/this.scale);      
+      if(this.rotateAngleDeg!=0){           
+        let temp=new Point(point.x,point.y);        
+        let rotated=HMath.rotatePoint(temp,-this.rotateAngleDeg,new Point(rcscaledRect.width/2,rcscaledRect.height/2));
+       // let rotatedRect=HMath.rotateRect(rcscaledRect,-this.rotateAngleDeg);
+        point=new Point(rotated.x-(rcscaledRect.width-this.width)/2,rotated.y-(rcscaledRect.height-this.height)/2);
+      }
+      point=new Point(point.x.extFloor(),point.y.extFloor())
       if(makeNormalize){
         if(point.x<0)
         point.x=0;
@@ -199,6 +231,7 @@ export abstract class Layer extends SurfaceCanvas {
         if(point.y>this.height)
         point.y=this.height;
       }
+      //console.log(point.x,point.y);
       return point;
         
       

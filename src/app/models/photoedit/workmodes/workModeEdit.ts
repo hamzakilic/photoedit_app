@@ -1,3 +1,4 @@
+import { HMath } from './../../../lib/hMath';
 import { LayerImage } from './../layerImage';
 import { HImage } from './../../../lib/image';
 import { Graphics } from './../../../lib/graphics';
@@ -86,16 +87,36 @@ export abstract class WorkModeEdit extends WorkModeBase {
           this.selectedRegions = this.findSelectedRegions(event);
           if (this.selectedRegions.length == 0)//if there is no region, add a full layer
           {
-            let points = [];
-            points.push(new Point(0, 0));
-            points.push(new Point(0, this.selectedLayer.height));
-            points.push(new Point(this.selectedLayer.width, this.selectedLayer.height));
-            points.push(new Point(this.selectedLayer.width, 0));
-            this.selectedRegions.push(new Polygon(points));
+            let selectedLayerRegion=Polygon.fromRect(this.selectedLayer.rect).translate(-this.selectedLayer.marginLeft,-this.selectedLayer.marginTop);
+            this.selectedRegions=[selectedLayerRegion];
+          }else{
+            //selectedlayer ve selection region ile keşisen bölümü bul
+            let selectedLayerRegion=Polygon.fromRect2D(this.selectedLayer.rectRotated2D);
+        
+            this.selectedRegions= this.selectedRegions.map((reg)=>{
+              
+              let centerPoint=new Point(this.selectedLayer.rectRotated.x+this.selectedLayer.rectRotated.width/2,this.selectedLayer.rectRotated.y+this.selectedLayer.rectRotated.height/2);
+              let centerPoint2=new Point(this.selectedLayer.rectRotated.width/2,this.selectedLayer.rectRotated.height/2);
+              let centerPoint3=new Point(this.selectedLayer.width/2,this.selectedLayer.height/2);
+              let intersected= selectedLayerRegion.intersect(reg);
+             
+              let newPolygon=intersected;
+              if(this.selectedLayer.rotateAngleDeg!=0){
+                let temp=intersected.points.map(point=>{
+                return HMath.rotatePoint(point,-this.selectedLayer.rotateAngleDeg, centerPoint);
+              });
+              newPolygon=new Polygon(temp);
+            }
+              
+             
+              return newPolygon.translate(-(this.selectedLayer.marginLeft),-(this.selectedLayer.marginTop));
+             
+            }).filter((reg)=>reg.points.length>0);
           }
     
         
           //set selected regions to edittype
+         
         this._editType.selectedRegions=this.selectedRegions;
         this._editType.mouseDown(event,scroll,this.selectedLayer);
         
@@ -129,7 +150,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
         return [];
       }
     
-      protected findPointInLayers(event: MouseEvent,scroll:Point) {
+      /* protected findPointInLayers(event: MouseEvent,scroll:Point) {
         for (let i = this.workspace.layers.length - 1; i > -1; --i) {
           let ly = this.workspace.layers[i];
           let hitPoint = ly.hitMouseEvent(event,scroll);
@@ -141,7 +162,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
             }
           }
         }
-      }
+      } */
     
     
     }

@@ -3,7 +3,7 @@ import { Polygon } from './draw/polygon';
 import { Color } from './draw/color';
 import { HImage } from './image';
 import { Rect } from '../lib/draw/rect'
-import { CanvasTextWrapper } from 'canvas-text-wrapper';
+
 
 
 

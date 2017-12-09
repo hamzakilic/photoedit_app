@@ -23,7 +23,7 @@ import { ColorPickerModule } from './modulesext/color-picker';
 import { AutoCompleteModule } from './modulesext/autocomplete';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { AngularDraggableModule } from 'angular2-draggable';
-import {ContextMenuModule} from 'ngx-contextmenu';
+
 
 
 
@@ -157,8 +157,8 @@ import { ClipboardService } from './services/clipboard.service';
     AutoCompleteModule,
     ColorPickerModule,
     VirtualScrollModule,
-    AngularDraggableModule,
-    ContextMenuModule
+    AngularDraggableModule
+    
 
   ],
   providers: [ProjectService, KeyboardService, AppService, FontService, UserService, EffectService,ClipboardService],

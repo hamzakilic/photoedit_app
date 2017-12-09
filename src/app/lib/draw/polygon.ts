@@ -1,3 +1,5 @@
+import { HMath } from './../hMath';
+
 import { BUSY_CONFIG_DEFAULTS } from 'angular2-busy';
 
 
@@ -142,6 +144,8 @@ export class Polygon{
 
         
     }
+    
+   
 
     public hull():Polygon{
         
@@ -155,6 +159,15 @@ export class Polygon{
             newPoints.push(new Point(element[0],element[1]));
         });
         return new Polygon(newPoints);
+
+    }
+
+    public static fromRect(rect:Rect):Polygon{
+        return HMath.rectToPolygon(rect);
+
+    }
+    public static fromRect2D(rect:Rect2D):Polygon{
+       return HMath.rect2DToPolygon(rect);
 
     }
 
