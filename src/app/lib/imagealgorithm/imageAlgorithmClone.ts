@@ -10,7 +10,7 @@ export class ImageAlgorithmClone implements IImageAlgorithmImmutable {
     process(img: HImage): HImage {
         let arr = new Uint8ClampedArray(img.width * img.height * 4);
         arr.set(img.Pixels);
-        return new HImage(img.width, img.height, arr);
+        return new HImage(img.width, img.height, arr,img.bytePerPixel);
     }
 
 }

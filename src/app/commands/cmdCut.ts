@@ -18,6 +18,9 @@ import { ClipboardService, ClipboardData } from '../services/clipboard.service';
 import { AlertItem } from '../entities/alertItem';
 import { Callback } from '../lib/callback';
 import { CommandBusy } from './commandBusy';
+import { Polygon } from '../lib/draw/polygon';
+import { Point } from '../lib/draw/point';
+import { HMath } from '../lib/hMath';
 
 
 
@@ -43,34 +46,60 @@ export class CmdCut extends CommandBusy {
 
            if(!selectionLayer){
              //selectionLayer yok ise, bir alan seçili değildi ne yapacağız peki
+             this.appService.showAlert(new AlertItem('warning','Please intersect with selected layer',2000));
             return;
            }
 
            let polygons = selectionLayer.polygons;
            polygons.forEach((poly)=>{
                
-               let rect= poly.bounds;
-               let translatedPoly=poly.translate(-rect.x,-rect.y);
-               let crop=new ImageAlgorithmCrop(rect);
-               let cropedImage =crop.process(selectedLayer.getImage());
+            let rectLayer=selectedLayer.rectRotated2D;               
+            let polygonSelectedLayer=Polygon.fromRect2D(rectLayer);               
+            let intersectedPoly= poly.intersect(polygonSelectedLayer);
+            if(intersectedPoly.points.length==0){
+              //eğer selected layer ile  kesişim yok ise
+              this.appService.showAlert(new AlertItem("warning","Please intersect with selected layer"));
+              return;
+            }               
+            
+            if(selectedLayer.rotateAngleDeg!=0){
+             let centerPoint=new Point(selectedLayer.rectRotated.x+selectedLayer.rectRotated.width/2,selectedLayer.rectRotated.y+selectedLayer.rectRotated.height/2);                  
+             
+               let temp=intersectedPoly.points.map(point=>{
+               return HMath.rotatePoint(point,-selectedLayer.rotateAngleDeg, centerPoint);
+             });
+             intersectedPoly=new Polygon(temp);
+             
+            }
+            intersectedPoly=intersectedPoly.translate(-(selectedLayer.marginLeft),-(selectedLayer.marginTop));
+            let rect=intersectedPoly.bounds;
+            
+           
+            let crop=new ImageAlgorithmCrop(rect);
+            let cropedImage =crop.process(selectedLayer.getImage());
+            //intersectedPoly=intersectedPoly.translate(-rect.x,-rect.y);
+            //rect=intersectedPoly.bounds;
               
                let canvas=document.createElement('canvas');
                canvas.width=cropedImage.width;
                canvas.height=cropedImage.height;
                let graphics=new Graphics(canvas,canvas.width,canvas.height,1);
                graphics.save();
-               graphics.drawPolygon(translatedPoly,false);
+               let tempPoly=intersectedPoly.translate(-rect.x,-rect.y);
+               //rect=intersectedPoly.bounds;
+               graphics.drawPolygon(tempPoly,false);               
                graphics.clip();
                graphics.drawImageRect(cropedImage,new Rect(0,0,canvas.width,canvas.height),new Rect(0,0,canvas.width,canvas.height),new Callback(()=>{
               
                 //this is inside of 
                 graphics.restore();
+                
                 let maskedImage= graphics.getImage();
                 graphics.dispose();
                 
                 canvas=null;
                 selectedLayer.graphics.save();                                
-                selectedLayer.graphics.drawPolygon(poly,false);
+                selectedLayer.graphics.drawPolygon(intersectedPoly,false);
                 selectedLayer.graphics.clip();
                 selectedLayer.graphics.setBlendMode('destination-out');
                 selectedLayer.graphics.fillRect(rect,"FFFFFF");
@@ -78,7 +107,7 @@ export class CmdCut extends CommandBusy {
                   
                
                 
-                this.clipboardService.add(new ClipboardData(ClipboardData.Types.Image,maskedImage));
+                this.clipboardService.set(new ClipboardData(ClipboardData.Types.Image,maskedImage));
                 this.appService.showAlert(new AlertItem('info','Cutted',2000));
                 //let newLayer=new LayerImage(maskedImage,'cut');
                 //workspace.addLayer(newLayer);

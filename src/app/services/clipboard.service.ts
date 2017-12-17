@@ -25,38 +25,37 @@ export class ClipboardData{
 
 @Injectable()
 export class ClipboardService {
-   private _data:Array<ClipboardData>;
+   private _data:ClipboardData;
   constructor() { 
-    this._data=new Array<ClipboardData>();
+    this._data=undefined;
   }
 
-  public add(data:ClipboardData){
-      if(data)
-      this._data.unshift(data);
+  public set(data:ClipboardData){
+      
+      this._data=data;
   }
 
-  public hasAny(type?:number):boolean{
+  /* public hasAny(type?:number):boolean{
     if(type)//if any type bigger than zero
     return this._data.findIndex((item)=>item.type==type)>=0; //then find index and control index
     //else look at array length
     return this._data.length>0;
+  } */
+
+  public get data():ClipboardData{
+    
+       
+       return this._data;
+
   }
 
-  public get(type?:number):ClipboardData{
-    if(!this.hasAny(type))
-       return undefined;
-       let index=this._data.findIndex((item)=>item.type==type);
-       return this._data[index];
-
-  }
-
-  public remove(data):void{
+  /* public remove(data):void{
     let index= this._data.findIndex((item)=>item ===data)
     if(index>=0){
       
      this._data.splice(index,1);
     }
-  }
+  } */
 
    
 

@@ -1,3 +1,4 @@
+
 import { ClipboardData } from './../services/clipboard.service';
 import { LayerImage } from './../models/photoedit/layerImage';
 import { ImageAlgorithmCrop } from './../lib/imagealgorithm/imageAlgorithmCrop';
@@ -13,6 +14,7 @@ import { LayerEmpty } from '../models/photoedit/layerEmpty';
 import { HImage } from '../lib/image';
 import { LayerSelect } from '../models/photoedit/layerSelect';
 import { ClipboardService } from '../services/clipboard.service';
+import { ImageAlgorithmClone } from '../lib/imagealgorithm/imageAlgorithmClone';
 
 
 
@@ -32,10 +34,13 @@ export class CmdPaste extends Command {
       
       if (workspace) {
          
-      var data= this._clipboardService.get(ClipboardData.Types.Image);
-      if(data){
-        this._clipboardService.remove(data);
-        let newLayer=new LayerImage(data.data,'paste');
+      let boardData= this._clipboardService.data;
+      if(boardData && boardData.type==ClipboardData.Types.Image){
+
+        let image= (boardData.data as HImage);
+        let clone=new ImageAlgorithmClone();
+        let cloned=clone.process(image);
+        let newLayer=new LayerImage(cloned,'paste');
         workspace.addLayer(newLayer);
       }else{
         //belkide clipboardservice te bir şey yok diye mesaj vermek lazım

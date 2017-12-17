@@ -176,13 +176,10 @@ export abstract class Layer extends SurfaceCanvas {
 
   
   public hitMouseEvent(event:MouseEvent,scroll:Point):Point{
-    console.log('pagex',event.pageX,event.pageY);
-    console.log('clientx',event.clientX,event.clientY);
-    console.log('margin',this.marginLeft,this.marginTop);
-    console.log('scroll',scroll.x,scroll.y);
+   
     if (this.htmlElement) {
       let rc = (<HTMLCanvasElement>this.htmlElement.nativeElement).getBoundingClientRect();
-      console.log('rc:',rc.left,rc.top);
+      
       let rcrect=new Rect(rc.left,rc.top,rc.width,rc.height);
       let evpoint=new Point(event.clientX,event.clientY);
       let rcscaledRect=new Rect(rc.left/this.scale,rc.top/this.scale,rc.width/this.scale,rc.height/this.scale);
@@ -197,7 +194,7 @@ export abstract class Layer extends SurfaceCanvas {
         
       point=new Point(point.x.extFloor(),point.y.extFloor())
         if (point.x >= 0 && point.y >= 0 && point.x <= this.width && point.y <= this.height) {
-          console.log('hit:',point.x,point.y);
+          
           return point;
         }
       
