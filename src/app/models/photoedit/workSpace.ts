@@ -1,4 +1,4 @@
-import { WorkModeErase } from './workmodes/workModeErase';
+
 
 import { Layer } from './layer';
 import { LayerEmpty } from './layerEmpty';
@@ -23,6 +23,9 @@ import { WorkModeHand} from './workmodes/workModeHand';
 import { WorkModeResizeWorkspace } from './workmodes/workModeResize';
 import { WorkModeSelection } from './workmodes/workModeSelection';
 import { WorkModeBucket } from './workmodes/workModeBucket';
+import { HistoryManager } from './history/historyManager';
+import { WorkModeErase } from './workmodes/workModeErase';
+import { History } from './history/history';
 
 
 
@@ -55,7 +58,7 @@ export class Workspace extends HEventEmitter {
   public foregroundColor: string;
   public backgroundColor: string;
   private _htmlElement:any=undefined;
-
+  private _historyManager:HistoryManager;
   
   constructor(width: number, height: number, name?: string) {
     super();
@@ -91,7 +94,13 @@ export class Workspace extends HEventEmitter {
 
     this.backgroundColor = "#000";
     this.foregroundColor = "#FFF";
+    this._historyManager=new HistoryManager();
+    this._historyManager.add(History.create());
 
+  }
+
+  public get historyManager():HistoryManager{
+    return this._historyManager;
   }
   public get htmlElement():any{
     if(this._htmlElement==undefined){
@@ -160,8 +169,8 @@ export class Workspace extends HEventEmitter {
 
 
   public replaceLayer(source: Layer, destination: Layer, marginLeft?: number, marginTop?: number) {
-    let index = this._layers.findIndex(p => p == source);
-    if (index > -1) {
+    let index = this._layers.findIndex(p => p.uuid == source.uuid);
+    if (index > -1) {      
       destination.blendMode=destination.blendMode;
       destination.globalAlpha=(source.globalAlpha);
       destination.isSelected = true;
@@ -264,11 +273,11 @@ export class Workspace extends HEventEmitter {
   }
 
   public mouseWheelUpFunc() {
-    console.log('wheelup');
+    //console.log('wheelup');
   }
 
   public mouseWheelDownFunc() {
-    console.log('wheeldown');
+    //console.log('wheeldown');
   }
   
 
@@ -289,7 +298,7 @@ export class Workspace extends HEventEmitter {
   }
   public mouseUp(event: any) {
 
-    
+    //console.log("mouseup");
     this._workMode.mouseUp(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
 
   }

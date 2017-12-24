@@ -1,3 +1,4 @@
+
 import { Command } from './command';
 import { Message } from '../entities/message';
 import { MessageBus } from '../lib/messageBus';
@@ -7,6 +8,7 @@ import { ProjectService } from '../services/project.service';
 import { Workspace } from '../models/photoedit/workSpace';
 import { LayerEmpty } from '../models/photoedit/layerEmpty';
 import { Callback } from '../lib/callback';
+import { History } from '../models/photoedit/history/history';
 
 
 
@@ -37,11 +39,24 @@ export class CmdResizeWorkspace extends Command {
     if (this.projectService.currentProject) {
       let workspace = this.projectService.currentProject.activeWorkspace;
       if (workspace) {
-        let layer = new LayerEmpty('new layer', workspace.width, workspace.height);
-
-        workspace.resize(this.width,this.height,new Callback(()=>{}));
+        //let layer = new LayerEmpty('new layer', workspace.width, workspace.height);
+        let beforeWH={w:workspace.width,h:workspace.height};
+        let afterWH={w:this.width,h:this.height};
+         workspace.resize(this.width,this.height,Callback.empty());
+         this.history(workspace,beforeWH,afterWH);
       }
     }
+
+  }
+
+  private history(workspace:Workspace,before,after){
+      let history=History.create().setUndo(Callback.from(()=>{
+        workspace.resize(before.w,before.h,Callback.empty());
+      }));
+      workspace.historyManager.add(history,Callback.from(()=>{
+        workspace.resize(after.w,after.h,Callback.empty());
+      }))
+
 
   }
 

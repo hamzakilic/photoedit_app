@@ -112,6 +112,7 @@ export class CmdClear extends Command {
                 //this.appService.showAlert(new AlertItem('info','Cutted',2000));
                 //let newLayer=new LayerImage(maskedImage,'cut');
                 //workspace.addLayer(newLayer);
+                
 
                }));
                

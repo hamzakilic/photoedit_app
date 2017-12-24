@@ -37,8 +37,7 @@ export class CmdReadImageFromBufferorUrl extends Command {
       } else {
         if (this.projectService.currentProject.activeWorkspace) {
           
-          let ly = new LayerHtmlImage(img, this.fileName);
-           
+          let ly = new LayerHtmlImage(img, this.fileName);           
           ly.scale = this.projectService.currentProject.activeWorkspace.scale;
           this.projectService.currentProject.activeWorkspace.addLayer(ly);
         }

@@ -1,3 +1,4 @@
+import { ImageAlgorithmClone } from './../../lib/imagealgorithm/imageAlgorithmClone';
 import { Callback } from './../../lib/callback';
 import { Layer } from './layer';
 import { Graphics } from '../../lib/graphics';
@@ -20,6 +21,11 @@ export class LayerImage extends Layer{
     this.img = img;
     
   }
+  public createInstanceForClone(){
+    let cloner=new ImageAlgorithmClone();
+    let clonedImg= cloner.process(this.img);
+    return new LayerImage(clonedImg,this.name);
+  }
   public render(): void{
     
     
@@ -36,7 +42,10 @@ export class LayerImage extends Layer{
     //this.graphics.fillRect(new Rect(0,0,this.width,this.height),"#FFFFFF")
   }
   public dispose(){
-
+    if(this.graphics)
+    this.graphics.dispose();
   }
+
+
 
 }

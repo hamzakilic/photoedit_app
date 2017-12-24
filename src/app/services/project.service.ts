@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Proj} from '../models/photoedit/proj';
+import { Project} from '../models/photoedit/project';
 
 @Injectable()
 export class ProjectService {
-  private project: Proj;
+  private project: Project;
   constructor() {
     this.createProject('default');
   }
 
-  public get currentProject(): Proj{
+  public get currentProject(): Project{
 
       return this.project;
   }
   public createProject(name?: string){
     if(this.project)
       this.project.dispose();
-      this.project = new Proj(name);
+      this.project = new Project(name);
   }
 
 

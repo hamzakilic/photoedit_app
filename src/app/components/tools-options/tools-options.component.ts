@@ -1,6 +1,6 @@
 import { WorkModeBucket } from './../../models/photoedit/workmodes/workModeBucket';
 import { Workspace } from './../../models/photoedit/workSpace';
-import { Proj } from './../../models/photoedit/proj';
+import { Project } from './../../models/photoedit/project';
 import { AppService } from './../../services/app.service';
 import { ProjectService } from './../../services/project.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +14,7 @@ export class ToolsOptionsComponent implements OnInit {
 
   projectService: ProjectService;
   appService: AppService;
-  project: Proj;
+  project: Project;
 
 
   constructor(projectService: ProjectService,appService: AppService) {

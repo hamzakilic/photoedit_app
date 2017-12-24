@@ -1,5 +1,6 @@
-import { Color } from './../../lib/draw/color';
+import { IClone } from './iclone';
 
+import { Color } from './../../lib/draw/color';
 import { Callback } from '../../lib/callback';
 import { Graphics } from '../../lib/graphics';
 import { Rect } from '../../lib/draw/rect';
@@ -8,7 +9,8 @@ import { Point } from '../../lib/draw/point'
 import { HMath } from '../../lib/hMath';
 import { HImage } from '../../lib/image';
 
-export class Surface {
+
+export class Surface implements IClone {
 
   public width = 0;
   public height = 0;;
@@ -22,28 +24,42 @@ export class Surface {
   public selectPointwh = 14;
 
   public zIndex = 0;
-  public keepRatio: boolean;
-  public scaleView: boolean;
-  public sourceMask: Rect;
-  public _globalAlpha:number;
+  public keepRatio: boolean=true;
+  public scaleView: boolean=true;
+  public sourceMask: Rect=undefined;
+  public globalAlpha:number=1.0;
 
 
   /**
    *
    */
   constructor() {
-    this.keepRatio = true;
-    this.sourceMask = undefined;
-    this.scaleView = true;
-    this._globalAlpha=1.0;
-  }
-  public get globalAlpha():number{
-    return this._globalAlpha;
-  }
-  public set globalAlpha(val:number){
-    this._globalAlpha=val;
     
   }
+  
+  public clone():Surface{
+    var instance=this.createInstanceForClone();
+    instance.globalAlpha=this.globalAlpha;
+    instance.height=this.height;
+    instance.keepRatio=this.keepRatio;
+    instance.marginBottom=this.marginBottom;
+    instance.marginLeft=this.marginLeft;
+    instance.marginRight=this.marginRight;
+    instance.marginTop=this.marginTop;
+    instance.rotateAngleDeg=this.rotateAngleDeg;
+    instance.scale=this.scale;
+    instance.scaleView=this.scaleView;
+    instance.selectPointwh=this.selectPointwh;
+    instance.sourceMask=this.sourceMask?this.sourceMask.clone():undefined;
+    instance.width=this.width;
+    instance.zIndex=this.zIndex;
+    return instance;
+
+  }
+  protected createInstanceForClone():Surface{
+    return new Surface();
+  }
+  
 
 }
 

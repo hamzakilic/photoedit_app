@@ -1,5 +1,5 @@
 import { LayerSelect } from './../../models/photoedit/layerSelect';
-import { Proj } from './../../models/photoedit/proj';
+import { Project } from './../../models/photoedit/project';
 import { ProjectService } from './../../services/project.service';
 import { AppService } from './../../services/app.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +13,7 @@ export class ToolsOptionsClipComponent implements OnInit {
 
   projectService: ProjectService;
   appService: AppService;
-  public project: Proj;
+  public project: Project;
 
 
   constructor(projectService: ProjectService,appService: AppService) {

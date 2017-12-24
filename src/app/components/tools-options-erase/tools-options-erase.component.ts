@@ -1,5 +1,5 @@
 import { WorkModeErase, EditTypeErase } from './../../models/photoedit/workmodes/workModeErase';
-import { Proj } from './../../models/photoedit/proj';
+import { Project } from './../../models/photoedit/project';
 import { Workspace } from './../../models/photoedit/workSpace';
 import { AppService } from './../../services/app.service';
 import { ProjectService } from './../../services/project.service';
@@ -14,7 +14,7 @@ export class ToolsOptionsEraseComponent implements OnInit {
 
   projectService: ProjectService;
   appService: AppService;
-  project: Proj;
+  project: Project;
 
 
   constructor(projectService: ProjectService,appService: AppService) {

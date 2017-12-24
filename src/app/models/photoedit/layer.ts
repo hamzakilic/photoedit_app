@@ -45,6 +45,22 @@ export abstract class Layer extends SurfaceCanvas {
     this._uuid=Utility.uuid();
   }
 
+  public clone():Layer{
+    let instance= super.clone() as Layer;
+    instance._name=this._name;
+    instance._blendMode=this._blendMode;
+    instance._mouseDownPoint=this._mouseDownPoint;
+    instance._uuid=this._uuid;
+    instance.canResizeOrRotate=this.canResizeOrRotate;
+    instance.canRotate=this.canRotate;
+    instance.isHidden=this.isHidden;
+    instance.showSelected=this.showSelected;
+    this.cssNotSelectedClass={clayerEmpty:this.cssNotSelectedClass.clayerEmpty};
+    this.cssSelectedClass={clayerSelected:this.cssSelectedClass.clayerSelected};
+    return instance;
+  }
+  
+
   private cssSelectedClass:any;//durmadan değişiklik oluyor diye değişken yapıldı
   private cssNotSelectedClass:any;//buda aynısı durmadan classes() içinde değişiklik olduğu için
 

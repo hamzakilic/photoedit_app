@@ -1,4 +1,6 @@
 
+
+
 /**
  *  this class represents a function delegate class,
  *  @example
@@ -32,5 +34,12 @@ export class Callback {
         if (this.func)
             return this.func(parameters);
         return undefined;
+    }
+
+    public static from(func:(parameters:any)=>any):Callback{
+        return new Callback(func);
+    }
+    public static empty():Callback{
+        return new Callback(()=>{});
     }
 }

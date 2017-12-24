@@ -1,4 +1,5 @@
 
+
 import { Layer } from './layer';
 import { Graphics } from '../../lib/graphics';
 
@@ -13,8 +14,9 @@ export class LayerBackground extends Layer {
     super(name);
     this.canRotate = false;
 
-
-
+  }
+  public createInstanceForClone(){
+    return new LayerBackground(this.name);    
   }
   private lastScaleValue = 0;
   private createPattern(graphics: Graphics): boolean {
@@ -79,6 +81,8 @@ export class LayerBackground extends Layer {
 
 
   public dispose() {
-
+    
+      if(this.graphics)
+      this.graphics.dispose();
   }
 }

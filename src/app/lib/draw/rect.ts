@@ -13,6 +13,9 @@ export class Rect {
       this.height  = height;
 
   }
+  public clone():Rect{
+    return new Rect(this.x,this.y,this.width,this.height);
+  }
 
 
   public get leftTop():Point{

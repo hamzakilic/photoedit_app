@@ -57,7 +57,7 @@ export class CmdCreateInstagramFilter extends CommandBusy {
                            filtering.g[i]=g;
                            filtering.b[i]=b;
                        }
-                       console.log(JSON.stringify(filtering));
+                      // console.log(JSON.stringify(filtering));
 
 
 

@@ -112,11 +112,11 @@ public changeFontSize(value:any){
   }
  
   public fontRemoved(value:any):void {
-    console.log('Removed value is: ', value);
+   // console.log('Removed value is: ', value);
   }
  
   public fontTyped(value:any):void {
-    console.log('New search input: ', value);
+   // console.log('New search input: ', value);
   }
  
   public fontRefreshValue(value:any):void {

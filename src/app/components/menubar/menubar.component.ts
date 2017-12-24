@@ -1,3 +1,4 @@
+
 import { CmdNewLayerFromSelection } from './../../commands/cmdNewLayerFromSelection';
 import { CmdPaste } from './../../commands/cmdPaste';
 import { CmdCopy } from './../../commands/cmdCopy';
@@ -48,6 +49,8 @@ import { KeyboardService } from '../../services/keyboard.service';
 import { CmdCut } from '../../commands/cmdCut';
 import { ClipboardService } from '../../services/clipboard.service';
 import { CmdClear } from '../../commands/cmdClear';
+import { CmdUndo } from '../../commands/cmdUndo';
+import { CmdRedo } from '../../commands/cmdRedo';
 
 
 @Component({
@@ -94,7 +97,14 @@ export class MenubarComponent implements OnInit {
     dividerEdit.isDivider = true;
     menuEdit.childs.push(dividerEdit);   
     menuEdit.childs.push(new MenuItem("Clear", new Callback(()=>this.clear()),new ShortCut(false,false,false,'Delete',menuEdit.name)));
+
+    let dividerEdit2 = new MenuItem('divider', undefined);
+    dividerEdit2.isDivider = true;
+    menuEdit.childs.push(dividerEdit2);   
+    menuEdit.childs.push(new MenuItem("Undo", new Callback(()=>this.undo()),new ShortCut(true,false,false,'Z',menuEdit.name)));
+    menuEdit.childs.push(new MenuItem("Redo", new Callback(()=>this.redo()),new ShortCut(true,false,false,'Y',menuEdit.name)));
     this.menus.push(menuEdit);
+
 
 
 
@@ -204,6 +214,20 @@ export class MenubarComponent implements OnInit {
     cmd.executeAsync();
     
   }
+
+  undo() {
+    let cmd=new CmdUndo(this._projectService,this._appService);
+    cmd.executeAsync();
+    
+  }
+
+  redo() {
+    let cmd=new CmdRedo(this._projectService,this._appService);
+    cmd.executeAsync();
+    
+  }
+
+
   copy() {
     let cmd=new CmdCopy(this._projectService,this._appService,this._clipboardService);
     cmd.executeAsync();

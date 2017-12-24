@@ -1,6 +1,6 @@
 import { Workspace } from './workSpace';
 
-export class Proj {
+export class Project {
   private _name: string;
   private _workspaces: Workspace[];
   /**

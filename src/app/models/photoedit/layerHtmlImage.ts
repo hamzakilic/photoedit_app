@@ -4,6 +4,7 @@ import { Graphics } from '../../lib/graphics';
 import { HImage } from '../../lib/image';
 import { Rect } from '../../lib/draw/rect';
 import { HMath } from '../../lib/hMath';
+import { LayerImage } from './layerImage';
 
 export class LayerHtmlImage extends Layer {
 
@@ -16,9 +17,11 @@ export class LayerHtmlImage extends Layer {
     this.height = img.height;
     this.canRotate = true;
     this.img = img;
+  }
 
-
-
+  
+  public createInstanceForClone(){
+    return new LayerImage(this.getImage(),this.name);
   }
   public render(): void {
 

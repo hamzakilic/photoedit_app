@@ -1,3 +1,5 @@
+import { Callback } from './../lib/callback';
+import { FormResizeComponent } from './../components/form-resize/form-resize.component';
 import { Command } from './command';
 import { CommandBusy } from './commandBusy';
 import { Message } from '../entities/message';
@@ -16,6 +18,8 @@ import { HMath } from '../lib/hMath';
 import { Rect } from '../lib/draw/rect';
 
 import { ImageAlgorithmColorRemap } from '../lib/imagealgorithm/imageAlgorithmColorRemap';
+import { Layer } from '../models/photoedit/layer';
+import { History } from '../models/photoedit/history/history';
 
 
 export class CmdColorRemap extends CommandBusy {
@@ -54,9 +58,11 @@ export class CmdColorRemap extends CommandBusy {
                             let effect = new ImageAlgorithmColorRemap(effectValue);
                             let img = effect.process(selectedLayer.getImage());
                             let newLayer = new LayerImage(img, selectedLayer.name);
+
+                            this.history(workspace,selectedLayer.clone(),newLayer.clone());
+
                             workspace.replaceLayer(selectedLayer, newLayer);
-
-
+                            
 
                         }
                     }
@@ -70,6 +76,15 @@ export class CmdColorRemap extends CommandBusy {
     }
 
 
-
+    private history(workspace:Workspace,selectedLayer:Layer,newLayer:Layer){
+        let histo=History.create().setUndo(Callback.from(()=>{
+            let temp=selectedLayer.clone();
+            workspace.replaceLayer(newLayer,temp);
+        }));
+        workspace.historyManager.add(histo,Callback.from(()=>{
+            
+            workspace.replaceLayer(selectedLayer,newLayer.clone());
+        }));
+    }
 
 }

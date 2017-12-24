@@ -27,6 +27,7 @@ export class UserService {
       );
       
       }catch(exp){
+        
         console.log(exp);
       }
     }

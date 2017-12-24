@@ -3,7 +3,7 @@
 
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
-import { Proj } from '../../models/photoedit/proj';
+import { Project } from '../../models/photoedit/project';
 import { Workspace } from '../../models/photoedit/workSpace';
 import { WorkspaceComponent } from '../workspace/workspace.component';
 import  '../../lib/extensions';
@@ -17,7 +17,7 @@ import  '../../lib/extensions';
 })
 export class ProjectComponent implements OnInit {
   projectService: ProjectService;
-  public project: Proj;
+  public project: Project;
 
   constructor(projectService: ProjectService) {
     this.projectService = projectService;

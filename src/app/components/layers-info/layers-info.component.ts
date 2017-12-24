@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ProjectService } from '../../services/project.service';
-import { Proj } from '../../models/photoedit/proj';
+import { Project } from '../../models/photoedit/project';
 import { Workspace } from '../../models/photoedit/workSpace';
 import { Layer } from '../../models/photoedit/layer';
 
@@ -15,7 +15,7 @@ export class LayersInfoComponent implements OnInit {
   projectService: ProjectService;
   private composite:Map<string,boolean>;
   
-  public project: Proj;
+  public project: Project;
   
 
   constructor(projectService: ProjectService) {

@@ -10,7 +10,7 @@ import { Component, OnInit,Input,ViewChild } from '@angular/core';
 import { Workspace } from './../../models/photoedit/workSpace';
 import { LayerSelect } from './../../models/photoedit/layerSelect';
 import { ProjectService } from '../../services/project.service';
-import { Proj } from '../../models/photoedit/proj';
+import { Project } from '../../models/photoedit/project';
 
 import { Layer } from '../../models/photoedit/layer';
 
@@ -24,7 +24,7 @@ export class ToolsComponent implements OnInit {
 
   projectService: ProjectService;
   appService:AppService;
-  public project: Proj;
+  public project: Project;
 
   
   constructor(projectService: ProjectService,appService:AppService) {

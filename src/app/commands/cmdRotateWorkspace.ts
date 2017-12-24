@@ -1,3 +1,5 @@
+import { Callback } from './../lib/callback';
+import { History } from './../models/photoedit/history/history';
 import { Command } from './command';
 import { CommandBusy } from './commandBusy';
 import { Message } from '../entities/message';
@@ -31,14 +33,28 @@ export class CmdRotateWorkspace extends CommandBusy {
             if (this.projectService.currentProject)
                 if (this.projectService.currentProject.activeWorkspace) {
                     let workspace = this.projectService.currentProject.activeWorkspace;
-                        if(workspace)
+                        if(workspace){                            
                             workspace.rotate90();
+                            this.history(workspace);
+                        }
 
                     }
                 
 
           
 
+    }
+    private history(workspace:Workspace){
+ /** history part starts */
+ let history = History.create().setUndo(Callback.from(()=>{
+    workspace.rotate90();
+    workspace.rotate90();
+    workspace.rotate90();
+}));
+workspace.historyManager.add(history,Callback.from(()=>{
+    workspace.rotate90();
+}));
+/** history part ends */
     }
 
 

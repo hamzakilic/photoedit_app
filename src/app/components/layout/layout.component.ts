@@ -3,7 +3,7 @@ import { MenubarComponent } from '../menubar/menubar.component';
 
 import { WorkspaceComponent } from '../workspace/workspace.component';
 import { ProjectService } from '../../services/project.service';
-import { Proj } from '../../models/photoedit/proj';
+import { Project } from '../../models/photoedit/project';
 
 @Component({
   selector: 'layout-component',
@@ -12,7 +12,7 @@ import { Proj } from '../../models/photoedit/proj';
 })
 export class LayoutComponent implements OnInit {
 
-  public project:Proj;
+  public project:Project;
   constructor(projectService:ProjectService) {
     this.project=projectService.currentProject;
   }

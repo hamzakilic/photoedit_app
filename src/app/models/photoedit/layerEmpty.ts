@@ -19,6 +19,9 @@ export class LayerEmpty extends Layer {
 
 
   }
+  public createInstanceForClone(){
+    return new LayerEmpty(this.name,this.width,this.height);
+  }
   public render(): void {
 
   }

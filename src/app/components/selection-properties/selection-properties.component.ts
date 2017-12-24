@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { AppService } from '../../services/app.service';
-import { Proj } from '../../models/photoedit/proj';
+import { Project } from '../../models/photoedit/project';
 import { Layer } from '../../models/photoedit/layer';
 import { LayerPropertiesComponent } from '../layer-properties/layer-properties.component';
 import { MessageBus } from '../../lib/messageBus';
@@ -18,7 +18,7 @@ export class SelectionPropertiesComponent implements OnInit {
 
   projectService: ProjectService;
   appService: AppService;
-  public project: Proj;
+  public project: Project;
 
 
   constructor(projectService: ProjectService,appService: AppService) {

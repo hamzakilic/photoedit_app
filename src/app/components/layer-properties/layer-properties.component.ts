@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import '../../lib/extensions';
 import { ProjectService } from '../../services/project.service';
-import { Proj } from '../../models/photoedit/proj';
+import { Project } from '../../models/photoedit/project';
 import { Layer } from '../../models/photoedit/layer';
 import { LayerText } from "../../models/photoedit/layerText";
 import { LayerGraphics } from "../../models/photoedit/layerGraphics";
@@ -20,7 +20,7 @@ import { AutoCompleteItem } from "../../entities/autocompleteItem";
 export class LayerPropertiesComponent implements OnInit {
 
   projectService: ProjectService;
-  public project: Proj;
+  public project: Project;
   public accordionClass: string = 'accordionClass';
   
 

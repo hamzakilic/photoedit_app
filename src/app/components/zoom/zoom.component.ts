@@ -1,7 +1,7 @@
 import { TrackbarComponent } from './../trackbar/trackbar.component';
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Workspace } from '../../models/photoedit/workSpace';
-import { Proj } from '../../models/photoedit/proj';
+import { Project } from '../../models/photoedit/project';
 import { ProjectService } from '../../services/project.service';
 import { Callback } from '../../lib/callback';
 
@@ -12,7 +12,7 @@ import { Callback } from '../../lib/callback';
 })
 export class ZoomComponent implements OnInit {
   projectService: ProjectService;
-  public project: Proj;
+  public project: Project;
   
   @ViewChild('tracker') tracker: TrackbarComponent;
   

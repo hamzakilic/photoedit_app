@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 
 import { NgModule } from '@angular/core';
@@ -80,6 +81,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { FormAboutComponent } from './components/form-about/form-about.component';
 import { FormShortcutsComponent } from './components/form-shortcuts/form-shortcuts.component';
 import { ClipboardService } from './services/clipboard.service';
+
 
 
 

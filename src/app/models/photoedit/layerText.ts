@@ -22,6 +22,10 @@ export class LayerText extends LayerGraphics{
     this._text=text;
    
   }
+ 
+  public createInstanceForClone(){
+    return new LayerText(this._text.clone(),this.name);
+  }
   public render(): void{
    
       this.graphics.save();
