@@ -1,8 +1,4 @@
 
-
-
-
-
 import { Point } from './../../lib/draw/point';
 import { Color } from './../../lib/draw/color';
 import { debuging} from '../../debuging'
@@ -28,7 +24,7 @@ export abstract class Layer extends SurfaceCanvas {
   public _blendMode:string;
   private _uuid:string;
   
-  public htmlElement:any;
+  
   constructor(name?: string) {
     super();
     this.sourceMask = undefined;
@@ -40,13 +36,17 @@ export abstract class Layer extends SurfaceCanvas {
     this._mouseDownPoint = new MouseDownPoint();
     this.showSelected=true;
     this.canResizeOrRotate=true;
-    this.cssNotSelectedClass={ clayerEmpty:true};
-    this.cssSelectedClass={ clayerSelected:true };
+    this._cssNotSelectedClass={ clayerEmpty:true};
+    this._cssSelectedClass={ clayerSelected:true };
     this._uuid=Utility.uuid();
+    this.whenCreatedGraphicsAgain=Callback.from(()=>{
+      this.render();
+    });
   }
 
   public clone():Layer{
     let instance= super.clone() as Layer;
+   // instance.graphics=this.graphics;    
     instance._name=this._name;
     instance._blendMode=this._blendMode;
     instance._mouseDownPoint=this._mouseDownPoint;
@@ -55,22 +55,26 @@ export abstract class Layer extends SurfaceCanvas {
     instance.canRotate=this.canRotate;
     instance.isHidden=this.isHidden;
     instance.showSelected=this.showSelected;
-    this.cssNotSelectedClass={clayerEmpty:this.cssNotSelectedClass.clayerEmpty};
-    this.cssSelectedClass={clayerSelected:this.cssSelectedClass.clayerSelected};
+   
+   // instance.htmlElement=this.htmlElement;
+
+    this._cssNotSelectedClass={clayerEmpty:this._cssNotSelectedClass.clayerEmpty};
+    this._cssSelectedClass={clayerSelected:this._cssSelectedClass.clayerSelected};
     return instance;
   }
   
+  
 
-  private cssSelectedClass:any;//durmadan değişiklik oluyor diye değişken yapıldı
-  private cssNotSelectedClass:any;//buda aynısı durmadan classes() içinde değişiklik olduğu için
+  private _cssSelectedClass:any;//durmadan değişiklik oluyor diye değişken yapıldı
+  private _cssNotSelectedClass:any;//buda aynısı durmadan classes() içinde değişiklik olduğu için
 
   public get uuid():string{
     return this._uuid;
   }
   public get classes():any{
     if(this.isSelected)
-      return this.cssSelectedClass;
-    return this.cssNotSelectedClass;
+      return this._cssSelectedClass;
+    return this._cssNotSelectedClass;
   }
   
   public get name(): string {
@@ -87,8 +91,17 @@ export abstract class Layer extends SurfaceCanvas {
     this._blendMode=val;
   }
 
-  
+  public invalidate(){
+    this.whenCreatedGraphicsAgain=Callback.from(()=>{
+      this.render();
+    });
+    this.createAgain=true;
+  }
 
+  
+public exportToURI(format:string='image/jpg'):string{
+    return this.graphics.exportToURI(format);
+}
  
 
   public mouseDown(event: MouseEvent,scroll:Point) {

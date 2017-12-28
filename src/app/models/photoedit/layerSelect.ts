@@ -33,7 +33,7 @@ abstract class Shape {
   abstract doubleClick(point: Point);
   
   protected _selectedLayer:Layer;
-  
+  //todo: buradaki selectedlayer'a gerekyok
   constructor(graphics: Graphics,selectedLayer:Layer) {
     this._selectedLayer = selectedLayer;
       Helper.createStrokeStyle(graphics, (bitmap) => {
@@ -470,6 +470,25 @@ export class LayerSelect extends Layer {
     
 
   }
+
+  public clone():LayerSelect{
+    var instance=super.clone() as LayerSelect;
+    instance.shapeType=this.shapeType;
+    instance.clipMode=this.clipMode;
+    instance.strokeStyle=this.strokeStyle;  
+    this.polygons.forEach((item)=>{
+      instance.polygons.push(item.clone())
+    });
+      
+    return instance;
+  }
+
+  public createInstanceForClone(){
+    let temp=new LayerSelect(this.width,this.height,this.marginLeft,this.marginTop,this._selectedWorkspaceLayer);
+    return temp;
+  }
+
+
   public get polygons():Array<Polygon>{
     return this._polygons;
   }
@@ -484,9 +503,12 @@ export class LayerSelect extends Layer {
   public set shapeType(type: string) {
     this._shapeType = type;
   }
-
+  public get shapeType() {
+    return this._shapeType;
+  }
+  private _clayerEmpty={clayerEmpty:true};
   public get classes(): any {
-    return { clayerEmpty: true };
+    return this._clayerEmpty;
   }
   public mouseDown(event: MouseEvent,scroll:Point) {
     this.stopAnimation();

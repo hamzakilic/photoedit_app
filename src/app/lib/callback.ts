@@ -25,6 +25,7 @@ export class Callback {
 
     }
 
+    
     /**
      *
      * @param parameters function parameter with any type

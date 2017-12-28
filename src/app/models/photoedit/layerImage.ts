@@ -21,7 +21,18 @@ export class LayerImage extends Layer{
     this.img = img;
     
   }
+
+  /**
+   * for testing purpose
+   */
+  public get hImage():HImage{
+    return this.img;
+  }
+  
   public createInstanceForClone(){
+    if(this.graphics){
+      return new LayerImage(this.graphics.getImage(),this.name);
+    }
     let cloner=new ImageAlgorithmClone();
     let clonedImg= cloner.process(this.img);
     return new LayerImage(clonedImg,this.name);

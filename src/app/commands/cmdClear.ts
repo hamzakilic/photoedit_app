@@ -1,3 +1,6 @@
+
+
+import { HistoryManager } from './../models/photoedit/history/historyManager';
 import { LayerImage } from './../models/photoedit/layerImage';
 import { ImageAlgorithmCrop } from './../lib/imagealgorithm/imageAlgorithmCrop';
 import { Command } from './command';
@@ -20,6 +23,8 @@ import { Callback } from '../lib/callback';
 import { Polygon } from '../lib/draw/polygon';
 import { Point } from '../lib/draw/point';
 import { HMath } from '../lib/hMath';
+import { Layer } from '../models/photoedit/layer';
+import { History } from '../models/photoedit/history/history';
 
 
 
@@ -50,78 +55,140 @@ export class CmdClear extends Command {
              this.appService.showAlert(new AlertItem('warning','Please intersect with selected layer',2000));
             return;
            }
-
-           let polygons = selectionLayer.polygons;
-           polygons.forEach((poly)=>{
-               
-            let rectLayer=selectedLayer.rectRotated2D;               
-            let polygonSelectedLayer=Polygon.fromRect2D(rectLayer);               
-            let intersectedPoly= poly.intersect(polygonSelectedLayer);
-            if(intersectedPoly.points.length==0){
-              //eğer selected layer ile  kesişim yok ise
-              this.appService.showAlert(new AlertItem("warning","Please intersect with selected layer"));
-              return;
-            }               
-            
-            if(selectedLayer.rotateAngleDeg!=0){
-             let centerPoint=new Point(selectedLayer.rectRotated.x+selectedLayer.rectRotated.width/2,selectedLayer.rectRotated.y+selectedLayer.rectRotated.height/2);                  
-             
-               let temp=intersectedPoly.points.map(point=>{
-               return HMath.rotatePoint(point,-selectedLayer.rotateAngleDeg, centerPoint);
-             });
-             intersectedPoly=new Polygon(temp);
-             
-            }
-            intersectedPoly=intersectedPoly.translate(-(selectedLayer.marginLeft),-(selectedLayer.marginTop));
-            let rect=intersectedPoly.bounds;
-            
+           if(selectionLayer.polygons.length==0){
+            this.appService.showAlert(new AlertItem('warning','Please select a region',2000));
+            return;
+           }
            
-            let crop=new ImageAlgorithmCrop(rect);
-            let cropedImage =crop.process(selectedLayer.getImage());
-            //intersectedPoly=intersectedPoly.translate(-rect.x,-rect.y);
-            //rect=intersectedPoly.bounds;
-              
-               let canvas=document.createElement('canvas');
-               canvas.width=cropedImage.width;
-               canvas.height=cropedImage.height;
-               let graphics=new Graphics(canvas,canvas.width,canvas.height,1);
-               graphics.save();
-               let tempPoly=intersectedPoly.translate(-rect.x,-rect.y);
-               //rect=intersectedPoly.bounds;
-               graphics.drawPolygon(tempPoly,false);               
-               graphics.clip();
-               graphics.drawImageRect(cropedImage,new Rect(0,0,canvas.width,canvas.height),new Rect(0,0,canvas.width,canvas.height),new Callback(()=>{
-              
-                //this is inside of 
-                graphics.restore();
-                
-                let maskedImage= graphics.getImage();
-                graphics.dispose();
-                
-                canvas=null;
-                selectedLayer.graphics.save();                                
-                selectedLayer.graphics.drawPolygon(intersectedPoly,false);
-                selectedLayer.graphics.clip();
-                selectedLayer.graphics.setBlendMode('destination-out');
-                selectedLayer.graphics.fillRect(rect,"FFFFFF");
-                selectedLayer.graphics.restore();
-                  
-               
-                
-                //this.clipboardService.set(new ClipboardData(ClipboardData.Types.Image,maskedImage));
-                //this.appService.showAlert(new AlertItem('info','Cutted',2000));
-                //let newLayer=new LayerImage(maskedImage,'cut');
-                //workspace.addLayer(newLayer);
-                
+           //history operations
+           let history=this.history(workspace,selectedLayer.clone(),selectionLayer.clone());
+           this.executeClear(workspace,selectionLayer,selectedLayer,history);
+           
+          
 
-               }));
-               
-               
-           });
+          
 
       }
     }
 
+  }
+
+  private executeClear(workspace:Workspace, selectionLayer:LayerSelect,selectedLayer:Layer,history:History){
+    let polygons = selectionLayer.polygons;
+    polygons.forEach((poly)=>{
+        
+     let rectLayer=selectedLayer.rectRotated2D;               
+     let polygonSelectedLayer=Polygon.fromRect2D(rectLayer);               
+     let intersectedPoly= poly.intersect(polygonSelectedLayer);
+     if(intersectedPoly.points.length==0){
+       //eğer selected layer ile  kesişim yok ise
+       this.appService.showAlert(new AlertItem("warning","Please intersect with selected layer"));
+       return;
+     }               
+     
+     if(selectedLayer.rotateAngleDeg!=0){
+      let centerPoint=new Point(selectedLayer.rectRotated.x+selectedLayer.rectRotated.width/2,selectedLayer.rectRotated.y+selectedLayer.rectRotated.height/2);                  
+      
+        let temp=intersectedPoly.points.map(point=>{
+        return HMath.rotatePoint(point,-selectedLayer.rotateAngleDeg, centerPoint);
+      });
+      intersectedPoly=new Polygon(temp);
+      
+     }
+     intersectedPoly=intersectedPoly.translate(-(selectedLayer.marginLeft),-(selectedLayer.marginTop));
+     let rect=intersectedPoly.bounds;
+     
+    
+     let crop=new ImageAlgorithmCrop(rect);
+     let cropedImage =crop.process(selectedLayer.getImage());
+     //intersectedPoly=intersectedPoly.translate(-rect.x,-rect.y);
+     //rect=intersectedPoly.bounds;
+       
+        let canvas=document.createElement('canvas');
+        canvas.width=cropedImage.width;
+        canvas.height=cropedImage.height;
+        let graphics=new Graphics(canvas,canvas.width,canvas.height,1);
+        graphics.save();
+        let tempPoly=intersectedPoly.translate(-rect.x,-rect.y);
+        //rect=intersectedPoly.bounds;
+        graphics.drawPolygon(tempPoly,false);               
+        graphics.clip();
+        graphics.drawImageRect(cropedImage,new Rect(0,0,canvas.width,canvas.height),new Rect(0,0,canvas.width,canvas.height),Callback.from(()=>{
+       
+         //this is inside of 
+         graphics.restore();
+         
+         let maskedImage= graphics.getImage();
+         graphics.dispose();
+         
+         canvas=null;
+         selectedLayer.graphics.save();                                
+         selectedLayer.graphics.drawPolygon(intersectedPoly,false);
+         selectedLayer.graphics.clip();
+         selectedLayer.graphics.setBlendMode('destination-out');
+         selectedLayer.graphics.fillRect(rect,"FFFFFF");
+         selectedLayer.graphics.restore();
+         
+         //history için çizim yapıldığında son yapılan resmin clone oluşturulması        
+         let tempwindow= window.open("","a");
+         let img=new Image();
+         img.src=selectedLayer.exportToURI();
+         tempwindow.document.body.appendChild(img); 
+
+          this.historyRedo(history,workspace,selectedLayer.clone(),selectionLayer.clone());
+        
+                  
+         
+
+        }));
+        
+        
+    });
+  }
+
+  private historyRedo(history:History, workspace:Workspace, selectedLayer:Layer,selectionLayer:LayerSelect){
+      let tempwindow=window.open("","a");      
+      let canvas=tempwindow.document.createElement('canvas');
+      canvas.width=selectedLayer.width;
+      canvas.height=selectedLayer.height;
+      tempwindow.document.body.appendChild(canvas);
+      let graphics=new Graphics(canvas,canvas.width,canvas.height,1);
+      let img=(selectedLayer as LayerImage).hImage;
+      graphics.save();
+      graphics.drawImageRect(img,new Rect(0,0,img.width,img.height),new Rect(0,0,img.width,img.height));
+      graphics.restore();
+
+      workspace.historyManager.add(history,Callback.from(()=>{
+      let clonedLayer=selectedLayer.clone();
+      workspace.replaceLayer2(clonedLayer.uuid,clonedLayer);
+      workspace.makeLayerSelected(clonedLayer);
+      workspace.replaceSelectionLayer(selectionLayer.clone());
+    
+      
+    }))
+  }
+
+  private history(workspace:Workspace, selectedLayer:Layer,selectionLayer:LayerSelect):History{
+    
+    let tempwindow=window.open("","a");      
+    let canvas=tempwindow.document.createElement('canvas');
+    canvas.width=selectedLayer.width;
+    canvas.height=selectedLayer.height;
+    tempwindow.document.body.appendChild(canvas);
+    let graphics=new Graphics(canvas,canvas.width,canvas.height,1);
+    let img=(selectedLayer as LayerImage).hImage;
+    graphics.save();
+    graphics.drawImageRect(img,new Rect(0,0,img.width,img.height),new Rect(0,0,img.width,img.height));
+    graphics.restore();
+     let history= History.create().setUndo(Callback.from(()=>{
+        let clonedLayer= selectedLayer.clone();
+        workspace.replaceLayer2(clonedLayer.uuid,clonedLayer);
+        workspace.makeLayerSelected(clonedLayer);        
+        workspace.replaceSelectionLayer(selectionLayer.clone());
+       
+      }));
+     return history;
+    
   }
 
 

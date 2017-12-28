@@ -64,8 +64,10 @@ export class Surface implements IClone {
 }
 
 export class SurfaceCanvas extends Surface {
+  public htmlElement:any;
   public graphics: Graphics;
   public resizedAgain = false;
+  public createAgain=false;
   readonly maxScale=20;
   readonly minScale=0.3;
   public scalePlus(): void {

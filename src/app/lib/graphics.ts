@@ -98,7 +98,7 @@ export class Graphics {
       if (callback)
         callback.call(undefined);
     }).catch((ex) => {
-      //debugger;
+       console.log("bir problem var");
       //TODO: exception durumu handle edilmeli
     });
   }
@@ -307,7 +307,10 @@ export class Graphics {
 
 
 
-
+  public exportToURI(mimeType:string='image/jpg'):string{
+    return this._canvas.toDataURL(mimeType,1.0);
+  }
+  
 
   public save() {
     this._context.save();

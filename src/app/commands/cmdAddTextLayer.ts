@@ -46,7 +46,7 @@ export class CmdAddTextLayer extends Command {
                             let textLayer= new LayerText(text,"Text");                            
                             workspace.addLayer(textLayer); 
                             workspace.makeLayerSelected(textLayer);
-                            this.history(workspace,textLayer);
+                            this.history(workspace,textLayer.uuid, textLayer.clone());
                          
                             
                         }
@@ -58,19 +58,23 @@ export class CmdAddTextLayer extends Command {
 
     }
 
-    private history(workspace,textLayer){
+    private history(workspace:Workspace,uuid:string,textLayer){
         let history = History.create().setUndo(Callback.from(()=>{
+         
             //find the layer with same name and remove it
-            let findedLayer= workspace.layers.findIndex(p=>p.uuid==textLayer.uuid)
+            let findedLayer= workspace.layers.findIndex(p=>p.uuid==uuid)
             if(findedLayer>=0)
                 workspace.layers.splice(findedLayer,1);
         }));
 
         let clonedtextLayer= textLayer.clone();
-        workspace.historyManager.add(history,Callback.from(()=>{                                
-            let templayer=clonedtextLayer.clone()
-            workspace.addLayer(templayer);
+        workspace.historyManager.add(history,Callback.from(()=>{
+            
+            
+            let templayer=clonedtextLayer;
+            workspace.addLayer(templayer);            
             workspace.makeLayerSelected(templayer);
+            templayer.invalidate();
         }))
     }
 

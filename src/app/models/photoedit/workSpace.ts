@@ -1,5 +1,6 @@
 
 
+
 import { Layer } from './layer';
 import { LayerEmpty } from './layerEmpty';
 import { LayerBackground } from './layerBackground';
@@ -51,7 +52,7 @@ export class Workspace extends HEventEmitter {
 
   
 
-  public selectionLayer: Layer;
+  private _selectionLayer: Layer;
   public workLayer: Layer;
 
 
@@ -97,6 +98,15 @@ export class Workspace extends HEventEmitter {
     this._historyManager=new HistoryManager();
     this._historyManager.add(History.create());
 
+  }
+
+  public get selectionLayer(){
+    return this._selectionLayer;
+  }
+  public set selectionLayer(layer:Layer){
+    if(layer)
+    layer.scale=this.scale;
+    this._selectionLayer=layer;
   }
 
   public get historyManager():HistoryManager{
@@ -146,9 +156,10 @@ export class Workspace extends HEventEmitter {
       ly.marginBottom = this.margin;
       
       this._layers.push(ly);
-      this.makeLayerSelected(ly);
+     this.makeLayerSelected(ly); 
     }
   }
+ 
 
   public removeLayer(ly: Layer) {
     if (ly) {
@@ -179,8 +190,35 @@ export class Workspace extends HEventEmitter {
       destination.marginLeft = marginLeft ? marginLeft : source.marginLeft;
       destination.marginTop = marginTop ? marginTop : source.marginTop;
       this._layers[index] = destination;
+      destination.invalidate();
       source.dispose();
     }
+  }
+
+  public replaceLayer2(sourceuuid:string,destination:Layer){
+    let index = this._layers.findIndex(p => p.uuid == sourceuuid);
+    if (index > -1) {
+      let source=this._layers[index];
+      destination.scale=this.scale;
+      destination.isSelected=true;
+      this._layers[index]=destination;      
+      source.dispose();
+      destination.invalidate();
+      
+    }
+  }
+  public replaceSelectionLayer(selectionLayer:Layer){
+    if(this.selectionLayer){
+      
+      this.selectionLayer.dispose();
+      this.selectionLayer=undefined;
+    }
+
+      selectionLayer.scale=this.scale;
+      this._selectionLayer=selectionLayer;
+      this._selectionLayer.invalidate();
+      
+     
   }
 
   public clearLayers() {
@@ -280,10 +318,15 @@ export class Workspace extends HEventEmitter {
     //console.log('wheeldown');
   }
   
-
+  //en son ne zaman mouse move oldu onu saklamak için
+  //saniyede 15 defa mouse move yapsak yeterli olur
+  private lastMouseMoveTime:number;
   public mouseMove(event: MouseEvent) { 
-    
+    if(this.lastMouseMoveTime==undefined || (Date.now()-this.lastMouseMoveTime)>15){
     this._workMode.mouseMove(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
+    this.lastMouseMoveTime=Date.now();
+    }
+    
 
   }
 
@@ -316,7 +359,7 @@ export class Workspace extends HEventEmitter {
   public makeLayersNotSelected(layer: Layer) {
     if (layer) {
       this._layers.forEach((item) => {
-        if (layer != item && !layer.isHidden)
+        if (layer.uuid != item.uuid && !layer.isHidden)
           item.isSelected = false;
       });
     } else {

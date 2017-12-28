@@ -1,4 +1,5 @@
 
+
 import { Layer } from './layer';
 import { Graphics } from '../../lib/graphics';
 
@@ -21,7 +22,8 @@ export class LayerGraphics extends Layer {
 
   }
   public clone(){
-    var instance=this.createInstanceForClone();
+    
+    var instance= super.clone() as LayerGraphics;
     instance._backgroundColor=this._backgroundColor;
     return instance;
   }

@@ -1,3 +1,4 @@
+import { IClone } from './../../models/photoedit/iclone';
 import { HMath } from './../hMath';
 
 import { BUSY_CONFIG_DEFAULTS } from 'angular2-busy';
@@ -13,7 +14,7 @@ declare var ClipperLib:any;
 declare var hull:any;
 import { Point } from './point';
 
-export class Polygon{
+export class Polygon implements IClone{
     private _points:Array<Point>;
     
     constructor(points:Array<Point>=undefined) {
@@ -161,6 +162,13 @@ export class Polygon{
         return new Polygon(newPoints);
 
     }
+    public clone():Polygon{
+        let paths=this.getPaths();
+        let points=[];
+        paths.forEach((pol)=>points.push(new Point(pol.X,pol.Y)));
+        return new Polygon(points);
+    }
+
 
     public static fromRect(rect:Rect):Polygon{
         return HMath.rectToPolygon(rect);
