@@ -51,8 +51,9 @@ export class LayerCropRectangle extends Layer {
     } else
       if (this.isSelected && this.isMouseDown) {
         //burası eksi değer için configure edilecek       
-        this.calculateBy(event.movementX / this.scale, event.movementY / this.scale, 0, 0, 0, 0, new Callback(() => {
-
+        this.calculateBy(event.movementX / this.scale, event.movementY / this.scale, 0, 0, 0, 0,Callback.from(() => {
+          
+           
           this.render()
         }));
       }

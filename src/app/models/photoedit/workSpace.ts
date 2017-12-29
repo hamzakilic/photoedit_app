@@ -79,6 +79,8 @@ export class Workspace extends HEventEmitter {
     if (height <= 0)
       this._height = 100;
     else this._height = height;
+    
+     
 
 
 
@@ -90,9 +92,13 @@ export class Workspace extends HEventEmitter {
     this.backgroundLayer.marginLeft = this.margin;
     this.backgroundLayer.marginTop = this.margin;
     this.backgroundLayer.marginRight = this.margin;
-    this.backgroundLayer.marginBottom = this.margin;
+    this.backgroundLayer.marginBottom = this.margin;  
 
     this.backgroundLayer.zIndex = 0;
+    if(this.height<32 || this.width<32)
+     this.backgroundLayer.scale=10;
+
+
     this._workMode = new WorkModeDefault(this,this._appService);
 
     this.backgroundColor = "#000";
@@ -171,7 +177,7 @@ export class Workspace extends HEventEmitter {
       });
 
       if (index > -1) {
-        let layer = this._layers[index];
+        let layer = this._layers[index];                
         this._layers.splice(index, 1);
         layer.dispose();
 
@@ -207,6 +213,7 @@ export class Workspace extends HEventEmitter {
       destination.blendMode=destination.blendMode;
       destination.globalAlpha=(source.globalAlpha);
       destination.isSelected = true;
+      destination.canResizeOrRotate=false;
       destination.scale = this.scale;
       destination.rotateAngleDeg = source.rotateAngleDeg;
       destination.marginLeft = marginLeft ? marginLeft : source.marginLeft;
@@ -223,6 +230,7 @@ export class Workspace extends HEventEmitter {
       let source=this._layers[index];
       destination.scale=this.scale;
       destination.isSelected=true;
+      destination.canResizeOrRotate=false;
       this._layers[index]=destination;      
       source.dispose();
       destination.invalidate();

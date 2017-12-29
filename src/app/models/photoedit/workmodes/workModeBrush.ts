@@ -56,6 +56,7 @@ export class EditTypeBrush extends EditType{
     super();
     this.lastMovePoint = undefined;
     
+    
   }
 
   public get size(): number {
@@ -107,10 +108,12 @@ export class EditTypeBrush extends EditType{
   }
 
   render(layer:Layer, point: Point, brushFG:any,brushBG:any) {
-    if(!point)
+    
+    if(!point){
+    
         return;
-     //   console.log("*******");
-    //console.log("move:"+point.X+":"+point.Y);
+    }
+    
     let points:Array<Point>=[];
     if(this.lastMovePoint==undefined){
       points.push(HMath.intPoint(point));
@@ -142,8 +145,10 @@ export class EditTypeBrush extends EditType{
     Helper.distinctPoints(points);
     if(this.lastMovePoint && points.length>=1 && points[0].x==this.lastMovePoint.x && points[0].y==this.lastMovePoint.y)
        points.splice(0,1);
-    if(points.length==0)
+    if(points.length==0){
+      
         return;
+    }
     
     //console.log(points);
 
@@ -170,19 +175,20 @@ export class EditTypeBrush extends EditType{
       }
      
     });
+    this.isSuccess=true;
 
 
 
   }
   mouseUp(event: MouseEvent,scroll:Point,layer:Layer) {
     this.lastMovePoint = undefined;
-  
+    
     
   }
 
   
   mouseDown(event:MouseEvent,scroll:Point,layer:Layer){
-     //boş olmalı
+     this.isSuccess=false;
   
   }
 }

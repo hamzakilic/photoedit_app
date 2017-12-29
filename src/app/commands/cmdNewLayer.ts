@@ -27,13 +27,14 @@ export class CmdNewLayer extends Command {
       if (workspace) {
          let layer = new LayerEmpty('new layer', workspace.width, workspace.height);          
          let layerCloned=layer.clone();
-         workspace.addLayer(layer);
+         
          let history=History.create().setUndo(Callback.from(()=>{
-             workspace.removeLayer2(layer.uuid);
+             workspace.removeLayer2(layerCloned.uuid);
          })); 
          workspace.historyManager.add(history,Callback.from(()=>{
             workspace.addLayer(layerCloned.clone());
          }))
+         workspace.addLayer(layer);
      
 
       }

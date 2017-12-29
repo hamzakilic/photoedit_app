@@ -88,6 +88,7 @@ export class EditTypeBucket extends EditType {
   
 //tek bir defa render çalışacak, mousedown olduğunda sadece
   render(layer:Layer, point: Point, brushFG: any,brushBG:any) {
+    
    // layer.graphics.save();
     //layer.graphics.setGlobalAlpha(layer.globalAlpha);
     //layer.graphics.setBlendMode(this.blendMode);
@@ -101,6 +102,7 @@ export class EditTypeBucket extends EditType {
       layer.graphics.fillRect(new Rect(0,0,layer.width,layer.height));
       
       });
+      this.isSuccess=true;
 
     }
     if(this.selectType=="color"){
@@ -153,7 +155,7 @@ export class EditTypeBucket extends EditType {
 
                  
                });
-               
+               this.isSuccess=true;
                   
               }
          
@@ -171,6 +173,6 @@ export class EditTypeBucket extends EditType {
   }
   mouseDown(event: MouseEvent, scroll: Point) {
     
-    //boş olmalı
+    this.isSuccess=false;
   }
 }

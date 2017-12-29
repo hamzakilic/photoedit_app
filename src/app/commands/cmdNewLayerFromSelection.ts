@@ -73,9 +73,9 @@ export class CmdNewLayerFromSelection extends CommandBusy {
                     
                     canvas=null;
                     let newLayer=new LayerImage(maskedImage,'selection');
-                    
-                    workspace.addLayer(newLayer);
                     this.history(workspace,newLayer.clone());
+                    workspace.addLayer(newLayer);
+                    
     
                    }));
                    

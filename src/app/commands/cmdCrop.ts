@@ -1,3 +1,4 @@
+import { History } from './../models/photoedit/history/history';
 import { ImageProcessCrop } from './../lib/imageprocess/imageProcessCrop';
 import { Callback } from './../lib/callback';
 import { Command } from './command';
@@ -13,6 +14,7 @@ import { LayerEmpty } from '../models/photoedit/layerEmpty';
 import { LayerImage } from '../models/photoedit/layerImage';
 import { HMath } from '../lib/hMath';
 import { Rect } from '../lib/draw/rect';
+import { Layer } from '../models/photoedit/layer';
 
 
 
@@ -47,22 +49,18 @@ export class CmdCrop extends CommandBusy {
                             isLayer0Crop = true;
                         }
                         let selectedLayerRect =selectedLayer.rect;
-                        //scale croped retangle
+                       
                         
-                        if(selectedLayer.scale!=1.0){
-                            
-                        //cropLayerRect = Calc.scaleRect(cropLayerRect,1/selectedLayer.scale);
-                           // cropLayerRect.x-=selectedLayerRect.x;
-                           // cropLayerRect.y-=selectedLayerRect.y;
-
-                        }
-                        let cropedImage=ImageProcessCrop.process(selectedLayer.getImage(),selectedLayerRect, cropLayerRect,selectedLayer.rotateAngleDeg);
+                       
+                        let cropedImage=ImageProcessCrop.process(selectedLayer.getImage(),selectedLayerRect, cropLayerRect,0);
                         if(cropedImage){
-                        let newLayer = new LayerImage(cropedImage,"cropedimage");
-                            newLayer.scale = selectedLayer.scale;
+                        let newLayer = new LayerImage(cropedImage,"cropedimage",selectedLayer.uuid);
+                        newLayer.scale = selectedLayer.scale;
+                        newLayer.marginLeft=cropLayerRect.x;
+                        newLayer.marginBottom=cropLayerRect.y;
                             workspace.removeWorkLayer();
                            // workspace.addLayer(newLayer);
-                           
+                           this.createHistory(workspace, newLayer.clone(),selectedLayer.clone());
                            if(workspace.layers.length>1)
                            workspace.replaceLayer(selectedLayer,newLayer,cropLayerRect.x,cropLayerRect.y);
                            else {
@@ -75,16 +73,19 @@ export class CmdCrop extends CommandBusy {
                            
                         }
 
-
-
-
-
-
                     }
                 }
 
           
 
+    }
+    private createHistory(workspace:Workspace,cropedLayer:Layer,selectedLayer:Layer){
+        let history=History.create().setUndo(Callback.from(()=>{
+            workspace.replaceLayer2(selectedLayer.uuid,selectedLayer);
+        }))
+        workspace.historyManager.add(history,Callback.from(()=>{
+            workspace.replaceLayer2(cropedLayer.uuid,cropedLayer);
+        }));
     }
 
 

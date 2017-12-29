@@ -100,7 +100,7 @@ export class EditTypeErase extends EditType {
       
       let color = Color.fromStringRGBA(brush);
       if (!color) {
-        graphics.fillStyle(brush);
+        graphics.fillStyle(brush);        
         return;
       }
 
@@ -115,8 +115,10 @@ export class EditTypeErase extends EditType {
  
 
   render(layer:Layer, point: Point, brushFG:any,brushBG:any) {
-    if(!point)
+    
+    if(!point){      
         return;
+    }
        
     //console.log("move:"+point.X+":"+point.Y);
     let points:Array<Point>=[];
@@ -150,8 +152,10 @@ export class EditTypeErase extends EditType {
     Helper.distinctPoints(points);
     if(this.lastMovePoint && points.length>=1 && points[0].x==this.lastMovePoint.x && points[0].y==this.lastMovePoint.y)
        points.splice(0,1);
-    if(points.length==0)
+    if(points.length==0){
+      
         return;
+    }
     
     //console.log(points);
 
@@ -183,6 +187,7 @@ export class EditTypeErase extends EditType {
       } */
      
     });
+    this.isSuccess=true;
     layer.graphics.restore();
 
 
@@ -192,6 +197,7 @@ export class EditTypeErase extends EditType {
     this.lastMovePoint = undefined;
   }
   mouseDown(event: MouseEvent, scroll: Point) {
+    this.isSuccess=false;
     //boş olmalı
   }
 }

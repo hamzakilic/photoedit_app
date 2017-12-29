@@ -39,13 +39,13 @@ export class CmdReadImageFromBufferorUrl extends Command {
         let ly = new LayerHtmlImage(img, this.fileName);
 
         ws.addLayer(ly);
+       
         this.history(ws,ly.clone());
         this.projectService.currentProject.addWorkspace(ws);
       } else {
         if (this.projectService.currentProject.activeWorkspace) {
           
-          let ly = new LayerHtmlImage(img, this.fileName);           
-          ly.scale = this.projectService.currentProject.activeWorkspace.scale;
+          let ly = new LayerHtmlImage(img, this.fileName);          
           this.projectService.currentProject.activeWorkspace.addLayer(ly);
           this.history(this.projectService.currentProject.activeWorkspace,ly.clone());
         }

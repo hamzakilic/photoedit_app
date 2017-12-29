@@ -1,3 +1,5 @@
+import { AppService } from './../../services/app.service';
+import { CmdLayerRemove } from './../../commands/cmdLayerRemove';
 import { Component, OnInit } from '@angular/core';
 
 import { ProjectService } from '../../services/project.service';
@@ -16,9 +18,11 @@ export class LayersInfoComponent implements OnInit {
   private composite:Map<string,boolean>;
   
   public project: Project;
+  private appService:AppService;
   
 
-  constructor(projectService: ProjectService) {
+  constructor(projectService: ProjectService,appService:AppService) {
+    this.appService=appService;
     this.projectService = projectService;
     this.project= this.projectService.currentProject;
     this.composite=new Map<string,boolean>();
@@ -29,7 +33,8 @@ export class LayersInfoComponent implements OnInit {
 
   }
   removeLayer(layer: Layer){
-    this.projectService.currentProject.activeWorkspace.removeLayer(layer);
+    let cmd=new CmdLayerRemove(layer,this.projectService,this.appService);
+    cmd.executeAsync();
   }
   disableOrEnable(layer:Layer){
    // alert(layer.name);

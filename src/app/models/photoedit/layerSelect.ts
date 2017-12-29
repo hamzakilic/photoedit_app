@@ -57,7 +57,7 @@ class ShapeRect extends Shape {
 
   }
   render(graphics: Graphics) {
-    console.log(this._selectedLayer.scale);
+   // console.log(this._selectedLayer.scale);
     let linewidth=this._selectedLayer.scale<1?1:1;
     graphics.lineWidth(linewidth);
     let sxmin = Math.min(this._startPoint.x, this._endPoint.x);
@@ -67,7 +67,7 @@ class ShapeRect extends Shape {
 
     let translate=linewidth%2==1?0.5:0;
     let rect = new Rect(sxmin+translate, symin+translate, exmax - sxmin, eymax - symin);
-    console.log(sxmin,symin,exmax-sxmin,eymax-symin, rect.toString())
+    //console.log(sxmin,symin,exmax-sxmin,eymax-symin, rect.toString())
     graphics.fillRect(rect, this.fillStyle);
    
 
@@ -367,6 +367,10 @@ class ShapePolygon extends ShapeLasso {
 
 }
 
+/**
+ * magic wand islemini bu sınıf ile yaptım
+ * bu yüzden selectedlayer ihtiyacı doğru
+ */
 class ShapeMagicWand extends Shape{
 
   polygon:Polygon;
@@ -392,12 +396,23 @@ class ShapeMagicWand extends Shape{
   }
 
   mouseDown(point: Point): boolean {
-      let color= this._selectedLayer.getPixel(point.x,point.y);
+      let pointTemp=new Point(point.x-this._selectedLayer.marginLeft,point.y-this._selectedLayer.marginTop);
+      let center=new Point(this._selectedLayer.width/2,this._selectedLayer.height/2);
+      let rPoint= HMath.rotatePoint(pointTemp,-this._selectedLayer.rotateAngleDeg,center);
+      rPoint=new Point(rPoint.x.extFloor(),rPoint.y.extFloor());
+      let color= this._selectedLayer.getPixel(rPoint.x,rPoint.y);
       
-      let similarRegions=ImageProcessSimilarColors.process(this._selectedLayer,this._selectedLayer.getImage(),color,point,4);
+      let similarRegions=ImageProcessSimilarColors.process(this._selectedLayer,this._selectedLayer.getImage(),color,rPoint,4);
       if(similarRegions.length>0){
-        
-        this.polygon=similarRegions[0].hull();
+        let polygon=similarRegions[0];
+         let rotatedPoints= polygon.points.map((p)=>{
+          let rotatedP=HMath.rotatePoint(p,this._selectedLayer.rotateAngleDeg,center);
+          rotatedP.x +=this._selectedLayer.marginLeft;
+          rotatedP.y += this._selectedLayer.marginTop;
+          return rotatedP;
+        });
+        //this.polygon=similarRegions[0].translate(this._selectedLayer.marginLeft,this._selectedLayer.marginTop).hull();
+        this.polygon= new Polygon(rotatedPoints).hull();
       }else
       this.polygon=new Polygon();
       
@@ -541,7 +556,7 @@ export class LayerSelect extends Layer {
         break;
         case LayerSelect.SubTypeMagicWand:
         point = this.normalizeMouseEvent(event,scroll);
-        if (point && !(this._shape instanceof ShapeMagicWand)) {
+        if (point /* && !(this._shape instanceof ShapeMagicWand) */) {
           this._shape = new ShapeMagicWand(point, this.graphics,this._selectedWorkspaceLayer);
         }
         this._shape.mouseDown(this.normalizeMouseEvent(event,scroll));

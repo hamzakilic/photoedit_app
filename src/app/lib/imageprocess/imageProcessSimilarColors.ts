@@ -10,7 +10,7 @@ import { Layer } from '../../models/photoedit/layer';
 export class ImageProcessSimilarColors {
 
     ///layer parametresini debug yapmak için kullanıyorum
-    public static process(layer:Layer,img: HImage, color: Color, point: Point,threshold:number,continous:number=5): Array<Polygon> {
+    public static process(layer:Layer,img: HImage, color: Color, point: Point,threshold:number,continous:number=8): Array<Polygon> {
         
 
         let xyz = ColorConversion.rgbToXYZ(color.r, color.g, color.b);

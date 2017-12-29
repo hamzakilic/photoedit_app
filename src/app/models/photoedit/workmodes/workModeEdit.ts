@@ -21,6 +21,14 @@ export abstract class EditType{
     public abstract mouseUp(event: MouseEvent,scroll:Point,layer:Layer);
     public abstract mouseDown(event: MouseEvent,scroll:Point,layer:Layer);
     public selectedRegions: Array<Polygon>=undefined;
+    public isSuccess:boolean;
+    /**
+     *
+     */
+    constructor() {
+      this.isSuccess=true;
+      
+    }
     
 
 }
@@ -38,6 +46,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
         this.workspace.workLayer.scale=this.workspace.scale;
         this.workspace.cssClasses = "default";
         this._editType = this.createEditType();
+        
     
       }
       protected abstract createEditType():EditType;
@@ -54,6 +63,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
       }
 
       protected process(event: MouseEvent,scroll:Point){
+        
         if (this._isMouseDown) {
           if (this.selectedLayer && this.selectedRegions.length > 0) {
             this.selectedLayer.graphics.save();
@@ -64,7 +74,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
                 let normalizedEvent = this.selectedLayer.normalizeMouseEvent(event,scroll);
                 if (normalizedEvent) {
                   if (this.hitRegionsMouseEvent(normalizedEvent, this.selectedRegions)) {
-    
+                    
                     this._editType.render(this.selectedLayer, normalizedEvent, this.workspace.foregroundColor,this.workspace.backgroundColor);
     
                   }
@@ -123,6 +133,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
              
             }).filter((reg)=>reg.points.length>0);
           }
+
     
         
           //set selected regions to edittype
@@ -140,12 +151,14 @@ export abstract class WorkModeEdit extends WorkModeBase {
         
     
       }
+
       public mouseUp(event: any,scroll:Point) {
         this._isMouseDown = false;
         if(this.selectedLayer){
-            if(this._history){
+            if(this._history && this._editType.isSuccess){
           let selectionLayer=this.findSelectionLayer(event);         
           this.historyRedo(this._history,this.workspace,this.selectedLayer.clone(),selectionLayer?selectionLayer.clone():undefined);
+              this._editType.isSuccess=false;
             }
         this._editType.mouseUp(event,scroll,this.selectedLayer);
         let imgLayer=new LayerImage(this.selectedLayer.getImage(),this.selectedLayer.name,this.selectedLayer.uuid);        

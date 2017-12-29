@@ -50,25 +50,32 @@ export class WorkModeDefault extends WorkModeBase {
             let findedPreviousData= this._undoredoDatas.find((item)=>item.uuid==layer.uuid);
             if(findedPreviousData && !this.areEqual(findedPreviousData,layer)){
                  let history=History.create().setUndo(Callback.from(()=>{
-                   layer.width=findedPreviousData.width;
-                   layer.height=findedPreviousData.height;
-                   layer.rotateAngleDeg=findedPreviousData.angle;
-                   layer.marginTop=findedPreviousData.topMargin;
-                   layer.marginLeft=findedPreviousData.leftMargin;
-                   layer.isMouseDown=false;
-                   layer.createAgain=true;
+                    let temp= this.workspace.layers.find((item)=>item.uuid==layer.uuid);
+                    if(temp){
+                      temp.width=findedPreviousData.width;
+                      temp.height=findedPreviousData.height;
+                      temp.rotateAngleDeg=findedPreviousData.angle;
+                      temp.marginTop=findedPreviousData.topMargin;
+                      temp.marginLeft=findedPreviousData.leftMargin;
+                      temp.isMouseDown=false;
+                      temp.createAgain=true;
+                    }
                  }));
 
                  let currentData={uuid:layer.uuid,leftMargin:layer.marginLeft,topMargin:layer.marginTop,width:layer.width,height:layer.height,angle:layer.rotateAngleDeg };
 
                 this.workspace.historyManager.add(history,Callback.from(()=>{
-                  layer.width=currentData.width;
-                  layer.height=currentData.height;
-                  layer.rotateAngleDeg=currentData.angle;
-                  layer.marginTop=currentData.topMargin;
-                  layer.marginLeft=currentData.leftMargin;
-                  layer.isMouseDown=false;
-                  layer.createAgain=true;
+                  let temp= this.workspace.layers.find((item)=>item.uuid==layer.uuid);
+                  if(temp){
+                    temp.width=currentData.width;
+                    temp.height=currentData.height;
+                    temp.rotateAngleDeg=currentData.angle;
+                    temp.marginTop=currentData.topMargin;
+                    temp.marginLeft=currentData.leftMargin;
+                    temp.isMouseDown=false;
+                    temp.createAgain=true;
+                  }
+                  
 
                 }))
 

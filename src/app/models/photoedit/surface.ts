@@ -223,10 +223,13 @@ export class SurfaceCanvas extends Surface {
       
 
     }
+
+    if(this.width+width<0 || this.height+height<0)
+        return;
     this.width += width ;
     this.height += height ;
 
-
+     
 
   
    
@@ -241,7 +244,7 @@ export class SurfaceCanvas extends Surface {
     //  if (!this.scaleView && this.sourceMask)
      //   this.sourceMask.y +=(masktop)*bHeightMask/bHeight;
 
-    
+ 
     
   
     this.whenCreatedGraphicsAgain = func;
