@@ -1,3 +1,4 @@
+import { AppService } from './../../services/app.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -32,11 +33,13 @@ export class FormNewImageComponent implements OnInit {
   private callFunc: Callback;
   private formNewImage: FormGroup;
   private projectService: ProjectService;
-  constructor(private fb: FormBuilder,projectService: ProjectService) {
+  private _appService:AppService;
+  constructor(private fb: FormBuilder,appService:AppService, projectService: ProjectService) {
     this.callFunc = new Callback(() => this.show());
     this.width = 16*30;
     this.height = 9*30;
     this.projectService = projectService;
+    this._appService=appService;
     this.formNewImage = fb.group({
       width: [this.width, ValidationService.widthHeightValidator],
       height: [this.height, ValidationService.widthHeightValidator]
@@ -73,7 +76,7 @@ export class FormNewImageComponent implements OnInit {
     if (this.formNewImage.valid){
 
 
-         let ws = new Workspace(this.width,this.height,"new");
+         let ws = new Workspace(this.width,this.height,this._appService, "new");
 
          let ly = new LayerEmpty('image',this.width,this.height);
          ws.addLayer(ly);

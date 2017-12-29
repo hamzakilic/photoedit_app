@@ -71,6 +71,9 @@ export abstract class Layer extends SurfaceCanvas {
   public get uuid():string{
     return this._uuid;
   }
+  protected setuuid(val:string){
+    this._uuid=val;
+  }
   public get classes():any{
     if(this.isSelected)
       return this._cssSelectedClass;
@@ -187,7 +190,6 @@ public exportToURI(format:string='image/jpg'):string{
     //console.log(this.name + " mouseup");
     this._mouseDownPoint.allFalse();
     this.isMouseDown = false;
-
     event.preventDefault();
   }
 

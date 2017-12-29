@@ -1,3 +1,4 @@
+import { AppService } from './../../services/app.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { MessageBus } from './../../lib/messageBus';
@@ -25,10 +26,12 @@ export class FormSampleImagesComponent implements OnInit {
   private _http: Http;
   private _projectService: ProjectService;
   private _openAsWorkspace: boolean;
-  constructor(http: Http, projectService: ProjectService) {
+  private _appService:AppService;
+  constructor(http: Http, projectService: ProjectService,appService:AppService) {
     this.callFunc = new Callback((openAsWorkspace: boolean) => { this.show(openAsWorkspace) });
     this._http = http;
     this._projectService = projectService;
+    this._appService=appService;
   }
 
   ngOnInit() {
@@ -65,7 +68,7 @@ export class FormSampleImagesComponent implements OnInit {
     let newFileName = filename.replace("320", "640") + ".jpg";
     let url = "assets/samples/" + newFileName;
 
-    let cmd = new CmdReadImageFromBufferorUrl(url, filename, this._projectService, this._openAsWorkspace);
+    let cmd = new CmdReadImageFromBufferorUrl(url, filename,this._appService, this._projectService, this._openAsWorkspace);
     cmd.executeAsync();
     /*  this._http.get(url).subscribe((response)=> {
        if(response.status==200){

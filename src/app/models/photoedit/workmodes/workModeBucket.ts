@@ -16,11 +16,12 @@ import { Layer } from '../layer';
 import { Rect } from '../../../lib/draw/rect';
 import { ImageProcessSimilarColors } from '../../../lib/imageprocess/imageProcessSimilarColors';
 import { HImage } from '../../../lib/image';
+import { AppService } from '../../../services/app.service';
 
 export class WorkModeBucket extends WorkModeEdit {
 
-  constructor(workspace: Workspace) {
-    super(workspace);
+  constructor(workspace: Workspace,appService:AppService) {
+    super(workspace,appService);
     
   }
 

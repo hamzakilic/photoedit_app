@@ -1,3 +1,4 @@
+import { AppService } from './../../../services/app.service';
 import { Point } from './../../../lib/draw/point';
 import { Workspace } from './../workSpace';
 import { WorkModeBase } from "./workModeBase";
@@ -7,9 +8,9 @@ import { Layer } from '../layer';
 export class WorkModeColorPicker extends WorkModeBase {
     private _previousWorkMode: WorkModeBase;
     private _isMouseDown = false;
-    constructor(workspace: Workspace, previousMode: WorkModeBase) {
+    constructor(workspace: Workspace,appService:AppService, previousMode: WorkModeBase) {
       //dont dispose previous workmode          
-      super(workspace, false,true);
+      super(workspace,appService, false,true);
       this._previousWorkMode = previousMode;
       this.workspace.cssClasses = "default";
       

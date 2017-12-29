@@ -1,3 +1,4 @@
+import { AppService } from './../../../services/app.service';
 
 import { HImage } from './../../../lib/image';
 import { BUSY_CONFIG_DEFAULTS } from 'angular2-busy';
@@ -20,8 +21,8 @@ import { HMath } from '../../../lib/hMath';
 export class WorkModeBrush extends WorkModeEdit {
 
  
-  constructor(workspace: Workspace) {    
-    super(workspace);
+  constructor(workspace: Workspace,appService:AppService) {    
+    super(workspace,appService);
     
   }
   protected createEditType():EditType{

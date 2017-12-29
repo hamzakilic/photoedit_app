@@ -61,7 +61,7 @@ export class CmdClear extends Command {
            }
            
            //history operations
-           let history=this.history(workspace,selectedLayer.clone(),selectionLayer.clone());
+           let history=this.createHistory(workspace,selectedLayer.clone(),selectionLayer.clone());
            this.executeClear(workspace,selectionLayer,selectedLayer,history);
            
           
@@ -130,10 +130,10 @@ export class CmdClear extends Command {
          selectedLayer.graphics.restore();
          
          //history için çizim yapıldığında son yapılan resmin clone oluşturulması        
-         let tempwindow= window.open("","a");
+         /* let tempwindow= window.open("","a");
          let img=new Image();
          img.src=selectedLayer.exportToURI();
-         tempwindow.document.body.appendChild(img); 
+         tempwindow.document.body.appendChild(img);  */
 
           this.historyRedo(history,workspace,selectedLayer.clone(),selectionLayer.clone());
         
@@ -147,7 +147,8 @@ export class CmdClear extends Command {
   }
 
   private historyRedo(history:History, workspace:Workspace, selectedLayer:Layer,selectionLayer:LayerSelect){
-      let tempwindow=window.open("","a");      
+    ///test codes
+     /*  let tempwindow=window.open("","a");      
       let canvas=tempwindow.document.createElement('canvas');
       canvas.width=selectedLayer.width;
       canvas.height=selectedLayer.height;
@@ -157,7 +158,7 @@ export class CmdClear extends Command {
       graphics.save();
       graphics.drawImageRect(img,new Rect(0,0,img.width,img.height),new Rect(0,0,img.width,img.height));
       graphics.restore();
-
+ */
       workspace.historyManager.add(history,Callback.from(()=>{
       let clonedLayer=selectedLayer.clone();
       workspace.replaceLayer2(clonedLayer.uuid,clonedLayer);
@@ -168,9 +169,9 @@ export class CmdClear extends Command {
     }))
   }
 
-  private history(workspace:Workspace, selectedLayer:Layer,selectionLayer:LayerSelect):History{
-    
-    let tempwindow=window.open("","a");      
+  private createHistory(workspace:Workspace, selectedLayer:Layer,selectionLayer:LayerSelect):History{
+    //test codes
+   /*  let tempwindow=window.open("","a");      
     let canvas=tempwindow.document.createElement('canvas');
     canvas.width=selectedLayer.width;
     canvas.height=selectedLayer.height;
@@ -179,7 +180,8 @@ export class CmdClear extends Command {
     let img=(selectedLayer as LayerImage).hImage;
     graphics.save();
     graphics.drawImageRect(img,new Rect(0,0,img.width,img.height),new Rect(0,0,img.width,img.height));
-    graphics.restore();
+    graphics.restore(); */
+
      let history= History.create().setUndo(Callback.from(()=>{
         let clonedLayer= selectedLayer.clone();
         workspace.replaceLayer2(clonedLayer.uuid,clonedLayer);

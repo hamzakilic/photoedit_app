@@ -1,3 +1,4 @@
+import { AppService } from './../../services/app.service';
 
 
 
@@ -60,9 +61,10 @@ export class Workspace extends HEventEmitter {
   public backgroundColor: string;
   private _htmlElement:any=undefined;
   private _historyManager:HistoryManager;
-  
-  constructor(width: number, height: number, name?: string) {
+  private _appService:AppService;
+  constructor(width: number, height: number,appService:AppService, name?: string) {
     super();
+    this._appService=appService;
     this.uuid = Utility.uuid();
     if (name)
       this._name = name.replace(/[\(\)]/g,'_').substring(0,10);
@@ -91,7 +93,7 @@ export class Workspace extends HEventEmitter {
     this.backgroundLayer.marginBottom = this.margin;
 
     this.backgroundLayer.zIndex = 0;
-    this._workMode = new WorkModeDefault(this);
+    this._workMode = new WorkModeDefault(this,this._appService);
 
     this.backgroundColor = "#000";
     this.foregroundColor = "#FFF";
@@ -156,7 +158,8 @@ export class Workspace extends HEventEmitter {
       ly.marginBottom = this.margin;
       
       this._layers.push(ly);
-     this.makeLayerSelected(ly); 
+     this.makeLayerSelected(ly);
+     
     }
   }
  
@@ -177,6 +180,25 @@ export class Workspace extends HEventEmitter {
     if (this._layers.length == 0)
       this.selectionLayer = undefined;
   }
+
+
+  public removeLayer2(uuid:string) {
+    
+      let index = this._layers.findIndex((item) => {
+        return item.uuid === uuid;
+      });
+
+      if (index > -1) {
+        let layer = this._layers[index];
+        this._layers.splice(index, 1);
+        layer.dispose();
+
+      }
+    
+    if (this._layers.length == 0)
+      this.selectionLayer = undefined;
+  }
+
 
 
   public replaceLayer(source: Layer, destination: Layer, marginLeft?: number, marginTop?: number) {
@@ -213,10 +235,12 @@ export class Workspace extends HEventEmitter {
       this.selectionLayer.dispose();
       this.selectionLayer=undefined;
     }
-
+    this._selectionLayer=selectionLayer;
+      if(selectionLayer){
       selectionLayer.scale=this.scale;
-      this._selectionLayer=selectionLayer;
+      
       this._selectionLayer.invalidate();
+      }
       
      
   }
@@ -250,14 +274,14 @@ export class Workspace extends HEventEmitter {
 
     let keepRatio = this.backgroundLayer.keepRatio;
     this.backgroundLayer.keepRatio = false;
-    this.backgroundLayer.setWidthHeight(this._width, this._height, new Callback(() => { this.backgroundLayer.render() }));
+    this.backgroundLayer.setWidthHeight(this._width, this._height, Callback.from(() => { this.backgroundLayer.render() }));
     this.backgroundLayer.keepRatio = keepRatio;
 
     if (this._layers.length > 0 && changeLayer0) {
 
       keepRatio = this._layers[0].keepRatio;
       this._layers[0].keepRatio = false;
-      this._layers[0].setWidthHeight(this._width, this._height, new Callback(() => { this._layers[0].render() }));
+      this._layers[0].setWidthHeight(this._width, this._height, Callback.from(() => { this._layers[0].render() }));
       this._layers[0].keepRatio = keepRatio;
 
     }
@@ -422,38 +446,38 @@ export class Workspace extends HEventEmitter {
     //console.log('selectWorking');
     switch (working) {
       case Workspace.WorkModeDefault:
-        this._workMode = new WorkModeDefault(this);
+        this._workMode = new WorkModeDefault(this,this._appService);
         break;
       case Workspace.WorkModeResizeWorkspace:
-        this._workMode = new WorkModeResizeWorkspace(this, this.workMode.typeOf, this.workMode.subTypeOf);
+        this._workMode = new WorkModeResizeWorkspace(this,this._appService, this.workMode.typeOf, this.workMode.subTypeOf);
         break;
 
       case Workspace.WorkModeCrop:
-        this._workMode = new WorkModeCrop(this);
+        this._workMode = new WorkModeCrop(this,this._appService);
         break;
       case Workspace.WorkModeSelection:
       
         if (!this.workMode || this._workMode.typeOf != working)
-          this._workMode = new WorkModeSelection(this, parameter);
+          this._workMode = new WorkModeSelection(this,this._appService, parameter);
         else (this._workMode as WorkModeSelection).changeType(parameter);
         break;
       case Workspace.WorkModeColorPicker:
-        this._workMode = new WorkModeColorPicker(this, this.workMode);
+        this._workMode = new WorkModeColorPicker(this,this._appService, this.workMode);
         break;
         case Workspace.WorkModeBrush:
-        this._workMode = new WorkModeBrush(this);
+        this._workMode = new WorkModeBrush(this,this._appService);
         break;
         case Workspace.WorkModeErase:
-        this._workMode = new WorkModeErase(this);
+        this._workMode = new WorkModeErase(this,this._appService);
         break;
         case Workspace.WorkModeHand:
-        this._workMode = new WorkModeHand(this);
+        this._workMode = new WorkModeHand(this,this._appService);
         break;
         case Workspace.WorkModeBucket:
-        this._workMode = new WorkModeBucket(this);
+        this._workMode = new WorkModeBucket(this,this._appService);
         break;
       default:
-        this._workMode = new WorkModeDefault(this);
+        this._workMode = new WorkModeDefault(this,this._appService);
     }
 
   }

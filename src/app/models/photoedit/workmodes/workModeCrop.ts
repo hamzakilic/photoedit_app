@@ -3,11 +3,12 @@ import { LayerCropRectangle } from './../layerCropRectangle';
 import { Workspace } from './../workSpace';
 import { WorkModeBase } from "./workModeBase";
 import { Layer } from '../layer';
+import { AppService } from '../../../services/app.service';
 
 export class WorkModeCrop extends WorkModeBase {
     
-      constructor(workspace: Workspace) {
-        super(workspace);
+      constructor(workspace: Workspace,appService:AppService) {
+        super(workspace,appService);
         this.workspace.cssClasses = "mouseCross";
     
     

@@ -10,7 +10,7 @@ export class LayerImage extends Layer{
 
   protected img: HImage;
 
-  constructor(img:HImage,name?: string) {
+  constructor(img:HImage,name?: string,uuid?:string) {
     super(name);
 
     this.sourceMask=new Rect(0,0,img.width,img.height);
@@ -19,6 +19,8 @@ export class LayerImage extends Layer{
     this.canRotate = true;
 
     this.img = img;
+    if(uuid)
+    this.setuuid(uuid);
     
   }
 

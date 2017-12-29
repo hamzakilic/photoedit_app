@@ -4,7 +4,10 @@ export class AlertItem{
     public msg:string;
     public timeout:number;
     /**
-     *
+     * 
+     * @param type sucess info danger warning
+     * @param msg  text message
+     * @param timeout in miliseconds
      */
     constructor(type,msg,timeout=1000) {
         

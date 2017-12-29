@@ -1,3 +1,4 @@
+import { AppService } from './../../../services/app.service';
 import { HMath } from './../../../lib/hMath';
 import { Polygon } from './../../../lib/draw/polygon';
 import { BUSY_CONFIG_DEFAULTS } from 'angular2-busy';
@@ -14,8 +15,8 @@ import { Rect } from '../../../lib/draw/rect';
 
 export class WorkModeErase extends WorkModeEdit {
 
-  constructor(workspace: Workspace) {
-    super(workspace);
+  constructor(workspace: Workspace,appService:AppService) {
+    super(workspace,appService);
 
   }
 
@@ -157,16 +158,18 @@ export class EditTypeErase extends EditType {
     this.lastMovePoint=point;
    
     
-    
+    layer.graphics.save();
     points.forEach(element => {
        
       if(this.opacity==1){
+        
         layer.graphics.setBlendMode("destination-out");
       this.calculateHardness("rgba(255,255,255,"+this.opacity*255+")", layer.graphics, element.x, element.y, this.size / 2);
       layer.graphics.beginPath();
       layer.graphics.ellipse(element.x, element.y, this.size / 2, this.size / 2, 0, 0, 2 * Math.PI);
       layer.graphics.closePath();
       layer.graphics.fill();
+      
       }/* else{
         layer.graphics.setBlendMode("normal");
         
@@ -180,6 +183,7 @@ export class EditTypeErase extends EditType {
       } */
      
     });
+    layer.graphics.restore();
 
 
 

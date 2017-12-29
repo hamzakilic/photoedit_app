@@ -1,3 +1,4 @@
+import { AppService } from './../../../services/app.service';
 import { Menu } from '../menu';
 import { MenuItem } from '../menu';
 import { Utility } from '../../../lib/utility';
@@ -16,10 +17,11 @@ import { ShortCut } from '../../../services/keyboard.service';
 
 export class MenuItemOpenImage extends MenuItemOpenFile {
 
+  private appService:AppService;
   private projectService: ProjectService;
   private createWorkspace: boolean;
 
-  constructor(projectService: ProjectService,shortCut:ShortCut, title = "Open File", createWorkspace = true) {
+  constructor(appService:AppService, projectService: ProjectService,shortCut:ShortCut, title = "Open File", createWorkspace = true) {
 
     
 
@@ -31,6 +33,7 @@ export class MenuItemOpenImage extends MenuItemOpenFile {
     
     
     this.projectService = projectService;
+    this.appService=appService;
     this.createWorkspace = createWorkspace;
 
   }
@@ -41,7 +44,7 @@ export class MenuItemOpenImage extends MenuItemOpenFile {
 
   onSuccess(data: FileData) {
 
-    let cmd = new CmdReadImageFromBufferorUrl(data.result, data.fileName, this.projectService, this.createWorkspace);
+    let cmd = new CmdReadImageFromBufferorUrl(data.result, data.fileName,this.appService, this.projectService, this.createWorkspace);
     cmd.executeAsync();
 
   }

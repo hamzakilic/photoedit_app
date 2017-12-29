@@ -54,7 +54,7 @@ export class KeyboardService {
     
     let isCtrlPressed = event.getModifierState("Control");
     let isAltPressed = event.getModifierState("Alt");
-    let isShiftPressed = event.getModifierState("Alt");
+    let isShiftPressed = event.getModifierState("Shift");
    
     var filteredList = this._keys.filter((item) => item.isShift == isShiftPressed && item.isAlt == isAltPressed && item.isCtrl == isCtrlPressed && (item.keyCode == event.keyCode || item.key.toLowerCase() == event.key.toLowerCase()));
     if (filteredList.length > 0) {

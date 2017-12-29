@@ -1,10 +1,13 @@
+import { AppService } from './../../../services/app.service';
 import { Point } from './../../../lib/draw/point';
 import { Workspace } from './../workSpace';
 import { Layer } from '../layer';
 export abstract class WorkModeBase {
     protected workspace: Workspace;
     protected canvasElement: any;
-    constructor(workspace: Workspace,disposeSelect: boolean = true, disposeWork: boolean = true) {
+    protected appService:AppService;
+    constructor(workspace: Workspace,appService:AppService, disposeSelect: boolean = true, disposeWork: boolean = true) {
+      this.appService=appService;
       this.workspace = workspace;
       if (this.workspace.selectionLayer && disposeSelect) {
         this.canvasElement = this.workspace.selectionLayer.htmlElement;
@@ -18,7 +21,7 @@ export abstract class WorkModeBase {
         
       }
       this.workspace.layers.forEach((item)=>item.canResizeOrRotate=false);
-      //this.workspace.layers.forEach((item) => { if (item.isSelected) item.mouseUp(event,scroll); });
+      
     }
   
     public mouseMove(event: MouseEvent,scroll:Point) {

@@ -1,3 +1,8 @@
+import { AlertItem } from './../../../entities/alertItem';
+import { AppService } from './../../../services/app.service';
+import { ProjectService } from './../../../services/project.service';
+import { Rect } from './../../../lib/draw/rect';
+import { Callback } from './../../../lib/callback';
 import { HMath } from './../../../lib/hMath';
 import { LayerImage } from './../layerImage';
 import { HImage } from './../../../lib/image';
@@ -9,6 +14,7 @@ import { LayerEmpty } from './../layerEmpty';
 import { Workspace } from './../workSpace';
 import { WorkModeBase } from "./workModeBase";
 import { Layer } from '../layer';
+import { History } from '../history/history';
 
 export abstract class EditType{
     public abstract render(layer:Layer, point: Point, brushFG: any,brushBG:any);
@@ -23,9 +29,11 @@ export abstract class WorkModeEdit extends WorkModeBase {
     
       protected _isMouseDown = false;
       protected _editType: EditType;
-      constructor(workspace: Workspace) {
+      protected projectService:ProjectService;
+      constructor(workspace: Workspace,appService:AppService) {
+        
         //dont dispose previous workmode          
-        super(workspace, false, true);
+        super(workspace,appService, false, true);
         this.workspace.workLayer = new LayerEmpty("brush layer", this.workspace.width, this.workspace.height);
         this.workspace.workLayer.scale=this.workspace.scale;
         this.workspace.cssClasses = "default";
@@ -76,14 +84,15 @@ export abstract class WorkModeEdit extends WorkModeBase {
     
       selectedLayer: Layer;
       selectedRegions: Array<Polygon>;
-      
+      _history:History;//save last history reference for redo
       public mouseDown(event: MouseEvent,scroll:Point) {
-
+        this._history=undefined;//important
         this._isMouseDown = true;
         //find selectedlayer
         this.selectedLayer = this.findSelectedLayer(event);
     
         if (this.selectedLayer) {
+          let selectionLayer=this.findSelectionLayer(event);
           //find selectedRegions
           this.selectedRegions = this.findSelectedRegions(event);
           if (this.selectedRegions.length == 0)//if there is no region, add a full layer
@@ -119,6 +128,11 @@ export abstract class WorkModeEdit extends WorkModeBase {
           //set selected regions to edittype
          
         this._editType.selectedRegions=this.selectedRegions;
+        if(this.selectedRegions.length==0){
+          this.appService.showAlert(new AlertItem("warning","Please intersect with selected layer",2000));
+          return;
+        }
+        this._history=this.createHistory(this.workspace,this.selectedLayer.clone(),selectionLayer?selectionLayer.clone():undefined)
         this._editType.mouseDown(event,scroll,this.selectedLayer);
         
         this.process(event,scroll);
@@ -128,9 +142,14 @@ export abstract class WorkModeEdit extends WorkModeBase {
       }
       public mouseUp(event: any,scroll:Point) {
         this._isMouseDown = false;
-        if(this.selectedLayer){        
+        if(this.selectedLayer){
+            if(this._history){
+          let selectionLayer=this.findSelectionLayer(event);         
+          this.historyRedo(this._history,this.workspace,this.selectedLayer.clone(),selectionLayer?selectionLayer.clone():undefined);
+            }
         this._editType.mouseUp(event,scroll,this.selectedLayer);
-        this.workspace.replaceLayer(this.selectedLayer,new LayerImage(this.selectedLayer.getImage(),this.selectedLayer.name));
+        let imgLayer=new LayerImage(this.selectedLayer.getImage(),this.selectedLayer.name,this.selectedLayer.uuid);        
+        this.workspace.replaceLayer(this.selectedLayer,imgLayer);
         }
     
       }
@@ -146,26 +165,70 @@ export abstract class WorkModeEdit extends WorkModeBase {
         return undefined;
     
       }
-      protected findSelectedRegions(event: MouseEvent): Array<Polygon> {
+      protected findSelectionLayer(event:MouseEvent):LayerSelect{
         if (this.workspace.selectionLayer && this.workspace.selectionLayer instanceof LayerSelect) {
-          return (<LayerSelect>this.workspace.selectionLayer).polygons;
+          return (<LayerSelect>this.workspace.selectionLayer)
         }
-        return [];
+        return undefined;
+      }
+      protected findSelectedRegions(event: MouseEvent): Array<Polygon> {
+       let selectionlayer=this.findSelectionLayer(event);
+       if(selectionlayer)return selectionlayer.polygons;
+       return [];
+      }
+
+      private historyRedo(history:History, workspace:Workspace, selectedLayer:Layer,selectionLayer:LayerSelect){
+        ///test codes
+          /*  let tempwindow=window.open("","a");      
+          let canvas=tempwindow.document.createElement('canvas');
+          canvas.width=selectedLayer.width;
+          canvas.height=selectedLayer.height;
+          tempwindow.document.body.appendChild(canvas);
+          let graphics=new Graphics(canvas,canvas.width,canvas.height,1);
+          let img=(selectedLayer as LayerImage).hImage;
+          graphics.save();
+          graphics.drawImageRect(img,new Rect(0,0,img.width,img.height),new Rect(0,0,img.width,img.height));
+          graphics.restore(); */
+     
+          workspace.historyManager.add(history,Callback.from(()=>{
+          let clonedLayer=selectedLayer.clone();
+          workspace.replaceLayer2(clonedLayer.uuid,clonedLayer);
+          workspace.makeLayerSelected(clonedLayer);
+          if(selectionLayer)
+          workspace.replaceSelectionLayer(selectionLayer.clone());
+          else workspace.replaceSelectionLayer(undefined);
+        
+          
+        }))
       }
     
-      /* protected findPointInLayers(event: MouseEvent,scroll:Point) {
-        for (let i = this.workspace.layers.length - 1; i > -1; --i) {
-          let ly = this.workspace.layers[i];
-          let hitPoint = ly.hitMouseEvent(event,scroll);
-          if (hitPoint) {
-            let color = ly.getPixel(hitPoint.x, hitPoint.y);
-            if (color.a != 0) {
-              this.workspace.foregroundColor = "rgb(" + color.r + "," + color.g + "," + color.b + ")";
-              return;
-            }
-          }
-        }
-      } */
+      private createHistory(workspace:Workspace, selectedLayer:Layer,selectionLayer:LayerSelect):History{
+        //test codes
+       /*  let tempwindow=window.open("","a");      
+        let canvas=tempwindow.document.createElement('canvas');
+        canvas.width=selectedLayer.width;
+        canvas.height=selectedLayer.height;
+        tempwindow.document.body.appendChild(canvas);
+        let graphics=new Graphics(canvas,canvas.width,canvas.height,1);
+        let img=(selectedLayer as LayerImage).hImage;
+        graphics.save();
+        graphics.drawImageRect(img,new Rect(0,0,img.width,img.height),new Rect(0,0,img.width,img.height));
+        graphics.restore(); */
+    
+         let history= History.create().setUndo(Callback.from(()=>{
+            let clonedLayer= selectedLayer.clone();
+            workspace.replaceLayer2(clonedLayer.uuid,clonedLayer);
+            workspace.makeLayerSelected(clonedLayer);
+            if(selectionLayer)        
+            workspace.replaceSelectionLayer(selectionLayer.clone());
+            else workspace.replaceSelectionLayer(undefined);
+           
+          }));
+         return history;
+        
+      }
+    
+     
     
     
     }

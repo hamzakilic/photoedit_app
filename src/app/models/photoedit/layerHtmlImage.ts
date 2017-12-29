@@ -21,7 +21,9 @@ export class LayerHtmlImage extends Layer {
 
   
   public createInstanceForClone(){
+    if(this.graphics)
     return new LayerImage(this.getImage(),this.name);
+    return new LayerHtmlImage(this.img.cloneNode() as HTMLImageElement,this.name);
   }
   public render(): void {
 

@@ -1,3 +1,6 @@
+import { AppService } from './../services/app.service';
+import { Callback } from './../lib/callback';
+import { History } from './../models/photoedit/history/history';
 import { Command } from './command';
 import { Message } from '../entities/message';
 import { MessageBus } from '../lib/messageBus';
@@ -14,10 +17,12 @@ export class CmdReadImageFromBufferorUrl extends Command {
 
   private buffer: any;
   private projectService: ProjectService;
+  private _appService:AppService;
   private fileName: string;
   private createWorkspace: boolean;
-  constructor(data: any, fileName: string, projectService: ProjectService, createWorkspace = true) {
+  constructor(data: any, fileName: string, appService:AppService, projectService: ProjectService, createWorkspace = true) {
     super();
+    this._appService=appService;
     this.createWorkspace = createWorkspace;
     this.buffer = data;
     this.projectService = projectService;
@@ -30,9 +35,11 @@ export class CmdReadImageFromBufferorUrl extends Command {
     let img = new Image();
     img.onload = () => {
       if (this.createWorkspace) {
-        let ws = new Workspace(img.width, img.height, this.fileName);
+        let ws = new Workspace(img.width, img.height,this._appService, this.fileName);
         let ly = new LayerHtmlImage(img, this.fileName);
+
         ws.addLayer(ly);
+        this.history(ws,ly.clone());
         this.projectService.currentProject.addWorkspace(ws);
       } else {
         if (this.projectService.currentProject.activeWorkspace) {
@@ -40,6 +47,7 @@ export class CmdReadImageFromBufferorUrl extends Command {
           let ly = new LayerHtmlImage(img, this.fileName);           
           ly.scale = this.projectService.currentProject.activeWorkspace.scale;
           this.projectService.currentProject.activeWorkspace.addLayer(ly);
+          this.history(this.projectService.currentProject.activeWorkspace,ly.clone());
         }
       }
 
@@ -78,4 +86,14 @@ export class CmdReadImageFromBufferorUrl extends Command {
                 //start from decoding
                 dec.decodeFromStreamAsync(stream);*/
   }
+
+  private history(workspace:Workspace,layer:Layer): void {
+    let history=History.create().setUndo(Callback.from(()=>{
+        workspace.removeLayer2(layer.uuid);
+    }));
+
+    workspace.historyManager.add(history,Callback.from(()=>{
+        workspace.addLayer(layer.clone());
+    }))
+}
 }

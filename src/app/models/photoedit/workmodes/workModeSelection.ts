@@ -1,3 +1,4 @@
+import { AppService } from './../../../services/app.service';
 import { Point } from './../../../lib/draw/point';
 import { LayerSelect } from './../layerSelect';
 import { Workspace } from './../workSpace';
@@ -7,8 +8,8 @@ import { Layer } from '../layer';
 
 export class WorkModeSelection extends WorkModeBase {
     _shapeType: string;
-    constructor(workspace: Workspace, shapeType: string) {
-      super(workspace,false,true);
+    constructor(workspace: Workspace,appService:AppService,  shapeType: string) {
+      super(workspace,appService, false,true);
       this.workspace.cssClasses = "mouseCross";
       this._shapeType = shapeType;
       if(!this.workspace.selectionLayer){

@@ -1,3 +1,4 @@
+import { AppService } from './../../../services/app.service';
 
 import { LayerEmpty } from './../layerEmpty';
 import { Point } from './../../../lib/draw/point';
@@ -7,9 +8,9 @@ import { WorkModeBase } from "./workModeBase";
 export class WorkModeHand extends WorkModeBase {
  
   private _isMouseDown = false;
-  constructor(workspace: Workspace) {
+  constructor(workspace: Workspace,appService:AppService) {
     //dont dispose previous workmode          
-    super(workspace, false,true);
+    super(workspace,appService, false,true);
     
     this.workspace.cssClasses = "mouseHand";
     this.workspace.workLayer = new LayerEmpty("hand layer", this.workspace.width, this.workspace.height);

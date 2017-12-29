@@ -1,3 +1,4 @@
+import { Callback } from './../lib/callback';
 
 import { ClipboardData } from './../services/clipboard.service';
 import { LayerImage } from './../models/photoedit/layerImage';
@@ -15,6 +16,8 @@ import { HImage } from '../lib/image';
 import { LayerSelect } from '../models/photoedit/layerSelect';
 import { ClipboardService } from '../services/clipboard.service';
 import { ImageAlgorithmClone } from '../lib/imagealgorithm/imageAlgorithmClone';
+import { Layer } from '../models/photoedit/layer';
+import { History } from '../models/photoedit/history/history';
 
 
 
@@ -42,6 +45,7 @@ export class CmdPaste extends Command {
         let cloned=clone.process(image);
         let newLayer=new LayerImage(cloned,'paste');
         workspace.addLayer(newLayer);
+        this.history(workspace,newLayer.clone());
       }else{
         //belkide clipboardservice te bir şey yok diye mesaj vermek lazım
       }
@@ -51,6 +55,16 @@ export class CmdPaste extends Command {
     }
 
   }
+
+  private history(workspace:Workspace,layer:Layer): void {
+    let history=History.create().setUndo(Callback.from(()=>{
+        workspace.removeLayer2(layer.uuid);
+    }));
+
+    workspace.historyManager.add(history,Callback.from(()=>{
+        workspace.addLayer(layer.clone());
+    }))
+}
 
 
 

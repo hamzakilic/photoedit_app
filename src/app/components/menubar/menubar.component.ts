@@ -73,7 +73,7 @@ export class MenubarComponent implements OnInit {
 
     let menuFile = new Menu("File");    
     menuFile.childs.push(new MenuItemNewImage(projectService,new ShortCut(true,true,false,'N',menuFile.name)));
-    menuFile.childs.push(new MenuItemOpenImage(projectService,new ShortCut(true,false,false,'O',menuFile.name)));
+    menuFile.childs.push(new MenuItemOpenImage(this._appService,projectService,new ShortCut(true,false,false,'O',menuFile.name)));
     menuFile.childs.push(new MenuItem("Sample Images", new Callback(() => { this.showFormSampleImages(true) }),new ShortCut(true,true,false,'O',menuFile.name)));
     let divider = new MenuItem('divider', undefined);
     divider.isDivider = true;
@@ -127,7 +127,7 @@ export class MenubarComponent implements OnInit {
     menuLayers.isDisabledCallback=new Callback(()=>this.hasActiveWorkspace())
     menuLayers.childs.push(new MenuItem("New", new Callback(() => { this.newLayer() }),new ShortCut(false,false,true,'N',menuLayers.name)));
     menuLayers.childs.push(new MenuItem("New from selection", new Callback(()=>this.newLayerFromSelection())));
-    menuLayers.childs.push(new MenuItemOpenImage(projectService,new ShortCut(false,false,true,'F',menuLayers.name),  "New from a file", false));
+    menuLayers.childs.push(new MenuItemOpenImage(this._appService,projectService,new ShortCut(false,false,true,'F',menuLayers.name),  "New from a file", false));
     menuLayers.childs.push(new MenuItem("New text layer", new Callback(()=>this.newTextLayer()),new ShortCut(false,false,true,'T',menuLayers.name)));
     menuLayers.childs.push(new MenuItem("New from samples", new Callback(()=>this.showFormSampleImages(false)),new ShortCut(false,false,true,'I',menuLayers.name)));
     let wDivider2=new MenuItem("divider",undefined);

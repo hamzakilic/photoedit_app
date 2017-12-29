@@ -16,11 +16,14 @@ import { Rect } from '../lib/draw/rect';
 import { ImageAlgorithmCrop } from '../lib/imagealgorithm/imageAlgorithmCrop';
 import { Graphics } from '../lib/graphics';
 import { LayerSelect } from '../models/photoedit/layerSelect';
+import { Layer } from '../models/photoedit/layer';
+import { History } from '../models/photoedit/history/history';
 
 
 
 
 export class CmdNewLayerFromSelection extends CommandBusy {
+    
     zoomType: number;
    
     constructor(projectService: ProjectService, appService: AppService) {
@@ -70,7 +73,9 @@ export class CmdNewLayerFromSelection extends CommandBusy {
                     
                     canvas=null;
                     let newLayer=new LayerImage(maskedImage,'selection');
+                    
                     workspace.addLayer(newLayer);
+                    this.history(workspace,newLayer.clone());
     
                    }));
                    
@@ -81,6 +86,16 @@ export class CmdNewLayerFromSelection extends CommandBusy {
         }
     
       }
+
+     private history(workspace:Workspace,layer:Layer): void {
+        let history=History.create().setUndo(Callback.from(()=>{
+            workspace.removeLayer2(layer.uuid);
+        }));
+
+        workspace.historyManager.add(history,Callback.from(()=>{
+            workspace.addLayer(layer.clone());
+        }))
+    }
     
     
     

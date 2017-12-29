@@ -21,6 +21,8 @@ import { CommandBusy } from './commandBusy';
 import { Polygon } from '../lib/draw/polygon';
 import { Point } from '../lib/draw/point';
 import { HMath } from '../lib/hMath';
+import { Layer } from '../models/photoedit/layer';
+import { History } from '../models/photoedit/history/history';
 
 
 
@@ -50,7 +52,17 @@ export class CmdCut extends CommandBusy {
             return;
            }
 
-           let polygons = selectionLayer.polygons;
+           let history=this.history(workspace,selectedLayer.clone(),selectionLayer.clone());
+           this.process(history,workspace,selectionLayer,selectedLayer);
+
+           
+      }
+    }    
+
+  }
+
+  private process(history:History,workspace:Workspace, selectionLayer:LayerSelect,selectedLayer:Layer){
+    let polygons = selectionLayer.polygons;
            polygons.forEach((poly)=>{
                
             let rectLayer=selectedLayer.rectRotated2D;               
@@ -105,7 +117,7 @@ export class CmdCut extends CommandBusy {
                 selectedLayer.graphics.fillRect(rect,"FFFFFF");
                 selectedLayer.graphics.restore();
                   
-               
+                this.historyRedo(history,workspace,selectedLayer.clone(),selectionLayer.clone());
                 
                 this.clipboardService.set(new ClipboardData(ClipboardData.Types.Image,maskedImage));
                 this.appService.showAlert(new AlertItem('info','Cutted',2000));
@@ -117,9 +129,54 @@ export class CmdCut extends CommandBusy {
                
            });
 
-      }
-    }
+  }
 
+
+  private historyRedo(history:History, workspace:Workspace, selectedLayer:Layer,selectionLayer:LayerSelect){
+    ///test codes
+     /*  let tempwindow=window.open("","a");      
+      let canvas=tempwindow.document.createElement('canvas');
+      canvas.width=selectedLayer.width;
+      canvas.height=selectedLayer.height;
+      tempwindow.document.body.appendChild(canvas);
+      let graphics=new Graphics(canvas,canvas.width,canvas.height,1);
+      let img=(selectedLayer as LayerImage).hImage;
+      graphics.save();
+      graphics.drawImageRect(img,new Rect(0,0,img.width,img.height),new Rect(0,0,img.width,img.height));
+      graphics.restore();
+ */
+      workspace.historyManager.add(history,Callback.from(()=>{
+      let clonedLayer=selectedLayer.clone();
+      workspace.replaceLayer2(clonedLayer.uuid,clonedLayer);
+      workspace.makeLayerSelected(clonedLayer);
+      workspace.replaceSelectionLayer(selectionLayer.clone());
+    
+      
+    }))
+  }
+
+  private history(workspace:Workspace, selectedLayer:Layer,selectionLayer:LayerSelect):History{
+    //test codes
+   /*  let tempwindow=window.open("","a");      
+    let canvas=tempwindow.document.createElement('canvas');
+    canvas.width=selectedLayer.width;
+    canvas.height=selectedLayer.height;
+    tempwindow.document.body.appendChild(canvas);
+    let graphics=new Graphics(canvas,canvas.width,canvas.height,1);
+    let img=(selectedLayer as LayerImage).hImage;
+    graphics.save();
+    graphics.drawImageRect(img,new Rect(0,0,img.width,img.height),new Rect(0,0,img.width,img.height));
+    graphics.restore(); */
+
+     let history= History.create().setUndo(Callback.from(()=>{
+        let clonedLayer= selectedLayer.clone();
+        workspace.replaceLayer2(clonedLayer.uuid,clonedLayer);
+        workspace.makeLayerSelected(clonedLayer);        
+        workspace.replaceSelectionLayer(selectionLayer.clone());
+       
+      }));
+     return history;
+    
   }
 
 
