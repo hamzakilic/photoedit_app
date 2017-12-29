@@ -1,3 +1,4 @@
+import { Headers } from '@angular/http';
 import { Callback } from './callback';
 import { Polygon } from './draw/polygon';
 import { Color } from './draw/color';
@@ -59,6 +60,13 @@ export class Graphics {
       let imageData = this._context.getImageData(rect.x, rect.y, rect.width, rect.height);
       let arr = new Uint8ClampedArray(imageData.data);
       let img = new HImage(rect.width, rect.height, arr);
+      if(img.width*img.height*img.bytePerPixel!=img.Pixels.byteLength){//check image 
+        let temp=new Uint8ClampedArray(img.width*img.height*img.bytePerPixel);
+        temp.fill(255);
+        temp.set(imageData.data);
+        img=new HImage(rect.width,rect.height,temp);
+        
+      }
       return img;
 
     } else {
@@ -66,6 +74,13 @@ export class Graphics {
       let imageData = this._context.getImageData(0, 0, this.width, this.height);
       let arr = new Uint8ClampedArray(imageData.data);
       let img = new HImage(this.width, this.height, arr);
+      if(img.width*img.height*img.bytePerPixel!=img.Pixels.byteLength){//check image 
+        let temp=new Uint8ClampedArray(img.width*img.height*img.bytePerPixel);
+        temp.fill(255);
+        temp.set(imageData.data);
+        img = new HImage(this.width, this.height, temp);
+        
+      }
       return img;
     }
 
@@ -88,11 +103,11 @@ export class Graphics {
   }
 
 
-  public drawImageRect(img: HImage, sourceRect: Rect, destRect: Rect, callback?: Callback) {
-
+  public drawImageRect(img: HImage, sourceRect: Rect, destRect: Rect, callback?: Callback):Promise<void> {
+    
     let imageData = new ImageData(img.Pixels, img.width, img.height);
 
-    createImageBitmap(imageData).then((bitmap) => {
+    return createImageBitmap(imageData).then((bitmap) => {
 
       this._context.drawImage(bitmap, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
       if (callback)
@@ -102,6 +117,9 @@ export class Graphics {
       //TODO: exception durumu handle edilmeli
     });
   }
+
+  
+ 
 
   public drawHtmlImageFit(img: HTMLImageElement, x: number, y: number) {
 

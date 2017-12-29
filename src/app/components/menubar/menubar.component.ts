@@ -53,6 +53,7 @@ import { ClipboardService } from '../../services/clipboard.service';
 import { CmdClear } from '../../commands/cmdClear';
 import { CmdUndo } from '../../commands/cmdUndo';
 import { CmdRedo } from '../../commands/cmdRedo';
+import { CmdExportWorkspace } from '../../commands/cmdExportWorkspace';
 
 
 @Component({
@@ -81,7 +82,10 @@ export class MenubarComponent implements OnInit {
     divider.isDivider = true;
     menuFile.childs.push(divider);   
     this.menus.push(menuFile);
-
+     
+    menuFile.childs.push(new MenuItem("Export jpeg", new Callback(() => { this.export("image/jpeg") }),new ShortCut(true,false,true,'S',menuFile.name)));
+    menuFile.childs.push(new MenuItem("Export png", new Callback(() => { this.export("image/png") }),new ShortCut(true,false,true,'D',menuFile.name)));
+    
     let divider2 = new MenuItem('divider', undefined);
     divider2.isDivider = true;
 
@@ -320,6 +324,11 @@ export class MenubarComponent implements OnInit {
 
   flipImage(isHorizontal:boolean) {
     let cmd = new CmdFlipImage(isHorizontal,this._projectService,this._appService );
+    cmd.executeAsync();
+  }
+
+  export(format:string){
+    let cmd=new CmdExportWorkspace(format,this._projectService,this._appService);
     cmd.executeAsync();
   }
 
