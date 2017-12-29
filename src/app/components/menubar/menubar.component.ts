@@ -1,3 +1,5 @@
+import { CmdFlipImage } from './../../commands/cmdFlipImage';
+import { CmdFlipWorkspace } from './../../commands/cmdFlipWorkspace';
 
 import { CmdNewLayerFromSelection } from './../../commands/cmdNewLayerFromSelection';
 import { CmdPaste } from './../../commands/cmdPaste';
@@ -111,15 +113,15 @@ export class MenubarComponent implements OnInit {
 
     
 
-    let menuImage = new Menu("Image");
+    let menuImage = new Menu("Workspace");
     menuImage.isDisabledCallback=new Callback(()=>this.hasActiveWorkspace())
     menuImage.childs.push(new MenuItem("Resize", new Callback(() => (this.resize())),new ShortCut(true,true,false,'R',menuImage.name)));
     menuImage.childs.push(new MenuItem("Rotate 90", new Callback(() => { this.rotate() }),new ShortCut(true,false,false,'R',menuImage.name)));
     let wDivider=new MenuItem("divider",undefined);
     wDivider.isDivider=true;
     menuImage.childs.push(wDivider);
-    menuImage.childs.push(new MenuItem("Flip Horizontal", new Callback(() => { this.flipImage(true) })));
-    menuImage.childs.push(new MenuItem("Flip Vertical", new Callback(() => { this.flipImage(false) })));
+    menuImage.childs.push(new MenuItem("Flip Horizontal", new Callback(() => { this.flipWorkspaceImage(true) })));
+    menuImage.childs.push(new MenuItem("Flip Vertical", new Callback(() => { this.flipWorkspaceImage(false) })));
 
     this.menus.push(menuImage);
 
@@ -311,8 +313,13 @@ export class MenubarComponent implements OnInit {
     cmd.executeAsync();
   }
 
+  flipWorkspaceImage(isHorizontal:boolean) {
+    let cmd = new CmdFlipWorkspace(isHorizontal,this._projectService,this._appService );
+    cmd.executeAsync();
+  }
+
   flipImage(isHorizontal:boolean) {
-    let cmd = new CmdExecuteImageAlgorithms([new ImageAlgorithmFlip(isHorizontal)],this._projectService,this._appService );
+    let cmd = new CmdFlipImage(isHorizontal,this._projectService,this._appService );
     cmd.executeAsync();
   }
 

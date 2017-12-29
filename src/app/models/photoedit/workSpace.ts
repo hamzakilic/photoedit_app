@@ -212,27 +212,31 @@ export class Workspace extends HEventEmitter {
     if (index > -1) {      
       destination.blendMode=destination.blendMode;
       destination.globalAlpha=(source.globalAlpha);
-      destination.isSelected = true;
+      destination.isSelected = false;
       destination.canResizeOrRotate=false;
       destination.scale = this.scale;
       destination.rotateAngleDeg = source.rotateAngleDeg;
       destination.marginLeft = marginLeft ? marginLeft : source.marginLeft;
       destination.marginTop = marginTop ? marginTop : source.marginTop;
       this._layers[index] = destination;
+      this.makeLayerSelected(destination);
       destination.invalidate();
+
       source.dispose();
     }
   }
 
   public replaceLayer2(sourceuuid:string,destination:Layer){
+    
     let index = this._layers.findIndex(p => p.uuid == sourceuuid);
     if (index > -1) {
       let source=this._layers[index];
       destination.scale=this.scale;
-      destination.isSelected=true;
+      destination.isSelected=false;
       destination.canResizeOrRotate=false;
       this._layers[index]=destination;      
       source.dispose();
+      this.makeLayerSelected(destination);
       destination.invalidate();
       
     }

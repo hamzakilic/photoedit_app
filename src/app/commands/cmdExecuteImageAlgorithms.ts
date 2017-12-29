@@ -56,7 +56,7 @@ export class CmdExecuteImageAlgorithms extends CommandBusy {
                             for(let i=0;i<this._algorithms.length;++i){
                                 img=this._algorithms[i].process(img);
                             }
-                            let newLayer = new LayerImage(img, selectedLayer.name);
+                            let newLayer = new LayerImage(img, selectedLayer.name,selectedLayer.uuid);
                             workspace.replaceLayer(selectedLayer, newLayer);
 
 
