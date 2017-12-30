@@ -12,7 +12,7 @@ export class HistoryManager{
     }
     public add(state:History,redoCallback?:Callback){
         
-        console.log("adding history "+this._state);
+        //console.log("adding history "+this._state);
         let spliced=this._histories.splice(this._state+1);
         spliced.forEach((item)=>item.dispose());        
         
@@ -20,7 +20,7 @@ export class HistoryManager{
         this._histories[this._histories.length-1].setRedo(redoCallback);
         this._histories.push(state);        
         this._state=this._histories.length-1;
-        console.log("added history "+this._histories.length);
+        //console.log("added history "+this._histories.length);
     }
     public get canRedo(){
         return this._state>=0 &&this._state<this._histories.length-1;
@@ -30,23 +30,23 @@ export class HistoryManager{
     }
     public undo(){
         if(this.canUndo){
-            console.log("Undo before:"+this._state);
+            //console.log("Undo before:"+this._state);
             this._histories[this._state].undo();
             this._state--;
             if(this._state<0)
             this._state=0;
-            console.log("Undo after:"+this._state);
+            //console.log("Undo after:"+this._state);
         }
     }
     public redo(){
         if(this.canRedo){
 
-            console.log("Redo before:"+this._state);
+           // console.log("Redo before:"+this._state);
             this._histories[this._state].redo();
             this._state++;
             if(this._state>=this._histories.length)
             this._state=this._histories.length-1;
-            console.log("Redo after:"+this._state);
+           // console.log("Redo after:"+this._state);
         }
     }
 }

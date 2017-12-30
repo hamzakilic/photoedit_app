@@ -34,6 +34,7 @@ export class CmdReadImageFromBufferorUrl extends Command {
       return;
     let img = new Image();
     img.onload = () => {
+     
       if (this.createWorkspace) {
         let ws = new Workspace(img.width, img.height,this._appService, this.fileName);
         let ly = new LayerHtmlImage(img, this.fileName);

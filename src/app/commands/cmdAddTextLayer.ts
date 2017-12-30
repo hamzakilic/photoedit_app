@@ -35,7 +35,7 @@ export class CmdAddTextLayer extends Command {
                     let workspace = this.projectService.currentProject.activeWorkspace;
                         if(workspace){
                             let text=new Text();
-                            text.data="Buraya metin giriniz";
+                            text.data="Enter text here";
                             text.color="#000000";
                             text.fontFamily="Times New Roman";
                             text.fontSize=32;

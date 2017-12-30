@@ -71,7 +71,11 @@ export abstract class Layer extends SurfaceCanvas {
   public get uuid():string{
     return this._uuid;
   }
-  protected setuuid(val:string){
+  /**
+   * if you need realy set uuid, use this
+   * @param val 
+   */
+  public setuuid(val:string){
     this._uuid=val;
   }
   public get classes():any{

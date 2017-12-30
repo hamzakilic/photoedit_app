@@ -105,8 +105,10 @@ export class Graphics {
 
   public drawImageRect(img: HImage, sourceRect: Rect, destRect: Rect, callback?: Callback):Promise<void> {
     
-    let imageData = new ImageData(img.Pixels, img.width, img.height);
-
+    if(img.Pixels.byteLength!=img.width*img.height*img.bytePerPixel)
+    debugger;
+    let imageData = new ImageData(img.Pixels, img.width, img.height);    
+    
     return createImageBitmap(imageData).then((bitmap) => {
 
       this._context.drawImage(bitmap, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);

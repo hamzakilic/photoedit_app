@@ -378,6 +378,7 @@ export class Workspace extends HEventEmitter {
   public mouseUp(event: any) {
 
     //console.log("mouseup");
+    debugger;
     this._workMode.mouseUp(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
 
   }

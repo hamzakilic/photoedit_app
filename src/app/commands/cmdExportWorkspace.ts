@@ -1,3 +1,4 @@
+import { Utility } from './../lib/utility';
 
 import { ImageAlgorithmFlip } from './../lib/imagealgorithm/imageAlgorithmFlip';
 import { Callback } from './../lib/callback';
@@ -32,9 +33,12 @@ import { Graphics } from '../lib/graphics';
 export class CmdExportWorkspace extends CommandBusy {
 
     private _format:string;
-    constructor(format:string, projectService: ProjectService, appService: AppService) {
+    private _isPreview:boolean;
+    constructor(format:string, isPreview:boolean=false, projectService: ProjectService, appService: AppService) {
         super(projectService, appService);     
         this._format=format;
+        this._isPreview=isPreview;
+
 
     }
 
@@ -78,9 +82,9 @@ export class CmdExportWorkspace extends CommandBusy {
                         
                         
                     promise.then(()=>{
+
+                        if(!this._isPreview){                        
                         
-                       /* let tempwindow=window.open("","a");          
-                        tempwindow.document.body.appendChild(canvas);*/
                         let link= window.document.querySelector("#downloadlink") as HTMLAnchorElement;
                         if(!link){
                             link= window.document.createElement("a");
@@ -92,6 +96,18 @@ export class CmdExportWorkspace extends CommandBusy {
                           link.href=graphics.exportToURI(this._format);                          
                           link.download="photoedit_"+this.formatDate(new Date(Date.now()))+"."+this.fileExt();
                           link.click();
+                    }else{
+
+                        let tempwindow=window.open("",Utility.guid()); 
+                        tempwindow.document.title="PhotoEdit-Preview";
+                        try{
+                         tempwindow.history.pushState("","PhotoEdit-Preview","/preview");
+                        }catch(err){};
+                        let img=new Image();
+                        img.src=graphics.exportToURI("image/png");
+                        tempwindow.document.body.appendChild(img);
+
+                    }
                           
                         
                     });

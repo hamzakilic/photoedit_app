@@ -9,23 +9,38 @@ import { Rect } from '../../lib/draw/rect'
 export class LayerBackground extends Layer {
 
   private pattern: any;
-
+  private patterns:Array<any>;
+  private patternsIndex:number;
+  
   constructor(name?: string) {
     super(name);
     this.canRotate = false;
+    this.patternsIndex=-1;
+    this.patterns=[];
+    this.patterns.push([255,255,255,255,180,180,180,255]);
+    this.patterns.push([0,0,0,255,100,100,100,255]);
+    this.patterns.push([0,255,255,255,255,51,204,255]);
+    this.patterns.push([0,102,0,255,255,153,0,255]);
+    this.patterns.push([255,255,204,255,50,50,150,255]);
+    this.patterns.push([150,50,0,255,100,150,150,255]);
+    this.patterns.push([200,150,255,255,0,100,0,255]);
 
   }
   public createInstanceForClone(){
     return new LayerBackground(this.name);    
   }
   private lastScaleValue = 0;
-  private createPattern(graphics: Graphics): boolean {
-    let a = [255, 255, 255, 255]
-    let b = [180, 180, 180, 255];
+  private createPattern(graphics: Graphics,recalculate:boolean=false): boolean {
+    this.patternsIndex++;
+    if(this.patternsIndex>=this.patterns.length)
+      this.patternsIndex=0;
+    let p=this.patterns[this.patternsIndex];
+    let a = [p[0], p[1], p[2], p[3]]
+    let b = [p[4],p[5],p[6],p[7]];
 
     let array = [];
 
-    if (this.lastScaleValue == this.scale)
+    if (this.lastScaleValue == this.scale && recalculate==false)
       return false;
     this.lastScaleValue = this.scale;
     let count=Math.round((this.scale<5?(5-this.scale):0)+1);
@@ -67,15 +82,20 @@ export class LayerBackground extends Layer {
     });
     return true;
   }
+  public changeColors(){
+    
+    this.createPattern(this.graphics,true);
+    this.render();
 
+  }
 
   public render(): void {
     
-      if (this.createPattern(this.graphics))
-        return;
+      if(!this.pattern)
+          this.createPattern(this.graphics,true);
     
 
-    this.graphics.fillRect(new Rect(0, 0, this.width, this.height), this.pattern)
+       this.graphics.fillRect(new Rect(0, 0, this.width, this.height), this.pattern)
 
   }
 
