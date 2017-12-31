@@ -359,6 +359,7 @@ export class Workspace extends HEventEmitter {
   private lastMouseMoveTime:number;
   public mouseMove(event: MouseEvent) { 
     if(this.lastMouseMoveTime==undefined || (Date.now()-this.lastMouseMoveTime)>15){
+      console.log('mouse move');
     this._workMode.mouseMove(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
     this.lastMouseMoveTime=Date.now();
     }
@@ -377,8 +378,7 @@ export class Workspace extends HEventEmitter {
   }
   public mouseUp(event: any) {
 
-    //console.log("mouseup");
-    debugger;
+    console.log("mouseup");    
     this._workMode.mouseUp(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
 
   }

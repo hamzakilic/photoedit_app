@@ -6,7 +6,7 @@ import { Graphics } from './../../../lib/graphics';
 
 export class Helper {
 
-  static createStrokeStyle(graphics: Graphics, then: any) {
+  static createStrokeStyle(graphics: Graphics, callback: any) {
 
     let a = [0, 0, 255, 255]
     let b = [255, 0, 0, 255];
@@ -47,9 +47,9 @@ export class Helper {
 
     let imageData = new ImageData(data, 2, 2);
 
-    createImageBitmap(imageData).then((bitmap) => {
+    window.createImageBitmap(imageData).then((bitmap) => {
 
-      then(bitmap);
+      callback(bitmap);
 
 
     }).catch((ex) => {

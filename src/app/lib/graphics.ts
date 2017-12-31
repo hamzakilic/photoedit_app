@@ -21,8 +21,8 @@ export class Graphics {
   constructor(element: HTMLCanvasElement, width: number, height: number, scale: number) {
 
     this._context = element.getContext("2d");
-    this.width = width;
-    this.height = height;
+    this.width = width.extFloor();
+    this.height = height.extFloor();
     this.scale = scale;
     this._canvas = element;
 
@@ -36,13 +36,13 @@ export class Graphics {
   }
   public putImage(img: HImage, rect: Rect = undefined) {
     if (rect) {
-      let imageData = this._context.getImageData(rect.x, rect.y, rect.width, rect.height);
+      let imageData = this._context.getImageData(rect.x.extFloor(), rect.y.extFloor(), rect.width.extFloor(), rect.height.extFloor());
       var data = imageData.data;
       data.set(img.Pixels);
-      this._context.putImageData(imageData, rect.x, rect.y);
+      this._context.putImageData(imageData, rect.x.extFloor(), rect.y.extFloor());
 
     } else {
-      let imageData = this._context.getImageData(0, 0, this.width, this.height);
+      let imageData = this._context.getImageData(0, 0, this.width.extFloor(), this.height.extFloor());
       var data = imageData.data;
       data.set(img.Pixels);
       this._context.putImageData(imageData, 0, 0);
@@ -57,30 +57,16 @@ export class Graphics {
    */
   public getImage(rect: Rect = undefined): HImage {
     if (rect) {
-      let imageData = this._context.getImageData(rect.x, rect.y, rect.width, rect.height);
+      let imageData = this._context.getImageData(rect.x.extFloor(), rect.y.extFloor(), rect.width.extFloor(), rect.height.extFloor());
       let arr = new Uint8ClampedArray(imageData.data);
-      let img = new HImage(rect.width, rect.height, arr);
-      if(img.width*img.height*img.bytePerPixel!=img.Pixels.byteLength){//check image 
-        let temp=new Uint8ClampedArray(img.width*img.height*img.bytePerPixel);
-        temp.fill(255);
-        temp.set(imageData.data);
-        img=new HImage(rect.width,rect.height,temp);
-        
-      }
+      let img = new HImage(rect.width.extFloor(), rect.height.extFloor(), arr);      
       return img;
 
     } else {
 
-      let imageData = this._context.getImageData(0, 0, this.width, this.height);
+      let imageData = this._context.getImageData(0, 0, this.width.extFloor(), this.height.extFloor());
       let arr = new Uint8ClampedArray(imageData.data);
-      let img = new HImage(this.width, this.height, arr);
-      if(img.width*img.height*img.bytePerPixel!=img.Pixels.byteLength){//check image 
-        let temp=new Uint8ClampedArray(img.width*img.height*img.bytePerPixel);
-        temp.fill(255);
-        temp.set(imageData.data);
-        img = new HImage(this.width, this.height, temp);
-        
-      }
+      let img = new HImage(this.width.extFloor(), this.height.extFloor(), arr);      
       return img;
     }
 
@@ -105,11 +91,11 @@ export class Graphics {
 
   public drawImageRect(img: HImage, sourceRect: Rect, destRect: Rect, callback?: Callback):Promise<void> {
     
-    if(img.Pixels.byteLength!=img.width*img.height*img.bytePerPixel)
-    debugger;
-    let imageData = new ImageData(img.Pixels, img.width, img.height);    
     
-    return createImageBitmap(imageData).then((bitmap) => {
+    let imageData = new ImageData(img.Pixels, img.width, img.height);    
+  
+
+     return window.createImageBitmap(imageData).then((bitmap) => {
 
       this._context.drawImage(bitmap, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
       if (callback)
@@ -117,7 +103,7 @@ export class Graphics {
     }).catch((ex) => {
        console.log("bir problem var");
       //TODO: exception durumu handle edilmeli
-    });
+    }); 
   }
 
   

@@ -66,3 +66,33 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  * Needed for: All but Chrome, Firefox, Edge, IE11 and Safari 10
  */
 // import 'intl';  // Run `npm install --save intl`.
+
+(function(){
+
+    //fill for opera and edge for ImageData
+    if(!('createImageBitmap' in window)){
+        
+     
+        Window.prototype.createImageBitmap = function(imageData):Promise<any>{
+          
+          return new Promise((resolve,reject)=>{
+      
+              let  canvas=document.createElement('canvas');
+          canvas.width=imageData.width;
+          canvas.height=imageData.height;
+          let context= canvas.getContext("2d");
+          context.putImageData(imageData,0,0);
+              return resolve(canvas);
+      
+          });
+          
+          
+          
+      }
+      }
+
+})()
+
+
+
+

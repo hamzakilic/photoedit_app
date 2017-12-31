@@ -13,6 +13,9 @@ import { Callback } from './lib/callback';
 import { CmdShowFormSampleImages} from './commands/cmdShowFormSampleImages';
 import { CmdReadImageFromBufferorUrl } from './commands/cmdReadImageFromBufferorUrl';
 
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -32,7 +35,13 @@ export class AppComponent implements AfterViewInit {
       e.returnValue=msg;
       return msg;
     }) */
+    
     this.setWindowDragAndDrop();
+         
+   
+  
+
+
    
   }
 

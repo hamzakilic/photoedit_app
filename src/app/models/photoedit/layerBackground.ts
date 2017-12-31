@@ -70,7 +70,7 @@ export class LayerBackground extends Layer {
 
     let imageData = new ImageData(data, Math.sqrt(array.length/4), Math.sqrt(array.length/4));
 
-    createImageBitmap(imageData).then((bitmap) => {
+    window.createImageBitmap(imageData).then((bitmap) => {
 
       this.pattern = graphics.createPattern(bitmap, "");
       this.render();
