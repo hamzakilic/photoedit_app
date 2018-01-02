@@ -100,5 +100,25 @@ export class LayersInfoComponent implements OnInit {
     return layer.name;
   }
 
+  onDrop(event:any,destinationuuid:string){
+     if(event.dragData && destinationuuid){
+       let sourceuuid:string=event.dragData;
+       if(sourceuuid==destinationuuid)
+        return;
+       
+       let workspace=this.project.activeWorkspace;
+       if(!workspace)
+       return;
+       let sourceIndex =workspace.layers.findIndex((p)=>p.uuid==sourceuuid);
+       let destinationIndex=workspace.layers.findIndex((p)=>p.uuid==destinationuuid);
+       if(sourceIndex>=0 && destinationIndex>=0){
+         let sourceLayer= workspace.layers[sourceIndex];
+         workspace.layers.splice(sourceIndex,1);
+         workspace.layers.splice(destinationIndex,0,sourceLayer);
+       }
+     }
+  }
+  
+
 
 }

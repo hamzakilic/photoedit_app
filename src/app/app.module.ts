@@ -24,6 +24,7 @@ import { ColorPickerModule } from './modulesext/color-picker';
 import { AutoCompleteModule } from './modulesext/autocomplete';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { AngularDraggableModule } from 'angular2-draggable';
+import { DndModule } from 'ng2-dnd';
 
 
 
@@ -149,6 +150,7 @@ import { ClipboardService } from './services/clipboard.service';
     AccordionModule.forRoot(),
     ButtonsModule.forRoot(),
     AlertModule.forRoot(),
+    DndModule.forRoot(),
     BrowserAnimationsModule,
     BusyModule,
     BrowserModule,
