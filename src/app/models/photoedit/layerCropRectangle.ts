@@ -1,3 +1,4 @@
+import { Helper } from './lib/helper';
 import { Layer } from './layer';
 import { LayerSelect } from './layerSelect';
 import { Graphics } from '../../lib/graphics';
@@ -12,7 +13,7 @@ import { RotationHelper, RotationMove } from './lib/rotationHelper';
 export class LayerCropRectangle extends Layer {
   isFinishedContructing: boolean
   animation: any;
-
+  protected strokeStyle:any = "#FFF";
   constructor(width: number, height: number, left: number, top: number) {
     super("crop layer");
 
@@ -24,9 +25,14 @@ export class LayerCropRectangle extends Layer {
     this.marginLeft = left;
     this.marginTop = top;
     this.isSelected = true;
+    
 
     this.canRotate = false;
     this.isFinishedContructing = false;
+    Helper.createStrokeStyle(this.graphics, (bitmap) => {
+      let gradient = this.graphics.createPattern(bitmap, "");
+      this.strokeStyle = gradient;
+    });  
 
 
   }
@@ -104,7 +110,7 @@ export class LayerCropRectangle extends Layer {
 
   }
   protected frameCounter = 0;
-  protected strokeStyle = "#FFF";
+  
   public fillStyle = "rgba(" + 10 + "," + 10 + "," + 50 + "," + (100 / 255) + ")";
   protected renderAnimation(): void {
 

@@ -39,20 +39,19 @@ export class LayerImage extends Layer{
     let clonedImg= cloner.process(this.img);
     return new LayerImage(clonedImg,this.name);
   }
-  public render(): void{
-    
+  public render(): void{   
     
     this.graphics.save();
-   // this.graphics.setGlobalAlpha(this.globalAlpha);
-    this.graphics.clearRect(new Rect(0,0,this.width,this.height));
    
+    this.graphics.clearRect(new Rect(0,0,this.width,this.height));
+    
     if(!this.scaleView){
 
       this.graphics.drawImageRect(this.img,this.sourceMask,new Rect(0,0,this.sourceMask.width>this.width?this.width:this.sourceMask.width,this.sourceMask.height>this.height?this.height:this.sourceMask.height),new Callback(()=>this.graphics.restore()));
     }
-    else this.graphics.drawImageRect(this.img,this.sourceMask,new Rect(0,0,this.width,this.height),new Callback(()=>this.graphics.restore()));
-   // this.graphics.restore();
-    //this.graphics.fillRect(new Rect(0,0,this.width,this.height),"#FFFFFF")
+    else this.graphics.drawImageRect(this.img,this.sourceMask,new Rect(0,0,this.width,this.height),new Callback(()=>this.graphics.restore())); 
+    //this.graphics.putImage2(this.img);
+   
   }
   public dispose(){
     if(this.graphics)

@@ -64,13 +64,13 @@ export class CmdFlipImage extends CommandBusy {
                          let clonednewLayer=newLayer.clone();
 
                           let history=History.create().setUndo(Callback.from(()=>{
-                            workspace.replaceLayer2(clonedSelected.uuid,clonedSelected.clone());
+                            workspace.replaceHistoryLayer(clonedSelected.uuid,clonedSelected.clone());
 
                          }));
                          workspace.historyManager.add(history,Callback.from(()=>{
-                            workspace.replaceLayer2(clonednewLayer.uuid,clonednewLayer.clone());
+                            workspace.replaceHistoryLayer(clonednewLayer.uuid,clonednewLayer.clone());
                          }));
-                         workspace.replaceLayer2(newLayer.uuid,newLayer);
+                         workspace.replaceHistoryLayer(newLayer.uuid,newLayer);
                          
                          
                        }

@@ -54,7 +54,7 @@ export class FormAboutComponent implements OnInit {
       }
 
       open(url:string){
-        debugger;
+      //  debugger;
         window.open(url,'_blank');
       }
     

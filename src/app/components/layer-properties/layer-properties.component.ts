@@ -63,8 +63,8 @@ export class LayerPropertiesComponent implements OnInit {
     let val = parseInt(value);
     if(!isNaN(val)){
     let point=CalcLayer.calculateTop(val,layer);
-    layer.setLeft(point.x.extFloor(),new Callback(() => layer.render()));
-    layer.setTop(point.y.extFloor(),new Callback(() => layer.render()));
+    layer.setLeft(point.x.extToInt32(),new Callback(() => layer.render()));
+    layer.setTop(point.y.extToInt32(),new Callback(() => layer.render()));
     }
 }
 
@@ -73,8 +73,8 @@ export class LayerPropertiesComponent implements OnInit {
     let val = parseInt(value);
     if(!isNaN(val)){
     let point=CalcLayer.calculateLeft(val,layer);
-    layer.setLeft(point.x.extFloor(),new Callback(() => layer.render()));
-    layer.setTop(point.y.extFloor(),new Callback(() => layer.render()));
+    layer.setLeft(point.x.extToInt32(),new Callback(() => layer.render()));
+    layer.setTop(point.y.extToInt32(),new Callback(() => layer.render()));
     }
   }
 

@@ -106,8 +106,8 @@ export class EditTypeBucket extends EditType {
 
     }
     if(this.selectType=="color"){
-     
-
+      
+//debugger;
        let fullImage= layer.getImage();
        let color= layer.getPixel(point.x,point.y);
        this.selectedRegions.forEach(region=>{
@@ -150,6 +150,7 @@ export class EditTypeBucket extends EditType {
                     img.Pixels[start+2]=selectedColor.b;
                     img.Pixels[start+3]=selectedColor.a;
                   });
+                 // debugger;
                   layer.graphics.drawImageRect(img,new Rect(0,0,img.width,img.height),new Rect(bound.x+rect.x,bound.y+rect.y,img.width,img.height));
                 
 

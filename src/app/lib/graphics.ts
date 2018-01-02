@@ -21,8 +21,8 @@ export class Graphics {
   constructor(element: HTMLCanvasElement, width: number, height: number, scale: number) {
 
     this._context = element.getContext("2d");
-    this.width = width.extFloor();
-    this.height = height.extFloor();
+    this.width = width.extToInt32();
+    this.height = height.extToInt32();
     this.scale = scale;
     this._canvas = element;
 
@@ -36,18 +36,23 @@ export class Graphics {
   }
   public putImage(img: HImage, rect: Rect = undefined) {
     if (rect) {
-      let imageData = this._context.getImageData(rect.x.extFloor(), rect.y.extFloor(), rect.width.extFloor(), rect.height.extFloor());
+      let imageData = this._context.getImageData(rect.x.extToInt32(), rect.y.extToInt32(), rect.width.extToInt32(), rect.height.extToInt32());
       var data = imageData.data;
       data.set(img.Pixels);
-      this._context.putImageData(imageData, rect.x.extFloor(), rect.y.extFloor());
+      this._context.putImageData(imageData, rect.x.extToInt32(), rect.y.extToInt32());
 
     } else {
-      let imageData = this._context.getImageData(0, 0, this.width.extFloor(), this.height.extFloor());
+      let imageData = this._context.getImageData(0, 0, this.width.extToInt32(), this.height.extToInt32());
       var data = imageData.data;
       data.set(img.Pixels);
       this._context.putImageData(imageData, 0, 0);
     }
   }
+ /*  public putImage2(img: HImage) {    
+      let imageData = new ImageData(img.Pixels,img.width,img.height)      
+      this._context.putImageData(imageData, 0, 0,0,0,img.width,img.height);
+    
+  } */
 
 
 
@@ -57,16 +62,16 @@ export class Graphics {
    */
   public getImage(rect: Rect = undefined): HImage {
     if (rect) {
-      let imageData = this._context.getImageData(rect.x.extFloor(), rect.y.extFloor(), rect.width.extFloor(), rect.height.extFloor());
+      let imageData = this._context.getImageData(rect.x.extToInt32(), rect.y.extToInt32(), rect.width.extToInt32(), rect.height.extToInt32());
       let arr = new Uint8ClampedArray(imageData.data);
-      let img = new HImage(rect.width.extFloor(), rect.height.extFloor(), arr);      
+      let img = new HImage(rect.width.extToInt32(), rect.height.extToInt32(), arr);      
       return img;
 
     } else {
 
-      let imageData = this._context.getImageData(0, 0, this.width.extFloor(), this.height.extFloor());
+      let imageData = this._context.getImageData(0, 0, this.width.extToInt32(), this.height.extToInt32());
       let arr = new Uint8ClampedArray(imageData.data);
-      let img = new HImage(this.width.extFloor(), this.height.extFloor(), arr);      
+      let img = new HImage(this.width.extToInt32(), this.height.extToInt32(), arr);      
       return img;
     }
 
@@ -88,22 +93,33 @@ export class Graphics {
     this._context.putImageData(arr, x, y);
   }
 
-
-  public drawImageRect(img: HImage, sourceRect: Rect, destRect: Rect, callback?: Callback):Promise<void> {
-    
-    
-    let imageData = new ImageData(img.Pixels, img.width, img.height);    
   
 
-     return window.createImageBitmap(imageData).then((bitmap) => {
 
-      this._context.drawImage(bitmap, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
-      if (callback)
-        callback.call(undefined);
-    }).catch((ex) => {
-       console.log("bir problem var");
-      //TODO: exception durumu handle edilmeli
-    }); 
+  public drawImageRect(img: HImage, sourceRect: Rect, destRect: Rect, callback?: Callback) {
+    
+   /*  if(destRect.width!=this.width || destRect.height!=this.height)
+    debugger; */
+    
+    let imageData = new ImageData(img.Pixels, img.width, img.height);    
+    //this._context.putImageData(imageData,0,0);
+     let canvas=this.createImage(imageData);
+     this._context.drawImage(canvas, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
+     if(callback)
+     callback.call(undefined);
+    
+  }
+  private createImage(img:ImageData):HTMLCanvasElement{
+    
+    let  canvas=document.createElement('canvas');
+          canvas.width=img.width;
+          canvas.height=img.height;
+          let context= canvas.getContext("2d");
+          context.save();
+          context.putImageData(img,0,0);
+        
+          context.restore();
+          return canvas;          
   }
 
   

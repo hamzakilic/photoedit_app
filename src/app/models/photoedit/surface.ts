@@ -1,3 +1,4 @@
+
 import { IClone } from './iclone';
 
 import { Color } from './../../lib/draw/color';

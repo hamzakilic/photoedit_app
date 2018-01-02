@@ -30,7 +30,8 @@ export class LayerBackground extends Layer {
     return new LayerBackground(this.name);    
   }
   private lastScaleValue = 0;
-  private createPattern(graphics: Graphics,recalculate:boolean=false): boolean {
+  private createPattern(graphics: Graphics,changePattern:boolean=false): boolean {
+    if(changePattern || !this.pattern)
     this.patternsIndex++;
     if(this.patternsIndex>=this.patterns.length)
       this.patternsIndex=0;
@@ -40,8 +41,7 @@ export class LayerBackground extends Layer {
 
     let array = [];
 
-    if (this.lastScaleValue == this.scale && recalculate==false)
-      return false;
+   
     this.lastScaleValue = this.scale;
     let count=Math.round((this.scale<5?(5-this.scale):0)+1);
     
@@ -85,16 +85,21 @@ export class LayerBackground extends Layer {
   public changeColors(){
     
     this.createPattern(this.graphics,true);
-    this.render();
+    
 
   }
 
   public render(): void {
     
-      if(!this.pattern)
-          this.createPattern(this.graphics,true);
+      if(!this.pattern){
+       this.createPattern(this.graphics);
+       return;
+      }
+      if(this.lastScaleValue!=this.scale){
+          this.createPattern(this.graphics);
+          return;
+       }
     
-
        this.graphics.fillRect(new Rect(0, 0, this.width, this.height), this.pattern)
 
   }

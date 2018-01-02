@@ -98,9 +98,12 @@ export abstract class Layer extends SurfaceCanvas {
     this._blendMode=val;
   }
 
-  public invalidate(){
+  public invalidate(callback?:Callback){
     this.whenCreatedGraphicsAgain=Callback.from(()=>{
+    //  debugger;
       this.render();
+      if(callback)
+      callback.call(undefined);
     });
     this.createAgain=true;
   }
@@ -227,7 +230,7 @@ public exportToURI(format:string='image/jpg'):string{
         point=new Point(rotated.x-(rcscaledRect.width-this.width)/2,rotated.y-(rcscaledRect.height-this.height)/2);
       }
         
-      point=new Point(point.x.extFloor(),point.y.extFloor())
+      point=new Point(point.x.extToInt32(),point.y.extToInt32())
         if (point.x >= 0 && point.y >= 0 && point.x <= this.width && point.y <= this.height) {
           
           return point;
@@ -252,7 +255,7 @@ public exportToURI(format:string='image/jpg'):string{
        // let rotatedRect=HMath.rotateRect(rcscaledRect,-this.rotateAngleDeg);
         point=new Point(rotated.x-(rcscaledRect.width-this.width)/2,rotated.y-(rcscaledRect.height-this.height)/2);
       }
-      point=new Point(point.x.extFloor(),point.y.extFloor())
+      point=new Point(point.x.extToInt32(),point.y.extToInt32())
       if(makeNormalize){
         if(point.x<0)
         point.x=0;

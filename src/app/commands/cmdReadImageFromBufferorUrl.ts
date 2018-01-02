@@ -1,3 +1,4 @@
+import { LayerImage } from './../models/photoedit/layerImage';
 import { AppService } from './../services/app.service';
 import { Callback } from './../lib/callback';
 import { History } from './../models/photoedit/history/history';
@@ -11,6 +12,7 @@ import { ProjectService } from '../services/project.service';
 import { Workspace } from '../models/photoedit/workSpace';
 import { Layer } from '../models/photoedit/layer';
 import { LayerHtmlImage } from '../models/photoedit/layerHtmlImage';
+import { HImage } from '../lib/image';
 
 
 export class CmdReadImageFromBufferorUrl extends Command {
@@ -37,7 +39,10 @@ export class CmdReadImageFromBufferorUrl extends Command {
      
       if (this.createWorkspace) {
         let ws = new Workspace(img.width, img.height,this._appService, this.fileName);
+        
+        //let imageData=this.createImageData(img);
         let ly = new LayerHtmlImage(img, this.fileName);
+        //let ly=new LayerImage(new HImage(imageData.width,imageData.height,new Uint8ClampedArray(imageData.data)),this.fileName);
 
         ws.addLayer(ly);
        
@@ -46,7 +51,10 @@ export class CmdReadImageFromBufferorUrl extends Command {
       } else {
         if (this.projectService.currentProject.activeWorkspace) {
           
-          let ly = new LayerHtmlImage(img, this.fileName);          
+        //  let imageData=this.createImageData(img);
+        let ly = new LayerHtmlImage(img, this.fileName);
+        //let ly=new LayerImage(new HImage(imageData.width,imageData.height,new Uint8ClampedArray(imageData.data)),this.fileName);
+   
           this.projectService.currentProject.activeWorkspace.addLayer(ly);
           this.history(this.projectService.currentProject.activeWorkspace,ly.clone());
         }
@@ -96,5 +104,13 @@ export class CmdReadImageFromBufferorUrl extends Command {
     workspace.historyManager.add(history,Callback.from(()=>{
         workspace.addLayer(layer.clone());
     }))
+}
+private createImageData(img:any){
+  let canvas=document.createElement('canvas');
+        canvas.width=img.naturalWidth;
+        canvas.height=img.naturalHeight;        
+        let context=canvas.getContext('2d');
+        context.drawImage(img,0,0);
+        return context.getImageData(0,0,canvas.width,canvas.height);
 }
 }

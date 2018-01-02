@@ -7,6 +7,7 @@ interface Number {
     extCeil: () => number;
     extFloor: () => number;
     extAbs: () => number;
+    extToInt32:()=>number;
 
 
 }
@@ -25,6 +26,13 @@ Number.prototype.extFloor = function (): number {
 
 Number.prototype.extAbs = function (): number {
     return Math.abs(this);
+}
+
+
+Number.prototype.extToInt32 = function (): number {
+    
+    return this | 0;
+    
 }
 
 

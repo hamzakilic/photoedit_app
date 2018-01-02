@@ -21,7 +21,7 @@ export class LayerComponent extends SurfaceComponent  implements OnInit,OnChange
 
   constructor() {
     super()
-
+    
    }
 
    ngOnInit(){
@@ -29,14 +29,20 @@ export class LayerComponent extends SurfaceComponent  implements OnInit,OnChange
 
    }
    ngDoCheck(){
+    
+    
+   }
+   ngAfterContentChecked(){
+    
 
    }
 
-   ngAfterViewChecked(){     
-     this.checkAgain(true);
+   ngAfterViewChecked(){  
+    this.checkAgain(true); 
+    
    }
    ngOnChanges(){
-     
+    
    }
    
    
@@ -51,18 +57,20 @@ export class LayerComponent extends SurfaceComponent  implements OnInit,OnChange
      //resize edildiğinde yeni bir graphics oluşturmak gerekiyor
      if(this.surface)
      if(!this.surface.resizedAgain){
-       if(Math.floor(this.surface.width) === this.canvas.nativeElement.width && Math.floor(this.surface.height) === this.canvas.nativeElement.height){
-         this.initAgain(callrender);
- 
- 
-       }
-     }
-     if(this.surface)
+      // console.log(`checking layer:${this.surface.name} sw:${this.surface.width.extFloor()} -> cw:${this.canvas.nativeElement.width} sh:${this.surface.height.extFloor()} ch:${this.canvas.nativeElement.height} `);
+      if(this.surface.width.extToInt32() === this.canvas.nativeElement.width && this.surface.height.extToInt32() === this.canvas.nativeElement.height){
+        this.initAgain(callrender);
+
+      }
+       
+     }else     
      if(this.surface.createAgain){
+     // console.log(`checking2 layer:${this.surface.name} sw:${this.surface.width.extFloor()} -> cw:${this.canvas.nativeElement.width} sh:${this.surface.height.extFloor()} ch:${this.canvas.nativeElement.height} `);
+     if(this.surface.width.extToInt32() === this.canvas.nativeElement.width && this.surface.height.extToInt32() === this.canvas.nativeElement.height)
        this.initAgain(callrender);
      }
  
-  }
+    }
  
  
  
@@ -82,8 +90,11 @@ export class LayerComponent extends SurfaceComponent  implements OnInit,OnChange
      //neticede biz diğer
      this.surface.graphics = this.grphics;
      this.surface.htmlElement = this.canvas;
-     if (this.surface.whenCreatedGraphicsAgain && callwhen)
+     if (this.surface.whenCreatedGraphicsAgain && callwhen){
+       //console.log(`${this.surface.name}:rendering again`);
+      // console.log(`checking layer:${this.surface.name} sw:${this.surface.width} -> cw:${this.canvas.nativeElement.width} sh:${this.surface.height} ch:${this.canvas.nativeElement.height} `);
        this.surface.whenCreatedGraphicsAgain.call(undefined);
+     }
    }
  }
   

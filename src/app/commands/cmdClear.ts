@@ -161,7 +161,7 @@ export class CmdClear extends Command {
  */
       workspace.historyManager.add(history,Callback.from(()=>{
       let clonedLayer=selectedLayer.clone();
-      workspace.replaceLayer2(clonedLayer.uuid,clonedLayer);
+      workspace.replaceHistoryLayer(clonedLayer.uuid,clonedLayer);
       workspace.makeLayerSelected(clonedLayer);
       workspace.replaceSelectionLayer(selectionLayer.clone());
     
@@ -184,7 +184,7 @@ export class CmdClear extends Command {
 
      let history= History.create().setUndo(Callback.from(()=>{
         let clonedLayer= selectedLayer.clone();
-        workspace.replaceLayer2(clonedLayer.uuid,clonedLayer);
+        workspace.replaceHistoryLayer(clonedLayer.uuid,clonedLayer);
         workspace.makeLayerSelected(clonedLayer);        
         workspace.replaceSelectionLayer(selectionLayer.clone());
        

@@ -129,11 +129,11 @@ export class EditTypeBrush extends EditType{
       innerPoints.forEach(item=>{
         if(this.lastMovePoint.x<=point.x)
         item.x = item.x.extCeil();
-        else item.x=item.x.extFloor();
+        else item.x=item.x.extToInt32();
 
         if(this.lastMovePoint.y<=point.y)
         item.y = item.y.extCeil();
-        else item.y=item.y.extFloor();
+        else item.y=item.y.extToInt32();
         
 
         points.push(item);

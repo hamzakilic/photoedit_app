@@ -81,10 +81,10 @@ export class CmdCrop extends CommandBusy {
     }
     private createHistory(workspace:Workspace,cropedLayer:Layer,selectedLayer:Layer){
         let history=History.create().setUndo(Callback.from(()=>{
-            workspace.replaceLayer2(selectedLayer.uuid,selectedLayer);
+            workspace.replaceHistoryLayer(selectedLayer.uuid,selectedLayer);
         }))
         workspace.historyManager.add(history,Callback.from(()=>{
-            workspace.replaceLayer2(cropedLayer.uuid,cropedLayer);
+            workspace.replaceHistoryLayer(cropedLayer.uuid,cropedLayer);
         }));
     }
 

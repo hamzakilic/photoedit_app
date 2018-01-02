@@ -1,3 +1,4 @@
+
 import { AppService } from './../../services/app.service';
 
 
@@ -47,6 +48,7 @@ export class Workspace extends HEventEmitter {
   public readonly margin = 0;
 
   public backgroundLayer: Layer;
+  
 
 
   public uuid: string;
@@ -210,6 +212,7 @@ export class Workspace extends HEventEmitter {
   public replaceLayer(source: Layer, destination: Layer, marginLeft?: number, marginTop?: number) {
     let index = this._layers.findIndex(p => p.uuid == source.uuid);
     if (index > -1) {      
+      
       destination.blendMode=destination.blendMode;
       destination.globalAlpha=(source.globalAlpha);
       destination.isSelected = false;
@@ -218,27 +221,49 @@ export class Workspace extends HEventEmitter {
       destination.rotateAngleDeg = source.rotateAngleDeg;
       destination.marginLeft = marginLeft ? marginLeft : source.marginLeft;
       destination.marginTop = marginTop ? marginTop : source.marginTop;
-      this._layers[index] = destination;
-      this.makeLayerSelected(destination);
-      destination.invalidate();
-
-      source.dispose();
+      //destination.sourceMask=source.sourceMask;      
+      
+      
+      console.log(`replace:${destination.width}->${destination.height}`);
+      console.log(`replace source:${destination.sourceMask.width}->${destination.sourceMask.height}`);
+        this._layers[index] = destination;
+               
+        this.makeLayerSelected(destination);
+        destination.invalidate();        
+        source.dispose();
+        
+        
+      
+      
+      //this.offscreenLayer=destination;
+     
     }
   }
 
-  public replaceLayer2(sourceuuid:string,destination:Layer){
+  /**
+   * history işlemleri için kullanıyoruz
+   * @param sourceuuid
+   * @param destination 
+   * @param marginLeft 
+   * @param marginTop 
+   */
+  public replaceHistoryLayer(sourceuuid:string,destination:Layer){
     
     let index = this._layers.findIndex(p => p.uuid == sourceuuid);
     if (index > -1) {
       let source=this._layers[index];
+      
       destination.scale=this.scale;
       destination.isSelected=false;
-      destination.canResizeOrRotate=false;
-      this._layers[index]=destination;      
-      source.dispose();
-      this.makeLayerSelected(destination);
-      destination.invalidate();
-      
+      destination.canResizeOrRotate=false;            
+      console.log(`history:${destination.width}->${destination.height}`);
+      console.log(`history source:${destination.sourceMask.width}->${destination.sourceMask.height}`);
+         
+        this._layers[index] = destination;        
+        this.makeLayerSelected(destination);        
+        destination.invalidate();  
+        source.dispose();
+     
     }
   }
   public replaceSelectionLayer(selectionLayer:Layer){
@@ -358,27 +383,27 @@ export class Workspace extends HEventEmitter {
   //saniyede 15 defa mouse move yapsak yeterli olur
   private lastMouseMoveTime:number;
   public mouseMove(event: MouseEvent) { 
-    if(this.lastMouseMoveTime==undefined || (Date.now()-this.lastMouseMoveTime)>15){
-      console.log('mouse move');
+   /*  if(this.lastMouseMoveTime==undefined || (Date.now()-this.lastMouseMoveTime)>15){
+      console.log('mouse move'); */
     this._workMode.mouseMove(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
-    this.lastMouseMoveTime=Date.now();
-    }
+   /*  this.lastMouseMoveTime=Date.now();
+    } */
     
 
   }
 
 
 
-  public mouseDown(event: MouseEvent) {
+  public mouseDown(event: any) {
     
-    if(event.srcElement.tagName!="workspace-component".toUpperCase())
+    if(event.target.tagName!="workspace-component".toUpperCase())
     this._workMode.mouseDown(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
     
 
   }
   public mouseUp(event: any) {
 
-    console.log("mouseup");    
+    //console.log("mouseup");    
     this._workMode.mouseUp(event,new Point(this.htmlElement.scrollLeft,this.htmlElement.scrollTop));
 
   }
