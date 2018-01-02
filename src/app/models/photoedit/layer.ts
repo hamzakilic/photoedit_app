@@ -27,7 +27,7 @@ export abstract class Layer extends SurfaceCanvas {
   
   constructor(name?: string) {
     super();
-    this.sourceMask = undefined;
+    
     this._blendMode="normal";
     if (name)
       this._name = name.replace(/[\(\)]/g,'_').substring(0,10);
@@ -151,20 +151,20 @@ public exportToURI(format:string='image/jpg'):string{
     
     if (this._mouseDownPoint.isLeft && this.isMouseDown) {
       let move = RotationHelper.calculateRotationMoveLeft(event,this);
-      this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, new Callback(() => this.render()));
+      this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, Callback.from(() => this.render()));
     } else   
     if (this._mouseDownPoint.isTop && this.isMouseDown) {
       let move = RotationHelper.calculateRotationMoveTop(event,this);
-      this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, new Callback(() => this.render()));
+      this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, Callback.from(() => this.render()));
     } else
     
     if (this._mouseDownPoint.isRight && this.isMouseDown) {
       let move = RotationHelper.calculateRotationMoveRight(event,this);
-      this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, new Callback(() => this.render()));
+      this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, Callback.from(() => this.render()));
     } else
     if (this._mouseDownPoint.isBottom && this.isMouseDown) {
      let move = RotationHelper.calculateRotationMoveBottom(event,this);
-      this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, new Callback(() => this.render()));
+      this.calculateBy(move.width ,move.height,move.left,move.top,move.maskLeft,move.maskTop, Callback.from(() => this.render()));
     } else
     if (this._mouseDownPoint.isRotate && this.isMouseDown) {
       let currentangle=this.rotateAngleDeg;       

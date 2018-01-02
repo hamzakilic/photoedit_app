@@ -29,7 +29,7 @@ describe('menuItem', () => {
    function test(){
       counter++;
    }
-   let callfunc = new Callback(test);
+   let callfunc = Callback.from(test);
 
    beforeEach(()=>{
      counter=0;

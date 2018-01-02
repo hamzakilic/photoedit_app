@@ -45,7 +45,7 @@ describe('readFileOrUrl', () => {
   it('should handleclick success', (done) => {
 
     spyOn(window,"FileReader").and.returnValue(new MockFileReader(false));
-    ReadFileOrUrl.readAsync({},new Callback((data)=>onSuccess(data)));
+    ReadFileOrUrl.readAsync({},Callback.from((data)=>onSuccess(data)));
 
       setTimeout(()=>{
       while(!successOccured);
@@ -56,7 +56,7 @@ describe('readFileOrUrl', () => {
    it('should handleclick error', (done) => {
 
     spyOn(window,"FileReader").and.returnValue(new MockFileReader(true));
-    ReadFileOrUrl.readAsync({},new Callback((data)=>onSuccess(data)),new Callback(err=>onError(err)));
+    ReadFileOrUrl.readAsync({},Callback.from((data)=>onSuccess(data)),Callback.from(err=>onError(err)));
 
     setTimeout(()=>{
       while(!errorOccured);

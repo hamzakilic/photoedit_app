@@ -12,6 +12,7 @@ import { Message } from './entities/message';
 import { Callback } from './lib/callback';
 import { CmdShowFormSampleImages} from './commands/cmdShowFormSampleImages';
 import { CmdReadImageFromBufferorUrl } from './commands/cmdReadImageFromBufferorUrl';
+import { AlertItem } from './entities/alertItem';
 
 
 
@@ -51,6 +52,9 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(){
     let cmd=new CmdShowFormSampleImages(true);
     cmd.executeAsync();
+    if(!CheckBrowserCapabilities.isChrome()){
+      this._appservice.showAlert(new AlertItem('warning','Chrome is the fastest browser for this application',8000));
+    }
   }
 
   private setWindowDragAndDrop(){
@@ -67,9 +71,9 @@ export class AppComponent implements AfterViewInit {
        if(evt.dataTransfer && evt.dataTransfer.files && evt.dataTransfer.files.length>=1){
          let file=evt.dataTransfer.files[0];
          let fileName=evt.dataTransfer.files[0].name;
-         ReadFileOrUrl.readAsync(file, 2,   new Callback((data) => { this.onSuccess(data) }),
-         new Callback((err) => this.onError(err)),
-         new Callback((data) => this.onProgress(data)));
+         ReadFileOrUrl.readAsync(file, 2,   Callback.from((data) => { this.onSuccess(data) }),
+         Callback.from((err) => this.onError(err)),
+         Callback.from((data) => this.onProgress(data)));
 
        }
 

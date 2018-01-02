@@ -69,11 +69,11 @@ describe('workspace', () => {
         calledTest2 = true;
     }
 
-    item.onEvent(Workspace.EVENTRESIZED,new Callback((call)=>{
+    item.onEvent(Workspace.EVENTRESIZED,Callback.from((call)=>{
         test(call);
     }));
 
-    item.resize(4,6,new Callback(()=>{test2();}));
+    item.resize(4,6,Callback.from(()=>{test2();}));
     setTimeout(()=>{
       expect(item.width).toEqual(4);
       expect(item.height).toEqual(6);

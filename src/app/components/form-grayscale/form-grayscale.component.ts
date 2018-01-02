@@ -47,12 +47,12 @@ export class FormGrayscaleComponent implements OnInit {
   private _emptyEffectLayer: LayerImageEffect;
   private _initialized = false;
   constructor(projectService: ProjectService, appService: AppService) {
-    this.callFunc = new Callback(() => { this.show() });
+    this.callFunc = Callback.from(() => { this.show() });
 
     this._projectService = projectService;
     this._appService = appService;
     let layer = new LayerImageEffect(new HImage(320, 240));
-    layer.whenCreatedGraphicsAgain = new Callback(() => { layer.render(); });
+    layer.whenCreatedGraphicsAgain = Callback.from(() => { layer.render(); });
     layer.resizedAgain = false;
     this._emptyEffectLayer = layer;
 
@@ -111,7 +111,7 @@ export class FormGrayscaleComponent implements OnInit {
 
           }
 
-          layer.whenCreatedGraphicsAgain = new Callback(() => { layer.render(); });
+          layer.whenCreatedGraphicsAgain = Callback.from(() => { layer.render(); });
           layer.resizedAgain = false;
           this.effectLayer = layer;
           this._initialized = false;

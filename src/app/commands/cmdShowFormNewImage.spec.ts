@@ -10,7 +10,7 @@ describe('cmdShowFormNewImage', () => {
   function showForm(data : any){
     called = true;
   }
-  let call =  new Callback((data)=>showForm(data));
+  let call =  Callback.from((data)=>showForm(data));
 
   beforeEach(() => {
     MessageBus.subscribe(Message.ShowFormNewImage,call);

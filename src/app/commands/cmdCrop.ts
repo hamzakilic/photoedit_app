@@ -1,3 +1,4 @@
+import { Headers } from '@angular/http';
 import { History } from './../models/photoedit/history/history';
 import { ImageProcessCrop } from './../lib/imageprocess/imageProcessCrop';
 import { Callback } from './../lib/callback';
@@ -57,7 +58,11 @@ export class CmdCrop extends CommandBusy {
                         let newLayer = new LayerImage(cropedImage,"cropedimage",selectedLayer.uuid);
                         newLayer.scale = selectedLayer.scale;
                         newLayer.marginLeft=cropLayerRect.x;
-                        newLayer.marginBottom=cropLayerRect.y;
+                        newLayer.marginTop=cropLayerRect.y;
+                        if(workspace.layers.length==1){
+                            newLayer.marginLeft=0;
+                        newLayer.marginTop=0;
+                        }
                             workspace.removeWorkLayer();
                            // workspace.addLayer(newLayer);
                            this.createHistory(workspace, newLayer.clone(),selectedLayer.clone());
@@ -66,9 +71,7 @@ export class CmdCrop extends CommandBusy {
                            else {
                            
                             workspace.replaceLayer(selectedLayer,newLayer,0,0);
-                               workspace.resize(newLayer.width,newLayer.height,new Callback(()=>{
-                                
-                               }))
+                               workspace.resize(newLayer.width,newLayer.height,Callback.empty())
                            }
                            
                         }
@@ -80,11 +83,20 @@ export class CmdCrop extends CommandBusy {
 
     }
     private createHistory(workspace:Workspace,cropedLayer:Layer,selectedLayer:Layer){
-        let history=History.create().setUndo(Callback.from(()=>{
+        let wswidth=workspace.width;
+        let wsheight=workspace.height;
+        let history=History.create().setUndo(Callback.from(()=>{            
             workspace.replaceHistoryLayer(selectedLayer.uuid,selectedLayer);
+            workspace.resize(wswidth,wsheight,Callback.empty());
         }))
         workspace.historyManager.add(history,Callback.from(()=>{
+            
             workspace.replaceHistoryLayer(cropedLayer.uuid,cropedLayer);
+            if(workspace.layers.length==1){
+                workspace.resize(cropedLayer.width,cropedLayer.height,Callback.empty())
+                
+                }            
+
         }));
     }
 

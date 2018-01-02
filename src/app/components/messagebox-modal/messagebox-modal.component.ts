@@ -18,7 +18,7 @@ export class MessageBoxModalComponent implements OnInit {
   msg: string;
   private callFunc : Callback;
   constructor() {
-      this.callFunc = new Callback((err)=>this.showError(err));
+      this.callFunc = Callback.from((err)=>this.showError(err));
    }
 
   ngOnInit() {

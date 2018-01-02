@@ -49,8 +49,8 @@ export class FormGoogleFontloadComponent implements OnInit {
     this._userService=userService;
     this._allLanguage.text="All";//language change yapılacak
     this._currentLanguage=this._allLanguage;
-    this._callbackWhenGoogleLanguagesGetted=new Callback(()=>this.whenGoogleFontLanguagesGetted());
-    this.callFunc = new Callback(() => this.show());
+    this._callbackWhenGoogleLanguagesGetted=Callback.from(()=>this.whenGoogleFontLanguagesGetted());
+    this.callFunc = Callback.from(() => this.show());
     
    
     

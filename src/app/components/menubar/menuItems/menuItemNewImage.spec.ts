@@ -18,7 +18,7 @@ describe('menuItemNewImage', () => {
     function test(){
       variable=true;
     };
-    let func =new Callback(test);
+    let func =Callback.from(test);
 
 
 

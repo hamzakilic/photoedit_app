@@ -12,7 +12,7 @@ export class LayerHtmlImage extends Layer {
 
   constructor(img: HTMLImageElement, name?: string) {
     super(name);
-    this.sourceMask = new Rect(0, 0, img.width, img.height);
+    
     this.width = img.width;
     this.height = img.height;
     this.canRotate = true;
@@ -30,13 +30,9 @@ export class LayerHtmlImage extends Layer {
 
     this.graphics.save();
     this.graphics.clearRect(new Rect(0, 0, this.width, this.height));
-    //this.graphics.setGlobalAlpha(this.globalAlpha);
+    this.graphics.setGlobalAlpha(this.globalAlpha);
     
-    if (!this.scaleView) {
-
-      this.graphics.drawHtmlImageRect(this.img, this.sourceMask, new Rect(0, 0, this.sourceMask.width > this.width ? this.width : this.sourceMask.width, this.sourceMask.height > this.height ? this.height : this.sourceMask.height));
-    }
-    else this.graphics.drawHtmlImageRect(this.img, this.sourceMask, new Rect(0, 0, this.width, this.height));
+    this.graphics.drawHtmlImageRect(this.img, new Rect(0,0,this.img.naturalWidth,this.img.naturalHeight), new Rect(0, 0, this.width, this.height));
 
     this.graphics.restore();
   }

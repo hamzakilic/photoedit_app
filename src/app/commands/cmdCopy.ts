@@ -93,7 +93,7 @@ export class CmdCopy extends CommandBusy {
                
                graphics.drawPolygon(intersectedPoly,false);
                graphics.clip();
-               graphics.drawImageRect(cropedImage,new Rect(0,0,canvas.width,canvas.height),new Rect(0,0,canvas.width,canvas.height),new Callback(()=>{
+               graphics.drawImageRect(cropedImage,new Rect(0,0,canvas.width,canvas.height),new Rect(0,0,canvas.width,canvas.height),Callback.from(()=>{
               
                 //this is inside of 
                 graphics.restore();

@@ -1,6 +1,7 @@
 declare var Modernizr: any;
+declare var BrowserDetection:any;
 import '../../assets/modernizr-custom.js';
-
+import '../../assets/browserDetection.js';
 
 
 export class CheckBrowserCapabilities{
@@ -56,6 +57,11 @@ export class CheckBrowserCapabilities{
 
 
     return result;
+  }
+
+   static isChrome():boolean{
+     
+    return BrowserDetection.isChrome();
   }
 
 }

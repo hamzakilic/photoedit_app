@@ -9,7 +9,7 @@ describe('callback', function() {
              testVariable = 1;
         }
 
-    var callFunc = new Callback(testfunc);
+    var callFunc = Callback.from(testfunc);
     callFunc.call(undefined);
     expect(testVariable).toEqual(1);
 
@@ -20,7 +20,7 @@ describe('callback', function() {
              testVariable = 1;
         }
 
-    var callFunc = new Callback(()=>{});
+    var callFunc = Callback.from(()=>{});
     callFunc.call(undefined);
     expect(testVariable).toEqual(0);
 
@@ -31,7 +31,7 @@ describe('callback', function() {
              return variable + 6;
         }
 
-    var callFunc = new Callback(testfunc);
+    var callFunc = Callback.from(testfunc);
 
     expect(callFunc.call(5)).toEqual(11);
 
@@ -44,7 +44,7 @@ describe('callback', function() {
              variable.y += 20;
         }
 
-    var callFunc = new Callback(testfunc);
+    var callFunc = Callback.from(testfunc);
     var obj = { x: 1,y: 2};
     callFunc.call(obj);
     expect(obj.x).toEqual(11);

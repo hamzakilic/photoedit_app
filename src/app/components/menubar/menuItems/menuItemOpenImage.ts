@@ -26,9 +26,9 @@ export class MenuItemOpenImage extends MenuItemOpenFile {
     
 
     super(title, "image/*",
-      new Callback((data) => { this.onSuccess(data) }),
-      new Callback((err) => this.onError(err)),
-      new Callback((data) => this.onProgress(data)),
+      Callback.from((data) => { this.onSuccess(data) }),
+      Callback.from((err) => this.onError(err)),
+      Callback.from((data) => this.onProgress(data)),
     shortCut);
     
     

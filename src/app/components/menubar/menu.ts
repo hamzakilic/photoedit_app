@@ -49,7 +49,7 @@ export class MenuItem{
     
     this.shortCut=shortCut;
     if(shortCut){
-      this.shortCut.callback=new Callback(()=>this.onClick(undefined));
+      this.shortCut.callback=Callback.from(()=>this.onClick(undefined));
       this.shortCut.desc=this.name;
     }
     

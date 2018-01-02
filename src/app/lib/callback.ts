@@ -5,7 +5,7 @@
  *  this class represents a function delegate class,
  *  @example
  *  func test(x: number) { return  x+3 ;}
- *  var caller = new callback(test);
+ *  var caller = Callback.from(test);
  *  var returnValue = caller.call(5);
  *  returnValue is 8
  *  @public

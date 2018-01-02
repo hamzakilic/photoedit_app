@@ -1,17 +1,18 @@
 .workspaceResize{
 
-     background: red; /* For browsers that do not support gradients */
+     //background: red; /* For browsers that do not support gradients */
      
-    background: -webkit-linear-gradient(#01f7da, black); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#01f7da, black); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#01f7da, black); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#01f7da, black); /* Standard syntax */
-  position: absolute;
--webkit-clip-path: polygon(27% 8%, 60% 40%, 87% 12%, 95% 96%, 16% 91%, 45% 63%, 1% 46%);
-clip-path: polygon(27% 8%, 60% 40%, 87% 12%, 95% 96%, 16% 91%, 45% 63%, 1% 46%);
+   // background: -webkit-linear-gradient(#01f7da, black); /* For Safari 5.1 to 6.0 */
+   // background: -o-linear-gradient(#01f7da, black); /* For Opera 11.1 to 12.0 */
+   // background: -moz-linear-gradient(#01f7da, black); /* For Firefox 3.6 to 15 */
+   // background: linear-gradient(#01f7da, black); /* Standard syntax */
+  //position: absolute;
+//-webkit-clip-path: polygon(27% 8%, 60% 40%, 87% 12%, 95% 96%, 16% 91%, 45% 63%, 1% 46%);
+//clip-path: polygon(27% 8%, 60% 40%, 87% 12%, 95% 96%, 16% 91%, 45% 63%, 1% 46%);
   
-
-   
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAACowAAAqMBZNxfiQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAPNSURBVGiB7ZlPaBxlGMZ/787uxmyQEutuaqjUQ4WCVBEFEQW1XgRBwZbYktJkY1AsgsVDiptUB9luqoJYFSVYzTZtUbcgpaIUhHrQQwVtwYMIFZtirO5GKgVNm+zsvJ4iOdj4vTOzJ/M7v8/3vM9+f+abWVhhhf834lpYqFYOg/Ybxv4uPd+8+8JT/lyEvpxJuRbmdGEY9Ixh7FtbHZnJCD2ZcJ4BgPyh8fXSCr8BVjkbCLvqA6P7zZ25jm8V9FQrjyh6zKANVGXTbLH0pdXLBecltEh9sHQceN0gSYuEtevfe7nX6uWCOQBAY11zBPjKXSFrxGsd4Qs/HcVvOSIF4AE/CNLpbcCsq0TQ+3umM+VIfssQLQBwcfvuGQnDrUDLVaPCSKFa3hzV89+IHACgPrTnJIrlVxWQydWTlQ1xfJcSKwBA43zzJdATBsm1nlDrmXq1K643JBAA3w+zQdAPTLuLdKOGzXdje5NEAGBm2L8oKdkKLLirdFuhWnk6rnciAQDqO0pfi+pum0r3F6qVe+L4mp/E/0WhuvcosMW1XuFnL5Q7fhsqOR/JS0lsBv5pKNcsCvzgWi9wY5jSD6jVvCh+iQeY7fP/RFt9gOUa/WDh8tkXo/glvoQWKVTL/SCHDRJF5bFGsXTM4tO2AAD5avmAIE8YmvmDMHVnfej5n1w1iS+hpXRp8Axw2rVeoVu91sdra691umraGmC66F9RL/U4cMlZpHLb/Nzcm67lbQ0A4AUEAqFFI0LWtbatAXon/Fwoelyh21Uj8G0uDJ50rW9rgGZH+g3QjQbJ76lAN08X/SuugsTfkBbJVytFQZ1PICBUlYFfh0fPW3zaMgP5g+O3C/q2SSTsnS2WPrN6JR6ge2LfKtGwBlzjrtITjXNNP4pfsgFUJdPRmgLWG1TnskHQj++bTqpFIl2grkbPTZldiDxrkMynRB++MPTCj1E9E7tK5KfK90ooJ4GMwX5nY7D0ThzfRAKseb+SD1N6GlhrkFUbg6PFuN7x90Ct5oUeH2JqXs9kc507Y3uTwHOg8NfZPQibDJJL6nl9M33PXY7rDTGXUH5y/CGR8FPcZ1JF9dF6ceyTOL5LibyEbjhQXicSHrGMIcorSTaPxXwpt9T8bMuTj4DrDLLP6103j0bxW45IAWbnMvsQ7jJIfpFUczt9fc7fUV0x74H8wcoWUT1qkCyI6n314tgpq5cLplNo9WRlg6ia/vcSYaQ+2J7mwTADvRN+LujInjLd70UPNQbGdkTqzBHnPdDqSL9lfDn5XjuDRB5WK6ywwtX5GwsqKoD+7VvXAAAAAElFTkSuQmCC');
+  background-size: contain;
+   transform: rotate(45deg);
     position: absolute;
     z-index: 10000;
     

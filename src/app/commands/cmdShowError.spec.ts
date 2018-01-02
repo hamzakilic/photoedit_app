@@ -10,7 +10,7 @@ describe('cmdShowError', () => {
   function showError(data : any){
     msg = data.msg;
   }
-  let call =  new Callback((data)=>showError(data));
+  let call =  Callback.from((data)=>showError(data));
 
   beforeEach(() => {
     MessageBus.subscribe(Message.ShowError,call);

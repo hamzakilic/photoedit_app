@@ -5,7 +5,7 @@ import { MessageBus } from './messageBus';
 
 describe('messageBus', () => {
 
-let call=new Callback(onTest);
+let call=Callback.from(onTest);
   var onTestArrived = false;
 
   function onTest(data: any) {

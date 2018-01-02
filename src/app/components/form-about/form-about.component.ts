@@ -17,7 +17,7 @@ export class FormAboutComponent implements OnInit {
 
   private _items:Array<any>;
   constructor() { 
-    this.callFunc = new Callback(() => { this.show() });
+    this.callFunc = Callback.from(() => { this.show() });
     this._items=[];
     this._items.push({name:'version',detail:'1.0.0'});
     this._items.push({name:'producer',detail:'Hamza Kılıç',src:'http://www.hamzakilic.com'});

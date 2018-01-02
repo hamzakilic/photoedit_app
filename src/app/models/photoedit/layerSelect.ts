@@ -465,8 +465,7 @@ export class LayerSelect extends Layer {
   constructor(width: number, height: number, left: number, top: number,selectedWorkspaceLayer:Layer) {
     super("select layer");
     this._blendMode="hard-light";
-    this.keepRatio = false;
-    this.scaleView = false;
+    this.keepRatio = false;    
 
     this.width = width;
     this.height = height;

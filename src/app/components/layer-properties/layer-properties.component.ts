@@ -48,14 +48,14 @@ export class LayerPropertiesComponent implements OnInit {
     let val=parseInt(value);
     if (!isNaN(val) && val > 10) {
 
-      layer.setWidthHeight(parseInt(value), layer.height, new Callback(() => layer.render()))
+      layer.setWidthHeight(parseInt(value), layer.height, Callback.from(() => layer.render()))
     }
   }
 
   changeHeight(value: any, layer: Layer) {
     let val=parseInt(value);
     if (!isNaN(val) && val > 10) {
-      layer.setWidthHeight(layer.width, parseInt(value), new Callback(() => layer.render()))
+      layer.setWidthHeight(layer.width, parseInt(value), Callback.from(() => layer.render()))
     }
   }
   changeTop(value: any, layer: Layer) {
@@ -63,8 +63,8 @@ export class LayerPropertiesComponent implements OnInit {
     let val = parseInt(value);
     if(!isNaN(val)){
     let point=CalcLayer.calculateTop(val,layer);
-    layer.setLeft(point.x.extToInt32(),new Callback(() => layer.render()));
-    layer.setTop(point.y.extToInt32(),new Callback(() => layer.render()));
+    layer.setLeft(point.x.extToInt32(),Callback.from(() => layer.render()));
+    layer.setTop(point.y.extToInt32(),Callback.from(() => layer.render()));
     }
 }
 
@@ -73,8 +73,8 @@ export class LayerPropertiesComponent implements OnInit {
     let val = parseInt(value);
     if(!isNaN(val)){
     let point=CalcLayer.calculateLeft(val,layer);
-    layer.setLeft(point.x.extToInt32(),new Callback(() => layer.render()));
-    layer.setTop(point.y.extToInt32(),new Callback(() => layer.render()));
+    layer.setLeft(point.x.extToInt32(),Callback.from(() => layer.render()));
+    layer.setTop(point.y.extToInt32(),Callback.from(() => layer.render()));
     }
   }
 

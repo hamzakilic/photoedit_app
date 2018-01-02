@@ -35,7 +35,7 @@ describe('eventemiter', function () {
       testVariable += 1;
     }
     //create a callback
-    var callbackFunc = new Callback(testfunc);
+    var callbackFunc = Callback.from(testfunc);
     var testForEvent = new testEventEmitter();
     //add an event
     testForEvent.onEvent('on', callbackFunc);
@@ -60,7 +60,7 @@ describe('eventemiter', function () {
       testVariable += 1;
     }
     //create a callback
-    var callbackFunc = new Callback(testfunc);
+    var callbackFunc = Callback.from(testfunc);
     var testForEvent = new testEventEmitter();
     //add an event
     testForEvent.onEvent('on', callbackFunc);
@@ -87,7 +87,7 @@ describe('eventemiter', function () {
       testVariable += 1;
     }
     //create a callback
-    var callbackFunc = new Callback(testfunc);
+    var callbackFunc = Callback.from(testfunc);
     var testForEvent = new testEventEmitter();
     //add an event
     testForEvent.onEvent('on', callbackFunc);
@@ -111,7 +111,7 @@ describe('eventemiter', function () {
       testVariable += 1;
     }
     //create a callback
-    var callbackFunc = new Callback(testfunc);
+    var callbackFunc = Callback.from(testfunc);
     var testForEvent = new testEventEmitter();
     //add an event
     testForEvent.onEvent('on', callbackFunc);
@@ -138,7 +138,7 @@ describe('eventemiter', function () {
       testVariable += 1;
     }
     //create a callback
-    var callbackFunc = new Callback(testfunc);
+    var callbackFunc = Callback.from(testfunc);
     var testForEvent = new testEventEmitter();
     //add an event
     testForEvent.onEvent('on', callbackFunc);
@@ -170,8 +170,8 @@ describe('eventemiter', function () {
         }
 
     //create a callback
-    var callbackFunc = new Callback(testfunc);
-    var callbackFunc2 = new Callback(testfunc2);
+    var callbackFunc = Callback.from(testfunc);
+    var callbackFunc2 = Callback.from(testfunc2);
 
     var testForEvent = new testEventEmitter();
     //add an event

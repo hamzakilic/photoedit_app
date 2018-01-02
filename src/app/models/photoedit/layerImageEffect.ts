@@ -13,7 +13,7 @@ export class LayerImageEffect extends LayerImage{
   constructor(img:HImage,name?: string) {
     super(img,name);
 
-    this.sourceMask=new Rect(0,0,img.width,img.height);
+    
     this.width = img.width;
     this.height = img.height;
     this.canRotate = true;
@@ -28,8 +28,7 @@ export class LayerImageEffect extends LayerImage{
 
   }
   public setImg(img:HImage){
-    this.img=img;
-    this.sourceMask=new Rect(0,0,img.width,img.height);
+    this.img=img;    
     this.width=img.width;
     this.height=img.height;
     this.render();

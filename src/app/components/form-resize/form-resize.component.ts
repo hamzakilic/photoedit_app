@@ -30,7 +30,7 @@ export class FormResizeComponent implements OnInit {
   private formResize: FormGroup;
   private projectService: ProjectService;
   constructor(private fb: FormBuilder,projectService: ProjectService) {
-    this.callFunc = new Callback(() => this.show());
+    this.callFunc = Callback.from(() => this.show());
     this.width = 100;
     this.height = 100;
     this.scale=1;

@@ -42,8 +42,8 @@ class MockFileReader{
 describe('menuItemOpenFile', () => {
 
   let item = new MenuItemOpenFile('test', 'image/*',
-  new Callback((data)=>onSuccess(data)),
-  new Callback((err)=>onError(err)));
+  Callback.from((data)=>onSuccess(data)),
+  Callback.from((err)=>onError(err)));
   let errorOccured = false;
   let successOccured = false;
 

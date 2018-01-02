@@ -19,15 +19,12 @@ export class Surface implements IClone {
   public scale = 1;
   public marginLeft = 0;
   public marginTop = 0;
-  public marginRight = 0;
-  public marginBottom = 0;
+  
   public rotateAngleDeg: number = 0;
   public selectPointwh = 14;
 
   public zIndex = 0;
-  public keepRatio: boolean=true;
-  public scaleView: boolean=true;
-  public sourceMask: Rect=undefined;
+  public keepRatio: boolean=true;  
   public globalAlpha:number=1.0;
 
 
@@ -43,15 +40,14 @@ export class Surface implements IClone {
     instance.globalAlpha=this.globalAlpha;
     instance.height=this.height;
     instance.keepRatio=this.keepRatio;
-    instance.marginBottom=this.marginBottom;
-    instance.marginLeft=this.marginLeft;
-    instance.marginRight=this.marginRight;
+    
+    instance.marginLeft=this.marginLeft;    
     instance.marginTop=this.marginTop;
     instance.rotateAngleDeg=this.rotateAngleDeg;
     instance.scale=this.scale;
-    instance.scaleView=this.scaleView;
+    
     instance.selectPointwh=this.selectPointwh;
-    instance.sourceMask=this.sourceMask?this.sourceMask.clone():undefined;
+    
     instance.width=this.width;
     instance.zIndex=this.zIndex;
     return instance;
@@ -97,11 +93,7 @@ export class SurfaceCanvas extends Surface {
 
 
   public setTop(value: number, func?: Callback) {
-    if (!this.scaleView && this.sourceMask) {
-
-      this.sourceMask.y -=this.sourceMask.height*(this.marginTop - value)/this.height;
-
-    }
+    
     this.marginTop = value;
     this.resizedAgain = false;
     this.whenCreatedGraphicsAgain = func;
@@ -109,11 +101,7 @@ export class SurfaceCanvas extends Surface {
   }
   public setLeft(value: number, func?: Callback) {
 
-    if (!this.scaleView && this.sourceMask) {
-
-      this.sourceMask.x -=this.sourceMask.width*(this.marginLeft - value)/this.width;
-
-    }
+    
     this.marginLeft = value;
     this.resizedAgain = false;
     this.whenCreatedGraphicsAgain = func;
@@ -133,13 +121,6 @@ export class SurfaceCanvas extends Surface {
       if (widthIsChanging) {
         let ratio = this.width / this.height;
 
-       /*  if (!this.scaleView && this.sourceMask) {
-          
-          this.sourceMask.width -=this.sourceMask.width*(this.width - width)/this.width;
-          this.sourceMask.height -=this.sourceMask.height*(this.height - (width / ratio))/this.height;
-
-        } */
-
         this.width = width;
         this.height = this.width / ratio;
 
@@ -148,10 +129,6 @@ export class SurfaceCanvas extends Surface {
       } else if (heightIsChanging) {
         let ratio = this.height / this.width;
 
-        /* if (!this.scaleView && this.sourceMask) {
-          this.sourceMask.width -=this.sourceMask.width*(this.width - (height / ratio))/this.width;
-          this.sourceMask.height -=this.sourceMask.height*( this.height - height)/this.height;
-        } */
 
         this.height = height;
         this.width = this.height / ratio;
@@ -163,11 +140,6 @@ export class SurfaceCanvas extends Surface {
 
     } else {
 
-      /* if (!this.scaleView && this.sourceMask) {
-        
-        this.sourceMask.width -=this.sourceMask.width*(this.width - width)/this.width;
-        this.sourceMask.height -=this.sourceMask.height*(this.height - height)/this.height;
-      } */
 
       this.width = width;
       this.height = height;
@@ -197,10 +169,7 @@ export class SurfaceCanvas extends Surface {
     let bHeight=this.height;
     let bWidthMask=0;
     let bHeightMask=0;
-    if(this.sourceMask){
-      bWidthMask = this.sourceMask.width;
-      bHeightMask = this.sourceMask.height;
-    }
+    
     if (this.keepRatio) {
 
       let ratio = this.width / this.height;
@@ -217,37 +186,17 @@ export class SurfaceCanvas extends Surface {
 
     }
     //must before changing this.widht and this.height
-    if (!this.scaleView && this.sourceMask) {
-     
-      this.sourceMask.width += (width)*bWidthMask/bWidth;
-      this.sourceMask.height += height*bHeightMask/bHeight;
-      
-
-    }
+    
 
     if(this.width+width<0 || this.height+height<0)
         return;
     this.width += width ;
     this.height += height ;
 
-     
-
-  
-   
-      this.marginLeft += left ;
-     // if (!this.scaleView && this.sourceMask)
-     //   this.sourceMask.x +=(maskleft)*bWidthMask/bWidth;
-
-
+    this.marginLeft += left ;
     
-    
-      this.marginTop += top ;
-    //  if (!this.scaleView && this.sourceMask)
-     //   this.sourceMask.y +=(masktop)*bHeightMask/bHeight;
+    this.marginTop += top ;
 
- 
-    
-  
     this.whenCreatedGraphicsAgain = func;
     this.resizedAgain = false;
 

@@ -13,8 +13,7 @@ export class LayerText extends LayerGraphics{
 
   constructor(text:Text,name?: string) {
     super(name);
-
-    this.sourceMask=new Rect(0,0,300,50);
+    
     this.width = 300;
     this.height = 50;
     this.canRotate = true;

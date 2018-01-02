@@ -104,7 +104,7 @@ export class Graphics {
     let imageData = new ImageData(img.Pixels, img.width, img.height);    
     //this._context.putImageData(imageData,0,0);
      let canvas=this.createImage(imageData);
-     this._context.drawImage(canvas, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
+     this._context.drawImage(canvas, 0, 0, img.width, img.height, destRect.x, destRect.y, destRect.width, destRect.height);
      if(callback)
      callback.call(undefined);
     

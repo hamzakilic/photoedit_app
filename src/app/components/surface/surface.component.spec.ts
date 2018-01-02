@@ -41,7 +41,7 @@ describe('SurfaceComponent', () => {
        done();
      }
      surface.setWidthHeight(10,10,
-     new Callback(()=>test()));
+     Callback.from(()=>test()));
      fixture.detectChanges();
 
   });
@@ -58,7 +58,7 @@ describe('SurfaceComponent', () => {
        done();
      }
      surface.setWidthHeight(10,10,
-     new Callback(()=>test(component,fixture,done)));
+     Callback.from(()=>test(component,fixture,done)));
      fixture.detectChanges();
 
   });
@@ -75,7 +75,7 @@ describe('SurfaceComponent', () => {
        done();
      }
      surface.setWidthHeight(10,10,
-     new Callback(()=>test(component,fixture,done)));
+     Callback.from(()=>test(component,fixture,done)));
      fixture.detectChanges();
 
   });

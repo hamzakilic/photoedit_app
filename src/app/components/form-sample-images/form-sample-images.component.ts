@@ -28,7 +28,7 @@ export class FormSampleImagesComponent implements OnInit {
   private _openAsWorkspace: boolean;
   private _appService:AppService;
   constructor(http: Http, projectService: ProjectService,appService:AppService) {
-    this.callFunc = new Callback((openAsWorkspace: boolean) => { this.show(openAsWorkspace) });
+    this.callFunc = Callback.from((openAsWorkspace: boolean) => { this.show(openAsWorkspace) });
     this._http = http;
     this._projectService = projectService;
     this._appService=appService;

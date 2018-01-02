@@ -37,7 +37,7 @@ export class FormShortcutsComponent implements OnInit {
   constructor(keyboardService: KeyboardService) {
     this.items = new Array<GroupedObject>();
 
-    this.callFunc = new Callback(() => { this.show() });
+    this.callFunc = Callback.from(() => { this.show() });
     //create shortcuts mapped list
 
     this.keyboardService = keyboardService;

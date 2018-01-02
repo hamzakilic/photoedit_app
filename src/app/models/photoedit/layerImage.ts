@@ -13,7 +13,7 @@ export class LayerImage extends Layer{
   constructor(img:HImage,name?: string,uuid?:string) {
     super(name);
 
-    this.sourceMask=new Rect(0,0,img.width,img.height);
+    
     this.width = img.width;
     this.height = img.height;
     this.canRotate = true;
@@ -45,11 +45,7 @@ export class LayerImage extends Layer{
    
     this.graphics.clearRect(new Rect(0,0,this.width,this.height));
     
-    if(!this.scaleView){
-
-      this.graphics.drawImageRect(this.img,this.sourceMask,new Rect(0,0,this.sourceMask.width>this.width?this.width:this.sourceMask.width,this.sourceMask.height>this.height?this.height:this.sourceMask.height),new Callback(()=>this.graphics.restore()));
-    }
-    else this.graphics.drawImageRect(this.img,this.sourceMask,new Rect(0,0,this.width,this.height),new Callback(()=>this.graphics.restore())); 
+    this.graphics.drawImageRect(this.img,new Rect(0,0,this.img.width,this.img.height),new Rect(0,0,this.width,this.height),Callback.from(()=>this.graphics.restore())); 
     //this.graphics.putImage2(this.img);
    
   }

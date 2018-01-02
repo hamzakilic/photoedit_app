@@ -18,7 +18,7 @@ export class LayerCropRectangle extends Layer {
     super("crop layer");
 
     this.keepRatio = false;
-    this.scaleView = false;
+    
 
     this.width = width;
     this.height = height;

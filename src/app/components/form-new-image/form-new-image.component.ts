@@ -35,7 +35,7 @@ export class FormNewImageComponent implements OnInit {
   private projectService: ProjectService;
   private _appService:AppService;
   constructor(private fb: FormBuilder,appService:AppService, projectService: ProjectService) {
-    this.callFunc = new Callback(() => this.show());
+    this.callFunc = Callback.from(() => this.show());
     this.width = 16*30;
     this.height = 9*30;
     this.projectService = projectService;
