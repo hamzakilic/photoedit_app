@@ -109,6 +109,7 @@ export class ToolsComponent implements OnInit {
   }
   selectPolygonSelection() {
     this.selectWorking(Workspace.WorkModeSelection,LayerSelect.SubTypePolygon);
+    
     let alert=new CmdShowAlert(new AlertItem('info','for finish double click',2000),this.appService);
     alert.executeAsync();
     //this.isCollapsed=true;
