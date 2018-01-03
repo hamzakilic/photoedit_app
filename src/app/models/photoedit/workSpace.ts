@@ -382,6 +382,13 @@ export class Workspace extends HEventEmitter {
 
   }
 
+  public get scrollLeft(){
+    return this.htmlElement.scrollLeft;
+  }
+  public get scrollTop(){
+    return this.htmlElement.scrollTop;
+  }
+
 
 
   public mouseDown(event: any) {

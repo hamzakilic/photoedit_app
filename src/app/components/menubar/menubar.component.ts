@@ -172,6 +172,8 @@ export class MenubarComponent implements OnInit {
     let menuHelp = new Menu("Help");
     menuHelp.childs.push(new MenuItem("About", Callback.from(this.showAbout)));
     menuHelp.childs.push(new MenuItem("Keyboard", Callback.from(this.showShortcuts),new ShortCut(true,true,false,'K',menuHelp.name)));
+    menuHelp.childs.push(new MenuItem("Bug report", Callback.from(this.openBugLink)));
+    menuHelp.childs.push(new MenuItem("Twitter", Callback.from(this.openTwitterLink)));
     this.menus.push(menuHelp);
 
 
@@ -221,8 +223,13 @@ export class MenubarComponent implements OnInit {
   }
   cloneSelectedLayer() {
     let cmd=new CmdCloneLayer(this._projectService,this._appService);
-    cmd.executeAsync();
-    
+    cmd.executeAsync();    
+  }
+  openBugLink(){
+    window.open("https://github.com/hamzakilic/photoedit_app/issues","_blank");
+  }
+  openTwitterLink(){
+    window.open("https://twitter.com/photoedit_onlin","_blank");
   }
 
   clear() {

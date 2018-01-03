@@ -31,12 +31,12 @@ export class AppComponent implements AfterViewInit {
     this.isBrowserOk = CheckBrowserCapabilities.isOk();
     this._appservice=appService;
     this._projectService=projectService;
-    /* window.addEventListener('beforeunload',(e)=>{
+     window.addEventListener('beforeunload',(e)=>{
       let msg="Ayrılmak İstediğinize eminmisiniz";
       e.returnValue=msg;
       return msg;
-    }) */
-    
+    }) 
+     
     this.setWindowDragAndDrop();
          
    
