@@ -7,6 +7,7 @@ export class Message{
   public static ShowFormFontLoad="showFormFontLoad";
   public static ShowFormColorRemap="showFormColorRemap";
   public static ShowFormGrayscale="showFormGrayscale";
+  public static ShowFormConvolution="showFormConvolution";
   public static ShowFormSampleImages="showFormSampleImages";
   public static ShowFormAbout="showFormAbout";
   public static ShowFormShortcuts="showFormShortcuts";

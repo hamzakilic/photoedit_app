@@ -1,15 +1,20 @@
-import { CmdChangeBackgroundLayerColor } from './../../commands/cmdChangeBackgroundLayerColor';
-import { CmdCloneLayer } from './../../commands/cmdCloneLayer';
-import { CmdFlipImage } from './../../commands/cmdFlipImage';
-import { CmdFlipWorkspace } from './../../commands/cmdFlipWorkspace';
+import { ImageAlgorithmConvolutionHighPass } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionHighPass';
+import { ImageAlgorithmConvolutionEmbossTopLeftBottomRight } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionEmbossTopLeftBottomRight';
+import { ImageAlgorithmConvolutionEmbossIntense } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionEmbossIntense';
+import { ImageAlgorithmConvolutionEmboss45Degree } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionEmboss45Degree';
+import { ImageAlgorithmConvolutionEmboss } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionEmboss';
+import { ImageAlgorithmConvolutionEdgeDetectionTopLeftBottomRight } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionEdgeDetectionTopLeftBottomRight';
+import { ImageAlgorithmConvolutionEdgeDetectionVertical } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionEdgeDetectionVertical';
+import { ImageAlgorithmConvolutionEdgeDetectionHorizontal } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionEdgeDetectionHorizontal';
+import { ImageAlgorithmConvolutionEdgeDetection45Degree } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionEdgeDetection45Degree';
+import { ImageAlgorithmConvolutionEdgeDetection } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionEdgeDetection';
+import { ImageAlgorithmConvolutionSharpenIntense } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionSharpenIntense';
+import { ImageAlgorithmConvolutionSharpen5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionSharpen5x5';
+import { ImageAlgorithmConvolutionSharpen3x3Factor } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionSharpen3x3Factor';
+import { ImageAlgorithmConvolutionSharpen3x3 } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionSharpen3x3';
+import { ImageAlgorithmConvolutionSharpen } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionSharpen';
+import { ImageAlgorithmConvolutionSoften } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionSoften';
 
-import { CmdNewLayerFromSelection } from './../../commands/cmdNewLayerFromSelection';
-import { CmdPaste } from './../../commands/cmdPaste';
-import { CmdCopy } from './../../commands/cmdCopy';
-import { CmdShowFormShortcuts } from './../../commands/cmdShowFormShortcuts';
-import { CmdShowError } from './../../commands/cmdShowError';
-import { CmdShowFormAbout } from './../../commands/cmdShowFormAbout';
-import { ShortCut } from './../../services/keyboard.service';
 
 import { Component, OnInit } from '@angular/core';
 import { Menu } from './menu';
@@ -56,6 +61,28 @@ import { CmdClear } from '../../commands/cmdClear';
 import { CmdUndo } from '../../commands/cmdUndo';
 import { CmdRedo } from '../../commands/cmdRedo';
 import { CmdExportWorkspace } from '../../commands/cmdExportWorkspace';
+import { ImageAlgorithmConvolutionBlur3x3 } from '../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionBlur3x3';
+import { ImageAlgorithmGamma } from '../../lib/imagealgorithm/imageAlgorithmGamma';
+
+import { ImageAlgorithmConvolutionBlurMotionRightToLeft } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionBlurMotionRightToLeft';
+import { ImageAlgorithmConvolutionBlurMotionLeftToRight } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionBlurMotionLeftToRight';
+import { ImageAlgorithmConvolutionBlurMotion } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionBlurMotion';
+import { ImageAlgorithmConvolutionBlurGaussian5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionBlurGaussian5x5';
+import { ImageAlgorithmConvolutionBlurGaussian3x3 } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionBlurGaussian3x3';
+import { ImageAlgorithmConvolutionBlur5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolutionBlur5x5';
+import { CmdShowFormConvolution } from './../../commands/cmdShowFormConvolution';
+import { CmdChangeBackgroundLayerColor } from './../../commands/cmdChangeBackgroundLayerColor';
+import { CmdCloneLayer } from './../../commands/cmdCloneLayer';
+import { CmdFlipImage } from './../../commands/cmdFlipImage';
+import { CmdFlipWorkspace } from './../../commands/cmdFlipWorkspace';
+
+import { CmdNewLayerFromSelection } from './../../commands/cmdNewLayerFromSelection';
+import { CmdPaste } from './../../commands/cmdPaste';
+import { CmdCopy } from './../../commands/cmdCopy';
+import { CmdShowFormShortcuts } from './../../commands/cmdShowFormShortcuts';
+import { CmdShowError } from './../../commands/cmdShowError';
+import { CmdShowFormAbout } from './../../commands/cmdShowFormAbout';
+import { ShortCut } from './../../services/keyboard.service';
 
 
 @Component({
@@ -159,6 +186,12 @@ export class MenubarComponent implements OnInit {
     menuFilters.childs.push(new MenuItem("Color remap", Callback.from(this.showFormColorRemap)));
     menuFilters.childs.push(new MenuItem("Color adjustment", Callback.from(this.showFormColorAdjustment)));
     menuFilters.childs.push(new MenuItem("Grayscale", Callback.from(this.showFormGrayscale)));
+    menuFilters.childs.push(new MenuItem("Blur", Callback.from(this.showFormBlur)));
+    menuFilters.childs.push(new MenuItem("Soften", Callback.from(this.showFormSoften)));
+    menuFilters.childs.push(new MenuItem("Sharpen", Callback.from(this.showFormSharpen)));
+    menuFilters.childs.push(new MenuItem("Edge detection", Callback.from(this.showFormEdgeDetection)));
+    menuFilters.childs.push(new MenuItem("Emboss", Callback.from(this.showFormEmboss)));
+    menuFilters.childs.push(new MenuItem("High pass", Callback.from(this.showFormHighPass)));
     this.menus.push(menuFilters);
     
     let font = new Menu("Font");
@@ -298,6 +331,75 @@ export class MenubarComponent implements OnInit {
   let cmd=new CmdShowFormGrayscale();
   cmd.executeAsync();
  }
+ showFormBlur(){
+   
+  let cmd=new CmdShowFormConvolution([
+    new ImageAlgorithmConvolutionBlur3x3(),
+    new ImageAlgorithmConvolutionBlur5x5(),
+    new ImageAlgorithmConvolutionBlurGaussian3x3(),
+    new ImageAlgorithmConvolutionBlurGaussian5x5(),
+    new ImageAlgorithmConvolutionBlurMotion(),
+    new ImageAlgorithmConvolutionBlurMotionLeftToRight(),
+    new ImageAlgorithmConvolutionBlurMotionRightToLeft()
+    
+  ]);
+  cmd.executeAsync();
+ }
+
+
+ showFormSoften(){
+   
+  let cmd=new CmdShowFormConvolution([
+    new ImageAlgorithmConvolutionSoften(),
+    
+  ]);
+  cmd.executeAsync();
+ }
+ showFormSharpen(){
+   
+  let cmd=new CmdShowFormConvolution([
+    new ImageAlgorithmConvolutionSharpen(),
+    new ImageAlgorithmConvolutionSharpen3x3(),
+    new ImageAlgorithmConvolutionSharpen3x3Factor(),
+    new ImageAlgorithmConvolutionSharpen5x5(),
+    new ImageAlgorithmConvolutionSharpenIntense(),
+    
+  ]);
+  cmd.executeAsync();
+ }
+ showFormEdgeDetection(){
+   
+  let cmd=new CmdShowFormConvolution([
+    new ImageAlgorithmConvolutionEdgeDetection(),
+    new ImageAlgorithmConvolutionEdgeDetection45Degree(),
+    new ImageAlgorithmConvolutionEdgeDetectionHorizontal(),
+    new ImageAlgorithmConvolutionEdgeDetectionVertical(),
+    new ImageAlgorithmConvolutionEdgeDetectionTopLeftBottomRight(),
+  ]);
+  cmd.executeAsync();
+ }
+
+ showFormEmboss(){
+   
+  let cmd=new CmdShowFormConvolution([
+    new ImageAlgorithmConvolutionEmboss(),
+    new ImageAlgorithmConvolutionEmboss45Degree(),
+    new ImageAlgorithmConvolutionEmbossIntense(),
+    new ImageAlgorithmConvolutionEmbossTopLeftBottomRight(),
+  ]);
+  cmd.executeAsync();
+ }
+
+
+ showFormHighPass(){
+   
+  let cmd=new CmdShowFormConvolution([
+    new ImageAlgorithmConvolutionHighPass()
+    
+  ]);
+  cmd.executeAsync();
+ }
+
 
 /**
  * opens sample images dialog for adding new workspace or layer
