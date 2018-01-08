@@ -1,6 +1,6 @@
 import { ImageAlgorithmConvolution, ConvolutionMatrix } from './imageAlgorithmConvolution';
 
-export class ImageAlgorithmConvolutionBlurMotionLeftToRight extends ImageAlgorithmConvolution {
+export class ImageAlgorithmBlurMotionLeftToRight extends ImageAlgorithmConvolution {
     /**
      *
      */

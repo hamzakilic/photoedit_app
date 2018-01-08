@@ -39,7 +39,7 @@ export class WorkModeSelection extends WorkModeBase {
     }
   
     public mouseDown(event: MouseEvent,scroll:Point) {
-      
+      if(this.workspace.selectionLayer)
       this.workspace.selectionLayer.mouseDown(event,scroll);
   
     }

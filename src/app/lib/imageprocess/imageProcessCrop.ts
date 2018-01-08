@@ -1,6 +1,7 @@
-import { Color } from './../draw/color';
 import { ImageAlgorithmRotate } from './../imagealgorithm/imageAlgorithmRotate';
 import { ImageAlgorithmCrop } from './../imagealgorithm/imageAlgorithmCrop';
+import { Color } from './../draw/color';
+
 import { HMath } from './../hMath';
 import { Rect } from './../draw/rect';
 import { HImage } from './../image';

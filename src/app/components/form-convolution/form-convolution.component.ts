@@ -1,3 +1,4 @@
+import { ImageAlgorithmConvolution } from './../../lib/imagealgorithm/convolution/imageAlgorithmConvolution';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { MessageBus } from './../../lib/messageBus';
@@ -22,7 +23,7 @@ import { AutocompleteComponent } from '../../modulesext/autocomplete/autocomplet
 
 import { EntityIdName } from "../../entities/entityIdName";
 import { CmdExecuteImageAlgorithms } from "../../commands/cmdExecuteImageAlgorithms";
-import { ImageAlgorithmConvolution } from '../../lib/imagealgorithm/convolution/imageAlgorithmConvolution';
+
 
 @Component({
   selector: 'form-convolution',

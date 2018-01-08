@@ -1,6 +1,6 @@
 import { ImageAlgorithmConvolution, ConvolutionMatrix } from './imageAlgorithmConvolution';
 
-export class ImageAlgorithmConvolutionSharpenIntense extends ImageAlgorithmConvolution {
+export class ImageAlgorithmSharpenIntense extends ImageAlgorithmConvolution {
     /**
      *
      */

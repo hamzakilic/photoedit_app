@@ -43,27 +43,28 @@ export class ImageAlgorithmConvolution implements IImageAlgorithmImmutable{
     public get name(){return this._name};
     
     process(img: HImage): HImage {
-        let pixels=new Uint8ClampedArray(img.Pixels);
-        let imgTemp=new HImage(img.width,img.height,pixels,img.bytePerPixel);
+        let preparedImage=this.prepareImage(img);
+        let pixels=new Uint8ClampedArray(preparedImage.Pixels);
+        let imgTemp=new HImage(preparedImage.width,preparedImage.height,pixels,preparedImage.bytePerPixel);
         let filterWidth=this.convolution.width;
         let filterHeight=this.convolution.height;
         let filterOffset=((filterWidth-1)/2).extToInt32();
         let calcOffset=0;
 
         let byteOffset=0;
-        for(let offsetY=filterOffset;offsetY<img.height-filterOffset;++offsetY)
-        for(let offsetX=filterOffset;offsetX<img.width-filterOffset;++offsetX){
+        for(let offsetY=filterOffset;offsetY<preparedImage.height-filterOffset;++offsetY)
+        for(let offsetX=filterOffset;offsetX<preparedImage.width-filterOffset;++offsetX){
             let blue=0,green=0,red=0;
-            byteOffset=offsetY*img.width*img.bytePerPixel+offsetX*img.bytePerPixel;
+            byteOffset=offsetY*preparedImage.width*preparedImage.bytePerPixel+offsetX*preparedImage.bytePerPixel;
 
             for(let filterY=-filterOffset;filterY<=filterOffset;++filterY)
             for(let filterX=-filterOffset;filterX<=filterOffset;++filterX){
 
-                //calcOffset=byteOffset+(filterX*img.bytePerPixel)+(filterY*img.width*img.bytePerPixel);
-                calcOffset=(offsetY+filterY)*img.width*img.bytePerPixel+(offsetX+filterX)*img.bytePerPixel;
-                red +=img.Pixels[calcOffset+0]*this.convolution.matrix[filterY+filterOffset][filterX+filterOffset]
-                green +=img.Pixels[calcOffset+1]*this.convolution.matrix[filterY+filterOffset][filterX+filterOffset]
-                blue +=img.Pixels[calcOffset+2]*this.convolution.matrix[filterY+filterOffset][filterX+filterOffset]
+                
+                calcOffset=(offsetY+filterY)*preparedImage.width*preparedImage.bytePerPixel+(offsetX+filterX)*preparedImage.bytePerPixel;
+                red +=preparedImage.Pixels[calcOffset+0]*this.convolution.matrix[filterY+filterOffset][filterX+filterOffset]
+                green +=preparedImage.Pixels[calcOffset+1]*this.convolution.matrix[filterY+filterOffset][filterX+filterOffset]
+                blue +=preparedImage.Pixels[calcOffset+2]*this.convolution.matrix[filterY+filterOffset][filterX+filterOffset]
             }
             red=this.convolution.factor*red+this.convolution.bias;
             green=this.convolution.factor*green+this.convolution.bias;
@@ -81,6 +82,10 @@ export class ImageAlgorithmConvolution implements IImageAlgorithmImmutable{
         }
 
         return imgTemp;
+    }
+
+    protected prepareImage(img:HImage):HImage{
+        return img;
     }
     
 }

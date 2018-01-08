@@ -1,6 +1,6 @@
 import { ImageAlgorithmConvolution, ConvolutionMatrix } from './imageAlgorithmConvolution';
 
-export class ImageAlgorithmConvolutionEdgeDetectionTopLeftBottomRight extends ImageAlgorithmConvolution {
+export class ImageAlgorithmEdgeDetectionTopLeftBottomRight extends ImageAlgorithmConvolution {
     /**
      *
      */

@@ -1,6 +1,5 @@
-import { ImageAlgorithmRgbToLab } from './../imagealgorithm/imageAlgorithmRgbToLab';
-
 import { ColorConversion } from './../imagealgorithm/colorConversion';
+
 import { Point } from './../draw/point';
 import { Polygon } from './../draw/polygon';
 import { Color } from './../draw/color';

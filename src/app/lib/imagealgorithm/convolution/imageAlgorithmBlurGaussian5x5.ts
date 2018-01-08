@@ -1,6 +1,6 @@
 import { ImageAlgorithmConvolution, ConvolutionMatrix } from './imageAlgorithmConvolution';
 
-export class ImageAlgorithmConvolutionBlurGaussian5x5 extends ImageAlgorithmConvolution {
+export class ImageAlgorithmBlurGaussian5x5 extends ImageAlgorithmConvolution {
     /**
      *
      */
