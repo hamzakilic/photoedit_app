@@ -1,3 +1,7 @@
+import { CmdShowFormErodeDilation } from './../../commands/cmdShowFormErodeDilation';
+import { ImageAlgorithmKrish } from './../../lib/imagealgorithm/convolution/imageAlgorithmKrish';
+import { ImageAlgorithmPrewitt } from './../../lib/imagealgorithm/convolution/imageAlgorithmPrewitt';
+import { ImageAlgorithmSobel } from './../../lib/imagealgorithm/convolution/imageAlgorithmSobel';
 import { ImageAlgorithmEdgeDetectionLaplace5x5_3 } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetectionLaplace5x5_3';
 import { ImageAlgorithmEdgeDetectionLaplaceGaussian } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetectionLaplaceGaussian';
 import { ImageAlgorithmEdgeDetectionLaplace5x5_2 } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetectionLaplace5x5_2';
@@ -197,6 +201,7 @@ export class MenubarComponent implements OnInit {
     menuFilters.childs.push(new MenuItem("Edge detection", Callback.from(this.showFormEdgeDetection)));
     menuFilters.childs.push(new MenuItem("Emboss", Callback.from(this.showFormEmboss)));
     menuFilters.childs.push(new MenuItem("High pass", Callback.from(this.showFormHighPass)));
+    menuFilters.childs.push(new MenuItem("Erode Dilation", Callback.from(this.showFormErodeDilation)));
     this.menus.push(menuFilters);
     
     let font = new Menu("Font");
@@ -390,8 +395,20 @@ export class MenubarComponent implements OnInit {
     new ImageAlgorithmEdgeDetectionLaplace5x5_3(true), */
     new ImageAlgorithmEdgeDetectionLaplaceGaussian(false),
     new ImageAlgorithmEdgeDetectionLaplaceGaussian(true),
+    new ImageAlgorithmSobel(false),
+    new ImageAlgorithmSobel(true),
+    new ImageAlgorithmPrewitt(false),
+    new ImageAlgorithmPrewitt(true),
+    new ImageAlgorithmKrish(false),
+    new ImageAlgorithmKrish(true),
+    
   ]);
   cmd.executeAsync();
+ }
+
+ showFormErodeDilation(){
+   let cmd=new CmdShowFormErodeDilation();
+   cmd.executeAsync();
  }
 
  showFormEmboss(){

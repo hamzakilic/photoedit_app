@@ -8,6 +8,7 @@ export class Message{
   public static ShowFormColorRemap="showFormColorRemap";
   public static ShowFormGrayscale="showFormGrayscale";
   public static ShowFormConvolution="showFormConvolution";
+  public static ShowFormErodeDilation="showFormErodeDilation";
   public static ShowFormSampleImages="showFormSampleImages";
   public static ShowFormAbout="showFormAbout";
   public static ShowFormShortcuts="showFormShortcuts";

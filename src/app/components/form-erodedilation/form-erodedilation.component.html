@@ -1,0 +1,74 @@
+<div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="overflow-y: initial !important">
+    <div ngDraggable [handle]="modalHeader" class="modal-content" style="width:700px">
+      <div #modalHeader class="modal-header unselectableText">
+        <h4 class="modal-title pull-left">Erosion-Dilation</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body unselectableText" style="height:530px;overflow:hidden;color:black">
+        <div class="container ">
+          <div class="row">
+            <div class="col-md-6  imagecolumn" #surfaceContainer>
+              <layer-component [surface]="layer"></layer-component>
+            </div>
+
+            <div class="col-md-6  effectscolumn" style="height: 480px;overflow-y: auto">
+              <div class="container">
+                <div class="row">
+                  <div class="btn-group btn-group-sm">
+                    <label class="btn"></label>
+                    <label class="btn btn-primary btn-sm lineheightsmall" [(ngModel)]="applyRed" btnCheckbox>Red</label>
+                    <label class="btn btn-primary btn-sm lineheightsmall" [(ngModel)]="applyGreen" btnCheckbox>Green</label>
+                    <label class="btn btn-primary btn-sm lineheightsmall" [(ngModel)]="applyBlue" btnCheckbox>Blue</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="btn-group btn-group-sm">
+                    <label class="btn btn-sm"></label>
+                    <label class="btn btn-primary btn-sm" [(ngModel)]="processType" btnRadio="Erosion">Erosion</label>
+                    <label class="btn btn-primary btn-sm" [(ngModel)]="processType" btnRadio="Dilation">Dilation</label>
+                    <label class="btn btn-primary btn-sm" [(ngModel)]="processType" btnRadio="Open">Open</label>
+                    <label class="btn btn-primary btn-sm" [(ngModel)]="processType" btnRadio="Closed">Closed</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-inline">
+                      <label class="btn btn-sm"></label>
+                      <label class="mr-sm-2" style="color:#f5f5f5;margin-left: 4px" for="inlineFormCustomSelect">Size</label>
+                    <select class="custom-select mb-2 mr-sm-2 mb-sm-0 " style="line-height: 1rem!important;height: calc(1.8rem)" id="inlineFormCustomSelect" (change)="matrixSizeChanged($event)">
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+          <div class="row">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-3">
+              <label class="btn btn-primary btn-sm pull-right" role="button" (click)="close($event)">
+                Apply
+              </label>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

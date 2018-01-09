@@ -8,15 +8,15 @@ import {Constants} from '../lib/constants';
 
 
 
-export class CmdShowFormConvolution extends Command {
-    private _convolutions:IImageAlgorithmImmutable[];
-  constructor(convolutions:IImageAlgorithmImmutable[]) {
+export class CmdShowFormErodeDilation extends Command {
+    
+  constructor() {
     super();
-    this._convolutions=convolutions;
+    
 
   }
   protected execute(): void {
 
-      MessageBus.publish(Message.ShowFormConvolution,this._convolutions);
+      MessageBus.publish(Message.ShowFormErodeDilation,undefined);
   }
 }

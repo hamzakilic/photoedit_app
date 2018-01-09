@@ -1,3 +1,5 @@
+
+
 import { IImageAlgorithmImmutable } from './../../lib/image';
 
 
@@ -25,14 +27,15 @@ import { AutocompleteComponent } from '../../modulesext/autocomplete/autocomplet
 
 import { EntityIdName } from "../../entities/entityIdName";
 import { CmdExecuteImageAlgorithms } from "../../commands/cmdExecuteImageAlgorithms";
+import { ImageAlgorithmErosionDelation, MorphologyProcessType } from '../../lib/imagealgorithm/morphology/imageAlgorithmErosionDelation';
 
 
 @Component({
-  selector: 'form-convolution',
-  templateUrl: './form-convolution.component.html',
-  styleUrls: ['./form-convolution.component.scss']
+  selector: 'form-erodedilation',
+  templateUrl: './form-erodedilation.component.html',
+  styleUrls: ['./form-erodedilation.component.scss']
 })
-export class FormConvolutionComponent implements OnInit {
+export class FormErodeDilationComponent implements OnInit {
 
   @ViewChild("smModal")
   public smModal: ModalDirective;
@@ -42,7 +45,7 @@ export class FormConvolutionComponent implements OnInit {
 
 
 
-
+  
   private _projectService: ProjectService;
   private _appService: AppService;
   private callFunc: Callback;
@@ -50,8 +53,13 @@ export class FormConvolutionComponent implements OnInit {
   public effectLayer: LayerImageEffect;
   private _emptyEffectLayer: LayerImageEffect;
   private _initialized = false;
+  private _applyRed:boolean=true;
+  private _applyGreen:boolean=true;
+  private _applyBlue:boolean=true;
+  private _processType:string="Erosion";
+  public matrixSize:number=3;
   constructor(projectService: ProjectService, appService: AppService) {
-    this.callFunc = Callback.from((prototypes) => { this.show(prototypes) });
+    this.callFunc = Callback.from(() => { this.show() });
 
     this._projectService = projectService;
     this._appService = appService;
@@ -59,17 +67,50 @@ export class FormConvolutionComponent implements OnInit {
     layer.whenCreatedGraphicsAgain = Callback.from(() => { layer.render(); });
     layer.resizedAgain = false;
     this._emptyEffectLayer = layer;
-
     this.effectLayer = this._emptyEffectLayer;
+
   }
+  public get processType(){
+    return this._processType;
+  }
+  public set processType(value){
+    this._processType=value;
+    this.applyFilter(undefined);
+  }
+
+  public  get applyBlue(){
+    return this._applyBlue;    
+  }
+  public set applyBlue(value:boolean){
+    this._applyBlue=value;
+    this.applyFilter(undefined);
+
+  }
+  public get applyGreen() {
+    return this._applyGreen;
+    
+  }
+  public set applyGreen(value) {
+    this._applyGreen=value;
+    this.applyFilter(undefined);
+  }
+
+  public get applyRed() {
+    return this._applyRed;
+  }
+  public set applyRed(value) {
+    this._applyRed=value;
+    this.applyFilter(undefined);
+  }
+  
 
   ngOnInit() {
 
-    MessageBus.subscribe(Message.ShowFormConvolution, this.callFunc);
+    MessageBus.subscribe(Message.ShowFormErodeDilation, this.callFunc);
 
   }
   ngOnDestroy() {
-    MessageBus.unsubscribe(Message.ShowFormConvolution, this.callFunc);
+    MessageBus.unsubscribe(Message.ShowFormErodeDilation, this.callFunc);
 
   }
   submitted = false;
@@ -86,12 +127,12 @@ export class FormConvolutionComponent implements OnInit {
 
 
 
-  show(prototypes:IImageAlgorithmImmutable[]) {
+  show() {
 
     if (!this.smModal.isShown) {
 
       this.smModal.show();
-      this._convolutions=prototypes;
+      
 
       this.effectLayer = this._emptyEffectLayer;
       if (this._projectService.currentProject)
@@ -124,28 +165,35 @@ export class FormConvolutionComponent implements OnInit {
     }
 
   }
-  private _convolutions:IImageAlgorithmImmutable[]=[];
-  public get convolutions(){return this._convolutions};
+  
   
   public get layer(): LayerImageEffect {
 
     return this.effectLayer;
   }
+  private calculateProcessType():MorphologyProcessType{
+    switch(this.processType){
+      case "Erosion":return MorphologyProcessType.Erosion;
+      case "Dilation":return MorphologyProcessType.Dilation;
+      case "Open":return MorphologyProcessType.Open;
+      case "Closed":return MorphologyProcessType.Closed;
+    }
+    return MorphologyProcessType.Erosion;
+  }
+  
 
-  private _lastSelectedConvolutionAlgorithm: IImageAlgorithmImmutable;
-
-  applyConvolution(event:Event,convolutionAlgorithm:IImageAlgorithmImmutable) {
-
+  applyFilter(event:Event) {
+    if(event)
     event.preventDefault();
     if (!this._initialized) {
       this.effectLayer.setOrgImage(this.effectLayer.getImage());
       this._initialized = true;
     }
+    
 
     let originalImage = this.effectLayer.getOriginalImage();
 
-    this._lastSelectedConvolutionAlgorithm = convolutionAlgorithm;
-    let effect =this._lastSelectedConvolutionAlgorithm;
+    let effect=new ImageAlgorithmErosionDelation(this.calculateProcessType(),this.matrixSize,this.applyRed,this.applyGreen,this.applyBlue);
     if(effect){
     let img = effect.process(originalImage);
     this.effectLayer.setImg(img);
@@ -154,14 +202,20 @@ export class FormConvolutionComponent implements OnInit {
 
   }
 
+  matrixSizeChanged(event:any){
+    this.matrixSize=Number(event.target.value);
+    this.applyFilter(undefined);
+  }
+ 
+
   close(event:Event) {
     event.preventDefault();
-    if (this._lastSelectedConvolutionAlgorithm) {
-      let algo = this._lastSelectedConvolutionAlgorithm;
+    
+      let algo = new ImageAlgorithmErosionDelation(this.calculateProcessType(),this.matrixSize,this.applyRed,this.applyGreen,this.applyBlue);
       if(algo){
       let cmd = new CmdExecuteImageAlgorithms([algo], this._projectService, this._appService);
       cmd.executeAsync();
-      }
+    
     }
     this.smModal.hide();
     

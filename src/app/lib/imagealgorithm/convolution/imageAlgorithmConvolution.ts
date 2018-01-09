@@ -1,4 +1,5 @@
 
+
 import { IImageAlgorithmImmutable, HImage } from './../../image';
 import { } from '../../extensions';
 
@@ -89,3 +90,9 @@ export class ImageAlgorithmConvolution implements IImageAlgorithmImmutable{
     }
     
 }
+
+
+
+
+
+

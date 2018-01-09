@@ -72,6 +72,7 @@ import { FormSampleImagesComponent } from './components/form-sample-images/form-
 import { FormColorAdjustmentComponent } from './components/form-color-adjustment/form-color-adjustment.component';
 import { FormGrayscaleComponent } from './components/form-grayscale/form-grayscale.component';
 import { FormConvolutionComponent } from './components/form-convolution/form-convolution.component';
+import { FormErodeDilationComponent } from './components/form-erodedilation/form-erodedilation.component';
 import { TrackbarComponent } from './components/trackbar/trackbar.component';
 import { CropPropertiesComponent } from './components/crop-properties/crop-properties.component';
 import { ToolsOptionsComponent } from './components/tools-options/tools-options.component';
@@ -131,6 +132,7 @@ import { ClipboardService } from './services/clipboard.service';
     TrackbarComponent,
     FormGrayscaleComponent,
     FormConvolutionComponent,
+    FormErodeDilationComponent,
     CropPropertiesComponent,
     ToolsOptionsComponent,
     ToolsOptionsClipComponent,

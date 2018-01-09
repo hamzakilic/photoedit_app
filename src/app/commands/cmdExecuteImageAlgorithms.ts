@@ -1,3 +1,4 @@
+import { Callback } from './../lib/callback';
 import { Command } from './command';
 import { CommandBusy } from './commandBusy';
 import { Message } from '../entities/message';
@@ -16,6 +17,8 @@ import { HMath } from '../lib/hMath';
 import { Rect } from '../lib/draw/rect';
 
 import { IImageAlgorithm, IImageAlgorithmImmutable,IImageAlgorithmMutable } from '../lib/image';
+import { History } from '../models/photoedit/history/history';
+import { Layer } from '../models/photoedit/layer';
 
 
 
@@ -57,6 +60,7 @@ export class CmdExecuteImageAlgorithms extends CommandBusy {
                                 img=this._algorithms[i].process(img);
                             }
                             let newLayer = new LayerImage(img, selectedLayer.name,selectedLayer.uuid);
+                            this.history(workspace,selectedLayer.clone(),newLayer.clone());
                             workspace.replaceLayer(selectedLayer, newLayer);
 
 
@@ -70,6 +74,17 @@ export class CmdExecuteImageAlgorithms extends CommandBusy {
 
 
 
+    }
+
+    private history(workspace:Workspace,selectedLayer:Layer,newLayer:Layer){
+        let histo=History.create().setUndo(Callback.from(()=>{
+            let temp=selectedLayer.clone();
+            workspace.replaceLayer(newLayer,temp);
+        }));
+        workspace.historyManager.add(histo,Callback.from(()=>{
+            
+            workspace.replaceLayer(selectedLayer,newLayer.clone());
+        }));
     }
 
 
