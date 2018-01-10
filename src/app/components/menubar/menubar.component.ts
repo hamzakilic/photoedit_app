@@ -1,3 +1,4 @@
+import { CmdShowFormEdgeGradient } from './../../commands/cmdShowFormEdgeGradient';
 import { ImageAlgorithmLowpass3x3, ImageAlgorithmLowpass5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmLowpass';
 import { ImageAlgorithmMean3x3, ImageAlgorithmMean5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmMean';
 import { ImageAlgorithmEdgeDetectionGradient, GradientEdgeFilterType, GradientDerivativeLevel } from './../../lib/imagealgorithm/imageAlgorithmEdgeDetectionGradient';
@@ -201,6 +202,7 @@ export class MenubarComponent implements OnInit {
     menuFilters.childs.push(new MenuItem("Soften", Callback.from(this.showFormSoften)));
     menuFilters.childs.push(new MenuItem("Sharpen", Callback.from(this.showFormSharpen)));
     menuFilters.childs.push(new MenuItem("Edge detection", Callback.from(this.showFormEdgeDetection)));
+    menuFilters.childs.push(new MenuItem("Edge gradient", Callback.from(this.showFormEdgeGradient)));
     menuFilters.childs.push(new MenuItem("Emboss", Callback.from(this.showFormEmboss)));
     menuFilters.childs.push(new MenuItem("High pass", Callback.from(this.showFormHighPass)));
     menuFilters.childs.push(new MenuItem("Low pass", Callback.from(this.showFormLowPass)));
@@ -399,7 +401,7 @@ export class MenubarComponent implements OnInit {
 
  showFormEdgeDetection(){
    
-  let cmd=new CmdShowFormConvolution("Edge Detection",true,[
+  let cmd=new CmdShowFormConvolution("Edge Detection",false,[
     new ImageAlgorithmEdgeDetection(),
     new ImageAlgorithmEdgeDetection45Degree(),
     new ImageAlgorithmEdgeDetectionHorizontal(),
@@ -421,10 +423,14 @@ export class MenubarComponent implements OnInit {
     new ImageAlgorithmPrewitt(true),
     new ImageAlgorithmKrish(false),
     new ImageAlgorithmKrish(true),
-    new ImageAlgorithmEdgeDetectionGradient(GradientEdgeFilterType.SharpenGradient,GradientDerivativeLevel.First,1,1,1,50)
+    
     
   ]);
   cmd.executeAsync();
+ }
+ showFormEdgeGradient(){
+   let cmd=new CmdShowFormEdgeGradient();
+   cmd.executeAsync();
  }
 
  showFormErodeDilation(){

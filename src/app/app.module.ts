@@ -1,3 +1,4 @@
+import { FormEdgeGradientComponent } from './components/form-edgegradient/form-edgegradient.component';
 import { FormCartoonComponent } from './components/form-cartoon/form-cartoon.component';
 
 
@@ -137,6 +138,7 @@ import { ClipboardService } from './services/clipboard.service';
     FormConvolutionComponent,
     FormErodeDilationComponent,
     FormOilPaintingComponent,
+    FormEdgeGradientComponent,
     FormCartoonComponent,
     CropPropertiesComponent,
     ToolsOptionsComponent,

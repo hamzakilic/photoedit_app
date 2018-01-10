@@ -164,7 +164,13 @@ a {
 
 
 .combobox{
-  line-height: 1rem!important;height: calc(1.8rem)
+  line-height: 1rem!important;height: calc(1.8rem);
+  padding-bottom: 4px;
+  font-size: 0.875rem;
+
+}
+.fontsize-sm{
+  font-size: 0.875rem;
 }
 
 
@@ -328,6 +334,19 @@ tools-options-bucketfill-component *{
 busy-component *{
   z-index: 10000!important;
 }
+
+zoom-component{
+  line-height: 1rem!important;
+}
+
+
+.filters{
+
+}
+.filters>ul>li>a{
+  font-size: 0.85rem;
+}
+
 
 
 

@@ -9,6 +9,7 @@ export class Message{
   public static ShowFormGrayscale="showFormGrayscale";
   public static ShowFormConvolution="showFormConvolution";
   public static ShowFormErodeDilation="showFormErodeDilation";
+  public static ShowFormEdgeGradient="showFormEdgeGradient";
   public static ShowFormOilPainting="showFormOilPainting";
   public static ShowFormCartoon="showFormCartoon";
   public static ShowFormSampleImages="showFormSampleImages";

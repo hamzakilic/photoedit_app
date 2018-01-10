@@ -2,19 +2,19 @@
   <div class="modal-dialog" style="overflow-y: initial !important">
     <div ngDraggable [handle]="modalHeader" class="modal-content" style="width:700px">
       <div #modalHeader class="modal-header unselectableText">
-        <h4 class="modal-title pull-left">Oil painting</h4>
+        <h6 class="modal-title pull-left">Oil painting</h6>
         <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body unselectableText" style="height:530px;overflow:hidden;color:black">
+      <div class="modal-body unselectableText" style="height:530;overflow:hidden;color:black">
         <div class="container ">
           <div class="row">
             <div class="col-md-7  imagecolumn" #surfaceContainer>
               <layer-component [surface]="layer"></layer-component>
             </div>
 
-            <div class="col-md-5  effectscolumn" style="height: 480px;overflow-y: auto">
+            <div class="col-md-5  effectscolumn" style="height: 460px;overflow-y: auto">
               <div class="container-fluid">
 
                 <div class="row">
@@ -82,7 +82,7 @@
             <div class="col-md-9">
             </div>
             <div class="col-md-3">
-              <label class="btn btn-primary btn-sm pull-right" role="button" (click)="close($event)">
+              <label class="btn btn-primary btn-sm pull-right mt-2" role="button" (click)="close($event)">
                 Apply
               </label>
             </div>
