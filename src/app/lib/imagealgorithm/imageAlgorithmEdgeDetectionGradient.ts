@@ -25,15 +25,20 @@ export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmut
     _redFactor: number;
     _level: GradientDerivativeLevel;
     _filterType: GradientEdgeFilterType;
+    _name:string;
 
-    constructor(filterType: GradientEdgeFilterType, level: GradientDerivativeLevel, redFactor: number, greenFactor: number, blueFactor: number, threshold: number) {
+    constructor(filterType: GradientEdgeFilterType, level: GradientDerivativeLevel, redFactor: number, greenFactor: number, blueFactor: number, threshold: number,name:string="Gradient Edge Detection") {
         this._filterType = filterType;
         this._level = level;
         this._redFactor = redFactor;
         this._greenFactor = greenFactor;
         this._blueFactor = blueFactor;
         this._threshold = threshold;
+        this._name=name;
 
+    }
+    public get name():string{
+        return this._name;
     }
     process(img: HImage): HImage {
         let tempImage = new HImage(img.width, img.height, new Uint8ClampedArray(img.Pixels), img.bytePerPixel);
@@ -65,7 +70,7 @@ export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmut
                     exceedsThreshold = true;
                 } else {
 
-                    byteOffset = -2;
+                    byteOffset += -2;
                     redGradient = this.calculateDerivation(img.Pixels, byteOffset, 4, derivative);
 
                     byteOffset++;
@@ -78,7 +83,7 @@ export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmut
                         exceedsThreshold = true;
                     } else {
 
-                        byteOffset = -2;
+                        byteOffset += -2;
                         redGradient = this.calculateDerivation(img.Pixels, byteOffset, stride, derivative);
 
                         byteOffset++;
@@ -92,7 +97,7 @@ export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmut
                             exceedsThreshold = true;
                         } else {
 
-                            byteOffset = -2;
+                            byteOffset += -2;
                             redGradient = this.calculateDerivation(img.Pixels, byteOffset, 4 + stride, derivative);
                             redGradient += this.calculateDerivation(img.Pixels, byteOffset, (stride - 4), derivative);
                             byteOffset++;
@@ -106,7 +111,7 @@ export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmut
                                 exceedsThreshold = true;
                             } else {
 
-                                byteOffset = -2;
+                                byteOffset += -2;
                                 redGradient = this.calculateDerivation(img.Pixels, byteOffset, 4 + stride, derivative);
                                 redGradient += this.calculateDerivation(img.Pixels, byteOffset, (stride - 4), derivative);
                                 byteOffset++;
@@ -129,7 +134,7 @@ export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmut
             }
 
 
-            byteOffset -= 2;
+            byteOffset += -2;
 
                     if (exceedsThreshold)
                     {
@@ -145,15 +150,15 @@ export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmut
                         }
                         else if (this._filterType == GradientEdgeFilterType.Sharpen)
                         {
-                            blue = img.Pixels[byteOffset] * this._blueFactor;
+                            red = img.Pixels[byteOffset] * this._redFactor;
                             green = img.Pixels[byteOffset + 1] * this._greenFactor;
-                            red = img.Pixels[byteOffset + 2] * this._redFactor;
+                            blue = img.Pixels[byteOffset + 2] * this._blueFactor;
                         }
                         else if (this._filterType == GradientEdgeFilterType.SharpenGradient)
                         {
-                            blue = img.Pixels[byteOffset] + blueGradient * this._blueFactor;
+                            red = img.Pixels[byteOffset] + redGradient * this._redFactor;
                             green = img.Pixels[byteOffset + 1] + greenGradient * this._greenFactor;
-                            red = img.Pixels[byteOffset + 2] + redGradient * this._redFactor;
+                            blue = img.Pixels[byteOffset + 2] + blueGradient * this._blueFactor;
                         }
                     }
                     else
@@ -166,9 +171,9 @@ export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmut
                         else if (this._filterType == GradientEdgeFilterType.Sharpen || 
                             this._filterType == GradientEdgeFilterType.SharpenGradient)
                         {
-                            blue = img.Pixels[byteOffset];
+                            red = img.Pixels[byteOffset];
                             green = img.Pixels[byteOffset + 1];
-                            red = img.Pixels[byteOffset + 2];
+                            blue = img.Pixels[byteOffset + 2];
                         }
                     }
 

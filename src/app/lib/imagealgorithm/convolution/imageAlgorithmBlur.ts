@@ -65,6 +65,25 @@ export class ImageAlgorithmBlurGaussian5x5 extends ImageAlgorithmConvolution {
     }
 
 }
+export class ImageAlgorithmBlurGaussian7x7 extends ImageAlgorithmConvolution {
+    /**
+     *
+     */
+    constructor() {
+        super("Blur Gaussian 7x7", new ConvolutionMatrix(1 / 159, 0, [
+            [ 1,  1,  2,  2,  2,  1,  1, ],
+               [ 1,  2,  2,  4,  2,  2,  1, ]  ,
+               [ 2,  2,  4,  8,  4,  2,  2, ]  ,
+               [ 2,  4,  8, 16,  8,  4,  2, ]  ,
+               [ 2,  2,  4,  8,  4,  2,  2, ]  ,
+               [ 1,  2,  2,  4,  2,  2,  1, ]  ,
+               [ 1,  1,  2,  2,  2,  1,  1, ],
+
+        ]));
+
+    }
+
+}
 
 export class ImageAlgorithmBlurMotion extends ImageAlgorithmConvolution {
     /**
