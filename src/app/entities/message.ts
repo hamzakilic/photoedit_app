@@ -10,6 +10,7 @@ export class Message{
   public static ShowFormConvolution="showFormConvolution";
   public static ShowFormErodeDilation="showFormErodeDilation";
   public static ShowFormOilPainting="showFormOilPainting";
+  public static ShowFormCartoon="showFormCartoon";
   public static ShowFormSampleImages="showFormSampleImages";
   public static ShowFormAbout="showFormAbout";
   public static ShowFormShortcuts="showFormShortcuts";

@@ -1,3 +1,4 @@
+import { CmdShowFormCartoon } from './../../commands/cmdShowFormCartoon';
 
 
 
@@ -200,6 +201,7 @@ export class MenubarComponent implements OnInit {
     menuFilters.childs.push(new MenuItem("Erode Dilation", Callback.from(this.showFormErodeDilation)));
     menuFilters.childs.push(new MenuItem("Median", Callback.from(this.showFormMedian)));
     menuFilters.childs.push(new MenuItem("Oil painting", Callback.from(this.showFormOilPainting)));
+    menuFilters.childs.push(new MenuItem("Cartoon", Callback.from(this.showFormCartoon)));
     this.menus.push(menuFilters);
     
     let font = new Menu("Font");
@@ -380,6 +382,13 @@ export class MenubarComponent implements OnInit {
    let cmd=new CmdShowFormOilPainting();
    cmd.executeAsync();
  }
+
+
+ showFormCartoon(){
+  let cmd=new CmdShowFormCartoon();
+  cmd.executeAsync();
+}
+
  showFormEdgeDetection(){
    
   let cmd=new CmdShowFormConvolution("Edge Detection",true,[

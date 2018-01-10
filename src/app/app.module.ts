@@ -1,3 +1,4 @@
+import { FormCartoonComponent } from './components/form-cartoon/form-cartoon.component';
 
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -136,6 +137,7 @@ import { ClipboardService } from './services/clipboard.service';
     FormConvolutionComponent,
     FormErodeDilationComponent,
     FormOilPaintingComponent,
+    FormCartoonComponent,
     CropPropertiesComponent,
     ToolsOptionsComponent,
     ToolsOptionsClipComponent,
