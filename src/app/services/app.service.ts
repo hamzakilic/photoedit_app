@@ -1,30 +1,65 @@
+import { Callback } from './../lib/callback';
 import { Injectable } from '@angular/core';
 import { AlertItem } from '../entities/alertItem';
 import {BUSY_CONFIG_DEFAULTS, IBusyConfig} from 'angular2-busy';
+import { setTimeout } from 'timers';
 
 
 @Injectable()
 export class AppService {
   
-  private _busyPromise: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  private _busyPromise: IBusyConfig;
   private _alerts:Array<AlertItem>;
   constructor() {
+    this._busyPromise= Object.assign({}, BUSY_CONFIG_DEFAULTS);
     this._busyPromise.message='Busy';
     
-    this._busyPromise.delay=1;
+    this._busyPromise.delay=0;    
+    this._busyPromise.minDuration=0;
+    
     this._alerts=[];
    // this.showAlert(new AlertItem('info','ok bu oldu',5000000));
 
   
   }
-  public doBusy(promise:Promise<any>):Promise<any>{
-    this._busyPromise.busy=promise;
-    return promise;
+  
+  public doBusyCallback(callback:Callback,parameters=undefined){
+     
+      
+       this._busyPromise.busy=new Promise((resolve,reject)=>{
+        setTimeout(()=>{          
+       
+            try{          
+              let result=callback.call(parameters);          
+              resolve(result);
+              
+      
+            }catch(e){
+              reject(e);
+            }
+          },0);       
+          
+        
+        
+      })
+      
+    
+      
+    
+      
+      
+     
+    
+      
+    
+    
   }
   
   public get busyPromise(){
     return this._busyPromise;
   }
+
+  
 
   public get alerts():Array<AlertItem>{
     return this._alerts;

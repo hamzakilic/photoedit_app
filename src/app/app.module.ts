@@ -1,4 +1,5 @@
 
+
 import { BrowserModule } from '@angular/platform-browser';
 
 import { NgModule } from '@angular/core';
@@ -8,7 +9,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BusyModule } from 'angular2-busy';
+import { BusyModule, BusyConfig } from 'angular2-busy';
 
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap';
@@ -73,6 +74,7 @@ import { FormColorAdjustmentComponent } from './components/form-color-adjustment
 import { FormGrayscaleComponent } from './components/form-grayscale/form-grayscale.component';
 import { FormConvolutionComponent } from './components/form-convolution/form-convolution.component';
 import { FormErodeDilationComponent } from './components/form-erodedilation/form-erodedilation.component';
+import { FormOilPaintingComponent } from './components/form-oilpainting/form-oilpainting.component';
 import { TrackbarComponent } from './components/trackbar/trackbar.component';
 import { CropPropertiesComponent } from './components/crop-properties/crop-properties.component';
 import { ToolsOptionsComponent } from './components/tools-options/tools-options.component';
@@ -133,6 +135,7 @@ import { ClipboardService } from './services/clipboard.service';
     FormGrayscaleComponent,
     FormConvolutionComponent,
     FormErodeDilationComponent,
+    FormOilPaintingComponent,
     CropPropertiesComponent,
     ToolsOptionsComponent,
     ToolsOptionsClipComponent,

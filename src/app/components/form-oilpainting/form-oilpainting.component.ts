@@ -1,3 +1,6 @@
+import { Http } from '@angular/http';
+
+
 import { IImageAlgorithmImmutable } from './../../lib/image';
 
 
@@ -25,15 +28,17 @@ import { AutocompleteComponent } from '../../modulesext/autocomplete/autocomplet
 
 import { EntityIdName } from "../../entities/entityIdName";
 import { CmdExecuteImageAlgorithms } from "../../commands/cmdExecuteImageAlgorithms";
+import { ImageAlgorithmErosionDelation, MorphologyProcessType } from '../../lib/imagealgorithm/morphology/imageAlgorithmErosionDelation';
+import { ImageAlgorithmOilPainting } from '../../lib/imagealgorithm/imageAlgorithmOilPainting';
+import { setTimeout } from 'timers';
 
 
 @Component({
-  selector: 'form-convolution',
-  templateUrl: './form-convolution.component.html',
-  styleUrls: ['./form-convolution.component.scss']
+  selector: 'form-oilpainting',
+  templateUrl: './form-oilpainting.component.html',
+  styleUrls: ['./form-oilpainting.component.scss']
 })
-export class FormConvolutionComponent implements OnInit {
-
+export class FormOilPaintingComponent implements OnInit {
 
   @ViewChild("smModal")
   public smModal: ModalDirective;
@@ -41,9 +46,9 @@ export class FormConvolutionComponent implements OnInit {
   @ViewChild("surfaceContainer")
   private surfaceDiv: ElementRef
 
-  public nameOfForm: string = "Convolution";
-  public isBusy: boolean = false;
 
+
+  
   private _projectService: ProjectService;
   private _appService: AppService;
   private callFunc: Callback;
@@ -51,16 +56,10 @@ export class FormConvolutionComponent implements OnInit {
   public effectLayer: LayerImageEffect;
   private _emptyEffectLayer: LayerImageEffect;
   private _initialized = false;
-
+  public filterSize:number=3;
+  public binSize:number=3;
   constructor(projectService: ProjectService, appService: AppService) {
-    this.callFunc = Callback.from((parameters) => {
-      if (parameters.name)
-        this.nameOfForm = parameters.name;
-      if (parameters.isBusy)
-        this.isBusy = parameters.isBusy;
-      else this.isBusy = false;
-      this.show(parameters.convolutions);
-    });
+    this.callFunc = Callback.from(() => { this.show() });
 
     this._projectService = projectService;
     this._appService = appService;
@@ -68,17 +67,19 @@ export class FormConvolutionComponent implements OnInit {
     layer.whenCreatedGraphicsAgain = Callback.from(() => { layer.render(); });
     layer.resizedAgain = false;
     this._emptyEffectLayer = layer;
-
     this.effectLayer = this._emptyEffectLayer;
+
   }
+
+  
 
   ngOnInit() {
 
-    MessageBus.subscribe(Message.ShowFormConvolution, this.callFunc);
+    MessageBus.subscribe(Message.ShowFormOilPainting, this.callFunc);
 
   }
   ngOnDestroy() {
-    MessageBus.unsubscribe(Message.ShowFormConvolution, this.callFunc);
+    MessageBus.unsubscribe(Message.ShowFormOilPainting, this.callFunc);
 
   }
   submitted = false;
@@ -95,12 +96,12 @@ export class FormConvolutionComponent implements OnInit {
 
 
 
-  show(prototypes: IImageAlgorithmImmutable[]) {
+  show() {
 
     if (!this.smModal.isShown) {
 
       this.smModal.show();
-      this._convolutions = prototypes;
+      
 
       this.effectLayer = this._emptyEffectLayer;
       if (this._projectService.currentProject)
@@ -133,54 +134,58 @@ export class FormConvolutionComponent implements OnInit {
     }
 
   }
-  private _convolutions: IImageAlgorithmImmutable[] = [];
-  public get convolutions() { return this._convolutions };
-
+  
+  
   public get layer(): LayerImageEffect {
 
     return this.effectLayer;
   }
+  
+  
 
-  private _lastSelectedConvolutionAlgorithm: IImageAlgorithmImmutable;
-
-  applyConvolution(event: Event, convolutionAlgorithm: IImageAlgorithmImmutable) {
-
+  applyFilter(event:Event) {
+    
+    if(event)
     event.preventDefault();
     if (!this._initialized) {
       this.effectLayer.setOrgImage(this.effectLayer.getImage());
       this._initialized = true;
     }
-
     let originalImage = this.effectLayer.getOriginalImage();
-
-    this._lastSelectedConvolutionAlgorithm = convolutionAlgorithm;
-    let effect = this._lastSelectedConvolutionAlgorithm;
-    if (effect) {
-      if (!this.isBusy) {
-        let img = effect.process(originalImage);
-        this.effectLayer.setImg(img);
-      }else{
-        this._appService.doBusyCallback(Callback.from(()=>{
-          let img = effect.process(originalImage);
-        this.effectLayer.setImg(img);
-        }))
-      }
-    }
-
+    let callback= Callback.from(()=>{
+      let effect=new ImageAlgorithmOilPainting(this.binSize,this.filterSize)    
+      let img = effect.process(originalImage);
+      this.effectLayer.setImg(img);
+    });
+    
+    this._appService.doBusyCallback(callback);  
+    
+    
 
   }
 
-  close(event: Event) {
-    event.preventDefault();
-    if (this._lastSelectedConvolutionAlgorithm) {
-      let algo = this._lastSelectedConvolutionAlgorithm;
-      if (algo) {
-        let cmd = new CmdExecuteImageAlgorithms([algo], this._projectService, this._appService);
-        cmd.executeAsync();
-      }
-    }
-    this.smModal.hide();
+  filterSizeChanged(event:any){
+    this.filterSize=Number(event.target.value);
+    this.applyFilter(undefined);
+  }
 
+  binSizeChanged(event:any){
+    this.binSize=Number(event.target.value);
+    this.applyFilter(undefined);
+  }
+ 
+
+  close(event:Event) {
+    event.preventDefault();
+    
+      let algo = new ImageAlgorithmOilPainting(this.binSize,this.filterSize);
+     
+      let cmd = new CmdExecuteImageAlgorithms([algo], this._projectService, this._appService);
+      cmd.executeAsync();
+    
+    
+    this.smModal.hide();
+    
   }
 
 

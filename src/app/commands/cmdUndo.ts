@@ -11,11 +11,11 @@ import { AppService } from '../services/app.service';
 import { ClipboardService, ClipboardData } from '../services/clipboard.service';
 import { AlertItem } from '../entities/alertItem';
 import { Callback } from '../lib/callback';
-import { CommandBusy } from './commandBusy';
+import { CommandBusy, CommandNotBusy } from './commandBusy';
 
 
 
-export class CmdUndo extends CommandBusy {
+export class CmdUndo extends CommandNotBusy {
   
   
   

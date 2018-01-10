@@ -79,10 +79,11 @@ class googleFonts {
   private loadJson() {
 
     if (!this._loadedJson) {
+      
       //todo: error durumu handle edilmeli
       //load json file 
       this._http.get("assets/json/googlefonts.json").map((response) => { return response.json() }).subscribe(data => {
-
+      
 
         this._fontsMaps = new Map<string, googleFontData>();
         data.items.forEach((elem, index, arr) => {

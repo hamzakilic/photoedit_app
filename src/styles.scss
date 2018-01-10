@@ -163,6 +163,10 @@ a {
 }
 
 
+.combobox{
+  line-height: 1rem!important;height: calc(1.8rem)
+}
+
 
 .mouseCross{
   cursor:crosshair;
@@ -320,6 +324,9 @@ tools-options-bucketfill-component *{
 .customalert > .alert{
   padding: 5px;
   
+}
+busy-component *{
+  z-index: 10000!important;
 }
 
 

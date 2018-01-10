@@ -1,28 +1,6 @@
-import { CmdShowFormErodeDilation } from './../../commands/cmdShowFormErodeDilation';
-import { ImageAlgorithmKrish } from './../../lib/imagealgorithm/convolution/imageAlgorithmKrish';
-import { ImageAlgorithmPrewitt } from './../../lib/imagealgorithm/convolution/imageAlgorithmPrewitt';
-import { ImageAlgorithmSobel } from './../../lib/imagealgorithm/convolution/imageAlgorithmSobel';
-import { ImageAlgorithmEdgeDetectionLaplace5x5_3 } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetectionLaplace5x5_3';
-import { ImageAlgorithmEdgeDetectionLaplaceGaussian } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetectionLaplaceGaussian';
-import { ImageAlgorithmEdgeDetectionLaplace5x5_2 } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetectionLaplace5x5_2';
-import { ImageAlgorithmEdgeDetectionLaplace5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetectionLaplace5x5';
-import { ImageAlgorithmEdgeDetectionLaplace3x3 } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetectionLaplace3x3';
-import { ImageAlgorithmHighPass } from './../../lib/imagealgorithm/convolution/imageAlgorithmHighPass';
-import { ImageAlgorithmEmbossTopLeftBottomRight } from './../../lib/imagealgorithm/convolution/imageAlgorithmEmbossTopLeftBottomRight';
-import { ImageAlgorithmEmbossIntense } from './../../lib/imagealgorithm/convolution/imageAlgorithmEmbossIntense';
-import { ImageAlgorithmEmboss45Degree } from './../../lib/imagealgorithm/convolution/imageAlgorithmEmboss45Degree';
-import { ImageAlgorithmEmboss } from './../../lib/imagealgorithm/convolution/imageAlgorithmEmboss';
-import { ImageAlgorithmEdgeDetectionTopLeftBottomRight } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetectionTopLeftBottomRight';
-import { ImageAlgorithmEdgeDetectionVertical } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetectionVertical';
-import { ImageAlgorithmEdgeDetectionHorizontal } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetectionHorizontal';
-import { ImageAlgorithmEdgeDetection45Degree } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetection45Degree';
-import { ImageAlgorithmEdgeDetection } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetection';
-import { ImageAlgorithmSharpenIntense } from './../../lib/imagealgorithm/convolution/imageAlgorithmSharpenIntense';
-import { ImageAlgorithmSharpen5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmSharpen5x5';
-import { ImageAlgorithmSharpen3x3Factor } from './../../lib/imagealgorithm/convolution/imageAlgorithmSharpen3x3Factor';
-import { ImageAlgorithmSharpen3x3 } from './../../lib/imagealgorithm/convolution/imageAlgorithmSharpen3x3';
-import { ImageAlgorithmSharpen } from './../../lib/imagealgorithm/convolution/imageAlgorithmSharpen';
-import { ImageAlgorithmSoften } from './../../lib/imagealgorithm/convolution/imageAlgorithmSoften';
+
+
+
 
 
 import { Component, OnInit } from '@angular/core';
@@ -70,15 +48,8 @@ import { CmdClear } from '../../commands/cmdClear';
 import { CmdUndo } from '../../commands/cmdUndo';
 import { CmdRedo } from '../../commands/cmdRedo';
 import { CmdExportWorkspace } from '../../commands/cmdExportWorkspace';
-import { ImageAlgorithmBlur3x3 } from '../../lib/imagealgorithm/convolution/imageAlgorithmBlur3x3';
 import { ImageAlgorithmGamma } from '../../lib/imagealgorithm/imageAlgorithmGamma';
 
-import { ImageAlgorithmBlurMotionRightToLeft } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlurMotionRightToLeft';
-import { ImageAlgorithmBlurMotionLeftToRight } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlurMotionLeftToRight';
-import { ImageAlgorithmBlurMotion } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlurMotion';
-import { ImageAlgorithmBlurGaussian5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlurGaussian5x5';
-import { ImageAlgorithmBlurGaussian3x3 } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlurGaussian3x3';
-import { ImageAlgorithmBlur5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlur5x5';
 import { CmdShowFormConvolution } from './../../commands/cmdShowFormConvolution';
 import { CmdChangeBackgroundLayerColor } from './../../commands/cmdChangeBackgroundLayerColor';
 import { CmdCloneLayer } from './../../commands/cmdCloneLayer';
@@ -92,6 +63,31 @@ import { CmdShowFormShortcuts } from './../../commands/cmdShowFormShortcuts';
 import { CmdShowError } from './../../commands/cmdShowError';
 import { CmdShowFormAbout } from './../../commands/cmdShowFormAbout';
 import { ShortCut } from './../../services/keyboard.service';
+import { ImageAlgorithmMedian } from '../../lib/imagealgorithm/convolution/imageAlgorithmMedian';
+import { ImageAlgorithmMedian3x3, ImageAlgorithmMedian5x5, ImageAlgorithmMedian7x7, ImageAlgorithmMedian9x9 } from './../../lib/imagealgorithm/convolution/imageAlgorithmMedian';
+import { ImageAlgorithmBlurMotionRightToLeft } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlur';
+import { ImageAlgorithmHighPass } from './../../lib/imagealgorithm/convolution/imageAlgorithmHighPass';
+import { ImageAlgorithmEmboss, ImageAlgorithmEmboss45Degree, ImageAlgorithmEmbossIntense, ImageAlgorithmEmbossTopLeftBottomRight } from './../../lib/imagealgorithm/convolution/imageAlgorithmEmboss';
+import { ImageAlgorithmEdgeDetectionLaplace3x3, ImageAlgorithmEdgeDetectionLaplace5x5, ImageAlgorithmEdgeDetectionLaplaceGaussian } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetectionLaplace';
+import { ImageAlgorithmEdgeDetection, ImageAlgorithmEdgeDetection45Degree, ImageAlgorithmEdgeDetectionHorizontal, ImageAlgorithmEdgeDetectionVertical, ImageAlgorithmEdgeDetectionTopLeftBottomRight } from './../../lib/imagealgorithm/convolution/imageAlgorithmEdgeDetection';
+
+import { ImageAlgorithmBlur3x3 } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlur';
+import { ImageAlgorithmBlur5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlur';
+import {  ImageAlgorithmBlurGaussian3x3 } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlur';
+import {  ImageAlgorithmBlurGaussian5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlur';
+import {  ImageAlgorithmBlurMotion } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlur';
+import { ImageAlgorithmBlurMotionLeftToRight } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlur';
+import { CmdShowFormOilPainting } from './../../commands/cmdShowFormOilPainting';
+import { CmdShowFormErodeDilation } from './../../commands/cmdShowFormErodeDilation';
+import { ImageAlgorithmKrish } from './../../lib/imagealgorithm/convolution/imageAlgorithmKrish';
+import { ImageAlgorithmPrewitt } from './../../lib/imagealgorithm/convolution/imageAlgorithmPrewitt';
+import { ImageAlgorithmSobel } from './../../lib/imagealgorithm/convolution/imageAlgorithmSobel';
+import { ImageAlgorithmSharpen } from './../../lib/imagealgorithm/convolution/imageAlgorithmSharpen';
+import {  ImageAlgorithmSharpen3x3Factor} from './../../lib/imagealgorithm/convolution/imageAlgorithmSharpen';
+import { ImageAlgorithmSharpenIntense,  } from './../../lib/imagealgorithm/convolution/imageAlgorithmSharpen';
+import {  ImageAlgorithmSharpen5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmSharpen';
+import { ImageAlgorithmSharpen3x3 } from './../../lib/imagealgorithm/convolution/imageAlgorithmSharpen';
+import { ImageAlgorithmSoften } from './../../lib/imagealgorithm/convolution/imageAlgorithmSoften';
 
 
 @Component({
@@ -202,6 +198,8 @@ export class MenubarComponent implements OnInit {
     menuFilters.childs.push(new MenuItem("Emboss", Callback.from(this.showFormEmboss)));
     menuFilters.childs.push(new MenuItem("High pass", Callback.from(this.showFormHighPass)));
     menuFilters.childs.push(new MenuItem("Erode Dilation", Callback.from(this.showFormErodeDilation)));
+    menuFilters.childs.push(new MenuItem("Median", Callback.from(this.showFormMedian)));
+    menuFilters.childs.push(new MenuItem("Oil painting", Callback.from(this.showFormOilPainting)));
     this.menus.push(menuFilters);
     
     let font = new Menu("Font");
@@ -343,7 +341,7 @@ export class MenubarComponent implements OnInit {
  }
  showFormBlur(){
    
-  let cmd=new CmdShowFormConvolution([
+  let cmd=new CmdShowFormConvolution("Blur",false, [
     new ImageAlgorithmBlur3x3(),
     new ImageAlgorithmBlur5x5(),
     new ImageAlgorithmBlurGaussian3x3(),
@@ -359,7 +357,7 @@ export class MenubarComponent implements OnInit {
 
  showFormSoften(){
    
-  let cmd=new CmdShowFormConvolution([
+  let cmd=new CmdShowFormConvolution("Soften",false,[
     new ImageAlgorithmSoften(),
     
   ]);
@@ -367,7 +365,7 @@ export class MenubarComponent implements OnInit {
  }
  showFormSharpen(){
    
-  let cmd=new CmdShowFormConvolution([
+  let cmd=new CmdShowFormConvolution("Sharpen",false,[
     new ImageAlgorithmSharpen(),
     new ImageAlgorithmSharpen3x3(),
     new ImageAlgorithmSharpen3x3Factor(),
@@ -377,9 +375,14 @@ export class MenubarComponent implements OnInit {
   ]);
   cmd.executeAsync();
  }
+
+ showFormOilPainting(){
+   let cmd=new CmdShowFormOilPainting();
+   cmd.executeAsync();
+ }
  showFormEdgeDetection(){
    
-  let cmd=new CmdShowFormConvolution([
+  let cmd=new CmdShowFormConvolution("Edge Detection",true,[
     new ImageAlgorithmEdgeDetection(),
     new ImageAlgorithmEdgeDetection45Degree(),
     new ImageAlgorithmEdgeDetectionHorizontal(),
@@ -411,9 +414,19 @@ export class MenubarComponent implements OnInit {
    cmd.executeAsync();
  }
 
+ showFormMedian(){
+  let cmd=new CmdShowFormConvolution("Median",true,[
+    new ImageAlgorithmMedian3x3(),
+    new ImageAlgorithmMedian5x5(),
+    new ImageAlgorithmMedian7x7(),
+    new ImageAlgorithmMedian9x9(),
+  ]);
+  cmd.executeAsync();
+}
+
  showFormEmboss(){
    
-  let cmd=new CmdShowFormConvolution([
+  let cmd=new CmdShowFormConvolution("Emboss",false,[
     new ImageAlgorithmEmboss(),
     new ImageAlgorithmEmboss45Degree(),
     new ImageAlgorithmEmbossIntense(),
@@ -425,7 +438,7 @@ export class MenubarComponent implements OnInit {
 
  showFormHighPass(){
    
-  let cmd=new CmdShowFormConvolution([
+  let cmd=new CmdShowFormConvolution("High pass",false,[
     new ImageAlgorithmHighPass()
     
   ]);

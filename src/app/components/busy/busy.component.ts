@@ -17,7 +17,7 @@ export class BusyComponent implements OnInit {
 
   ngOnInit() {
     
-    
+    this.appService.busyPromise
             
   }
   public get loading():IBusyConfig{

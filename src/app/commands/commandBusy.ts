@@ -1,3 +1,4 @@
+import { Callback } from './../lib/callback';
 import { Command } from './command';
 import { Message } from '../entities/message';
 import { MessageBus } from '../lib/messageBus';
@@ -13,6 +14,27 @@ import { Rect } from '../lib/draw/rect';
 
 
 
+export abstract class CommandNotBusy extends Command {
+    
+    protected projectService: ProjectService;
+    protected appService: AppService;
+    constructor(projectService: ProjectService, appService: AppService) {
+        super();
+
+        this.projectService = projectService;
+        this.appService = appService;
+    }
+
+ public executeAsync():void {
+
+     new Promise((resolve,reject)=>{
+         
+        try{  this.execute(); resolve();}catch(e){reject()};
+         
+     });
+        
+    }
+}
 
 export abstract class CommandBusy extends Command {
     
@@ -27,9 +49,6 @@ export abstract class CommandBusy extends Command {
 
  public executeAsync():void {
 
-     this.appService.doBusy(new Promise((resolve, reject) => {
-                
-              setTimeout(()=>{this.execute();resolve();},0);
-         }));
+     this.appService.doBusyCallback(Callback.from(()=>this.execute()));
     }
 }
