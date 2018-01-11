@@ -199,7 +199,7 @@ export class FormEdgeGradientComponent implements OnInit {
 
     let originalImage = this.effectLayer.getOriginalImage();
 
-    let effect=new ImageAlgorithmEdgeDetectionGradient(this.calculateFilterType(),this.calculateLevel(),this._applyRed?1:0,this.applyGreen?1:0,this.applyFilter?1:0,this._threshold);
+    let effect=new ImageAlgorithmEdgeDetectionGradient(this.calculateFilterType(),this.calculateLevel(),this._applyRed?1:0,this.applyGreen?1:0,this.applyBlue?1:0,this._threshold);
     if(effect){
     let img = effect.process(originalImage);
     this.effectLayer.setImg(img);
@@ -227,7 +227,7 @@ export class FormEdgeGradientComponent implements OnInit {
   close(event:Event) {
     event.preventDefault();
     
-    let effect=new ImageAlgorithmEdgeDetectionGradient(this.calculateFilterType(),this.calculateLevel(),this._applyRed?1:0,this.applyGreen?1:0,this.applyFilter?1:0,this._threshold);
+    let effect=new ImageAlgorithmEdgeDetectionGradient(this.calculateFilterType(),this.calculateLevel(),this._applyRed?1:0,this.applyGreen?1:0,this.applyBlue?1:0,this._threshold);
       
       let cmd = new CmdExecuteImageAlgorithms([effect], this._projectService, this._appService);
       cmd.executeAsync();

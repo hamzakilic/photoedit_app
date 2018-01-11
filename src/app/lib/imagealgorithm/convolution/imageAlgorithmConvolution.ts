@@ -1,5 +1,6 @@
 
 
+
 import { IImageAlgorithmImmutable, HImage } from './../../image';
 import { } from '../../extensions';
 
@@ -12,7 +13,8 @@ export class ConvolutionMatrix{
         /**
          *
          */
-        constructor(factor:number,bias:number,matrix:number[][]) {            
+        constructor(factor:number,bias:number,matrix:number[][]) {    
+                    
             this._factor=factor;
             this._bias=bias;
             this._matrix=matrix;
@@ -89,6 +91,18 @@ export class ImageAlgorithmConvolution implements IImageAlgorithmImmutable{
         return img;
     }
     
+}
+
+
+export class ImageAlgorithmConvolutionGeneric extends ImageAlgorithmConvolution{
+
+    /**
+     *
+     */
+    constructor(name:string,convolution:ConvolutionMatrix) {
+        super(name,convolution);
+        
+    }
 }
 
 

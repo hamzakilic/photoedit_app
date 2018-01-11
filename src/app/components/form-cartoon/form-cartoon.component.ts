@@ -1,3 +1,8 @@
+import { ImageAlgorithmSharpen3x3 } from './../../lib/imagealgorithm/convolution/imageAlgorithmSharpen';
+import { ImageAlgorithmLowpass3x3, ImageAlgorithmLowpass5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmLowpass';
+import { ImageAlgorithmMean3x3, ImageAlgorithmMean5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmMean';
+import { ImageAlgorithmMedian5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmMedian';
+import { ImageAlgorithmBlurGaussian5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmBlur';
 import { ImageAlgorithmEdgeDetectionGradient, GradientEdgeFilterType, GradientDerivativeLevel } from './../../lib/imagealgorithm/imageAlgorithmEdgeDetectionGradient';
 import { Http } from '@angular/http';
 
@@ -32,6 +37,8 @@ import { CmdExecuteImageAlgorithms } from "../../commands/cmdExecuteImageAlgorit
 import { ImageAlgorithmErosionDelation, MorphologyProcessType } from '../../lib/imagealgorithm/morphology/imageAlgorithmErosionDelation';
 import { ImageAlgorithmOilPainting } from '../../lib/imagealgorithm/imageAlgorithmOilPainting';
 import { setTimeout } from 'timers';
+import { ImageAlgorithmBlurGaussian3x3 } from '../../lib/imagealgorithm/convolution/imageAlgorithmBlur';
+import { ImageAlgorithmMedian3x3 } from '../../lib/imagealgorithm/convolution/imageAlgorithmMedian';
 
 
 @Component({
@@ -57,9 +64,8 @@ export class FormCartoonComponent implements OnInit {
   public effectLayer: LayerImageEffect;
   private _emptyEffectLayer: LayerImageEffect;
   private _initialized = false;
-  public filterSize:number=3;
-  public binSize:number=3;
-  public threshold:number=10;
+  public smothalgorithm:number=0;
+  public threshold:number=0;
   constructor(projectService: ProjectService, appService: AppService) {
     this.callFunc = Callback.from(() => { this.show() });
 
@@ -143,7 +149,22 @@ export class FormCartoonComponent implements OnInit {
     return this.effectLayer;
   }
   
-  
+  private findSmoothAlgo():IImageAlgorithmImmutable{
+    switch(this.smothalgorithm){
+      case 0:return undefined;
+      case 1:return new ImageAlgorithmBlurGaussian3x3();
+      case 2:return new ImageAlgorithmBlurGaussian5x5();
+      case 3:return new ImageAlgorithmMedian3x3();
+      case 4:return new ImageAlgorithmMedian5x5();
+      case 5:return new ImageAlgorithmMean3x3();
+      case 6:return new ImageAlgorithmMean5x5();
+      case 7:return new ImageAlgorithmLowpass3x3();
+      case 8:return new ImageAlgorithmLowpass5x5();
+      case 9:return new ImageAlgorithmSharpen3x3();
+
+    }
+    return undefined;
+  }
 
   applyFilter(event:Event) {
     
@@ -155,11 +176,20 @@ export class FormCartoonComponent implements OnInit {
     }
     let originalImage = this.effectLayer.getOriginalImage();
     let callback= Callback.from(()=>{
-      let effect=new ImageAlgorithmOilPainting(this.binSize,this.filterSize)    
+
+      let effect=this.findSmoothAlgo();
+      if(effect){
       let img = effect.process(originalImage);
-      let effect2= new ImageAlgorithmEdgeDetectionGradient(GradientEdgeFilterType.SharpenGradient,GradientDerivativeLevel.First,1,1,1,this.threshold);
+      let effect2= new ImageAlgorithmEdgeDetectionGradient(GradientEdgeFilterType.SharpenGradient,GradientDerivativeLevel.First,1,1,1,this.threshold,"",true);
       let img2=effect2.process(img);
       this.effectLayer.setImg(img2);
+      }else{
+
+      let effect2= new ImageAlgorithmEdgeDetectionGradient(GradientEdgeFilterType.SharpenGradient,GradientDerivativeLevel.First,1,1,1,this.threshold,"",true);
+      let img2=effect2.process(originalImage);
+      this.effectLayer.setImg(img2);
+
+      }
     });
     
     this._appService.doBusyCallback(callback);  
@@ -168,15 +198,12 @@ export class FormCartoonComponent implements OnInit {
 
   }
 
-  filterSizeChanged(event:any){
-    this.filterSize=Number(event.target.value);
+  smoothFilterChanged(event:any){
+    this.smothalgorithm=Number(event.target.value);
     this.applyFilter(undefined);
   }
 
-  binSizeChanged(event:any){
-    this.binSize=Number(event.target.value);
-    this.applyFilter(undefined);
-  }
+  
   thresholdChanged(event:any){
     this.threshold=Number(event.target.value);
     this.applyFilter(undefined);
@@ -186,10 +213,13 @@ export class FormCartoonComponent implements OnInit {
   close(event:Event) {
     event.preventDefault();
     
-      let algo = new ImageAlgorithmOilPainting(this.binSize,this.filterSize);
-      //let algo2=new ImageAlgorithmEdgeDetectionGradient(GradientEdgeFilterType.EdgeDetectGradient,GradientDerivativeLevel.First,)
+      let algorithms=[];
+      let smooth=this.findSmoothAlgo();
+      if(smooth)
+      algorithms.push(smooth);
+      algorithms.push(new ImageAlgorithmEdgeDetectionGradient(GradientEdgeFilterType.SharpenGradient,GradientDerivativeLevel.First,1,1,1,this.threshold,"",true));
      
-      let cmd = new CmdExecuteImageAlgorithms([algo], this._projectService, this._appService);
+      let cmd = new CmdExecuteImageAlgorithms(algorithms, this._projectService, this._appService);
       cmd.executeAsync();
     
     

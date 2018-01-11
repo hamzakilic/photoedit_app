@@ -19,6 +19,7 @@ export enum GradientDerivativeLevel {
 
 
 export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmutable {
+    _isCartoon: boolean;
     _threshold: number;
     _blueFactor: number;
     _greenFactor: number;
@@ -27,7 +28,7 @@ export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmut
     _filterType: GradientEdgeFilterType;
     _name: string;
 
-    constructor(filterType: GradientEdgeFilterType, level: GradientDerivativeLevel, redFactor: number, greenFactor: number, blueFactor: number, threshold: number, name: string = "Gradient Edge Detection") {
+    constructor(filterType: GradientEdgeFilterType, level: GradientDerivativeLevel, redFactor: number, greenFactor: number, blueFactor: number, threshold: number, name: string = "Gradient Edge Detection",isCartoon=false) {
         this._filterType = filterType;
         this._level = level;
         this._redFactor = redFactor;
@@ -35,6 +36,7 @@ export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmut
         this._blueFactor = blueFactor;
         this._threshold = threshold;
         this._name = name;
+        this._isCartoon=isCartoon;
 
     }
     public get name(): string {
@@ -124,7 +126,7 @@ export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmut
 
 
                 byteOffset += -2;
-
+                if(!this._isCartoon)
                 if (exceedsThreshold) {
                     if (this._filterType == GradientEdgeFilterType.EdgeDetectMono) {
                         blue = green = red = 255;
@@ -152,9 +154,21 @@ export class ImageAlgorithmEdgeDetectionGradient implements IImageAlgorithmImmut
                     }
                     else if (this._filterType == GradientEdgeFilterType.Sharpen ||
                         this._filterType == GradientEdgeFilterType.SharpenGradient) {
-                        red = img.Pixels[byteOffset];
-                        green = img.Pixels[byteOffset + 1];
-                        blue = img.Pixels[byteOffset + 2];
+                        red = img.Pixels[byteOffset]*this._redFactor;
+                        green = img.Pixels[byteOffset + 1]*this._greenFactor;
+                        blue = img.Pixels[byteOffset + 2]*this._blueFactor;
+                    }
+                }
+
+                if(this._isCartoon){
+                    if(exceedsThreshold){
+                        blue=0;
+                        red=0;
+                        green=0;
+                    }else{
+                        red=img.Pixels[byteOffset];
+                        green=img.Pixels[byteOffset+1];
+                        blue=img.Pixels[byteOffset+2];
                     }
                 }
 

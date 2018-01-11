@@ -26,7 +26,7 @@ export class ImageAlgorithmMedian implements IImageAlgorithmImmutable {
 
         for (let offsetY = filterOffset; offsetY < img.height - filterOffset; ++offsetY)
             for (let offsetX = filterOffset; offsetX < img.width - filterOffset; ++offsetX) {
-               debugger;
+               
 
                 byteOffset = offsetY * img.width * img.bytePerPixel + offsetX * img.bytePerPixel;
                 neighboursPixels = [];
