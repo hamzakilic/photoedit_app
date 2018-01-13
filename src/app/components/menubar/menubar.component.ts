@@ -1,3 +1,4 @@
+
 import { CmdShowFormEdgeGradient } from './../../commands/cmdShowFormEdgeGradient';
 import { ImageAlgorithmLowpass3x3, ImageAlgorithmLowpass5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmLowpass';
 import { ImageAlgorithmMean3x3, ImageAlgorithmMean5x5 } from './../../lib/imagealgorithm/convolution/imageAlgorithmMean';
@@ -53,7 +54,7 @@ import { ClipboardService } from '../../services/clipboard.service';
 import { CmdClear } from '../../commands/cmdClear';
 import { CmdUndo } from '../../commands/cmdUndo';
 import { CmdRedo } from '../../commands/cmdRedo';
-import { CmdExportWorkspace } from '../../commands/cmdExportWorkspace';
+import { CmdExportWorkspace, FormatOptions } from '../../commands/cmdExportWorkspace';
 import { ImageAlgorithmGamma } from '../../lib/imagealgorithm/imageAlgorithmGamma';
 
 import { CmdShowFormConvolution } from './../../commands/cmdShowFormConvolution';
@@ -123,12 +124,15 @@ export class MenubarComponent implements OnInit {
     menuFile.childs.push(divider);   
     this.menus.push(menuFile);
      
-    menuFile.childs.push(new MenuItem("Export jpeg", Callback.from(() => { this.export("image/jpeg") }),new ShortCut(true,false,true,'S',menuFile.name)));
-    menuFile.childs.push(new MenuItem("Export png", Callback.from(() => { this.export("image/png") }),new ShortCut(true,false,true,'D',menuFile.name)));
+    menuFile.childs.push(new MenuItem("Export jpeg", Callback.from(() => { this.export({mimetype:"image/jpeg"}) }),new ShortCut(true,false,true,'S',menuFile.name)));
+    menuFile.childs.push(new MenuItem("Export png", Callback.from(() => { this.export({mimetype:"image/png"}) }),new ShortCut(true,false,true,'D',menuFile.name)));
+    
+    menuFile.childs.push(new MenuItem("Export ico", Callback.from(() => { this.export({mimetype:"image/ico"}) })));
+    
     let divider5 = new MenuItem('divider', undefined);
     divider5.isDivider = true;
     menuFile.childs.push(divider5);   
-    menuFile.childs.push(new MenuItem("Preview", Callback.from(() => { this.exportPreview("image/png") }),new ShortCut(true,false,true,'P',menuFile.name)));
+    menuFile.childs.push(new MenuItem("Preview", Callback.from(() => { this.exportPreview({mimetype:"image/png"}) }),new ShortCut(true,false,true,'P',menuFile.name)));
     
     let divider2 = new MenuItem('divider', undefined);
     divider2.isDivider = true;
@@ -555,11 +559,11 @@ showFormMean(){
     cmd.executeAsync();
   }
 
-  export(format:string){
+  export(format:FormatOptions){
     let cmd=new CmdExportWorkspace(format,false,this._projectService,this._appService);
     cmd.executeAsync();
   }
-  exportPreview(format:string){
+  exportPreview(format:FormatOptions){
     let cmd=new CmdExportWorkspace(format,true,this._projectService,this._appService);
     cmd.executeAsync();
   }
@@ -584,8 +588,8 @@ showFormMean(){
 
 
 
-  isMenuItem(item: any): boolean {
-    return item instanceof MenuItem;
+  isMenuItem(item: MenuItem): boolean {
+    return true;
 
   }
 

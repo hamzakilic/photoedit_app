@@ -30,6 +30,7 @@
     "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
+    "icoimagejs": "^1.0.2",
     "ng2-dnd": "^5.0.2",
     "ngx-bootstrap": "^2.0.0-rc.0",
     "ngx-contextmenu": "^3.0.2",
