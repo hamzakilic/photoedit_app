@@ -46,8 +46,8 @@ export class CmdNewLayerFromSelection extends CommandBusy {
                let selectionLayer=workspace.selectionLayer as LayerSelect;
     
                if(!selectionLayer){
-                   this.appService.showAlert(new AlertItem('warning',"There is no selected area"))
-                 //selectionLayer yok ise, bir alan seçili değildi ne yapacağız peki
+                  this.appService.showAlert(new AlertItem('warning',"There is no selected area"))
+                 
                 return;
                }
     

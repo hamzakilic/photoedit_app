@@ -43,14 +43,44 @@ $others_height:97%;
   justify-content: flex-start;
 }
 
+.toolbarw{
+  width: 45px;
+}
+
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) { 
+  .toolbarw{
+    width: 135px;
+  }
+ }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { 
+  .toolbarw{
+    width: 135px;
+  }
+ }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) { 
+  .toolbarw{
+    width: 90px;
+  }
+ }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { 
+  .toolbarw{
+    width: 45px;
+  }
+ }
+
+
 
 .toolbar {
-  /* top: $menubar_height;
   
-  height: $others_height; */
-  width: 45px;
- /*  display: inline-block; */
-  /* 100% Full-height */
+  
   
   z-index: 1;
   /* Stay on top */
@@ -65,6 +95,7 @@ $others_height:97%;
     border-left-width: thin;
     border-left-style: solid;
 }
+
 
 .projectfiles {
   
