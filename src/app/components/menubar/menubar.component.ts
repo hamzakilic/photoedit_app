@@ -184,7 +184,7 @@ export class MenubarComponent implements OnInit {
     let menuLayers = new Menu("Layer");
     menuLayers.isDisabledCallback=Callback.from(()=>this.hasActiveWorkspace())
     menuLayers.childs.push(new MenuItem("New", Callback.from(() => { this.newLayer() }),new ShortCut(false,false,true,'N',menuLayers.name)));
-    menuLayers.childs.push(new MenuItem("New from clipboard", Callback.from(()=>this.newLayerFromSelection())));
+    menuLayers.childs.push(new MenuItem("New from selection", Callback.from(()=>this.newLayerFromSelection())));
     menuLayers.childs.push(new MenuItem("Clone selected", Callback.from(()=>this.cloneSelectedLayer())));
     menuLayers.childs.push(new MenuItemOpenImage(this._appService,projectService,new ShortCut(false,false,true,'F',menuLayers.name),  "New from a file", false));
     menuLayers.childs.push(new MenuItem("New text layer", Callback.from(()=>this.newTextLayer()),new ShortCut(false,false,true,'T',menuLayers.name)));
