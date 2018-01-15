@@ -1,5 +1,6 @@
 
 
+
 import { ClipboardService, ClipboardData } from './../services/clipboard.service';
 import { AppService } from './../services/app.service';
 import { LayerImage } from './../models/photoedit/layerImage';
@@ -57,7 +58,7 @@ export class CmdCopy extends CommandBusy {
            polygons.forEach((poly)=>{
                
                let rectLayer=selectedLayer.rectRotated2D;               
-               let polygonSelectedLayer=Polygon.fromRect2D(rectLayer);               
+               let polygonSelectedLayer=HMath.rect2DToPolygon(rectLayer);               
                let intersectedPoly= poly.intersect(polygonSelectedLayer);
                if(intersectedPoly.points.length==0){
                  //eğer selected layer ile  kesişim yok ise

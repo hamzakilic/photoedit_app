@@ -1,5 +1,5 @@
 import { IClone } from './../../models/photoedit/iclone';
-import { HMath } from './../hMath';
+
 
 import { BUSY_CONFIG_DEFAULTS } from 'angular2-busy';
 
@@ -170,14 +170,14 @@ export class Polygon implements IClone{
     }
 
 
-    public static fromRect(rect:Rect):Polygon{
+    /* public static fromRect(rect:Rect):Polygon{
         return HMath.rectToPolygon(rect);
 
     }
     public static fromRect2D(rect:Rect2D):Polygon{
        return HMath.rect2DToPolygon(rect);
 
-    }
+    } */
 
 
 

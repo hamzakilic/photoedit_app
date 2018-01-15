@@ -79,18 +79,22 @@
 
 <div class="container-fluid no-padding">
 
-          <label [(colorPicker)]="foregroundcolor" class="d-block btn btn-primary  buttonpadding mouseoverhand groundcolor btn-sm" [style.background]="foregroundcolor"
-            tooltip="Foreground color" placement="right" [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true"
-            [cpAlphaChannel]="'hex8'">{{emptyString}}</label>
+          <label #foregroundcolorref class="d-block btn btn-primary  buttonpadding mouseoverhand groundcolor btn-sm" [style.background]="foregroundcolor"
+            tooltip="Foreground color" placement="right" (click)='openForegroundColorPicker()' >{{emptyString}}           
+          </label>
+          <color-picker #foregroundpicker [bindElement]='previous' [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true"
+          [cpAlphaChannel]="'hex8'" (colorPickerChange)="setforegroundcolor($event)" ></color-picker>
           <label class="d-block btn btn-primary  buttonpadding mouseoverhand btn-sm groundcolor" style="background:transparent" tooltip="Swap colors" placement="right"
             (click)="swapColors()">
             <img src="assets/icons/swap.png">
           </label>
 
-          <label [(colorPicker)]="backgroundcolor" class="d-block btn btn-primary  buttonpadding mouseoverhand groundcolor btn-sm" [style.background]="backgroundcolor"
-            tooltip="Background color" placement="right" [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true"
-            [cpAlphaChannel]="'hex8'">{{emptyString}}</label>
-          </div>
+         <label #backgroundcolorref  class="d-block btn btn-primary  buttonpadding mouseoverhand groundcolor btn-sm" [style.background]="backgroundcolor"
+            tooltip="Background color" placement="right" (click)='openBackgroundColorPicker()' >{{emptyString}}</label>
+            <color-picker  #backgroundpicker [bindElement]='previous' [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true"
+            [cpAlphaChannel]="'hex8'" (colorPickerChange)='setbackgroundColor($event)'>
+            </color-picker>
+          </div> 
           
           </div>
 

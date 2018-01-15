@@ -1,6 +1,6 @@
 
 
-import * as WebFont from '../../../node_modules/webfontloader/webfontloader';
+import * as WebFont from 'webfontloader/webfontloader';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';

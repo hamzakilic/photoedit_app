@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 import { Layer } from "../../models/photoedit/layer";
 import { LayerText } from "../../models/photoedit/layerText";
@@ -6,6 +6,7 @@ import { LayerText } from "../../models/photoedit/layerText";
 import { FontService } from "../../services/font.service";
 import { UserService } from "../../services/user.service";
 import {AutoCompleteItem} from "../../entities/autocompleteItem";
+import { ColorPickerComponent } from '../../modulesext/color-picker/index';
 
 
 @Component({
@@ -18,6 +19,9 @@ export class LayerTextPropertiesComponent implements OnInit {
 
   @Input()
   layer: LayerText;
+  @ViewChild('forecolorpicker')forecolorpicker:ColorPickerComponent;
+  @ViewChild('strokecolorpicker')strokcolorpicker:ColorPickerComponent;
+
   
   private _fontService:FontService;
   private _userService:UserService;
@@ -31,6 +35,7 @@ export class LayerTextPropertiesComponent implements OnInit {
 
   ngOnInit() {
     
+    
   }
 
   changeText(value: any, layer: LayerText){
@@ -38,6 +43,8 @@ export class LayerTextPropertiesComponent implements OnInit {
       value="";
     }
     layer.setText(value);
+    this.colorFore=this.calculateForegroundColor(layer.color);
+    this.strokedcolorFore=this.calculateForegroundColor(layer.strokedColor);
   }
 
    public get fontList():Array<AutoCompleteItem>{
@@ -127,19 +134,23 @@ public changeFontSize(value:any){
   public  get color():string{
     return this.layer.color;
   }
-
+   
+  public colorFore:string;
    public set color(value:string){
 
      this.layer.setColor(value);
+     this.colorFore=this.calculateForegroundColor(value);
   }
 
    public  get strokedColor():string{
     return this.layer.strokedColor;
   }
 
+  public strokedcolorFore:string;
    public set strokedColor(value:string){
 
      this.layer.setStrokedColor(value);
+     this.strokedcolorFore=this.calculateForegroundColor(value);
   }
   
 
@@ -154,19 +165,32 @@ public changeFontSize(value:any){
    this.strokedColor=value;
    
   }
-  calculateForeground():string{
-    let color= "#FF"+ this.color.substring(3,5)+"0F";
+  calculateForegroundColor(color:string):string{
+    
+    let temp=color.replace("rgba(","").replace("rgb(","").replace(")","");
+    let rgba= temp.split(/,/);
+    if(rgba.length>=3){
+      let temp="rgba(";
+      let r=parseInt(rgba[0]);
+      if(Number.isInteger(r)){
+        temp+=(255-r);
+        let g=parseInt(rgba[1]);
+        if(Number.isInteger(g)){
+          temp+=","+(255-g);
+          let b=parseInt(rgba[2]);
+          if(Number.isInteger(b)){
+            temp+=","+(255-b);
+            
+          }
+          return temp+=",1)";
+        }
+      }
+    }
+    
    
-    return color;
+    return "rgba(255,0,255,1)";
+     
   }
-   calculateForegroundStrokedColor():string{
-     if(this.strokedColor){
-    let color= "#FF"+ this.strokedColor.substring(3,5)+"0F";
-   
-    return color;
-     }else return "#000000";
-  }
-
   public keyboardDown(event:KeyboardEvent){
 
     if(event.keyCode==13){
@@ -193,6 +217,13 @@ public changeFontSize(value:any){
   public isTextAlignmentV(val:string){
    
     return this.layer.textAlignV==val;
+  }
+
+  public openforecolorPicker(){
+    this.forecolorpicker.openDialog(this.color,false);
+  }
+  public openstrokecolorPicker(){
+    this.strokcolorpicker.openDialog(this.strokedColor,false);
   }
 
   

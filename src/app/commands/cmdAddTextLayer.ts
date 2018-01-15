@@ -36,13 +36,13 @@ export class CmdAddTextLayer extends Command {
                         if(workspace){
                             let text=new Text();
                             text.data="Enter text here";
-                            text.color="#000000";
+                            text.color="rgb(0,0,0)";
                             text.fontFamily="Times New Roman";
                             text.fontSize=32;
                             text.alignH="left";
                             text.alignV="top";
                             text.isStroked=false;
-                            text.strokedColor="#000";
+                            text.strokedColor="rgb(0,0,0)";
                             let textLayer= new LayerText(text,"Text");                            
                             workspace.addLayer(textLayer); 
                             workspace.makeLayerSelected(textLayer);

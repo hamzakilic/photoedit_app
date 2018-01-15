@@ -13,6 +13,8 @@ import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/photoedit/project';
 
 import { Layer } from '../../models/photoedit/layer';
+import { ColorPickerComponent } from '../../modulesext/color-picker/index';
+
 
 @Component({
   selector: 'tools-component',
@@ -21,7 +23,8 @@ import { Layer } from '../../models/photoedit/layer';
 })
 export class ToolsComponent implements OnInit {
 
-
+  @ViewChild('foregroundpicker') foregroundpicker:ColorPickerComponent;
+  @ViewChild('backgroundpicker') backgroundpicker:ColorPickerComponent;
   projectService: ProjectService;
   appService:AppService;
   public project: Project;
@@ -44,6 +47,8 @@ export class ToolsComponent implements OnInit {
       
 
   }
+
+ 
 
   private selectWorking(type: number,subType:string="") {
     if (this.project)
@@ -173,42 +178,31 @@ export class ToolsComponent implements OnInit {
   
 
 
-
-
-
-
-
-
- 
-
- 
-
-
- 
-
   
-
-  
-
-
-
-
+  openForegroundColorPicker(){
+    
+    this.foregroundpicker.openDialog(this.project.activeWorkspace.foregroundColor,true);
+  }
   public get foregroundcolor(): string {
     return this.project.activeWorkspace.foregroundColor;
   }
 
-  public set foregroundcolor(value: string) {
+  public setforegroundcolor(value: string) {
+    
     
     this.project.activeWorkspace.foregroundColor = value;
   }
 
-
+  openBackgroundColorPicker(){
+    
+    this.backgroundpicker.openDialog(this.project.activeWorkspace.backgroundColor,true);
+  }
 
   public get backgroundcolor(): string {
     return this.project.activeWorkspace.backgroundColor;
   }
 
-  public set backgroundcolor(value: string) {
+  public setbackgroundColor(value: string) {
     this.project.activeWorkspace.backgroundColor = value;
   }
 

@@ -24,7 +24,7 @@
     cursor: default;
     width: 230px;
     height: auto;
-    border:rgb(68, 50, 50) solid 1px;
+    border:#777 solid 1px;
     left:30px;
     top:250px;
     position:absolute;
@@ -107,28 +107,28 @@
 
     .arrow-right{
         border-width: 5px 10px;
-        border-color: rgba(0,0,0,0) rgb(68, 50, 50) rgba(0,0,0,0) rgba(0,0,0,0);
+        border-color: rgba(0,0,0,0) #777 rgba(0,0,0,0) rgba(0,0,0,0);
         top: 10px;
         left:-20px;
     }
 
     .arrow-left{
         border-width: 5px 10px;
-        border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0) rgb(68, 50, 50);
+        border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0) #777;
         top: 10px;
         left:231px;
     }
 
     .arrow-bottom{
         border-width: 10px 5px;
-        border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgb(68, 50, 50) rgba(0,0,0,0);
+        border-color: rgba(0,0,0,0) rgba(0,0,0,0) #777 rgba(0,0,0,0);
         top: -20px;
         left:10px;
     }
 
     .arrow-top{
         border-width: 10px 5px;
-        border-color: rgb(68, 50, 50) rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0);
+        border-color: #777 rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0);
         //top: 289px;
         left:10px;
     }

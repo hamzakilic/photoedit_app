@@ -102,8 +102,8 @@ export class Workspace extends HEventEmitter {
 
     this._workMode = new WorkModeDefault(this, this._appService);
 
-    this.backgroundColor = "#000";
-    this.foregroundColor = "#FFF";
+    this.backgroundColor = "rgba(0,0,0,1)";
+    this.foregroundColor = "rgba(255,255,255,1)";
     this._historyManager = new HistoryManager();
     this._historyManager.add(History.create());
 

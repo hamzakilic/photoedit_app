@@ -70,11 +70,12 @@
 
 <div class="input-group input-group-sm">
   <span class="input-group-addon proName" tooltip="Text color" placement="right">FC</span>
-  <input [(colorPicker)]="color" class="form-control" [style.background]="color" [value]="color" [cpPosition]="'top'" 
-  [style.color]="calculateForeground()"
-    [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
+  <input  spellcheck="false" class="form-control" [style.background]="color" [value]="color" 
+  [style.color]="colorFore" (click)="openforecolorPicker()"
+     />
+    <color-picker #forecolorpicker [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0" [cpPosition]="'top'"
      
-    [cpAlphaChannel]="'hex8'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="colorChanging($event)" />
+    [cpAlphaChannel]="'hex8'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="colorChanging($event)" ></color-picker>
 </div>
 
 <div  class="w-100">
@@ -89,11 +90,12 @@
       <div *ngIf="isStroked" class="input-group input-group-sm">
         <span class="input-group-addon proName" tooltip="Stroke color" placement="right">SC</span>
       
-        <input  [(colorPicker)]="strokedColor" class="form-control" [style.background]="strokedColor" [value]="strokedColor" [cpPosition]="'top'" 
-        [style.color]="calculateForegroundStrokedColor()"
-          [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
+       <input spellcheck="false" class="form-control" [style.background]="strokedColor" [value]="strokedColor"  
+        [style.color]="strokedcolorFore" (click)="openstrokecolorPicker()"     /> 
+          <color-picker #strokecolorpicker [cpPosition]="'top'" [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
           
-          [cpAlphaChannel]="'hex8'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="strokedColorChanging($event)" />
+          [cpAlphaChannel]="'hex8'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="strokedColorChanging($event)">
+          </color-picker>
       </div>
     </div>
 </div>

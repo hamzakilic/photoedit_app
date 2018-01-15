@@ -107,11 +107,11 @@ export abstract class WorkModeEdit extends WorkModeBase {
       this.selectedRegions = this.findSelectedRegions(event);
       if (this.selectedRegions.length == 0)//if there is no region, add a full layer
       {
-        let selectedLayerRegion = Polygon.fromRect(this.selectedLayer.rect).translate(-this.selectedLayer.marginLeft, -this.selectedLayer.marginTop);
+        let selectedLayerRegion = HMath.rectToPolygon(this.selectedLayer.rect).translate(-this.selectedLayer.marginLeft, -this.selectedLayer.marginTop);
         this.selectedRegions = [selectedLayerRegion];
       } else {
         //selectedlayer ve selection region ile keşisen bölümü bul
-        let selectedLayerRegion = Polygon.fromRect2D(this.selectedLayer.rectRotated2D);
+        let selectedLayerRegion = HMath.rect2DToPolygon(this.selectedLayer.rectRotated2D);
 
         this.selectedRegions = this.selectedRegions.map((reg) => {
 

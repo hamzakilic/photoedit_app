@@ -1,5 +1,6 @@
 
 
+
 import { HistoryManager } from './../models/photoedit/history/historyManager';
 import { LayerImage } from './../models/photoedit/layerImage';
 import { ImageAlgorithmCrop } from './../lib/imagealgorithm/imageAlgorithmCrop';
@@ -78,7 +79,7 @@ export class CmdClear extends Command {
     polygons.forEach((poly)=>{
         
      let rectLayer=selectedLayer.rectRotated2D;               
-     let polygonSelectedLayer=Polygon.fromRect2D(rectLayer);               
+     let polygonSelectedLayer=HMath.rect2DToPolygon(rectLayer);               
      let intersectedPoly= poly.intersect(polygonSelectedLayer);
      if(intersectedPoly.points.length==0){
        //eğer selected layer ile  kesişim yok ise

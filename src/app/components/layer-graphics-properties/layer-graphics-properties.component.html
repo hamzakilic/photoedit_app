@@ -10,10 +10,11 @@
 
 </div>
 <div class="input-group input-group-sm " style="width:100%">
-<input *ngIf="!disabled" [(colorPicker)]="backgroundColor" class="form-control" [disabled]="disabled" [style.background]="backgroundColor" [value]="backgroundColor" [cpPosition]="'top'" 
-[style.color]="calculateForegroundColor()"
-  [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"             
-  [cpAlphaChannel]="'hex8'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="changeBackgroundColor($event)" />
+<input [style.visibility]="disabled?'hidden':'visible'" spellcheck="false" class="form-control" [disabled]="disabled" [style.background]="backgroundColor" [value]="backgroundColor" 
+[style.color]="foregroundcolor" (click)='openColorPicker()'
+   />
+  <color-picker #colorpicker  [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"   [cpPosition]="'top'"            
+  [cpAlphaChannel]="'hex8'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="changeBackgroundColor($event)"></color-picker>
 </div>
 </div>
 
