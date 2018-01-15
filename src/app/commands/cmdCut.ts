@@ -17,7 +17,7 @@ import { AppService } from '../services/app.service';
 import { ClipboardService, ClipboardData } from '../services/clipboard.service';
 import { AlertItem } from '../entities/alertItem';
 import { Callback } from '../lib/callback';
-import { CommandBusy } from './commandBusy';
+import { CommandBusy, CommandNotBusy } from './commandBusy';
 import { Polygon } from '../lib/draw/polygon';
 import { Point } from '../lib/draw/point';
 import { HMath } from '../lib/hMath';
@@ -26,7 +26,7 @@ import { History } from '../models/photoedit/history/history';
 
 
 
-export class CmdCut extends CommandBusy {
+export class CmdCut extends CommandNotBusy {
   zoomType: number;
   
   clipboardService:ClipboardService;

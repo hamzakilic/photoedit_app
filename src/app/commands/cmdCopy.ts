@@ -21,13 +21,13 @@ import { Point } from '../lib/draw/point';
 import { Graphics } from '../lib/graphics';
 import { Rect } from '../lib/draw/rect';
 import { Callback } from '../lib/callback';
-import { CommandBusy } from './commandBusy';
+import { CommandBusy, CommandNotBusy } from './commandBusy';
 import { Polygon } from '../lib/draw/polygon';
 import { HMath } from '../lib/hMath';
 
 
 
-export class CmdCopy extends CommandBusy {
+export class CmdCopy extends CommandNotBusy {
   
   
   clipboardService:ClipboardService;

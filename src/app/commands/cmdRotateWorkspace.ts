@@ -1,7 +1,7 @@
 import { Callback } from './../lib/callback';
 import { History } from './../models/photoedit/history/history';
 import { Command } from './command';
-import { CommandBusy } from './commandBusy';
+import { CommandBusy, CommandNotBusy } from './commandBusy';
 import { Message } from '../entities/message';
 import { MessageBus } from '../lib/messageBus';
 import { Constants } from '../lib/constants';
@@ -17,7 +17,7 @@ import { Rect } from '../lib/draw/rect';
 
 
 
-export class CmdRotateWorkspace extends CommandBusy {
+export class CmdRotateWorkspace extends CommandNotBusy {
     
    
     constructor(projectService: ProjectService, appService: AppService) {

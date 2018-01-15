@@ -3,7 +3,7 @@ import { HMath } from './../../../lib/hMath';
 import { ImageAlgorithmRgbToLab } from './../../../lib/imagealgorithm/imageAlgorithmRgbToLab';
 import { ImageAlgorithmCrop } from './../../../lib/imagealgorithm/imageAlgorithmCrop';
 import { Polygon } from './../../../lib/draw/polygon';
-import { BUSY_CONFIG_DEFAULTS } from 'angular2-busy';
+
 import { element } from 'protractor';
 import { Helper } from './../lib/helper';
 import { Point } from './../../../lib/draw/point';

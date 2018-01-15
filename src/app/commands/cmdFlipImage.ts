@@ -3,7 +3,7 @@ import { ImageAlgorithmFlip } from './../lib/imagealgorithm/imageAlgorithmFlip';
 import { Callback } from './../lib/callback';
 import { FormResizeComponent } from './../components/form-resize/form-resize.component';
 import { Command } from './command';
-import { CommandBusy } from './commandBusy';
+import { CommandBusy, CommandNotBusy } from './commandBusy';
 import { Message } from '../entities/message';
 import { MessageBus } from '../lib/messageBus';
 import { Constants } from '../lib/constants';
@@ -28,7 +28,7 @@ import { History } from '../models/photoedit/history/history';
 
 
 
-export class CmdFlipImage extends CommandBusy {
+export class CmdFlipImage extends CommandNotBusy {
 
     private _isHorizontal;
     protected findedLayerIndex;

@@ -3,7 +3,7 @@ import { History } from './../models/photoedit/history/history';
 import { ImageProcessCrop } from './../lib/imageprocess/imageProcessCrop';
 import { Callback } from './../lib/callback';
 import { Command } from './command';
-import { CommandBusy } from './commandBusy';
+import { CommandBusy, CommandNotBusy } from './commandBusy';
 import { Message } from '../entities/message';
 import { MessageBus } from '../lib/messageBus';
 import { Constants } from '../lib/constants';
@@ -20,7 +20,7 @@ import { Layer } from '../models/photoedit/layer';
 
 
 
-export class CmdCrop extends CommandBusy {
+export class CmdCrop extends CommandNotBusy {
     zoomType: number;
    
     constructor(projectService: ProjectService, appService: AppService) {

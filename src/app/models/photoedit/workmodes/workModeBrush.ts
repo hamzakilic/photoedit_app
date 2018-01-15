@@ -1,7 +1,7 @@
 import { AppService } from './../../../services/app.service';
 
 import { HImage } from './../../../lib/image';
-import { BUSY_CONFIG_DEFAULTS } from 'angular2-busy';
+
 import { element } from 'protractor';
 import { Rect } from './../../../lib/draw/rect';
 import { ToolsOptionsBrushComponent } from './../../../components/tools-options-brush/tools-options-brush.component';

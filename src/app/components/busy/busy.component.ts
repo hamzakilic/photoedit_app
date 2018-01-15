@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import {Http} from '@angular/http';
 import { AppService } from "../../services/app.service";
-import { IBusyConfig } from 'angular2-busy';
+import { CgBusyDefaults } from 'angular-busy2';
 
 @Component({
   selector: 'busy-component',
@@ -10,18 +10,23 @@ import { IBusyConfig } from 'angular2-busy';
 })
 export class BusyComponent implements OnInit {
 
+  @ViewChild('customTemplate')
+  private customTemplateTpl: TemplateRef<any>;
  private appService: AppService;
-  constructor(appService: AppService) {
+  constructor(private busyDefaults: CgBusyDefaults,appService: AppService) {
+    this.busyDefaults.backdrop=true;
+    this.busyDefaults.message="Busy";    
+    
     this.appService = appService;
    }
 
   ngOnInit() {
     
-    this.appService.busyPromise
+    
             
   }
-  public get loading():IBusyConfig{
-    return this.appService.busyPromise;
+  public get loading():Promise<any>{
+    return this.appService.busy;
   }
 
 }

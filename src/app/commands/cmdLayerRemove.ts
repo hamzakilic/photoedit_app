@@ -1,7 +1,7 @@
 import { Callback } from './../lib/callback';
 import { FormResizeComponent } from './../components/form-resize/form-resize.component';
 import { Command } from './command';
-import { CommandBusy } from './commandBusy';
+import { CommandBusy, CommandNotBusy } from './commandBusy';
 import { Message } from '../entities/message';
 import { MessageBus } from '../lib/messageBus';
 import { Constants } from '../lib/constants';
@@ -26,7 +26,7 @@ import { History } from '../models/photoedit/history/history';
 
 
 
-export class CmdLayerRemove extends CommandBusy {
+export class CmdLayerRemove extends CommandNotBusy {
 
     private _layer:Layer;
     constructor(layer:Layer,  projectService: ProjectService, appService: AppService) {

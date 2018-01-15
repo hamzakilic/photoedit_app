@@ -1,7 +1,7 @@
 import { IClone } from './../../models/photoedit/iclone';
 
 
-import { BUSY_CONFIG_DEFAULTS } from 'angular2-busy';
+
 
 
 

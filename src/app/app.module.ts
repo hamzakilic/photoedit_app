@@ -11,7 +11,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BusyModule, BusyConfig } from 'angular2-busy';
+import { CgBusyModule } from 'angular-busy2';
 
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap';
@@ -163,7 +163,7 @@ import { ClipboardService } from './services/clipboard.service';
     AlertModule.forRoot(),
     DndModule.forRoot(),
     BrowserAnimationsModule,
-    BusyModule,
+    CgBusyModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,

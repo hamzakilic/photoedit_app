@@ -8,7 +8,7 @@
 @import '../node_modules/bootstrap/scss/bootstrap';
 $fa-font-path: "../node_modules/font-awesome/fonts";
 @import "../node_modules/font-awesome/scss/font-awesome";
-@import "../node_modules/angular2-busy/build/style/busy.css";
+/* @import "../node_modules/angular-busy2/build/style/busy.css"; */
 
 $whitesmoke:#F5F5F5;
 
@@ -331,8 +331,12 @@ tools-options-bucketfill-component *{
   padding: 5px;
   
 }
+busy-component{
+  position: static !important;
+}
 busy-component *{
   z-index: 10000!important;
+  
 }
 
 zoom-component{

@@ -2,7 +2,7 @@ import { AlertItem } from './../entities/alertItem';
 import { ImageProcessCrop } from './../lib/imageprocess/imageProcessCrop';
 import { Callback } from './../lib/callback';
 import { Command } from './command';
-import { CommandBusy } from './commandBusy';
+import { CommandBusy, CommandNotBusy } from './commandBusy';
 import { Message } from '../entities/message';
 import { MessageBus } from '../lib/messageBus';
 import { Constants } from '../lib/constants';
@@ -23,7 +23,7 @@ import { History } from '../models/photoedit/history/history';
 
 
 
-export class CmdNewLayerFromSelection extends CommandBusy {
+export class CmdNewLayerFromSelection extends CommandNotBusy {
     
     zoomType: number;
    
