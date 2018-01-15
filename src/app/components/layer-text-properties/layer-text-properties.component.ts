@@ -7,6 +7,7 @@ import { FontService } from "../../services/font.service";
 import { UserService } from "../../services/user.service";
 import {AutoCompleteItem} from "../../entities/autocompleteItem";
 import { ColorPickerComponent } from '../../modulesext/color-picker/index';
+import { AutocompleteComponent } from '../../modulesext/autocomplete/index';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class LayerTextPropertiesComponent implements OnInit {
   layer: LayerText;
   @ViewChild('forecolorpicker')forecolorpicker:ColorPickerComponent;
   @ViewChild('strokecolorpicker')strokcolorpicker:ColorPickerComponent;
+  @ViewChild('fontchoice') fontchoice:AutocompleteComponent;
 
   
   private _fontService:FontService;
@@ -29,7 +31,7 @@ export class LayerTextPropertiesComponent implements OnInit {
   constructor(fontService:FontService,userService:UserService) {
     this._fontService=fontService;
     this._userService = userService;
-   
+    
     
    }
 
@@ -46,20 +48,26 @@ export class LayerTextPropertiesComponent implements OnInit {
     this.colorFore=this.calculateForegroundColor(layer.color);
     this.strokedcolorFore=this.calculateForegroundColor(layer.strokedColor);
   }
+  private _fontList:Array<AutoCompleteItem>=[];
+
 
    public get fontList():Array<AutoCompleteItem>{
-     let items=[];
+    let items=[];
     this._fontService.genericFonts.forEach((val,index,arr)=>{
-      
+      if(this._fontList.findIndex((p)=>p.id==val)<0)  
       items.push({id:val,fontFamily:val, text: val});
     });
     this._userService.extraFonts.forEach((val,index,arr)=>{
-      
+      if(this._fontList.findIndex((p)=>p.id==val.familyName)<0)  
       items.push({id:val.familyName,fontFamily:val.familyName, text: val.familyName});
       
     });
+    
+    items.forEach((x)=>this._fontList.push(x));
+    if(items.length>0)
     this._fontService.loadGoogleFonts(this._userService.extraFonts.map((item)=>item.familyName));
-     return items;
+    
+     return this._fontList;
    }
  
   private value:any = {};
