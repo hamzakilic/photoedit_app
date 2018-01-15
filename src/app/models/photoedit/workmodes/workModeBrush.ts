@@ -11,7 +11,7 @@ import { Graphics } from './../../../lib/graphics';
 import { Point } from './../../../lib/draw/point';
 import { Polygon } from './../../../lib/draw/polygon';
 import { LayerSelect } from './../layerSelect';
-import { Workspace } from './../workSpace';
+import { IWorkspace, WorkModes } from './../iworkspace';
 import { WorkModeBase } from "./workModeBase";
 import { Layer } from '../layer';
 import { Color } from '../../../lib/draw/color';
@@ -21,7 +21,7 @@ import { HMath } from '../../../lib/hMath';
 export class WorkModeBrush extends WorkModeEdit {
 
  
-  constructor(workspace: Workspace,appService:AppService) {    
+  constructor(workspace: IWorkspace,appService:AppService) {    
     super(workspace,appService);
     
   }
@@ -29,7 +29,7 @@ export class WorkModeBrush extends WorkModeEdit {
     return new EditTypeBrush();
   }
   public  get typeOf(): number {
-    return Workspace.WorkModeBrush;
+    return WorkModes.WorkModeBrush;
   }
   
   public get subTypeOf(): string{

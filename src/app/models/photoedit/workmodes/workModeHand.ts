@@ -2,13 +2,13 @@ import { AppService } from './../../../services/app.service';
 
 import { LayerEmpty } from './../layerEmpty';
 import { Point } from './../../../lib/draw/point';
-import { Workspace } from './../workSpace';
+import { IWorkspace,WorkModes } from './../iworkspace';
 import { WorkModeBase } from "./workModeBase";
 
 export class WorkModeHand extends WorkModeBase {
  
   private _isMouseDown = false;
-  constructor(workspace: Workspace,appService:AppService) {
+  constructor(workspace: IWorkspace,appService:AppService) {
     //dont dispose previous workmode          
     super(workspace,appService, false,true);
     
@@ -20,7 +20,7 @@ export class WorkModeHand extends WorkModeBase {
 
   }
   public get typeOf(): number {
-    return Workspace.WorkModeHand;
+    return WorkModes.WorkModeHand;
   }
   public get subTypeOf(): string {
     return "";

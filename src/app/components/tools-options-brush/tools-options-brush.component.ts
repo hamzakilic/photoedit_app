@@ -5,6 +5,7 @@ import { Project } from './../../models/photoedit/project';
 import { AppService } from './../../services/app.service';
 import { ProjectService } from './../../services/project.service';
 import { Component, OnInit } from '@angular/core';
+import { WorkModes } from '../../models/photoedit/iworkspace';
 
 @Component({
   selector: 'tools-options-brush-component',
@@ -34,7 +35,7 @@ export class ToolsOptionsBrushComponent implements OnInit {
     return 5;
   }
   private isValid():boolean{
-    return this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == Workspace.WorkModeBrush;
+    return this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.WorkModeBrush;
   }
 
   public changeBrushSize(value:string){

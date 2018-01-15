@@ -6,7 +6,7 @@ import { element } from 'protractor';
 import { Helper } from './../lib/helper';
 import { Point } from './../../../lib/draw/point';
 import { Graphics } from './../../../lib/graphics';
-import { Workspace } from './../workSpace';
+import { IWorkspace,WorkModes } from './../iworkspace';
 import { WorkModeBrush } from './workModeBrush';
 import { WorkModeEdit, EditType } from './workModeEdit';
 import { Color } from '../../../lib/draw/color';
@@ -15,7 +15,7 @@ import { Rect } from '../../../lib/draw/rect';
 
 export class WorkModeErase extends WorkModeEdit {
 
-  constructor(workspace: Workspace,appService:AppService) {
+  constructor(workspace: IWorkspace,appService:AppService) {
     super(workspace,appService);
 
   }
@@ -24,7 +24,7 @@ export class WorkModeErase extends WorkModeEdit {
     return new EditTypeErase();
   }
   public get typeOf(): number {
-    return Workspace.WorkModeErase;
+    return WorkModes.WorkModeErase;
   }
   public get subTypeOf(): string {
     return "";

@@ -1,6 +1,6 @@
 import { Callback } from './../../../lib/callback';
 import { Point } from './../../../lib/draw/point';
-import { Workspace } from './../workSpace';
+import { IWorkspace,WorkModes } from './../iworkspace';
 import { WorkModeBase } from "./workModeBase";
 import { Layer } from '../layer';
 import { History } from '../history/history';
@@ -9,14 +9,14 @@ import { AppService } from '../../../services/app.service';
 export class WorkModeDefault extends WorkModeBase {
     
     
-      constructor(workspace: Workspace,appService:AppService) {
+      constructor(workspace: IWorkspace,appService:AppService) {
         super(workspace,appService);
         this.workspace.cssClasses = "mouseDefault";
         this.workspace.removeSelectionLayer();
         this.workspace.layers.forEach((item)=>item.canResizeOrRotate=true);
       }
       public get typeOf(): number {
-        return Workspace.WorkModeDefault;
+        return WorkModes.WorkModeDefault;
       }
       public get subTypeOf(): string {
         return "";

@@ -1,14 +1,14 @@
 import { AppService } from './../../../services/app.service';
 import { Point } from './../../../lib/draw/point';
 import { LayerSelect } from './../layerSelect';
-import { Workspace } from './../workSpace';
+import { IWorkspace,WorkModes } from './../iworkspace';
 import { WorkModeBase } from "./workModeBase";
 import { Layer } from '../layer';
 
 
 export class WorkModeSelection extends WorkModeBase {
     _shapeType: string;
-    constructor(workspace: Workspace,appService:AppService,  shapeType: string) {
+    constructor(workspace: IWorkspace,appService:AppService,  shapeType: string) {
       super(workspace,appService, false,true);
       this.workspace.cssClasses = "mouseCross";
       this._shapeType = shapeType;
@@ -21,7 +21,7 @@ export class WorkModeSelection extends WorkModeBase {
   
     }
     public get typeOf(): number {
-      return Workspace.WorkModeSelection;
+      return WorkModes.WorkModeSelection;
     }
     public get subTypeOf(): string {
       return this._shapeType;

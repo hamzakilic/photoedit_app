@@ -1,23 +1,25 @@
 import { AppService } from './../../../services/app.service';
 import { Point } from './../../../lib/draw/point';
-import { Workspace } from './../workSpace';
+import { IWorkspace,WorkModes } from './../iworkspace';
 import { WorkModeBase } from "./workModeBase";
 import { Layer } from '../layer';
 
 
 export class WorkModeColorPicker extends WorkModeBase {
-    private _previousWorkMode: WorkModeBase;
+    private _previousWorkMode: number;
+    private _previousWorkModeSub: string;
     private _isMouseDown = false;
-    constructor(workspace: Workspace,appService:AppService, previousMode: WorkModeBase) {
+    constructor(workspace: IWorkspace,appService:AppService, previousMode: WorkModeBase) {
       //dont dispose previous workmode          
       super(workspace,appService, false,true);
-      this._previousWorkMode = previousMode;
+      this._previousWorkMode = previousMode.typeOf;
+      this._previousWorkModeSub=previousMode.subTypeOf;
       this.workspace.cssClasses = "default";
       
   
     }
     public get typeOf(): number {
-      return Workspace.WorkModeColorPicker;
+      return WorkModes.WorkModeColorPicker;
     }
     public get subTypeOf(): string {
       return "";
@@ -35,7 +37,7 @@ export class WorkModeColorPicker extends WorkModeBase {
     }
     public mouseUp(event: any,scroll:Point) {
       this._isMouseDown = false;
-      this.workspace.setWorkingMode(this._previousWorkMode);
+      this.workspace.selectWorking(this._previousWorkMode,this._previousWorkModeSub);
   
     }
   

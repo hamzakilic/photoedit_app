@@ -1,20 +1,20 @@
 import { Point } from './../../../lib/draw/point';
 import { LayerCropRectangle } from './../layerCropRectangle';
-import { Workspace } from './../workSpace';
+import { IWorkspace,WorkModes } from './../iworkspace';
 import { WorkModeBase } from "./workModeBase";
 import { Layer } from '../layer';
 import { AppService } from '../../../services/app.service';
 
 export class WorkModeCrop extends WorkModeBase {
     
-      constructor(workspace: Workspace,appService:AppService) {
+      constructor(workspace: IWorkspace,appService:AppService) {
         super(workspace,appService);
         this.workspace.cssClasses = "mouseCross";
     
     
       }
       public get typeOf(): number {
-        return Workspace.WorkModeCrop;
+        return WorkModes.WorkModeCrop;
       }
       public get subTypeOf(): string {
         return "";

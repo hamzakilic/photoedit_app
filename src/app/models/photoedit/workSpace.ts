@@ -29,11 +29,11 @@ import { WorkModeBucket } from './workmodes/workModeBucket';
 import { HistoryManager } from './history/historyManager';
 import { WorkModeErase } from './workmodes/workModeErase';
 import { History } from './history/history';
+import { IWorkspace, WorkModes} from './iworkspace'
 
 
 
-
-export class Workspace extends HEventEmitter {
+export class Workspace extends HEventEmitter implements IWorkspace {
 
   private _name: string
   private _layers: Layer[];
@@ -480,35 +480,35 @@ export class Workspace extends HEventEmitter {
   public selectWorking(working: number, parameter: string) {
     //console.log('selectWorking');
     switch (working) {
-      case Workspace.WorkModeDefault:
+      case WorkModes.WorkModeDefault:
         this._workMode = new WorkModeDefault(this, this._appService);
         break;
-      case Workspace.WorkModeResizeWorkspace:
+      case WorkModes.WorkModeResizeWorkspace:
         this._workMode = new WorkModeResizeWorkspace(this, this._appService, this.workMode.typeOf, this.workMode.subTypeOf);
         break;
 
-      case Workspace.WorkModeCrop:
+      case WorkModes.WorkModeCrop:
         this._workMode = new WorkModeCrop(this, this._appService);
         break;
-      case Workspace.WorkModeSelection:
+      case WorkModes.WorkModeSelection:
 
         if (!this.workMode || this._workMode.typeOf != working)
           this._workMode = new WorkModeSelection(this, this._appService, parameter);
         else (this._workMode as WorkModeSelection).changeType(parameter);
         break;
-      case Workspace.WorkModeColorPicker:
+      case WorkModes.WorkModeColorPicker:
         this._workMode = new WorkModeColorPicker(this, this._appService, this.workMode);
         break;
-      case Workspace.WorkModeBrush:
+      case WorkModes.WorkModeBrush:
         this._workMode = new WorkModeBrush(this, this._appService);
         break;
-      case Workspace.WorkModeErase:
+      case WorkModes.WorkModeErase:
         this._workMode = new WorkModeErase(this, this._appService);
         break;
-      case Workspace.WorkModeHand:
+      case WorkModes.WorkModeHand:
         this._workMode = new WorkModeHand(this, this._appService);
         break;
-      case Workspace.WorkModeBucket:
+      case WorkModes.WorkModeBucket:
         this._workMode = new WorkModeBucket(this, this._appService);
         break;
       default:
@@ -542,17 +542,7 @@ export class Workspace extends HEventEmitter {
 
   public static readonly EVENTRESIZED = "resized";
 
-  public static readonly WorkModeDefault = 1;
-  public static readonly WorkModeSelection = 3;
-  public static readonly WorkModeResizeWorkspace = 4;
-  public static readonly WorkModeAddTextLayer = 5;
-  public static readonly WorkModeCrop = 7;
-  public static readonly WorkModeColorPicker = 12;
-  public static readonly WorkModeBrush = 13;
-  public static readonly WorkModeErase = 14;
-  public static readonly WorkModeHand = 15;
-  public static readonly WorkModeBucket = 16;
-  public static readonly WorkModeMagicWand = 17;
+
 
 
 }

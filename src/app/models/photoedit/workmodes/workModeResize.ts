@@ -1,7 +1,7 @@
 import { AppService } from './../../../services/app.service';
 
 import { Callback } from './../../../lib/callback';
-import { Workspace } from './../workSpace';
+import { IWorkspace,WorkModes } from './../iworkspace';
 import { WorkModeBase } from "./workModeBase";
 import { Layer } from '../layer';
 import { History } from '../history/history';
@@ -9,7 +9,7 @@ import { History } from '../history/history';
 export class WorkModeResizeWorkspace extends WorkModeBase {
     private previousWorkingType: number;
     private previousWorkingSubType: string;
-    constructor(workspace: Workspace,appservice:AppService,  previousWorkingType: number, previousWorkingSubType: string) {
+    constructor(workspace: IWorkspace,appservice:AppService,  previousWorkingType: number, previousWorkingSubType: string) {
       super(workspace,appservice);
       this.previousWorkingType = previousWorkingType;
       this.previousWorkingSubType = previousWorkingSubType;
@@ -17,7 +17,7 @@ export class WorkModeResizeWorkspace extends WorkModeBase {
   
     }
     public get typeOf(): number {
-      return Workspace.WorkModeResizeWorkspace;
+      return WorkModes.WorkModeResizeWorkspace;
     }
   
     public get subTypeOf(): string {

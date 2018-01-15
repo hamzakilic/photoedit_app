@@ -8,7 +8,7 @@ import { element } from 'protractor';
 import { Helper } from './../lib/helper';
 import { Point } from './../../../lib/draw/point';
 import { Graphics } from './../../../lib/graphics';
-import { Workspace } from './../workSpace';
+import { IWorkspace,WorkModes } from './../iworkspace';
 import { WorkModeBrush } from './workModeBrush';
 import { WorkModeEdit, EditType } from './workModeEdit';
 import { Color } from '../../../lib/draw/color';
@@ -20,7 +20,7 @@ import { AppService } from '../../../services/app.service';
 
 export class WorkModeBucket extends WorkModeEdit {
 
-  constructor(workspace: Workspace,appService:AppService) {
+  constructor(workspace: IWorkspace,appService:AppService) {
     super(workspace,appService);
     
   }
@@ -29,7 +29,7 @@ export class WorkModeBucket extends WorkModeEdit {
     return new EditTypeBucket();
   }
   public get typeOf(): number {
-    return Workspace.WorkModeBucket;
+    return WorkModes.WorkModeBucket;
   }
   public get subTypeOf(): string {
     return "";

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Workspace } from '../../models/photoedit/workSpace';
 import { Callback } from "../../lib/callback";
+import { WorkModes } from '../../models/photoedit/iworkspace';
 @Component({
   selector: 'workspace-resize',
   templateUrl: './workspace-resize.component.html',
@@ -20,7 +21,7 @@ export class WorkspaceResizeComponent implements OnInit {
   mouseDown(event: MouseEvent) {
 
   
-    this.workspace.selectWorking(Workspace.WorkModeResizeWorkspace,"");
+    this.workspace.selectWorking(WorkModes.WorkModeResizeWorkspace,"");
   }
   mouseOver(event: MouseEvent) {
     this.isMouseEnter = true;

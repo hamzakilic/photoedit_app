@@ -4,6 +4,7 @@ import { Workspace } from './../../models/photoedit/workSpace';
 import { AppService } from './../../services/app.service';
 import { ProjectService } from './../../services/project.service';
 import { Component, OnInit } from '@angular/core';
+import { WorkModes } from '../../models/photoedit/iworkspace';
 
 @Component({
   selector: 'tools-options-erase-component',
@@ -33,7 +34,7 @@ export class ToolsOptionsEraseComponent implements OnInit {
     return 5;
   }
   private isValid():boolean{
-    return this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == Workspace.WorkModeErase;
+    return this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.WorkModeErase;
   }
 
   public changeEraseSize(value:string){

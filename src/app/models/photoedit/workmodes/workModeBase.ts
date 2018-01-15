@@ -1,12 +1,13 @@
 import { AppService } from './../../../services/app.service';
 import { Point } from './../../../lib/draw/point';
-import { Workspace } from './../workSpace';
+import { IWorkspace } from './../iworkspace';
 import { Layer } from '../layer';
+
 export abstract class WorkModeBase {
-    protected workspace: Workspace;
+    protected workspace: IWorkspace;
     protected canvasElement: any;
     protected appService:AppService;
-    constructor(workspace: Workspace,appService:AppService, disposeSelect: boolean = true, disposeWork: boolean = true) {
+    constructor(workspace: IWorkspace,appService:AppService, disposeSelect: boolean = true, disposeWork: boolean = true) {
       this.appService=appService;
       this.workspace = workspace;
       if (this.workspace.selectionLayer && disposeSelect) {

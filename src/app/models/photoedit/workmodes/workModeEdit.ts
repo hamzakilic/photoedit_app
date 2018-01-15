@@ -11,7 +11,7 @@ import { LayerSelect } from './../layerSelect';
 import { Polygon } from './../../../lib/draw/polygon';
 import { Point } from './../../../lib/draw/point';
 import { LayerEmpty } from './../layerEmpty';
-import { Workspace } from './../workSpace';
+import { IWorkspace } from './../iworkspace';
 import { WorkModeBase } from "./workModeBase";
 import { Layer } from '../layer';
 import { History } from '../history/history';
@@ -38,7 +38,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
   protected _isMouseDown = false;
   protected _editType: EditType;
   protected projectService: ProjectService;
-  constructor(workspace: Workspace, appService: AppService) {
+  constructor(workspace: IWorkspace, appService: AppService) {
 
     //dont dispose previous workmode          
     super(workspace, appService, false, true);
@@ -190,7 +190,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
     return [];
   }
 
-  private historyRedo(history: History, workspace: Workspace, selectedLayer: Layer, selectionLayer: LayerSelect) {
+  private historyRedo(history: History, workspace: IWorkspace, selectedLayer: Layer, selectionLayer: LayerSelect) {
     ///test codes
     /*  let tempwindow=window.open("","a");      
     let canvas=tempwindow.document.createElement('canvas');
@@ -215,7 +215,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
     }))
   }
 
-  private createHistory(workspace: Workspace, selectedLayer: Layer, selectionLayer: LayerSelect): History {
+  private createHistory(workspace: IWorkspace, selectedLayer: Layer, selectionLayer: LayerSelect): History {
     //test codes
     /*  let tempwindow=window.open("","a");      
      let canvas=tempwindow.document.createElement('canvas');

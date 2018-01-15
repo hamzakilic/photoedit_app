@@ -6,6 +6,7 @@ import { AppService } from './../../services/app.service';
 import { ProjectService } from './../../services/project.service';
 import { AutoCompleteItem } from './../../entities/autocompleteItem';
 import { Component, OnInit } from '@angular/core';
+import { WorkModes } from '../../models/photoedit/iworkspace';
 
 @Component({
   selector: 'tools-options-bucketfill-component',
@@ -29,7 +30,7 @@ export class ToolsOptionsBucketfillComponent implements OnInit {
   }
 
   private isValid():boolean{
-    return this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == Workspace.WorkModeBucket;
+    return this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.WorkModeBucket;
   }
 
 
