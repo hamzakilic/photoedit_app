@@ -176,6 +176,17 @@ export class ToolsComponent implements OnInit {
     this.selectWorking(WorkModes.WorkModeBucket);
   } 
 
+  public get gradientCss() {
+    return { active: this.isWorkingMode(WorkModes.WorkModeGradient)};
+  }
+
+ 
+  selectGradient() {   
+    this.selectWorking(WorkModes.WorkModeGradient);
+   
+  }
+
+
   
 
 

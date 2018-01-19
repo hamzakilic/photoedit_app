@@ -12,13 +12,18 @@ export class WorkModeSelection extends WorkModeBase {
       super(workspace,appService, false,true);
       this.workspace.cssClasses = "mouseCross";
       this._shapeType = shapeType;
-      if(!this.workspace.selectionLayer){
-      let selectionLayer = this.createLayer(this.workspace.width, this.workspace.height, 0, 0);      
-      selectionLayer.scale=this.workspace.scale;
-      this.workspace.selectionLayer = selectionLayer;
-      }
+      this.checkSelectionLayer();
       (<LayerSelect>this.workspace.selectionLayer).shapeType = this._shapeType;
   
+    }
+    private checkSelectionLayer(){
+      
+      //check selection layer and also its type
+      if(!this.workspace.selectionLayer || !(this.workspace.selectionLayer instanceof LayerSelect)){
+        let selectionLayer = this.createLayer(this.workspace.width, this.workspace.height, 0, 0);      
+        selectionLayer.scale=this.workspace.scale;
+        this.workspace.selectionLayer = selectionLayer;
+      }
     }
     public get typeOf(): number {
       return WorkModes.WorkModeSelection;
@@ -27,8 +32,10 @@ export class WorkModeSelection extends WorkModeBase {
       return this._shapeType;
     }
     public changeType(type: string) {
+      this.checkSelectionLayer();
       (this.workspace.selectionLayer as LayerSelect).shapeType = type;
       this._shapeType = type;
+      
       
     }
   

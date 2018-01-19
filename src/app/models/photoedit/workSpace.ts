@@ -1,3 +1,5 @@
+import { Gradient, LineerGradient } from './gradient';
+import { WorkModeGradient } from './workmodes/workModeGradient';
 
 import { AppService } from './../../services/app.service';
 
@@ -35,6 +37,8 @@ import { IWorkspace, WorkModes} from './iworkspace'
 
 export class Workspace extends HEventEmitter implements IWorkspace {
 
+  
+
   private _name: string
   private _layers: Layer[];
   private _width: number;
@@ -64,6 +68,9 @@ export class Workspace extends HEventEmitter implements IWorkspace {
   private _htmlElement: any = undefined;
   private _historyManager: HistoryManager;
   private _appService: AppService;
+
+  private _gradient:Gradient;
+
   constructor(width: number, height: number, appService: AppService, name?: string) {
     super();
     this._appService = appService;
@@ -106,7 +113,15 @@ export class Workspace extends HEventEmitter implements IWorkspace {
     this.foregroundColor = "rgba(255,255,255,1)";
     this._historyManager = new HistoryManager();
     this._historyManager.add(History.create());
+    this._gradient=new LineerGradient();
 
+  }
+
+  public get gradient():Gradient{
+    return this._gradient;
+  }
+  public set gradient(value:Gradient){
+    this._gradient=value;
   }
 
   public get selectionLayer() {
@@ -510,6 +525,9 @@ export class Workspace extends HEventEmitter implements IWorkspace {
         break;
       case WorkModes.WorkModeBucket:
         this._workMode = new WorkModeBucket(this, this._appService);
+        break;
+        case WorkModes.WorkModeGradient:
+        this._workMode = new WorkModeGradient(this, this._appService);
         break;
       default:
         this._workMode = new WorkModeDefault(this, this._appService);

@@ -2,7 +2,7 @@
   <header class="toolsHeader">
 
   </header>
-  <section class="toolsSection">
+  <section class="toolsSection unselectable">
     <div *ngIf="project != undefined">
 
       <div *ngIf="project.activeWorkspace != undefined">
@@ -23,26 +23,26 @@
 
           <label id="selectRectangle" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " [ngClass]="rectangleCss" [ngClass]="defaultCss"
             (click)="selectRectangleSelection()" tooltip="Rectangle selection" placement="right">
-            <img src="assets/icons/selectrectangle.png">
+            <img src="assets/icons/rectangle.png">
           </label>
 
           <label id="selectEllipse" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " [ngClass]="ellipseCss" (click)="selectEllipseSelection()"
             tooltip="Ellipse selection" placement="right">
-            <img src="assets/icons/selectellipse.png">
+            <img src="assets/icons/ellipse.png">
           </label>
           <label id="selectLasso" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " [ngClass]="lassoCss" (click)="selectLassoSelection()"
             tooltip="Lasso selection" placement="right">
-            <img src="assets/icons/selectlasso.png">
+            <img src="assets/icons/lasso.png">
           </label>
 
           <label id="selectPolygon" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " [ngClass]="polygonCss" (click)="selectPolygonSelection()"
             tooltip="Polygonal selection" placement="right">
-            <img src="assets/icons/selectpolygon.png">
+            <img src="assets/icons/polygon.png">
           </label>
 
           <label id="selectMagicWand" class="btn btn-primary  buttonpadding mouseoverhand btn-sm " [ngClass]="magicwandCss" (click)="selectMagicWandSelection()"
             tooltip="Magic wand selection" placement="right">
-            <img src="assets/icons/selectmagicwand.png">
+            <img src="assets/icons/magicwand.png">
           </label>
 
 
@@ -74,6 +74,11 @@
           <label id="selectHand" class="d-inline-block btn btn-primary  buttonpadding mouseoverhand btn-sm " [ngClass]="handCss" (click)="selectHand()"
             tooltip="Scroll" placement="right">
             <img src="assets/icons/hand.png">
+          </label>
+
+          <label id="selectGradient" class="d-inline-block btn btn-primary  buttonpadding mouseoverhand btn-sm " [ngClass]="gradientCss" (click)="selectGradient()"
+            tooltip="Gradient" placement="right">
+            <img src="assets/icons/gradient.png">
           </label>
 
 

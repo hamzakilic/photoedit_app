@@ -15,50 +15,50 @@ export class FormAboutComponent implements OnInit {
   @ViewChild("smModal")
   public smModal: ModalDirective;
 
-  private _items:Array<any>;
-  constructor() { 
+  private _items: Array<any>;
+  constructor() {
     this.callFunc = Callback.from(() => { this.show() });
-    this._items=[];
-    this._items.push({name:'version',detail:'1.0.0'});
-    this._items.push({name:'producer',detail:'Hamza Kılıç',src:'http://www.hamzakilic.com'});
+    this._items = [];
+    this._items.push({ name: 'version', detail: '1.0.0' });
+    this._items.push({ name: 'producer', detail: 'Hamza Kılıç', src: 'http://www.hamzakilic.com' });
     //this._items.push({name:'licence',detail:'MIT Licence',src:'https://opensource.org/licenses/MIT'});
-   // this._items.push({name:'source',detail:'source code',src:'https://github.com/hamzakilic/wjimg'});
+    //this._items.push({name:'source',detail:'source code',src:'https://github.com/hamzakilic/wjimg'});
   }
 
   ngOnInit() {
-    
-        MessageBus.subscribe(Message.ShowFormAbout, this.callFunc);
-    
-      }
-      ngOnDestroy() {
-        MessageBus.unsubscribe(Message.ShowFormAbout, this.callFunc);
-    
-      }
 
-  public get items(){
-    
+    MessageBus.subscribe(Message.ShowFormAbout, this.callFunc);
+
+  }
+  ngOnDestroy() {
+    MessageBus.unsubscribe(Message.ShowFormAbout, this.callFunc);
+
+  }
+
+  public get items() {
+
     return this._items;
   }
 
 
   show() {
-    
-        if (!this.smModal.isShown) {    
-         
-          this.smModal.show();
-    
-         
-        }
-    
-    
-      }
 
-      open(url:string){
-      //  debugger;
-        window.open(url,'_blank');
-      }
-    
-  
+    if (!this.smModal.isShown) {
+
+      this.smModal.show();
+
+
+    }
+
+
+  }
+
+  open(url: string) {
+    //  debugger;
+    window.open(url, '_blank');
+  }
+
+
 
 }
 

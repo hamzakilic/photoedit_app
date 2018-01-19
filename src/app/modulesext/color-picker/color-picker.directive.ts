@@ -220,7 +220,7 @@ export class ColorPickerComponent implements OnInit {
     public left: number;
     public position: string="absolute";    
     
-    public get directiveElementRef(): Element{
+    public get directiveElementRef(): HTMLElement{
         
        return this.el.nativeElement.previousElementSibling;
        
@@ -463,8 +463,11 @@ export class ColorPickerComponent implements OnInit {
             var boxDirective = this.createBox(this.directiveElementRef, true);
             if (parentNode === null) { parentNode = node }
             var boxParent = this.createBox(parentNode, true);
-            this.top = boxDirective.top - boxParent.top;
-            this.left = boxDirective.left - boxParent.left;
+            /* this.top = boxDirective.top - boxParent.top;
+            this.left = boxDirective.left - boxParent.left; */
+            this.top = boxDirective.top;
+            this.left = boxDirective.left;
+            this.position = 'fixed'
         } else {
             var boxDirective = this.createBox(this.directiveElementRef, false);
             this.top = boxDirective.top;

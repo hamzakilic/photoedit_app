@@ -14,6 +14,7 @@ export class Message{
   public static ShowFormCartoon="showFormCartoon";
   public static ShowFormSampleImages="showFormSampleImages";
   public static ShowFormAbout="showFormAbout";
+  public static ShowFormGradient="showFormGradient";
   public static ShowFormShortcuts="showFormShortcuts";
   public static ShowFormColorAdjustments="showFormColorAdjustments";
   public static ShowFormLayerProperties="showFormLayerProperties";

@@ -1,3 +1,4 @@
+import { BlendModes } from './../../consts/blendModes';
 import { Component, OnInit } from '@angular/core';
 
 import '../../lib/extensions';
@@ -99,8 +100,7 @@ export class LayerPropertiesComponent implements OnInit {
 
   public get blendModes():Array<string>{
     
-    return ["normal","multiply","screen","overlay","darken","lighten","color-dodge","color-burn","hard-light",
-    "soft-light","difference","exclusion","hue","saturation","color","luminosity"].sort((a,b)=>a.localeCompare(b));
+    return BlendModes.orderedList().map((val)=>val.name)
   }
   public changeLayerBlendMode(event:AutoCompleteItem,layer:Layer){
     layer.blendMode=event.id;

@@ -1,0 +1,89 @@
+<div  class="container-fluid no-gutters fontsmall  text-white">
+
+  <div class="row no-gutters pt-1 lineheightsmall">
+    <div class="col-md-4 ">
+      <label class="float-right pr-1">Type</label>
+    </div>
+    <div class="col-md-8">
+      <select #gradientTypeSelect (change)='gradientTypeChanged($event)'>
+        <option value="1" [selected]='isgradientTypeSelected(1)'>Linear</option>
+        <option value="2" [selected]='isgradientTypeSelected(2)'>Radial</option>
+      </select>
+    </div>
+
+  </div>
+  <div class="row no-gutters lineheightsmall">
+    <div class="col-4">
+      <label class="float-right pr-1">Blend</label>
+    </div>
+    <div class="col-8">
+      <select  (change)='blendModeChanged($event)'>
+        <option *ngFor="let item of blendModes" value="{{item.id}}" [selected]='isBlendModeSelected(item)' >{{item.name}}</option>
+
+      </select>
+    </div>
+  </div>
+
+  <div class="row no-gutters lineheightsmall">
+      <div class="col-4">
+        <label class="float-right pr-1">Opacity</label>
+      </div>
+      <div class="col-8">
+        <input type="number" min="0" max="100" step="1" value="100" (input)='opacityChanged($event)'/>
+      </div>
+    </div>
+    <div *ngIf="isRadial()" class="row no-gutters lineheightsmall">
+      <div class="col-4">
+          <label class="float-right pr-1">Radius1</label>
+      </div>
+      <div class="col-8">
+          <input type="number" min="0" max="100" step="1" value="100" (input)='radius1Changed($event,item)'/>
+        </div>
+
+    </div>
+    <div *ngIf="isRadial()" class="row no-gutters lineheightsmall">
+        <div class="col-4">
+            <label class="float-right pr-1">Radius2</label>
+        </div>
+        <div class="col-8">
+            <input type="number" min="0" max="100" step="1" value="100" (input)='radius2Changed($event,item)'/>
+          </div>
+  
+      </div>
+
+    <div class="row ml-1 mb-1 mt-2">
+        <div>
+            Colors            
+          </div>  
+          <div class="pl-1" (click)="addNewStopColor()">
+              <i class="fa fa-plus-circle" aria-hidden="true" tooltip="Add new color" placement="right"></i>
+          </div>   
+        
+    </div>
+    
+    <div class="row no-gutters lineheightsmall pt-1" *ngFor="let item of colorStops">
+        <div class="col-2 no-gutters pb-1 mouseoverhand mr-1"  [style.background-color]='item.str' tooltip="Color {{item.str}}" placement="right" >
+  
+        </div>
+        <color-picker #foregroundpicker  [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true"
+         (colorPickerChange)="changeColorStopValue($event,item)" [cpAlphaChannel]='disabled'></color-picker>
+        
+        <div class="col-7 no-gutters">
+            <input  placeholder="Stop position" class="w-100" type="number" min="0" max="100" step="1" value="{{item.nmb*100}}" (input)='colorstopValueChanged($event,item)' tooltip="Stop position" placement="right"/>
+        </div>
+        <div class="col-2 no-gutters pl-1 mouseoverhand" tooltip="Remove Color" placement="right" (click)="removeColorStop(item)">
+            <i class="fa fa-minus-circle" aria-hidden="true"></i>
+        </div>
+      </div>
+
+
+    <div class="row no-gutters pt-1 pb-1" (click)='showFormGradient()'>
+      <div>Gradient</div>
+      <div style="height:100px;">
+        <canvas #render class="w-100 h-100"></canvas>
+      </div>      
+
+    </div>
+   
+  
+</div>

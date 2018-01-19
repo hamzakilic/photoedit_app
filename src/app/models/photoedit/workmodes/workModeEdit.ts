@@ -99,43 +99,12 @@ export abstract class WorkModeEdit extends WorkModeBase {
     this._history = undefined;//important
     this._isMouseDown = true;
     //find selectedlayer
-    this.selectedLayer = this.findSelectedLayer(event);
+    this.selectedLayer = super.findSelectedLayer(event);
 
     if (this.selectedLayer) {
-      let selectionLayer = this.findSelectionLayer(event);
+      let selectionLayer = super.findSelectionLayer(event);
       //find selectedRegions
-      this.selectedRegions = this.findSelectedRegions(event);
-      if (this.selectedRegions.length == 0)//if there is no region, add a full layer
-      {
-        let selectedLayerRegion = HMath.rectToPolygon(this.selectedLayer.rect).translate(-this.selectedLayer.marginLeft, -this.selectedLayer.marginTop);
-        this.selectedRegions = [selectedLayerRegion];
-      } else {
-        //selectedlayer ve selection region ile keşisen bölümü bul
-        let selectedLayerRegion = HMath.rect2DToPolygon(this.selectedLayer.rectRotated2D);
-
-        this.selectedRegions = this.selectedRegions.map((reg) => {
-
-          let centerPoint = new Point(this.selectedLayer.rectRotated.x + this.selectedLayer.rectRotated.width / 2, this.selectedLayer.rectRotated.y + this.selectedLayer.rectRotated.height / 2);
-          let centerPoint2 = new Point(this.selectedLayer.rectRotated.width / 2, this.selectedLayer.rectRotated.height / 2);
-          let centerPoint3 = new Point(this.selectedLayer.width / 2, this.selectedLayer.height / 2);
-          let intersected = selectedLayerRegion.intersect(reg);
-
-          let newPolygon = intersected;
-          if (this.selectedLayer.rotateAngleDeg != 0) {
-            let temp = intersected.points.map(point => {
-              return HMath.rotatePoint(point, -this.selectedLayer.rotateAngleDeg, centerPoint);
-            });
-            newPolygon = new Polygon(temp);
-          }
-
-
-          return newPolygon.translate(-(this.selectedLayer.marginLeft), -(this.selectedLayer.marginTop));
-
-        }).filter((reg) => reg.points.length > 0);
-      }
-
-
-
+      this.selectedRegions = super.findInsectionOfSelectionRegions(event,this.selectedLayer);
       //set selected regions to edittype
 
       this._editType.selectedRegions = this.selectedRegions;
@@ -169,26 +138,7 @@ export abstract class WorkModeEdit extends WorkModeBase {
 
 
 
-  private findSelectedLayer(event: MouseEvent): Layer {
-
-    let selectedLayer = this.workspace.layers.find((layer) => layer.isSelected);
-    if (selectedLayer) return selectedLayer;
-    if (this.workspace.layers.length > 0)
-      return this.workspace.layers[this.workspace.layers.length - 1];
-    return undefined;
-
-  }
-  protected findSelectionLayer(event: MouseEvent): LayerSelect {
-    if (this.workspace.selectionLayer && this.workspace.selectionLayer instanceof LayerSelect) {
-      return (<LayerSelect>this.workspace.selectionLayer)
-    }
-    return undefined;
-  }
-  protected findSelectedRegions(event: MouseEvent): Array<Polygon> {
-    let selectionlayer = this.findSelectionLayer(event);
-    if (selectionlayer) return selectionlayer.polygons;
-    return [];
-  }
+  
 
   private historyRedo(history: History, workspace: IWorkspace, selectedLayer: Layer, selectionLayer: LayerSelect) {
     ///test codes

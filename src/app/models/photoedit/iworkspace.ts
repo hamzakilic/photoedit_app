@@ -1,6 +1,7 @@
 import { Callback } from './../../lib/callback';
 import { HistoryManager } from './history/historyManager';
 import { Layer } from "./layer";
+import { Gradient } from './gradient';
 
 
 export interface IWorkspace{
@@ -16,6 +17,7 @@ export interface IWorkspace{
    backgroundColor: string;
    readonly historyManager: HistoryManager;
    readonly htmlElement: any;
+   readonly gradient:Gradient;
 
     removeSelectionLayer();
     removeWorkLayer();
@@ -44,4 +46,5 @@ export class WorkModes{
     public static readonly WorkModeHand = 15;
     public static readonly WorkModeBucket = 16;
     public static readonly WorkModeMagicWand = 17;
+    public static readonly WorkModeGradient = 19;
 }

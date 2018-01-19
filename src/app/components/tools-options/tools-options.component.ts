@@ -51,5 +51,11 @@ export class ToolsOptionsComponent implements OnInit {
     return false;
   }
 
+  get isGradientTool():boolean{
+    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.WorkModeGradient )
+     return true;
+    return false;
+  }
+
 
 }

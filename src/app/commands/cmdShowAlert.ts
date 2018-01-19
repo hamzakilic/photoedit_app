@@ -20,7 +20,7 @@ export class CmdShowAlert extends Command {
   protected execute(): void {
     if (!this.alert)
       return;
-      debugger;
+     // debugger;
       this.appService.showAlert(this.alert);
   }
 }

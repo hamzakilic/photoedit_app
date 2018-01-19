@@ -88,6 +88,9 @@ import { AlertComponent } from './components/alert/alert.component';
 import { FormAboutComponent } from './components/form-about/form-about.component';
 import { FormShortcutsComponent } from './components/form-shortcuts/form-shortcuts.component';
 import { ClipboardService } from './services/clipboard.service';
+import { GradientComponent } from './components/gradient/gradient.component';
+import { ToolsOptionsGradientComponent } from './components/tools-options-gradient/tools-options-gradient.component';
+
 
 
 
@@ -148,7 +151,10 @@ import { ClipboardService } from './services/clipboard.service';
     ToolsOptionsBucketfillComponent,
     AlertComponent,
     FormAboutComponent,
-    FormShortcutsComponent,
+    FormShortcutsComponent,    
+    GradientComponent,
+    ToolsOptionsGradientComponent,
+    
     
   ],
   imports: [

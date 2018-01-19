@@ -153,7 +153,7 @@ export class Graphics {
 
   }
 
-  public drawRect(rect: Rect, brush: string): void {
+  public drawRect(rect: Rect, brush: string|any): void {
     this._context.strokeStyle = brush;
     this._context.strokeRect(rect.x, rect.y, rect.width, rect.height);
   }
@@ -367,13 +367,7 @@ export class Graphics {
     this._context.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
   }
 
-  public createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient {
-    return this._context.createLinearGradient(x0, y0, x1, y1);
-  }
-
-  public createPattern(image: any, repetion: any): CanvasPattern {
-    return this._context.createPattern(image, repetion);
-  }
+ 
 
   public clip(fillrule?: any): void {
     this._context.clip(fillrule);
@@ -382,6 +376,14 @@ export class Graphics {
   public setBlendMode(val: string) {
     this._context.globalCompositeOperation = val;
 
+  }
+
+  public createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient {
+    return this._context.createLinearGradient(x0, y0, x1, y1);
+  }
+
+  public createPattern(image: any, repetion: any): CanvasPattern {
+    return this._context.createPattern(image, repetion);
   }
 
   public createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): CanvasGradient {
@@ -397,3 +399,5 @@ export class Graphics {
 
 
 }
+
+
