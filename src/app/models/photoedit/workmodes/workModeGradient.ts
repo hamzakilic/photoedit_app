@@ -1,4 +1,8 @@
-import { RadialGradient } from './../gradient';
+import { AlertItem } from './../../../entities/alertItem';
+import { Callback } from './../../../lib/callback';
+import { FormResizeComponent } from './../../../components/form-resize/form-resize.component';
+import { History } from './../history/history';
+import { RadialGradient, LineerGradient } from './../../../lib/draw/gradient';
 import { LayerGraphics } from './../layerGraphics';
 import { LayerEmpty } from './../layerEmpty';
 import { AppService } from './../../../services/app.service';
@@ -16,7 +20,7 @@ import { Color } from '../../../lib/draw/color';
 import { Layer } from '../layer';
 import { Rect } from '../../../lib/draw/rect';
 import { WorkModeBase } from './workModeBase';
-import { LineerGradient } from '../gradient';
+
 
 export class WorkModeGradient extends WorkModeBase {
   private _isMouseDown = false;
@@ -67,6 +71,14 @@ export class WorkModeGradient extends WorkModeBase {
       let mouseUpPoint = selectedLayer.normalizeMouseEvent(event, scroll, true);
       let selectionLayer = super.findSelectionLayer(event);
       let selectionRegions = super.findInsectionOfSelectionRegions(event, selectedLayer);
+      
+     if(selectionRegions.length==0){
+       this.appService.showAlert(new AlertItem('warning','Intersect with current selection'));
+       return;
+     }
+
+     let clonedLayer=selectedLayer.clone();//for history operation
+
       selectionRegions.forEach((poly) => {
         let polyRect = poly.bounds;
         selectedLayer.graphics.save();
@@ -74,19 +86,43 @@ export class WorkModeGradient extends WorkModeBase {
         selectedLayer.graphics.clip();
         selectedLayer.graphics.lineWidth(5);
         selectedLayer.graphics.setBlendMode(this.workspace.gradient.blendMode);
-        selectedLayer.graphics.setGlobalAlpha(this.workspace.gradient.opacity);    
-        let brush=this.workspace.gradient.createBrush(selectedLayer.graphics,[this.mouseDownPoint.x, this.mouseDownPoint.y, mouseUpPoint.x, mouseUpPoint.y]);
-       
-        
+        selectedLayer.graphics.setGlobalAlpha(this.workspace.gradient.opacity); 
+        if(this.workspace.gradient instanceof LineerGradient){
+          let gradient=selectedLayer.graphics.createLinearGradient(this.mouseDownPoint.x, this.mouseDownPoint.y, mouseUpPoint.x, mouseUpPoint.y);
+          this.workspace.gradient.colorStops.sort((a,b)=> a.nmb-b.nmb).forEach(p=>gradient.addColorStop(p.nmb,p.str));
+          selectedLayer.graphics.fillStyle(gradient);
+        }   
+        if(this.workspace.gradient instanceof RadialGradient){
+          let x1=Math.min(this.mouseDownPoint.x,mouseUpPoint.x);
+          let y1=Math.min(this.mouseDownPoint.y,mouseUpPoint.y);
+          let x2=Math.max(this.mouseDownPoint.x,mouseUpPoint.x);
+          let y2=Math.max(this.mouseDownPoint.y,mouseUpPoint.y);
+          let w=x2-x1;
+          let h=y2-y1;
           
-
-          selectedLayer.graphics.fillStyle(brush);
+          let gradient=selectedLayer.graphics.createRadialGradient(x1+w/2,y1+h/2,0,x1+w/2,y1+h/2,w<h?w/2:h/2);
+          this.workspace.gradient.colorStops.sort((a,b)=> a.nmb-b.nmb).forEach(p=>gradient.addColorStop(p.nmb,p.str));
+          selectedLayer.graphics.fillStyle(gradient);
+        }   
+        
           selectedLayer.graphics.drawPolygon(poly, true);
           selectedLayer.graphics.fill();
           selectedLayer.graphics.restore();
         
 
       })
+
+      
+      let history= History.create().setUndo(Callback.from(()=>{
+        this.workspace.replaceHistoryLayer(clonedLayer.uuid,clonedLayer.clone());
+      }));
+
+      let clonedAfter= selectedLayer.clone();
+
+      this.workspace.historyManager.add(history,Callback.from(()=>{
+        this.workspace.replaceHistoryLayer(clonedAfter.uuid,clonedAfter.clone());
+      }))
+
 
 
 

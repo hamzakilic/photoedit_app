@@ -1,6 +1,6 @@
 import { ColorPickerComponent } from './../../modulesext/color-picker/color-picker.directive';
 import { TupleStringNumber } from './../../entities/tuples';
-import { RadialGradient } from './../../models/photoedit/gradient';
+import { RadialGradient } from './../../lib/draw/gradient';
 import { Rect } from './../../lib/draw/rect';
 import { Graphics } from './../../lib/graphics';
 import { AppService } from './../../services/app.service';
@@ -9,7 +9,7 @@ import { CmdShowFormGradient } from './../../commands/cmdShowFormGradient';
 import { MessageBus } from './../../lib/messageBus';
 import { BlendModes,BlendMode } from './../../consts/blendModes';
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, ViewChildren, QueryList } from '@angular/core';
-import { Gradient, LineerGradient } from '../../models/photoedit/gradient';
+import { Gradient, LineerGradient } from '../../lib/draw/gradient';
 import { EventEmitter } from '@angular/core';
 
 
@@ -164,16 +164,23 @@ export class GradientComponent implements OnInit {
     
     let gradient=this.model;
     this.graphics.setBlendMode(gradient.blendMode);
-    this.graphics.setGlobalAlpha(gradient.opacity);
-    let brush=gradient.createBrush(this.graphics,[0,h/2,w,h/2]);
-    /* if(gradient instanceof LineerGradient){
+    this.graphics.setGlobalAlpha(gradient.opacity);    
+     if(gradient instanceof LineerGradient){
       let brush=this.graphics.createLinearGradient(0,h/2,w,h/2);
       gradient.colorStops.sort((a,b)=>{return a.nmb-b.nmb}).forEach((cs)=>{
         brush.addColorStop(cs.nmb,cs.str);
       });
       this.graphics.fillStyle(brush);
-    } */ 
-    this.graphics.fillStyle(brush);    
+    } 
+
+    if(gradient instanceof RadialGradient){
+      let brush=this.graphics.createRadialGradient(w/2,h/2,0,w/2,h/2,w<h?w/2:h/2);
+      gradient.colorStops.sort((a,b)=>{return a.nmb-b.nmb}).forEach((cs)=>{
+        brush.addColorStop(cs.nmb,cs.str);
+      });
+      this.graphics.fillStyle(brush);
+    } 
+    
 
      this.graphics.fillRect(new Rect(0,0,w,h));
     }
@@ -214,7 +221,7 @@ export class GradientComponent implements OnInit {
   opacityChanged(event:any){
     
     let opacity=parseInt(event.target.value);
-   
+    if(isNaN(opacity) || opacity===undefined || opacity==null)return
     this.projectService.currentProject.activeWorkspace.gradient.opacity=opacity/100;
     this.renderAgain=true;
     this.render();
@@ -236,6 +243,7 @@ export class GradientComponent implements OnInit {
 
   colorstopValueChanged(event:any,item:TupleStringNumber){
     let value=parseInt(event.target.value);
+    if(isNaN(value) || value===undefined || value==null)return
     item.nmb=value/100;
     this.renderAgain=true;
     this.render();
@@ -269,23 +277,7 @@ export class GradientComponent implements OnInit {
     this.render();
   }
 
-  isRadial():boolean{
-    return  this.model instanceof RadialGradient;
-  }
-
-  radius1Changed(event:any,item:TupleStringNumber){
-    let value=parseInt(event.target.value);
-    (this.model as RadialGradient).radius1=value;
-    this.renderAgain=true;
-    this.render();
-  }
-
-  radius2Changed(event:any,item:TupleStringNumber){
-    let value=parseInt(event.target.value);
-    (this.model as RadialGradient).radius2=value;
-    this.renderAgain=true;
-    this.render();
-  }
+  
 
 
   

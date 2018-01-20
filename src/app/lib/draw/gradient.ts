@@ -15,16 +15,12 @@ export abstract class Gradient{
         this.opacity=1;
 
     }
-    abstract createBrush(graphics:Graphics,options?:any):CanvasGradient;
+    
     addColorStop(color:string,value:number):void{
         this.colorStops.push(new TupleStringNumber(color,value));
     }
 
-    protected graphicsColorStops(brush:CanvasGradient){
-        this.colorStops.sort((a, b) => { return a.nmb - b.nmb }).forEach((p) => {
-            brush.addColorStop(p.nmb, p.str);
-          });
-    }
+    
     
 }
 
@@ -38,17 +34,12 @@ export class LineerGradient extends Gradient{
         
     }
 
-    createBrush(graphics: Graphics, options?: any): CanvasGradient {
-        let brush=graphics.createLinearGradient(options[0],options[1],options[2],options[3]);
-        super.graphicsColorStops(brush);
-        return brush;
-    }
+  
     
 }
 
 export class RadialGradient extends Gradient{
-   public radius1:number=100;
-   public  radius2:number=0;
+   
    /**
     *
     */
@@ -56,10 +47,6 @@ export class RadialGradient extends Gradient{
        super();
        
    }
-    createBrush(graphics: Graphics, options?: any): CanvasGradient {
-        let brush=graphics.createRadialGradient(options[0],options[1],this.radius1, options[2],options[3],this.radius2);
-        super.graphicsColorStops(brush);
-        return brush;
-    }
+    
     
 }

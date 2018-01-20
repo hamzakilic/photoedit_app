@@ -32,25 +32,7 @@
         <input type="number" min="0" max="100" step="1" value="100" (input)='opacityChanged($event)'/>
       </div>
     </div>
-    <div *ngIf="isRadial()" class="row no-gutters lineheightsmall">
-      <div class="col-4">
-          <label class="float-right pr-1">Radius1</label>
-      </div>
-      <div class="col-8">
-          <input type="number" min="0" max="100" step="1" value="100" (input)='radius1Changed($event,item)'/>
-        </div>
-
-    </div>
-    <div *ngIf="isRadial()" class="row no-gutters lineheightsmall">
-        <div class="col-4">
-            <label class="float-right pr-1">Radius2</label>
-        </div>
-        <div class="col-8">
-            <input type="number" min="0" max="100" step="1" value="100" (input)='radius2Changed($event,item)'/>
-          </div>
-  
-      </div>
-
+   
     <div class="row ml-1 mb-1 mt-2">
         <div>
             Colors            

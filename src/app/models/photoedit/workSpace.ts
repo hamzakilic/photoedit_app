@@ -1,4 +1,4 @@
-import { Gradient, LineerGradient } from './gradient';
+import { Gradient, LineerGradient } from '../../lib/draw/gradient';
 import { WorkModeGradient } from './workmodes/workModeGradient';
 
 import { AppService } from './../../services/app.service';

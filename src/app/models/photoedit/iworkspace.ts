@@ -1,7 +1,7 @@
 import { Callback } from './../../lib/callback';
 import { HistoryManager } from './history/historyManager';
 import { Layer } from "./layer";
-import { Gradient } from './gradient';
+import { Gradient } from '../../lib/draw/gradient';
 
 
 export interface IWorkspace{

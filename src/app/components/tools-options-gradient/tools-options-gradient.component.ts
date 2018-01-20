@@ -1,6 +1,6 @@
 import { ProjectService } from './../../services/project.service';
 import { Component, OnInit } from '@angular/core';
-import { Gradient } from '../../models/photoedit/gradient';
+import { Gradient } from '../../lib/draw/gradient';
 
 @Component({
   selector: 'tools-options-gradient-component',
