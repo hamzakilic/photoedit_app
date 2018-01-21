@@ -29,7 +29,7 @@ export class WorkModeBrush extends WorkModeEdit {
     return new EditTypeBrush();
   }
   public  get typeOf(): number {
-    return WorkModes.WorkModeBrush;
+    return WorkModes.Brush;
   }
   
   public get subTypeOf(): string{

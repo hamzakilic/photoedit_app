@@ -13,6 +13,7 @@ import { Callback } from './lib/callback';
 import { CmdShowFormSampleImages} from './commands/cmdShowFormSampleImages';
 import { CmdReadImageFromBufferorUrl } from './commands/cmdReadImageFromBufferorUrl';
 import { AlertItem } from './entities/alertItem';
+import { ShapesService } from './services/shapes.service';
 
 
 
@@ -27,7 +28,7 @@ export class AppComponent implements AfterViewInit {
   isBrowserOk: boolean;
   private _appservice:AppService;
   private _projectService:ProjectService;
-  constructor(keyboardService: KeyboardService,appService: AppService,projectService:ProjectService) {
+  constructor(keyboardService: KeyboardService,appService: AppService,projectService:ProjectService,shapeService:ShapesService) {
     this.isBrowserOk = CheckBrowserCapabilities.isOk();
     this._appservice=appService;
     this._projectService=projectService;

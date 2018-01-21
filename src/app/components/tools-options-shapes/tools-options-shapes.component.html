@@ -1,0 +1,42 @@
+<div class="container-fluid lineheightsmall fontsize-sm w-100 pb-1 pt-1 text-white " style="max-height: 50%">
+
+    <div class="row ml-1 mr-1" *ngIf="recentItemsLength>0">
+        <div class="w-100">          
+          <div style="max-height:200px;overflow:auto;" class="w-100">
+            <div>Recent</div>
+              <i [ngClass]='item.isSelected?"shape-selected":"shape-notselected"' *ngFor="let item of recentItems" class="d-inline-block pt-1 mouseoverhand pl-1 pr-1"
+              (click)='selectShape(item)' tooltip="{{item.shape.name}}" placement="top" [delay]='1000' container="body">
+              <svg width="28px" height="28px" [attr.viewBox]='viewBox(item.shape)'>
+                <path [attr.d]='item.shape.path' />
+              </svg>
+            </i>
+          </div>
+        </div>
+      </div>
+
+  <div class="row mt-2">
+    <div class="w-100 pl-1 pr-1 ">
+      <input #search type="search" placeholder="Search..." class="d-inline-block  w-100 "  />      
+    </div>
+  </div>
+
+  <div class="row shapes-accordion">
+    
+      <virtual-scroll class="w-100 ml-1 mr-1" [items]="filteredItems" (update)="viewPortItems = $event" (change)="onScroll($event)" style="width: 100%;height:200px">
+
+        <i [ngClass]='item.isSelected?"shape-selected":"shape-notselected"' *ngFor="let item of viewPortItems" class="d-inline-block pt-1 mouseoverhand pl-1 pr-1"
+          (click)='selectShape(item)' tooltip="{{item.shape.name}}" placement="top" [delay]='1000' container="body">
+          <svg width="28px" height="28px" [attr.viewBox]='viewBox(item.shape)'>
+            <path [attr.d]='item.shape.path' />
+          </svg>
+        </i>
+      </virtual-scroll>
+
+
+    
+  </div>
+
+
+
+</div>
+

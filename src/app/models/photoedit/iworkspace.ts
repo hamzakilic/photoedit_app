@@ -35,16 +35,17 @@ export interface IWorkspace{
 }
 
 export class WorkModes{
-    public static readonly WorkModeDefault = 1;
-    public static readonly WorkModeSelection = 3;
-    public static readonly WorkModeResizeWorkspace = 4;
-    public static readonly WorkModeAddTextLayer = 5;
-    public static readonly WorkModeCrop = 7;
-    public static readonly WorkModeColorPicker = 12;
-    public static readonly WorkModeBrush = 13;
-    public static readonly WorkModeErase = 14;
-    public static readonly WorkModeHand = 15;
-    public static readonly WorkModeBucket = 16;
-    public static readonly WorkModeMagicWand = 17;
-    public static readonly WorkModeGradient = 19;
+    public static readonly Default = 1;
+    public static readonly Selection = 3;
+    public static readonly ResizeWorkspace = 4;
+    public static readonly AddTextLayer = 5;
+    public static readonly Crop = 7;
+    public static readonly ColorPicker = 12;
+    public static readonly Brush = 13;
+    public static readonly Erase = 14;
+    public static readonly Hand = 15;
+    public static readonly Bucket = 16;
+    public static readonly MagicWand = 17;
+    public static readonly Gradient = 19;
+    public static readonly Shapes = 21;
 }

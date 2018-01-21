@@ -9,7 +9,7 @@ import { Gradient } from '../../lib/draw/gradient';
 })
 export class ToolsOptionsGradientComponent implements OnInit {
 
-  constructor(private projectService: ProjectService) { }
+  constructor(public projectService: ProjectService) { }
 
   ngOnInit() {
     

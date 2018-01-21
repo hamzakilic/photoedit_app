@@ -28,31 +28,36 @@ export class ToolsOptionsComponent implements OnInit {
   }
 
   get isSelectionTool():boolean{
-    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.selectionLayer && this.project.activeWorkspace.workMode.typeOf == WorkModes.WorkModeSelection )
+    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.selectionLayer && this.project.activeWorkspace.workMode.typeOf == WorkModes.Selection )
      return true;
     return false;
   }
 
   get isBrushTool():boolean{
-    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.WorkModeBrush )
+    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.Brush )
      return true;
     return false;
   }
 
   get isEraseTool():boolean{
-    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.WorkModeErase )
+    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.Erase )
      return true;
     return false;
   }
 
   get isBucketTool():boolean{
-    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.WorkModeBucket )
+    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.Bucket )
      return true;
     return false;
   }
 
   get isGradientTool():boolean{
-    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.WorkModeGradient )
+    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.Gradient )
+     return true;
+    return false;
+  }
+  get isShapeTool():boolean{
+    if(this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.Shapes )
      return true;
     return false;
   }

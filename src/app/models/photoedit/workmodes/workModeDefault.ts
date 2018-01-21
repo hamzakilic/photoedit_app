@@ -16,7 +16,7 @@ export class WorkModeDefault extends WorkModeBase {
         this.workspace.layers.forEach((item)=>item.canResizeOrRotate=true);
       }
       public get typeOf(): number {
-        return WorkModes.WorkModeDefault;
+        return WorkModes.Default;
       }
       public get subTypeOf(): string {
         return "";

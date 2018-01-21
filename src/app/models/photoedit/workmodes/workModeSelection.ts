@@ -26,7 +26,7 @@ export class WorkModeSelection extends WorkModeBase {
       }
     }
     public get typeOf(): number {
-      return WorkModes.WorkModeSelection;
+      return WorkModes.Selection;
     }
     public get subTypeOf(): string {
       return this._shapeType;

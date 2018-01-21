@@ -39,7 +39,7 @@ export class WorkModeGradient extends WorkModeBase {
     });
   }
   public get typeOf(): number {
-    return WorkModes.WorkModeGradient;
+    return WorkModes.Gradient;
   }
   public get subTypeOf(): string {
     return "";
@@ -68,6 +68,8 @@ export class WorkModeGradient extends WorkModeBase {
     if (this._isMouseDown) {
       this._isMouseDown = false;
       let selectedLayer = super.findSelectedLayer(event);
+      if(!selectedLayer)
+      return;
       let mouseUpPoint = selectedLayer.normalizeMouseEvent(event, scroll, true);
       let selectionLayer = super.findSelectionLayer(event);
       let selectionRegions = super.findInsectionOfSelectionRegions(event, selectedLayer);
@@ -97,10 +99,12 @@ export class WorkModeGradient extends WorkModeBase {
           let y1=Math.min(this.mouseDownPoint.y,mouseUpPoint.y);
           let x2=Math.max(this.mouseDownPoint.x,mouseUpPoint.x);
           let y2=Math.max(this.mouseDownPoint.y,mouseUpPoint.y);
-          let w=x2-x1;
-          let h=y2-y1;
+          let dif= HMath.pointDif(new Point(x1,y1),new Point(x2,y2));
           
-          let gradient=selectedLayer.graphics.createRadialGradient(x1+w/2,y1+h/2,0,x1+w/2,y1+h/2,w<h?w/2:h/2);
+          let centerPoint=new Point((x1+x2)/2,(y1+y2)/2);
+
+          
+          let gradient=selectedLayer.graphics.createRadialGradient(centerPoint.x,centerPoint.y,0,centerPoint.x,centerPoint.y,dif/2);
           this.workspace.gradient.colorStops.sort((a,b)=> a.nmb-b.nmb).forEach(p=>gradient.addColorStop(p.nmb,p.str));
           selectedLayer.graphics.fillStyle(gradient);
         }   

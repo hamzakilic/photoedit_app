@@ -24,7 +24,7 @@ export class WorkModeErase extends WorkModeEdit {
     return new EditTypeErase();
   }
   public get typeOf(): number {
-    return WorkModes.WorkModeErase;
+    return WorkModes.Erase;
   }
   public get subTypeOf(): string {
     return "";

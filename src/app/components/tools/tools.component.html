@@ -80,6 +80,10 @@
             tooltip="Gradient" placement="right">
             <img src="assets/icons/gradient.png">
           </label>
+          <label id="selectShape" class="d-inline-block btn btn-primary  buttonpadding mouseoverhand btn-sm " [ngClass]="shapeCss" (click)="selectShape()"
+          tooltip="Shapes" placement="right">
+          <img src="assets/icons/shapes.png">
+        </label>
 
 
 <div class="container-fluid no-padding">
@@ -89,7 +93,7 @@
           </label>
           <color-picker #foregroundpicker [bindElement]='previous' [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true"
           [cpAlphaChannel]="'hex8'" (colorPickerChange)="setforegroundcolor($event)" ></color-picker>
-          <label class="d-block btn btn-primary  buttonpadding mouseoverhand btn-sm groundcolor" style="background:transparent" tooltip="Swap colors" placement="right"
+          <label class="d-block btn btn-primary  buttonpadding mouseoverhand btn-sm groundcolor" style="background:transparent;transform: scale(0.8,0.8);" tooltip="Swap colors" placement="right"
             (click)="swapColors()">
             <img src="assets/icons/swap.png">
           </label>

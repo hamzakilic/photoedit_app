@@ -29,7 +29,7 @@ export class WorkModeBucket extends WorkModeEdit {
     return new EditTypeBucket();
   }
   public get typeOf(): number {
-    return WorkModes.WorkModeBucket;
+    return WorkModes.Bucket;
   }
   public get subTypeOf(): string {
     return "";

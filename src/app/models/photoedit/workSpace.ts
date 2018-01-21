@@ -1,3 +1,4 @@
+import { WorkModeShape } from './workmodes/workModeShape';
 import { Gradient, LineerGradient } from '../../lib/draw/gradient';
 import { WorkModeGradient } from './workmodes/workModeGradient';
 
@@ -495,39 +496,42 @@ export class Workspace extends HEventEmitter implements IWorkspace {
   public selectWorking(working: number, parameter: string) {
     //console.log('selectWorking');
     switch (working) {
-      case WorkModes.WorkModeDefault:
+      case WorkModes.Default:
         this._workMode = new WorkModeDefault(this, this._appService);
         break;
-      case WorkModes.WorkModeResizeWorkspace:
+      case WorkModes.ResizeWorkspace:
         this._workMode = new WorkModeResizeWorkspace(this, this._appService, this.workMode.typeOf, this.workMode.subTypeOf);
         break;
 
-      case WorkModes.WorkModeCrop:
+      case WorkModes.Crop:
         this._workMode = new WorkModeCrop(this, this._appService);
         break;
-      case WorkModes.WorkModeSelection:
+      case WorkModes.Selection:
 
         if (!this.workMode || this._workMode.typeOf != working)
           this._workMode = new WorkModeSelection(this, this._appService, parameter);
         else (this._workMode as WorkModeSelection).changeType(parameter);
         break;
-      case WorkModes.WorkModeColorPicker:
+      case WorkModes.ColorPicker:
         this._workMode = new WorkModeColorPicker(this, this._appService, this.workMode);
         break;
-      case WorkModes.WorkModeBrush:
+      case WorkModes.Brush:
         this._workMode = new WorkModeBrush(this, this._appService);
         break;
-      case WorkModes.WorkModeErase:
+      case WorkModes.Erase:
         this._workMode = new WorkModeErase(this, this._appService);
         break;
-      case WorkModes.WorkModeHand:
+      case WorkModes.Hand:
         this._workMode = new WorkModeHand(this, this._appService);
         break;
-      case WorkModes.WorkModeBucket:
+      case WorkModes.Bucket:
         this._workMode = new WorkModeBucket(this, this._appService);
         break;
-        case WorkModes.WorkModeGradient:
+        case WorkModes.Gradient:
         this._workMode = new WorkModeGradient(this, this._appService);
+        break;
+        case WorkModes.Shapes:
+        this._workMode = new WorkModeShape(this, this._appService);
         break;
       default:
         this._workMode = new WorkModeDefault(this, this._appService);

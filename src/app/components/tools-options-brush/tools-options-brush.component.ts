@@ -35,7 +35,7 @@ export class ToolsOptionsBrushComponent implements OnInit {
     return 5;
   }
   private isValid():boolean{
-    return this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.WorkModeBrush;
+    return this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.Brush;
   }
 
   public changeBrushSize(value:string){

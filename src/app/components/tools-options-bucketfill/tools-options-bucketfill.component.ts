@@ -30,7 +30,7 @@ export class ToolsOptionsBucketfillComponent implements OnInit {
   }
 
   private isValid():boolean{
-    return this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.WorkModeBucket;
+    return this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.Bucket;
   }
 
 

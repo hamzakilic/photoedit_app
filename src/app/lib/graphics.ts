@@ -310,9 +310,7 @@ export class Graphics {
   public beginPath() {
     this._context.beginPath();
   }
-  public drawArc(centerX: number, centerY: number, radius: number, startAngle: number, endAngle: number) {
-    this._context.arc(centerX, centerY, radius, startAngle, endAngle);
-  }
+  
   public closePath() {
     this._context.closePath();
   }
@@ -350,7 +348,7 @@ export class Graphics {
     this._context.scale(x, y);
   }
 
-  public moveTo(x: number, y: number) {
+  public moveTo(x: number, y: number) {    
     this._context.moveTo(x, y);
   }
 
@@ -360,12 +358,19 @@ export class Graphics {
   }
   public quadraticCurveTo(cpx: number, cpy: number, x: number, y: number) {
     this._context.quadraticCurveTo(cpx, cpy, x, y);
+    
   }
 
-
-  public ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number) {
-    this._context.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
+  public arc(x:number,y:number,radius:number, startAngle: number, endAngle: number,anticlockwise?:boolean) {
+    this._context.arc(x, y, radius, startAngle, endAngle,anticlockwise);
   }
+ 
+
+  public ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number,anticlockwise?:boolean) {
+    this._context.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle,anticlockwise);
+    
+  }
+  
 
  
 

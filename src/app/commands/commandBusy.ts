@@ -27,11 +27,15 @@ export abstract class CommandNotBusy extends Command {
 
  public executeAsync():void {
 
-     new Promise((resolve,reject)=>{
+    let promise= new Promise((resolve,reject)=>{
          
-        try{  this.execute(); resolve();}catch(e){reject()};
+        try{  this.execute(); resolve();}catch(e){reject(e)};
          
      });
+     promise.catch((e)=>{
+         console.log(e);
+
+     })
         
     }
 }

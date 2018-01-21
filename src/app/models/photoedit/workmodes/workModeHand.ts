@@ -20,7 +20,7 @@ export class WorkModeHand extends WorkModeBase {
 
   }
   public get typeOf(): number {
-    return WorkModes.WorkModeHand;
+    return WorkModes.Hand;
   }
   public get subTypeOf(): string {
     return "";

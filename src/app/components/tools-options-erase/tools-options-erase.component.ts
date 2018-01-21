@@ -34,7 +34,7 @@ export class ToolsOptionsEraseComponent implements OnInit {
     return 5;
   }
   private isValid():boolean{
-    return this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.WorkModeErase;
+    return this.project && this.project.activeWorkspace && this.project.activeWorkspace.workMode.typeOf == WorkModes.Erase;
   }
 
   public changeEraseSize(value:string){

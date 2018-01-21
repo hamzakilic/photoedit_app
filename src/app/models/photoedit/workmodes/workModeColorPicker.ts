@@ -19,7 +19,7 @@ export class WorkModeColorPicker extends WorkModeBase {
   
     }
     public get typeOf(): number {
-      return WorkModes.WorkModeColorPicker;
+      return WorkModes.ColorPicker;
     }
     public get subTypeOf(): string {
       return "";

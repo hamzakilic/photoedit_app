@@ -14,7 +14,7 @@ export class WorkModeCrop extends WorkModeBase {
     
       }
       public get typeOf(): number {
-        return WorkModes.WorkModeCrop;
+        return WorkModes.Crop;
       }
       public get subTypeOf(): string {
         return "";

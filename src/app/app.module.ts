@@ -90,6 +90,8 @@ import { FormShortcutsComponent } from './components/form-shortcuts/form-shortcu
 import { ClipboardService } from './services/clipboard.service';
 import { GradientComponent } from './components/gradient/gradient.component';
 import { ToolsOptionsGradientComponent } from './components/tools-options-gradient/tools-options-gradient.component';
+import { ToolsOptionsShapesComponent } from './components/tools-options-shapes/tools-options-shapes.component';
+import { ShapesService } from './services/shapes.service';
 
 
 
@@ -154,6 +156,7 @@ import { ToolsOptionsGradientComponent } from './components/tools-options-gradie
     FormShortcutsComponent,    
     GradientComponent,
     ToolsOptionsGradientComponent,
+    ToolsOptionsShapesComponent,
     
     
   ],
@@ -182,7 +185,7 @@ import { ToolsOptionsGradientComponent } from './components/tools-options-gradie
     
 
   ],
-  providers: [ProjectService, KeyboardService, AppService, FontService, UserService, EffectService,ClipboardService],
+  providers: [ProjectService, KeyboardService, AppService, FontService, UserService, EffectService,ClipboardService,ShapesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -351,6 +351,35 @@ zoom-component{
   font-size: 0.85rem;
 }
 
+tools-options-shapes-component{
+  max-height: 500px;
+  overflow: hidden;
+}
+
+.shapes-accordion{
+   padding: 0.25rem;
+   background-color: #545454;
+}
+
+.shapes-accordion > .card-header{
+    padding: 0.25rem;
+    background-color: #545454;
+    color:$whitesmoke;
+}
+
+.shapes-accordion .card-block{
+  
+  background-color: #545454;
+  padding:0.25rem;
+ 
+  
+}
+
+.shapes-accordion i:hover{
+  background-color: #025aa5;
+  
+}
+
 
 
 

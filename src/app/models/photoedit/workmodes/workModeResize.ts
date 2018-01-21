@@ -17,7 +17,7 @@ export class WorkModeResizeWorkspace extends WorkModeBase {
   
     }
     public get typeOf(): number {
-      return WorkModes.WorkModeResizeWorkspace;
+      return WorkModes.ResizeWorkspace;
     }
   
     public get subTypeOf(): string {

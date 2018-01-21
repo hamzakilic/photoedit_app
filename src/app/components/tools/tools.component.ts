@@ -1,3 +1,4 @@
+import { WorkModeShape } from './../../models/photoedit/workmodes/workModeShape';
 import { AlertItem } from './../../entities/alertItem';
 import { AppService } from './../../services/app.service';
 import { CmdShowAlert } from './../../commands/cmdShowAlert';
@@ -65,56 +66,56 @@ export class ToolsComponent implements OnInit {
   }
 
   public get defaultCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeDefault) };
+    return { active: this.isWorkingMode(WorkModes.Default) };
   }
 
   selectDefault() {
-    this.selectWorking(WorkModes.WorkModeDefault);
+    this.selectWorking(WorkModes.Default);
   }
 
 
 
   public get cropCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeCrop) };
+    return { active: this.isWorkingMode(WorkModes.Crop) };
   }
   selectCrop() {
-    this.selectWorking(WorkModes.WorkModeCrop);
+    this.selectWorking(WorkModes.Crop);
   }
 
 
   public get rectangleCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeSelection,LayerSelect.SubTypeRect) };
+    return { active: this.isWorkingMode(WorkModes.Selection,LayerSelect.SubTypeRect) };
   }
   selectRectangleSelection() {
-    this.selectWorking(WorkModes.WorkModeSelection,LayerSelect.SubTypeRect);
+    this.selectWorking(WorkModes.Selection,LayerSelect.SubTypeRect);
   }
 
   public get ellipseCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeSelection,LayerSelect.SubTypeEllipse) };
+    return { active: this.isWorkingMode(WorkModes.Selection,LayerSelect.SubTypeEllipse) };
   }
   selectEllipseSelection() {
-    this.selectWorking(WorkModes.WorkModeSelection,LayerSelect.SubTypeEllipse);
+    this.selectWorking(WorkModes.Selection,LayerSelect.SubTypeEllipse);
   }
 
   public get lassoCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeSelection,LayerSelect.SubTypeLasso) };
+    return { active: this.isWorkingMode(WorkModes.Selection,LayerSelect.SubTypeLasso) };
   }
   selectLassoSelection() {    
-        this.selectWorking(WorkModes.WorkModeSelection,LayerSelect.SubTypeLasso);
+        this.selectWorking(WorkModes.Selection,LayerSelect.SubTypeLasso);
   }
 
   public get colorpickerCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeColorPicker) };
+    return { active: this.isWorkingMode(WorkModes.ColorPicker) };
   }
   selectColorPicker() {
-    this.selectWorking(WorkModes.WorkModeColorPicker);
+    this.selectWorking(WorkModes.ColorPicker);
   }
 
   public get polygonCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeSelection,LayerSelect.SubTypePolygon) };
+    return { active: this.isWorkingMode(WorkModes.Selection,LayerSelect.SubTypePolygon) };
   }
   selectPolygonSelection() {
-    this.selectWorking(WorkModes.WorkModeSelection,LayerSelect.SubTypePolygon);
+    this.selectWorking(WorkModes.Selection,LayerSelect.SubTypePolygon);
     
     let alert=new CmdShowAlert(new AlertItem('info','for finish double click',2000),this.appService);
     alert.executeAsync();
@@ -122,21 +123,21 @@ export class ToolsComponent implements OnInit {
   }
 
   public get magicwandCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeSelection,LayerSelect.SubTypeMagicWand) };
+    return { active: this.isWorkingMode(WorkModes.Selection,LayerSelect.SubTypeMagicWand) };
   }
 
  
   selectMagicWandSelection() {   
-    this.selectWorking(WorkModes.WorkModeSelection,LayerSelect.SubTypeMagicWand);
+    this.selectWorking(WorkModes.Selection,LayerSelect.SubTypeMagicWand);
   } 
 
   public get brushCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeBrush)};
+    return { active: this.isWorkingMode(WorkModes.Brush)};
   }
 
  
   selectBrush() {   
-    this.selectWorking(WorkModes.WorkModeBrush);
+    this.selectWorking(WorkModes.Brush);
     //this.isCollapsed=false;
    
 
@@ -148,43 +149,55 @@ export class ToolsComponent implements OnInit {
   }
 
   public get eraseCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeErase)};
+    return { active: this.isWorkingMode(WorkModes.Erase)};
   }
 
  
   selectErase() {   
-    this.selectWorking(WorkModes.WorkModeErase);
+    this.selectWorking(WorkModes.Erase);
    
   }
 
   public get handCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeHand)};
+    return { active: this.isWorkingMode(WorkModes.Hand)};
   }
 
  
   selectHand() {   
-    this.selectWorking(WorkModes.WorkModeHand);
+    this.selectWorking(WorkModes.Hand);
    
   }
 
   public get bucketCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeBucket)};
+    return { active: this.isWorkingMode(WorkModes.Bucket)};
   }
 
  
   selectBucket() {   
-    this.selectWorking(WorkModes.WorkModeBucket);
+    this.selectWorking(WorkModes.Bucket);
   } 
 
   public get gradientCss() {
-    return { active: this.isWorkingMode(WorkModes.WorkModeGradient)};
+    return { active: this.isWorkingMode(WorkModes.Gradient)};
   }
 
  
   selectGradient() {   
-    this.selectWorking(WorkModes.WorkModeGradient);
+    this.selectWorking(WorkModes.Gradient);
    
   }
+
+
+  public get shapeCss() {
+    return { active: this.isWorkingMode(WorkModes.Shapes)};
+  }
+
+ 
+  selectShape() {   
+    this.selectWorking(WorkModes.Shapes);
+   
+  }
+
 
 
   
