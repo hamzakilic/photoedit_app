@@ -1,3 +1,5 @@
+import { IBackgroundColor, IForegroundColor } from './iColor';
+import { LayerGraphics } from './layerGraphics';
 import { ProjectService } from './../../services/project.service';
 import { SvgShape } from './../../lib/draw/svgShape';
 
@@ -13,22 +15,20 @@ import * as absSvg from 'abs-svg-path';
 //import  * as normalizeSvg from 'normalize-svg-path';
 
 
-export class LayerSvg extends Layer {
+export class LayerSvg extends LayerGraphics  {
 
-  protected _backgroundColor: string;
+  backgroundPattern:any;
+  foregroundPattern:any;
   shape: SvgShape = undefined;
   parsedShape: any = undefined;
-  constructor(name?: string, width?: number, height?: number, shape?: SvgShape, backgroundColor?: string) {
-    super(name);
+  constructor(name?: string, width?: number, height?: number, shape?: SvgShape, foregroundColor?: string,backgroundColor?:string) {
+    super(name,width,height);
 
-    if (width)
-      this.width = width;
-
-    if (height)
-      this.height = height;
+    
     this.canRotate = true;
     this.shape = shape;
-    this._backgroundColor = backgroundColor;
+    this._backgroundPattern = backgroundColor;
+    this._foregroundPattern=foregroundColor;
     //this.parsedShape=svgParser.parseSVG(shape.path);
 
     if (shape && shape.path)
@@ -37,30 +37,27 @@ export class LayerSvg extends Layer {
   }
   public clone() {
 
-    var instance = super.clone() as LayerSvg;
-    instance._backgroundColor = this._backgroundColor;
+    var instance = super.clone() as LayerSvg;    
     instance.shape=SvgShape.cloneFrom(this.shape);    
     return instance;
   }
   public createInstanceForClone(): LayerSvg {
-    return new LayerSvg(this.name, this.width, this.height,SvgShape.cloneFrom(this.shape),this._backgroundColor);
+    return new LayerSvg(this.name, this.width, this.height,SvgShape.cloneFrom(this.shape),this._foregroundPattern,this._backgroundPattern);
   }
 
-  public get backgroundColor(): string {
-    return this._backgroundColor;
-  }
-
-  public set backgroundColor(val: string) {
-    this._backgroundColor = val;
-    this.render();
-  }
+  
   public render(): void {
     if (this.shape && this.parsedShape) {
+      this.graphics.save();
       let rect = new Rect(0, 0, this.width, this.height);
       this.graphics.clearRect(rect);
+      if(this._backgroundPattern)
+      this.graphics.fillRect(rect,this._backgroundPattern);
       let scaleX = this.shape.viewportW / this.width;
       let scaleY = this.shape.viewportH / this.height;
-      this.graphics.fillStyle(this._backgroundColor);
+      if(this._foregroundPattern)
+      this.graphics.fillStyle(this._foregroundPattern);
+      else this.graphics.fillStyle("#FFF");
       this.graphics.setScale(1 / scaleX, 1 / scaleY);
 
       this.parsedShape.forEach(p => {
@@ -73,6 +70,7 @@ export class LayerSvg extends Layer {
       })
 
       this.graphics.fill();
+      this.graphics.restore();
     }
 
 
@@ -83,7 +81,7 @@ export class LayerSvg extends Layer {
 
   }
 
-  //burası ve aşağıdaki kod buradan https://github.com/jkroso/normalize-svg-path/blob/master/index.js
+   //burası ve aşağıdaki kod buradan https://github.com/jkroso/normalize-svg-path/blob/master/index.js
   //require dosyalarında bir problem oldu sanırım
   normalize(path) {
     // init state
@@ -200,7 +198,7 @@ export class LayerSvg extends Layer {
       x2,
       y2
     ]
-  }
+  } 
 
 
 }

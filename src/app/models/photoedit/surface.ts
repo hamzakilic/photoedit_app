@@ -149,6 +149,7 @@ export class SurfaceCanvas extends Surface {
     this.resizedAgain = false;
     if (func)
       this.whenCreatedGraphicsAgain = func;
+    //console.log(this.width,this.height,this.marginLeft,this.marginTop);
   }
 
   

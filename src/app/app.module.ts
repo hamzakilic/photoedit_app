@@ -69,7 +69,7 @@ import { WorkspaceResizeComponent } from './components/workspace-resize/workspac
 
 import { FormGoogleFontloadComponent } from './components/form-googlefontload/form-googlefontload.component';
 
-import { LayerGraphicsPropertiesComponent } from './components/layer-graphics-properties/layer-graphics-properties.component';
+import { LayerColorPropertiesComponent } from './components/layer-color-properties/layer-color-properties.component';
 import { FormColorRemapComponent } from './components/form-color-remap/form-color-remap.component';
 import { FormSampleImagesComponent } from './components/form-sample-images/form-sample-images.component';
 import { FormColorAdjustmentComponent } from './components/form-color-adjustment/form-color-adjustment.component';
@@ -134,7 +134,7 @@ import { ShapesService } from './services/shapes.service';
     LayerTextPropertiesComponent,
     WorkspaceResizeComponent,
     FormGoogleFontloadComponent,
-    LayerGraphicsPropertiesComponent,
+    LayerColorPropertiesComponent,
     FormColorRemapComponent,
     FormSampleImagesComponent,
     FormColorAdjustmentComponent,

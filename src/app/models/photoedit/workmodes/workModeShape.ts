@@ -29,10 +29,12 @@ export class WorkModeShape extends WorkModeBase {
   private _isMouseDown = false;
   private mouseDownPoint: Point;  
   private shape:SvgShape;
+  private layer:Layer;
   constructor(workspace: IWorkspace, appService: AppService) {
     super(workspace, appService, false, true);
 
     this.workspace.cssClasses = "mouseCross";
+    this.workspace.selectionLayer=undefined;
     this.workspace.workLayer = new LayerEmpty("shape layer", this.workspace.width, this.workspace.height);
     this.workspace.workLayer.scale=this.workspace.scale;
    
@@ -50,7 +52,23 @@ export class WorkModeShape extends WorkModeBase {
 
   public mouseMove(event: MouseEvent, scroll: Point) {
     if (this._isMouseDown) {     
-
+      let scaleX=this.shape.viewportW/this.shape.viewportH;
+      let point = this.workspace.workLayer.normalizeMouseEvent(event, scroll, true);
+      if(point.x<this.mouseDownPoint.x)
+      this.layer.setLeft(point.x);
+      if(point.y<this.mouseDownPoint.y)
+      this.layer.setTop(point.y);
+      let width=(point.x-this.mouseDownPoint.x).extAbs();
+      let height=(point.y-this.mouseDownPoint.y).extAbs();
+      if(width>height)
+          height=width/scaleX;
+      else {
+        width=height*scaleX;
+      }
+       if(!isNaN(width) && !isNaN(height))
+      this.layer.setWidthHeight(width,height);
+      this.layer.invalidate();
+      
     }
 
 
@@ -60,13 +78,28 @@ export class WorkModeShape extends WorkModeBase {
   public mouseDown(event: MouseEvent, scroll: Point) {
     this._isMouseDown = true;
     this.mouseDownPoint = this.workspace.workLayer.normalizeMouseEvent(event, scroll, true);
-    let layer=new LayerSvg(this.shape.name,100,100,this.shape,this.workspace.backgroundColor);
-    this.workspace.layers.push(layer);
-    this.workspace.makeLayerSelected(layer);
+    this.layer=new LayerSvg(this.shape.name,this.shape.viewportW/this.shape.viewportH,1,this.shape,this.workspace.foregroundColor);
+    this.layer.scale=this.workspace.scale;
+    this.layer.setLeft(this.mouseDownPoint.x);
+    this.layer.setTop(this.mouseDownPoint.y);
+        
+    this.workspace.layers.push(this.layer);
+    this.workspace.makeLayerSelected(this.layer);
+    this.layer.invalidate();
     
 
   }
-  public mouseUp(event: MouseEvent, scroll: Point) {
+  public mouseUp(event: MouseEvent, scroll: Point) {    
     this._isMouseDown=false;
+    
+    let cloned=this.layer.clone();
+    let history=History.create().setUndo(Callback.from(()=>{
+      let index=this.workspace.layers.findIndex(p=>p.uuid==cloned.uuid);
+      if(index>=0)
+        this.workspace.layers.splice(index,1);
+    }));
+    this.workspace.historyManager.add(history,Callback.from(()=>{
+      this.workspace.layers.push(cloned.clone());
+    }))
   }
 }

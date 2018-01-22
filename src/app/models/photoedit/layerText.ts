@@ -31,9 +31,9 @@ export class LayerText extends LayerGraphics{
       this.graphics.save();
        //this.graphics.setGlobalAlpha(this.globalAlpha);
       this.graphics.clearRect(new Rect(0,0,this.width,this.height));
-      if(this._backgroundColor)
-        this.graphics.fillRect(new Rect(0,0,this.width,this.height),this._backgroundColor);
-      this.graphics.drawString(this._text.data,this._text.color,this._text.isStroked, this._text.strokedColor,this._text.fontFamily,this._text.fontSize,this._text.isBold,this._text.isItalic,this._text.alignH,this._text.alignV);
+      if(this._backgroundPattern)
+        this.graphics.fillRect(new Rect(0,0,this.width,this.height),this._backgroundPattern);
+      this.graphics.drawString(this._text.data,this.foregroundPattern,this._text.isStroked, this._text.strokedColor,this._text.fontFamily,this._text.fontSize,this._text.isBold,this._text.isItalic,this._text.alignH,this._text.alignV);
       this.graphics.restore();
   
     }

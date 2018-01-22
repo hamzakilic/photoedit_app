@@ -1,3 +1,4 @@
+<div class="pl-1 pt-1 pb-1">
 <div class="input-group input-group-sm">
   <span class="input-group-addon proName" tooltip="Text of layer" placement="right">T</span>
   <input type="text" class="form-control " keyboard (keyboardDown)="keyboardDown($event)" style="overflow: hidden; white-space: nowrap;" placeholder="Enter text" aria-describedby="sizing-addon2"
@@ -68,15 +69,7 @@
   </label>
 </div>
 
-<div class="input-group input-group-sm">
-  <span class="input-group-addon proName" tooltip="Text color" placement="right">FC</span>
-  <input  spellcheck="false" class="form-control" [style.background]="color" [value]="color" 
-  [style.color]="colorFore" (click)="openforecolorPicker()"
-     />
-    <color-picker #forecolorpicker [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0" [cpPosition]="'top'"
-     
-    [cpAlphaChannel]="'hex8'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="colorChanging($event)" ></color-picker>
-</div>
+
 
 <div  class="w-100">
     <div style="border:solid 2px">
@@ -99,4 +92,4 @@
       </div>
     </div>
 </div>
-
+</div>

@@ -1,0 +1,44 @@
+<div class="w-100 pl-1 pr-1 pt-1 pb-1">
+  <div style="    border: solid 2px;
+  border-radius: 2px;
+  border-color: #303030;">
+    <div class="input-group input-group-sm pl-1 " style="width:100%">
+
+
+      <label class="form-check-label d-block">
+        <input class="form-check-input" type="checkbox" [checked]="hasBackground" (change)="changeHasBackgroundColor($event)" /> Background Color
+      </label>
+
+    </div>
+    <div class="input-group input-group-sm " style="width:100%">
+      <input [style.visibility]="disabledBackground?'hidden':'visible'" spellcheck="false" class="form-control" [disabled]="disabledBackground"
+        [style.background]="backgroundColor" [value]="backgroundColor" [style.color]="foregroundcolorBack" (click)='openColorPickerBackground()'
+      />
+      <color-picker #colorpickerbackground [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
+        [cpPosition]="'top'" [cpAlphaChannel]="'hex8'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="changeBackgroundColor($event)"></color-picker>
+    </div>
+  </div>
+</div>
+
+
+  <div class="w-100 pl-1 pr-1 pt-1 pb-1">
+    <div style=" border: solid 2px;
+    border-radius: 2px;
+    border-color: #303030;">
+      <div class="input-group input-group-sm pl-1" style="width:100%">
+
+
+        <label class="form-check-label d-block">
+          <input class="form-check-input" type="checkbox" [checked]="hasForeground" (change)="changeHasForegroundColor($event)" /> Foreground Color
+        </label>
+
+      </div>
+      <div class="input-group input-group-sm " style="width:100%">
+        <input [style.visibility]="disabledForeground?'hidden':'visible'" spellcheck="false" class="form-control" [disabled]="disabledForeground"
+          [style.background]="foregroundColor" [value]="foregroundColor" [style.color]="foregroundcolorFore" (click)='openColorPickerForeground()'
+        />
+        <color-picker #colorpickerforeground [cpOutputFormat]="'rgba'" [cpOKButton]="true" [cpCancelButton]="true" [cpPositionOffset]="0"
+          [cpPosition]="'top'" [cpAlphaChannel]="'hex8'" [cpPositionRelativeToArrow]="false" (colorPickerChange)="changeForegroundColor($event)"></color-picker>
+      </div>
+    </div>
+  </div>

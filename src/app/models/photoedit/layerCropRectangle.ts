@@ -11,6 +11,7 @@ import { RotationHelper, RotationMove } from './lib/rotationHelper';
 
 
 export class LayerCropRectangle extends Layer {
+  mouseDownPoint: Point;
   isFinishedContructing: boolean
   animation: any;
   protected strokeStyle:any = "#FFF";
@@ -25,7 +26,7 @@ export class LayerCropRectangle extends Layer {
     this.marginLeft = left;
     this.marginTop = top;
     this.isSelected = true;
-    
+    this.mouseDownPoint=new Point(left,top);
 
     this.canRotate = false;
     this.isFinishedContructing = false;
@@ -44,9 +45,9 @@ export class LayerCropRectangle extends Layer {
     return { clayerEmpty: true };
   }
   public mouseDown(event: MouseEvent, scroll: Point) {
-
+   
     super.mouseDown(event, scroll);
-
+    
 
   }
   public mouseMove(event: MouseEvent, scroll: Point) {
@@ -56,12 +57,17 @@ export class LayerCropRectangle extends Layer {
       super.mouseMove(event, scroll);
     } else
       if (this.isSelected && this.isMouseDown) {
+
+
+        
+        
+
         //burası eksi değer için configure edilecek       
-        this.calculateBy(event.movementX / this.scale, event.movementY / this.scale, 0, 0, 0, 0,Callback.from(() => {
+         this.calculateBy(event.movementX / this.scale, event.movementY / this.scale, 0, 0, 0, 0,Callback.from(() => {
           
            
           this.render()
-        }));
+        })); 
       }
 
 

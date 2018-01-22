@@ -40,6 +40,13 @@ export class ToolsOptionsShapesComponent implements OnInit {
     },[]);
     this.filteredItems=this.shapes;
     this.recentItems.forEach(p=>p.isSelected=false);
+    //eğer seçilir birtane yok ise hemen bir tane seç
+    if(this.filteredItems.findIndex(p=>p.isSelected)<0 && this.filteredItems.length>0){
+      this.filteredItems[0].isSelected=true;
+      if(this.projectService.currentProject.activeWorkspace.workMode.typeOf==WorkModes.Shapes){
+        (this.projectService.currentProject.activeWorkspace.workMode as WorkModeShape).setShape(this.filteredItems[0].shape);
+      }
+    }
     
    }
 

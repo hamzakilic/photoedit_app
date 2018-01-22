@@ -64,7 +64,7 @@
       
                   </div>
                 
-                  <layer-graphics-properties *ngIf="isGraphicsLayer(selectedLayer)" class="layerGraphicsProperties" [layer]=selectedLayer></layer-graphics-properties>
+                  
                    
                 </li>
       
@@ -75,7 +75,19 @@
       </div>
 
   </accordion-group>
-  
+
+
+  <accordion-group *ngIf="isGraphicsLayer(selectedLayer)" #text [panelClass]="accordionClass">
+    <div accordion-heading>
+      Color
+      <i class="pull-right float-xs-down fa"
+      [ngClass]="{'fa-chevron-up': text?.isOpen, 'fa-chevron-down': !text?.isOpen}"></i>
+    </div>
+    
+    <layer-color-properties *ngIf="isGraphicsLayer(selectedLayer)" class="layerGraphicsProperties" [layer]="selectedLayer"></layer-color-properties>
+
+  </accordion-group>
+
   <accordion-group *ngIf="isTextLayer(selectedLayer)" #text [panelClass]="accordionClass">
     <div accordion-heading>
       Text
