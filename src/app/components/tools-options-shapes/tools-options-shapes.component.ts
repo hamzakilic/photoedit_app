@@ -92,9 +92,12 @@ export class ToolsOptionsShapesComponent implements OnInit {
     
   }
 
-  public onScroll(event:any,brandName:string){
+  public viewPortItems:Item[];
+
+  public onScroll(event:any){
     
-    return this.filteredItems.slice(event.start,event.end);
+    this.viewPortItems= this.filteredItems.slice(event.start,event.end);
+    return this.viewPortItems;
     
   }
 

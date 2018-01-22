@@ -55,6 +55,7 @@ export class LayerSvg extends LayerGraphics  {
       this.graphics.fillRect(rect,this._backgroundPattern);
       let scaleX = this.shape.viewportW / this.width;
       let scaleY = this.shape.viewportH / this.height;
+      this.graphics.lineWidth(2);
       if(this._foregroundPattern)
       this.graphics.fillStyle(this._foregroundPattern);
       else this.graphics.fillStyle("#FFF");
@@ -68,7 +69,7 @@ export class LayerSvg extends LayerGraphics  {
           this.graphics.bezierCurveTo(p[1], p[2], p[3], p[4], p[5], p[6]);
         }
       })
-
+      
       this.graphics.fill();
       this.graphics.restore();
     }
