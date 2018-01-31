@@ -124,7 +124,7 @@ export class MenubarComponent implements OnInit {
     menuFile.childs.push(divider);   
     this.menus.push(menuFile);
      
-    menuFile.childs.push(new MenuItem("Export jpeg", Callback.from(() => { this.export({mimetype:"image/jpeg"}) }),new ShortCut(true,false,true,'S',menuFile.name)));
+    menuFile.childs.push(new MenuItem("Export jpg", Callback.from(() => { this.export({mimetype:"image/jpeg"}) }),new ShortCut(true,false,true,'S',menuFile.name)));
     menuFile.childs.push(new MenuItem("Export png", Callback.from(() => { this.export({mimetype:"image/png"}) }),new ShortCut(true,false,true,'D',menuFile.name)));
     
     menuFile.childs.push(new MenuItem("Export ico", Callback.from(() => { this.export({mimetype:"image/ico"}) })));

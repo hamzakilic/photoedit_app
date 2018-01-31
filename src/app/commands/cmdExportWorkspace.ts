@@ -29,7 +29,7 @@ import { CmdShowError } from './cmdShowError';
 
 
 
-const exts = ["png", "jpg", "jpeg","ico"];
+const exts = [{mime:"png",ext:"png"},{mime:"jpeg",ext:"jpg"},{mime:"ico",ext:"ico"}];
 
 export interface FormatOptions{
     mimetype:string,
@@ -185,8 +185,8 @@ export class CmdExportWorkspace extends CommandBusy {
     private fileExt(): string {
         
         for (let i = 0; i < exts.length; ++i) {
-            if (this._format.mimetype.includes(exts[i]))
-                return exts[i];
+            if (this._format.mimetype.includes(exts[i].mime))
+                return exts[i].ext;
         }
         return "jpg";
     }

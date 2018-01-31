@@ -33,8 +33,11 @@ export class WorkModeCrop extends WorkModeBase {
     
           var rect = this.workspace.htmlElement.getBoundingClientRect();
           //buradaki 50 ve 50 workspace margin left ve top değerleri;
-          let mouseX = (event.clientX+scroll.x-(rect.left+scroll.x)-50)/this.workspace.scale;
-          let mouseY = (event.clientY+scroll.y-(rect.top+scroll.y)-50) /this.workspace.scale;
+         /*  let mouseX = (event.clientX+scroll.x-(rect.left+scroll.x)-50)/this.workspace.scale;
+          let mouseY = (event.clientY+scroll.y-(rect.top+scroll.y)-50) /this.workspace.scale; */
+
+          let mouseX = (event.clientX+scroll.x-(rect.left)-50)/this.workspace.scale;
+          let mouseY = (event.clientY+scroll.y-(rect.top)-50) /this.workspace.scale;
           
           if(mouseX<0)
           mouseX=0;
