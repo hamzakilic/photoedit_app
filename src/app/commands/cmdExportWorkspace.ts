@@ -88,9 +88,9 @@ export class CmdExportWorkspace extends CommandBusy {
 
     private showPreview(uri: string) {
         let tempwindow = window.open("", Utility.guid());
-        tempwindow.document.title = "PhotoEdit-Preview";
+        tempwindow.document.title = "ImageEditor-Preview";
         try {
-            tempwindow.history.pushState("", "PhotoEdit-Preview", "/preview");
+            tempwindow.history.pushState("", "ImageEditor-Preview", "/preview");
         } catch (err) { };
         let img = new Image();
         img.src = uri;
@@ -106,7 +106,7 @@ export class CmdExportWorkspace extends CommandBusy {
         }
 
         link.href = uri;
-        link.download = "photoedit_" + this.formatDate(new Date(Date.now()))+(filenameExt?filenameExt:"")+ "." + this.fileExt();
+        link.download = "imageeditor_" + this.formatDate(new Date(Date.now()))+(filenameExt?filenameExt:"")+ "." + this.fileExt();
         link.click();
     }
 
